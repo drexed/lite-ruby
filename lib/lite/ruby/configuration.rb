@@ -2,6 +2,7 @@
 
 module Lite
   module Ruby
+
     class Configuration
 
       attr_accessor :array, :date, :enumerable, :hash, :integer, :kernel, :numeric, :object, :range,

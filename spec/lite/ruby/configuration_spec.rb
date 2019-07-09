@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Lite::Ruby::Configuration do
-  after(:all) do
+  after do
     Lite::Ruby.configure do |config|
       config.array = true
     end
