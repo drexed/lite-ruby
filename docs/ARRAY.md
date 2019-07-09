@@ -197,9 +197,9 @@
 
 * `to_sentence` converts the array to a comma-separated sentence where the last element is joined by the connector word.
 
- * words_connector:     “, ”
- * two_words_connector: “ and ”
- * last_word_connector: “, and ”
+- words_connector:     “, ”
+- two_words_connector: “ and ”
+- last_word_connector: “, and ”
 
 ```ruby
 [].to_sentence                                                                                     #=> ''

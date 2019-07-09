@@ -78,7 +78,11 @@ class Array
   end
 
   def dig(key, *rest)
-    value = (self[key] rescue nil)
+    value = (begin
+               self[key]
+             rescue StandardError
+               nil
+             end)
 
     return if value.nil?
     return value if rest.empty?
