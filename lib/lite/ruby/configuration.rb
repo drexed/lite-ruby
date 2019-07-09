@@ -4,23 +4,22 @@ module Lite
   module Ruby
     class Configuration
 
-      attr_accessor :autoload_array, :autoload_date, :autoload_enumerable, :autoload_hash,
-                    :autoload_integer, :autoload_kernel, :autoload_numeric, :autoload_object,
-                    :autoload_range, :autoload_string, :autoload_time
+      attr_accessor :array, :date, :enumerable, :hash, :integer, :kernel, :numeric, :object, :range,
+                    :string, :time
 
       # rubocop:disable Metrics/MethodLength
       def initialize
-        @autoload_array = true
-        @autoload_date = true
-        @autoload_enumerable = true
-        @autoload_hash = true
-        @autoload_integer = true
-        @autoload_kernel = true
-        @autoload_numeric = true
-        @autoload_object = true
-        @autoload_range = true
-        @autoload_string = true
-        @autoload_time = true
+        @array = true
+        @date = true
+        @enumerable = true
+        @hash = true
+        @integer = true
+        @kernel = true
+        @numeric = true
+        @object = true
+        @range = true
+        @string = true
+        @time = true
       end
       # rubocop:enable Metrics/MethodLength
 
