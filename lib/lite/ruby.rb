@@ -1,4 +1,6 @@
-require "lite/ruby/version"
+# frozen_string_literal: true
+
+require 'lite/ruby/version'
 
 module Lite
   module Ruby
