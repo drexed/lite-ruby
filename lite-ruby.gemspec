@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Juan Gomez']
   spec.email = %w[j.gomez@drexed.com]
 
-  spec.summary = 'Collection of useful methods for Ruby classes'
+  spec.summary = 'Collection of useful Ruby methods for its primitive classes'
   spec.homepage = 'http://drexed.github.io/lite-ruby'
   spec.license = 'MIT'
 
