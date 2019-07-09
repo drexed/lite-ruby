@@ -52,7 +52,7 @@
 * `denillify` and `denillify!` converts nils into a given value.
 
 ```ruby
-[nil, 3, 4].denillify  #=> [0, 3, 4]
+[nil, 3, 4].denillify     #=> [0, 3, 4]
 [nil, 3, 4].denillify!(9) #=> [9, 3, 4]
 ```
 
@@ -72,8 +72,8 @@
 * `from` returns the tail of the array from position.
 
 ```ruby
-['1', '2', '3'].from(0) #=> ['1', '2', '3']
-['1', '2', '3'].from(1) #=> ['2', '3']
+['1', '2', '3'].from(0)  #=> ['1', '2', '3']
+['1', '2', '3'].from(1)  #=> ['2', '3']
 ['1', '2', '3'].from(-1) #=> ['3']
 ```
 
@@ -190,16 +190,16 @@
 * `to` returns the beginning of the array up to position.
 
 ```ruby
-['1', '2', '3'].to(0) #=> ['1']
-['1', '2', '3'].to(1) #=> ['1', '2']
+['1', '2', '3'].to(0)  #=> ['1']
+['1', '2', '3'].to(1)  #=> ['1', '2']
 ['1', '2', '3'].to(-1) #=> ['3']
 ```
 
 * `to_sentence` converts the array to a comma-separated sentence where the last element is joined by the connector word.
 
-- words_connector:     “, ”
-- two_words_connector: “ and ”
-- last_word_connector: “, and ”
+`words_connector: ", "`
+`two_words_connector: " and "`
+`last_word_connector: ", and "`
 
 ```ruby
 [].to_sentence                                                                                     #=> ''
