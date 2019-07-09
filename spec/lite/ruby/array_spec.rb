@@ -69,7 +69,7 @@ RSpec.describe Array do
       expect([nil, 2, 3].denillify!).to eq([0, 2, 3])
     end
 
-    it 'to be [0, 2, 3]' do
+    it 'to be [9, 2, 3]' do
       expect([nil, 2, 3].denillify(9)).to eq([9, 2, 3])
       expect([nil, 2, 3].denillify!(9)).to eq([9, 2, 3])
     end
@@ -212,10 +212,10 @@ RSpec.describe Array do
 
   describe '#merge' do
     it 'to be [0, 1, 2, 3, 4, 5]' do
-      arr_1 = [2, 3]
-      arr_2 = [4, 5]
+      arr_one = [2, 3]
+      arr_two = [4, 5]
 
-      expect([0, 1].merge(arr_1, arr_2)).to eq([0, 1, 2, 3, 4, 5])
+      expect([0, 1].merge(arr_one, arr_two)).to eq([0, 1, 2, 3, 4, 5])
     end
   end
 
