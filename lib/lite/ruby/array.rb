@@ -6,13 +6,13 @@ class Array
     return unless include?(value)
 
     self[(index(value).to_i + 1) % length]
-  end
+  end unless defined?(after)
 
   def before(value)
     return unless include?(value)
 
     self[(index(value).to_i - 1) % length]
-  end
+  end unless defined?(before)
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity,
   # rubocop:disable Style/GuardClause, Style/IfInsideElse
@@ -37,45 +37,45 @@ class Array
     end
 
     self
-  end
+  end unless defined?(bury)
   # rubocop:enable Style/GuardClause, Style/IfInsideElse
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
   def delete_first
     self[1..-1]
-  end
+  end unless defined?(delete_first)
 
   def delete_first!
     replace(delete_first)
-  end
+  end unless defined?(delete_first!)
 
   def delete_last
     self[0...-1]
-  end
+  end unless defined?(delete_last)
 
   def delete_last!
     replace(delete_last)
-  end
+  end unless defined?(delete_last!)
 
   def delete_values(*args)
     args.each_with_object([]) { |val, results| results << delete(val) }
-  end
+  end unless defined?(delete_values)
 
   def demote(value)
     sort_by { |val| val == value ? 0 : -1 }
-  end
+  end unless defined?(demote)
 
   def demote!(value)
     replace(demote(value))
-  end
+  end unless defined?(demote!)
 
   def denillify(value = 0)
     map { |val| val.nil? ? value : val }
-  end
+  end unless defined?(denillify)
 
   def denillify!(value = 0)
     replace(denillify(value))
-  end
+  end unless defined?(denillify!)
 
   def dig(key, *rest)
     value = (begin
@@ -87,23 +87,23 @@ class Array
     return if value.nil?
     return value if rest.empty?
     return value.dig(*rest) if value.respond_to?(:dig)
-  end
+  end unless defined?(dig)
 
   def duplicates(minimum = 2)
     hash = ::Hash.new(0)
     each { |val| hash[val] += 1 }
     hash.delete_if { |_, val| val < minimum }.keys
-  end
+  end unless defined?(duplicates)
 
   def from(position)
     self[position, length] || []
-  end
+  end unless defined?(from)
 
   def fulfill(value, amount)
     return self if amount <= length
 
     fill(value, length..(amount - 1))
-  end
+  end unless defined?(fulfill)
 
   def groups(number)
     return [] if number <= 0
@@ -111,7 +111,7 @@ class Array
     num, rem = length.divmod(number)
     collection = (0..(num - 1)).collect { |val| self[(val * number), number] }
     rem.positive? ? collection << self[-rem, rem] : collection
-  end
+  end  unless defined?(groups)
 
   # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
   def in_groups(number, fill_with = nil)
@@ -130,7 +130,7 @@ class Array
     end
 
     block_given? ? collection.each { |val| yield(val) } : collection
-  end
+  end unless defined?(in_groups)
   # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -149,38 +149,38 @@ class Array
 
     sliced_collection = collection.each_slice(number)
     block_given? ? sliced_collection { |val| yield(val) } : sliced_collection.to_a
-  end
+  end unless defined?(in_groups_of)
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def indexes(value)
     results = []
     each_with_index { |val, i| results << i if value == val }
     results
-  end
+  end unless defined?(indexes)
 
   def merge(*values)
     values.each { |val| concat(val) }
     self
-  end
+  end unless defined?(merge)
 
   def nillify
     map { |val| !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?) ? nil : val }
-  end
+  end unless defined?(nillify)
 
   def nillify!
     replace(nillify)
-  end
+  end unless defined?(nillify!)
 
   def position(value)
     idx = index(value)
     return if idx.nil?
 
     idx + 1
-  end
+  end unless defined?(position)
 
   def positions(value)
     indexes(value).map { |val| val + 1 }
-  end
+  end  unless defined?(positions)
 
   def probability
     hash = ::Hash.new(0.0)
@@ -193,30 +193,30 @@ class Array
 
     hash.each_key { |val| hash[val] /= differ }
     hash
-  end
+  end  unless defined?(probability)
 
   def promote(value)
     sort_by { |val| val == value ? -1 : 0 }
-  end
+  end unless defined?(promote)
 
   def promote!(value)
     replace(promote(value))
-  end
+  end unless defined?(promote!)
 
   def reject_values(*args)
     reject { |val| args.include?(val) }
-  end
+  end unless defined?(reject_values)
 
   def rposition(value)
     idx = rindex(value)
     return if idx.nil?
 
     idx + 1
-  end
+  end unless defined?(rposition)
 
   def sample!
     delete_at(::Random.rand(length - 1))
-  end
+  end unless defined?(sample!)
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def split(number = nil)
@@ -240,25 +240,25 @@ class Array
 
       results
     end
-  end
+  end unless defined?(split)
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def strip
     reject(&:blank?)
-  end
+  end unless defined?(strip)
 
   def strip!
     replace(strip)
-  end
+  end unless defined?(strip!)
 
   def swap(from, to)
     self[from], self[to] = self[to], self[from]
     self
-  end
+  end unless defined?(swap)
 
   def to(position)
     position >= 0 ? first(position + 1) : self[0..position]
-  end
+  end unless defined?(to)
 
   # rubocop:disable Metrics/MethodLength
   def to_sentence(options = {})
@@ -278,7 +278,7 @@ class Array
     else
       "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
     end
-  end
+  end unless defined?(to_sentence)
   # rubocop:enable Metrics/MethodLength
 
 end

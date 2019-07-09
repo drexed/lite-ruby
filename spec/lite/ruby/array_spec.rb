@@ -346,8 +346,12 @@ RSpec.describe Array do
 
     it 'to be "one or two or at least three"' do
       str = 'one or two or at least three'
+      results = %w[one two three].to_sentence(
+        words_connector: ' or ',
+        last_word_connector: ' or at least '
+      )
 
-      expect(%w[one two three].to_sentence(words_connector: ' or ', last_word_connector: ' or at least ')).to eq(str)
+      expect(results).to eq(str)
     end
   end
 
