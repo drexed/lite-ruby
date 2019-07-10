@@ -33,18 +33,20 @@ RSpec.describe Hash do
   end
 
   describe '#bury' do
-    hash = { foo: { baz: 'boo' } }
+    h1 = { foo: { baz: 'boo' } }
 
     it 'to be { foo: :moo }' do
-      expect(hash.bury(:foo, :moo)).to eq(foo: :moo)
+      expect(h1.bury(:foo, :moo)).to eq(foo: :moo)
     end
 
     it 'to be { foo: { baz: :moo } }' do
-      expect(hash.bury(:foo, :baz, :moo)).to eq(foo: { baz: :moo })
+      h1 = { foo: { baz: 'boo' } }
+
+      expect(h1.bury(:foo, :baz, :moo)).to eq(foo: { baz: :moo })
     end
 
     it 'to raise error' do
-      expect { hash.bury(:moo) }.to raise_error(ArgumentError)
+      expect { h1.bury(:moo) }.to raise_error(ArgumentError)
     end
   end
 
@@ -154,7 +156,7 @@ RSpec.describe Hash do
     it 'to be { :foo => 1 }' do
       hash_one = { foo: 1, baz: 2, bar: 3 }
       hash_two = { foo: 1 }
-      array = [:baz, :bar]
+      array = %i[baz bar]
 
       expect(hash_one.except(*array)).to eq(hash_two)
       expect(hash_one.except!(*array)).to eq(hash_two)
@@ -221,7 +223,7 @@ RSpec.describe Hash do
     it 'to be { :baz => 2, :bar => 3 }' do
       hash_one = { foo: 1, baz: 2, bar: 3 }
       hash_two = { baz: 2, bar: 3 }
-      array = [:baz, :bar]
+      array = %i[baz bar]
 
       expect(hash_one.only(*array)).to eq(hash_two)
       expect(hash_one.only!(*array)).to eq(hash_two)
@@ -231,7 +233,7 @@ RSpec.describe Hash do
   describe '#only_fill(!)' do
     it 'to be { foo: nil }' do
       hash = {}
-      hash_two = {foo: nil}
+      hash_two = { foo: nil }
       key = :foo
 
       expect(hash.only_fill(key)).to eq(hash_two)
@@ -250,7 +252,7 @@ RSpec.describe Hash do
     it 'to be { :foo => 1 }' do
       hash_one = { foo: 1, baz: 2 }
       hash_two = { foo: 1, bar: nil }
-      array = [:foo, :bar]
+      array = %i[foo bar]
 
       expect(hash_one.only_fill(*array)).to eq(hash_two)
       expect(hash_one.only_fill!(*array)).to eq(hash_two)
@@ -387,7 +389,7 @@ RSpec.describe Hash do
 
   describe '#slice(!)' do
     hash = { a: 1, b: 2, c: 3, d: 4 }
-    key = [:a, :b]
+    key = %i[a b]
 
     it 'to be { a: 1, b: 2 }' do
       expect(hash.slice(*key)).to eq(a: 1, b: 2)
