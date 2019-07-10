@@ -33,7 +33,9 @@ RSpec.describe Hash do
   end
 
   describe '#bury' do
-    h1 = { foo: { baz: 'boo' } }
+    let(:h1) do
+      { foo: { baz: 'boo' } }
+    end
 
     it 'to be { foo: :moo }' do
       expect(h1.bury(:foo, :moo)).to eq(foo: :moo)
@@ -103,7 +105,9 @@ RSpec.describe Hash do
   end
 
   describe '#demote(!)' do
-    h1 = { a: 0, b: 1, c: 2 }
+    let(:h1) do
+      { a: 0, b: 1, c: 2 }
+    end
 
     it 'to be { a: 0, c: 2, b: 1 }' do
       expect(h1.demote(:b)).to eq(a: 0, c: 2, b: 1)
@@ -115,8 +119,11 @@ RSpec.describe Hash do
   end
 
   describe '#denillify(!)' do
+    let(:h1) do
+      { abc: nil, xyz: 1 }
+    end
+
     it 'to be { abc: 0, xyz: 1 }' do
-      h1 = { abc: nil, xyz: 1 }
       h2 = { abc: 0, xyz: 1 }
 
       expect(h1.denillify).to eq(h2)
@@ -124,7 +131,6 @@ RSpec.describe Hash do
     end
 
     it 'to be { abc: 9, xyz: 1 }' do
-      h1 = { abc: nil, xyz: 1 }
       h2 = { abc: 9, xyz: 1 }
 
       expect(h1.denillify(9)).to eq(h2)
@@ -133,7 +139,9 @@ RSpec.describe Hash do
   end
 
   describe '#dig' do
-    h1 = { a: { b: { c: :d } } }
+    let(:h1) do
+      { a: { b: { c: :d } } }
+    end
 
     it 'to be { c: :d }' do
       expect(h1.dig(:a, :b)).to eq(c: :d)
@@ -145,6 +153,10 @@ RSpec.describe Hash do
   end
 
   describe '#except(!)' do
+    let(:h1) do
+      { foo: 1, baz: 2, bar: 3 }
+    end
+
     it 'to be {}' do
       h1 = {}
       k1 = :foo
@@ -154,7 +166,6 @@ RSpec.describe Hash do
     end
 
     it 'to be { :foo => 1 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
       h2 = { foo: 1 }
       a1 = %i[baz bar]
 
@@ -163,7 +174,6 @@ RSpec.describe Hash do
     end
 
     it 'to be { :baz => 2, :bar => 3 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
       h2 = { baz: 2, bar: 3 }
       k1 = :foo
 
@@ -203,6 +213,10 @@ RSpec.describe Hash do
   end
 
   describe '#only(!)' do
+    let(:h1) do
+      { foo: 1, baz: 2, bar: 3 }
+    end
+
     it 'to be {}' do
       h1 = {}
       k1 = :foo
@@ -212,7 +226,6 @@ RSpec.describe Hash do
     end
 
     it 'to be { :foo => 1 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
       h2 = { foo: 1 }
       k1 = :foo
 
@@ -221,7 +234,6 @@ RSpec.describe Hash do
     end
 
     it 'to be { :baz => 2, :bar => 3 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
       h2 = { baz: 2, bar: 3 }
       a1 = %i[baz bar]
 
@@ -272,7 +284,9 @@ RSpec.describe Hash do
   end
 
   describe '#promote(!)' do
-    h1 = { a: 0, b: 1, c: 2 }
+    let(:h1) do
+      { a: 0, b: 1, c: 2 }
+    end
 
     it 'to be { b: 1, a: 0, c: 2 }' do
       expect(h1.promote(:b)).to eq(b: 1, a: 0, c: 2)
@@ -322,15 +336,16 @@ RSpec.describe Hash do
   end
 
   describe '#reverse_merge(!)' do
-    it 'to be { foo: "bar" }' do
-      h1 = { foo: 'bar' }
+    let(:h1) do
+      { foo: 'bar' }
+    end
 
+    it 'to be { foo: "bar" }' do
       expect({}.reverse_merge(h1)).to eq(h1)
       expect({}.reverse_merge!(h1)).to eq(h1)
     end
 
     it 'to be { foo: "bar", baz: "boo", boo: "bam" }' do
-      h1 = { foo: 'bar' }
       h2 = { baz: 'boo', boo: 'bam' }
       h3 = { foo: 'bar', baz: 'boo', boo: 'bam' }
 
@@ -340,7 +355,9 @@ RSpec.describe Hash do
   end
 
   describe '#sample(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    let(:h1) do
+      { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    end
 
     it 'to be true' do
       expect(h1.key?(h1.sample.first)).to eq(true)
@@ -352,7 +369,9 @@ RSpec.describe Hash do
   end
 
   describe '#sample_key(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    let(:h1) do
+      { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    end
 
     it 'to be true' do
       expect(h1.key?(h1.sample_key)).to eq(true)
@@ -364,7 +383,9 @@ RSpec.describe Hash do
   end
 
   describe '#sample_value(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    let(:h1) do
+      { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    end
 
     it 'to be true' do
       expect(h1.value?(h1.sample_value)).to eq(true)
@@ -376,7 +397,9 @@ RSpec.describe Hash do
   end
 
   describe '#shuffle(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    let(:h1) do
+      { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    end
 
     it 'to not be { a: 1, b: 2, c: 3, d: 4, e: 5 }' do
       expect(h1.keys).not_to eq(h1.shuffle.keys)
@@ -388,8 +411,12 @@ RSpec.describe Hash do
   end
 
   describe '#slice(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4 }
-    a1 = %i[a b]
+    let(:h1) do
+      { a: 1, b: 2, c: 3, d: 4 }
+    end
+    let(:a1) do
+      %i[a b]
+    end
 
     it 'to be { a: 1, b: 2 }' do
       expect(h1.slice(*a1)).to eq(a: 1, b: 2)
