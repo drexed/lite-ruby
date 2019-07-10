@@ -6,7 +6,7 @@ class Array
     def after(value)
       return unless include?(value)
 
-      self[(index(value).to_i + 1) % size]
+      self[(index(value) + 1) % size]
     end
   end
 
@@ -14,7 +14,7 @@ class Array
     def before(value)
       return unless include?(value)
 
-      self[(index(value).to_i - 1) % size]
+      self[(index(value) - 1) % size]
     end
   end
 
@@ -33,7 +33,6 @@ class Array
       else
         if args[0].is_a?(Integer)
           arg = args.shift
-
           self[arg] = [] unless self[arg]
           self[arg].bury(*args)
         else
@@ -90,14 +89,14 @@ class Array
   end
 
   unless defined?(denillify)
-    def denillify(value = 0)
-      map { |val| val.nil? ? value : val }
+    def denillify(identity = 0)
+      map { |val| val.nil? ? identity : val }
     end
   end
 
   unless defined?(denillify!)
-    def denillify!(value = 0)
-      replace(denillify(value))
+    def denillify!(identity = 0)
+      replace(denillify(identity))
     end
   end
 
@@ -117,7 +116,7 @@ class Array
 
   unless defined?(duplicates)
     def duplicates(minimum = 2)
-      hash = ::Hash.new(0)
+      hash = Hash.new(0)
       each { |val| hash[val] += 1 }
       hash.delete_if { |_, val| val < minimum }.keys
     end
@@ -160,7 +159,7 @@ class Array
         mod_gt_zero = modulo.positive?
         grouping = division + (mod_gt_zero && modulo > int ? 1 : 0)
         collection << last_group = slice(start, grouping)
-        last_group << fill_with if fill_with != false && mod_gt_zero && grouping == division
+        last_group << fill_with if (fill_with != false) && mod_gt_zero && (grouping == division)
         start += grouping
       end
 
@@ -173,19 +172,18 @@ class Array
   unless defined?(in_groups_of)
     def in_groups_of(number, fill_with = nil)
       if number.to_i <= 0
-        raise ArgumentError,
-              "Group size must be a positive integer, was #{number.inspect}"
-      end
-
-      if fill_with == false
+        raise ArgumentError, "Group size must be a positive integer, was #{number.inspect}"
+      elsif fill_with == false
         collection = self
       else
         padding = (number - size % number) % number
-        collection = dup.concat(::Array.new(padding, fill_with))
+        collection = dup.concat(Array.new(padding, fill_with))
       end
 
       sliced_collection = collection.each_slice(number)
-      block_given? ? sliced_collection { |val| yield(val) } : sliced_collection.to_a
+      return sliced_collection.to_a unless block_given?
+
+      sliced_collection { |val| yield(val) }
     end
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
@@ -234,7 +232,7 @@ class Array
 
   unless defined?(probability)
     def probability
-      hash = ::Hash.new(0.0)
+      hash = Hash.new(0.0)
       differ = 0.0
 
       each do |val|
@@ -276,7 +274,7 @@ class Array
 
   unless defined?(sample!)
     def sample!
-      delete_at(::Random.rand(size - 1))
+      delete_at(Random.rand(size - 1))
     end
   end
 
@@ -328,7 +326,9 @@ class Array
 
   unless defined?(to)
     def to(position)
-      position >= 0 ? first(position + 1) : self[0..position]
+      return first(position + 1) if position >= 0
+
+      self[0..position]
     end
   end
 

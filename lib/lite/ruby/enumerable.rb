@@ -17,7 +17,12 @@ module Enumerable
     def cluster(&block)
       each_with_object([]) do |ele, results|
         last_res = results.last
-        last_res && (yield(ele) == yield(last_res.last)) ? last_res << ele : results << [ele]
+
+        if last_res && (yield(ele) == yield(last_res.last))
+          last_res << ele
+        else
+          results << [ele]
+        end
       end
     end
   end
@@ -72,9 +77,11 @@ module Enumerable
       return to_enum(:drop_last_if) unless block_given?
 
       dropping = true
-      result = []
-      reverse_each { |val| result.unshift(val) unless dropping &&= yield(val) }
-      result
+      reverse_each.with_object([]) do |val, arr|
+        next if dropping &&= yield(val)
+
+        arr.unshift(val)
+      end
     end
   end
 
@@ -189,12 +196,12 @@ module Enumerable
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/LineLength
   unless defined?(mode)
     def mode(identity = nil)
       return identity unless size.positive?
 
-      frequency_distribution = each_with_object(::Hash.new(0)) { |val, hsh| hsh[val] += 1 }
+      frequency_distribution = each_with_object(Hash.new(0)) { |val, hsh| hsh[val] += 1 }
       frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
       top_two_first = frequency_top_two.first
       return identity if frequency_top_two.size != 1 && top_two_first.last == frequency_top_two.last.last
@@ -202,7 +209,7 @@ module Enumerable
       top_two_first.first
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/LineLength
 
   unless defined?(multiple)
     def multiple(identity = 0, &block)
@@ -216,7 +223,7 @@ module Enumerable
 
   unless defined?(occurrences)
     def occurrences
-      each_with_object(::Hash.new(0)) { |key, hsh| hsh[key] += 1 }
+      each_with_object(Hash.new(0)) { |key, hsh| hsh[key] += 1 }
     end
   end
 
@@ -253,7 +260,6 @@ module Enumerable
   unless defined?(reject_outliers)
     def reject_outliers
       cz = critical_zscore
-
       reject { |value| zscore(value) > cz }
     end
   end
@@ -267,7 +273,6 @@ module Enumerable
   unless defined?(select_outliers)
     def select_outliers
       cz = critical_zscore
-
       select { |value| zscore(value) > cz }
     end
   end
@@ -296,7 +301,7 @@ module Enumerable
     def standard_deviation(identity = 0)
       return identity if size < 2
 
-      ::Math.sqrt(variance)
+      Math.sqrt(variance)
     end
   end
 
@@ -323,9 +328,11 @@ module Enumerable
     def take_last_if
       return to_enum(:take_last_if) unless block_given?
 
-      result = []
-      reverse_each { |val| yield(val) ? result.unshift(val) : break }
-      result
+      reverse_each.with_object([]) do |val, arr|
+        break arr unless yield(val)
+
+        arr.unshift(val)
+      end
     end
   end
 
@@ -335,7 +342,7 @@ module Enumerable
       return identity if collection_size <= 1
 
       total = inject(0.0) { |sum, val| sum + (val - mean)**2.0 }
-      total.to_f / (collection_size.to_f - 1.0)
+      total / (collection_size - 1.0)
     end
   end
 
