@@ -65,481 +65,621 @@ class Numeric
     centuries millennium millenniums
   ].freeze
 
-  def add(num)
-    self + num
+  unless defined?(add)
+    def add(num)
+      self + num
+    end
   end
 
-  def bytes_in_bytes
-    self
+  unless defined?(bytes_in_bytes)
+    def bytes_in_bytes
+      self
+    end
   end
 
   alias byte_in_bytes bytes_in_bytes
 
-  def centigrams_in_grams
-    self * CENTI
+  unless defined?(centigrams_in_grams)
+    def centigrams_in_grams
+      self * CENTI
+    end
   end
 
   alias centigram_in_grams centigrams_in_grams
 
-  def centimeters_in_meters
-    self * CENTI
+  unless defined?(centimeters_in_meters)
+    def centimeters_in_meters
+      self * CENTI
+    end
   end
 
   alias centimeter_in_meters centimeters_in_meters
 
-  def centuries_in_seconds
-    self * CENTURY
+  unless defined?(centuries_in_seconds)
+    def centuries_in_seconds
+      self * CENTURY
+    end
   end
 
   alias century_in_seconds centuries_in_seconds
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def clamp(minimum, maximum = nil)
-    if maximum.nil? && minimum.is_a?(Range)
-      min_min = minimum.min
-      min_max = minimum.max
+  unless defined?(clamp)
+    def clamp(minimum, maximum = nil)
+      if maximum.nil? && minimum.is_a?(Range)
+        min_min = minimum.min
+        min_max = minimum.max
 
-      return min_min if min_min > self
+        return min_min if min_min > self
 
-      min_max < self ? min_max : self
-    else
-      return minimum if minimum > self
+        min_max < self ? min_max : self
+      else
+        return minimum if minimum > self
 
-      maximum < self ? maximum : self
+        maximum < self ? maximum : self
+      end
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  def days_in_seconds
-    self * DAY
+  unless defined?(days_in_seconds)
+    def days_in_seconds
+      self * DAY
+    end
   end
 
   alias day_in_seconds days_in_seconds
 
-  def decades_in_seconds
-    self * DECADE
+  unless defined?(decades_in_seconds)
+    def decades_in_seconds
+      self * DECADE
+    end
   end
 
   alias decade_in_seconds decades_in_seconds
 
-  def decagrams_in_grams
-    self * DECA
+  unless defined?(decagrams_in_grams)
+    def decagrams_in_grams
+      self * DECA
+    end
   end
 
   alias decagram_in_grams decagrams_in_grams
 
-  def decameters_in_meters
-    self * DECA
+  unless defined?(decameters_in_meters)
+    def decameters_in_meters
+      self * DECA
+    end
   end
 
   alias decameter_in_meters decameters_in_meters
 
-  def decigrams_in_grams
-    self * DECI
+  unless defined?(decigrams_in_grams)
+    def decigrams_in_grams
+      self * DECI
+    end
   end
 
   alias decigram_in_grams decigrams_in_grams
 
-  def decimeters_in_meters
-    self * DECI
+  unless defined?(decimeters_in_meters)
+    def decimeters_in_meters
+      self * DECI
+    end
   end
 
   alias decimeter_in_meters decimeters_in_meters
 
-  def decrement(amount = 1.0)
-    self + amount
+  unless defined?(decrement)
+    def decrement(amount = 1.0)
+      self + amount
+    end
   end
 
-  def degrees_to_radians
-    self * ::Math::PI / 180.0
+  unless defined?(degrees_to_radians)
+    def degrees_to_radians
+      self * ::Math::PI / 180.0
+    end
   end
 
   alias degree_to_radians degrees_to_radians
 
-  def distance(num)
-    (self - num).abs
+  unless defined?(distance)
+    def distance(num)
+      (self - num).abs
+    end
   end
 
-  def divide(num)
-    return 0 if num.zero?
+  unless defined?(divide)
+    def divide(num)
+      return 0 if num.zero?
 
-    self / num
+      self / num
+    end
   end
 
-  def exabytes_in_bytes
-    self * EXABYTE
+  unless defined?(exabytes_in_bytes)
+    def exabytes_in_bytes
+      self * EXABYTE
+    end
   end
 
   alias exabyte_in_bytes exabytes_in_bytes
 
-  def feet_in_inches
-    self * FEET
+  unless defined?(feet_in_inches)
+    def feet_in_inches
+      self * FEET
+    end
   end
 
   alias foot_in_inches feet_in_inches
 
-  def fraction
-    (self - truncate).abs
+  unless defined?(fraction)
+    def fraction
+      (self - truncate).abs
+    end
   end
 
-  def fraction?
-    fraction != 0.0
+  unless defined?(fraction?)
+    def fraction?
+      fraction != 0.0
+    end
   end
 
-  def gigabytes_in_bytes
-    self * GIGABYTE
+  unless defined?(gigabytes_in_bytes)
+    def gigabytes_in_bytes
+      self * GIGABYTE
+    end
   end
 
   alias gigabyte_in_bytes gigabytes_in_bytes
 
-  def grams_in_grams
-    self
+  unless defined?(grams_in_grams)
+    def grams_in_grams
+      self
+    end
   end
 
   alias gram_in_grams grams_in_grams
 
-  def greater_than?(num)
-    num < self
+  unless defined?(greater_than?)
+    def greater_than?(num)
+      num < self
+    end
   end
 
-  def greater_than_or_equal_to?(num)
-    num <= self
+  unless defined?(greater_than_or_equal_to?)
+    def greater_than_or_equal_to?(num)
+      num <= self
+    end
   end
 
-  def hectograms_in_grams
-    self * HECTO
+  unless defined?(hectograms_in_grams)
+    def hectograms_in_grams
+      self * HECTO
+    end
   end
 
   alias hectogram_in_grams hectograms_in_grams
 
-  def hectometers_in_meters
-    self * HECTO
+  unless defined?(hectometers_in_meters)
+    def hectometers_in_meters
+      self * HECTO
+    end
   end
 
   alias hectometer_in_meters hectometers_in_meters
 
-  def hours_in_seconds
-    self * HOUR
+  unless defined?(hours_in_seconds)
+    def hours_in_seconds
+      self * HOUR
+    end
   end
 
   alias hour_in_seconds hours_in_seconds
 
-  def inches_in_inches
-    self
+  unless defined?(inches_in_inches)
+    def inches_in_inches
+      self
+    end
   end
 
   alias inch_in_inches inches_in_inches
 
-  def increment(amount = 1.0)
-    self + amount
+  unless defined?(increment)
+    def increment(amount = 1.0)
+      self + amount
+    end
   end
 
-  def inside?(start, finish)
-    (start < self) && (finish > self)
+  unless defined?(inside?)
+    def inside?(start, finish)
+      (start < self) && (finish > self)
+    end
   end
 
-  def kilobytes_in_bytes
-    self * KILOBYTE
+  unless defined?(kilobytes_in_bytes)
+    def kilobytes_in_bytes
+      self * KILOBYTE
+    end
   end
 
   alias kilobyte_in_bytes kilobytes_in_bytes
 
-  def kilometers_in_meters
-    self * KILO
+  unless defined?(kilometers_in_meters)
+    def kilometers_in_meters
+      self * KILO
+    end
   end
 
   alias kilometer_in_meters kilometers_in_meters
 
-  def kilograms_in_grams
-    self * KILO
+  unless defined?(kilograms_in_grams)
+    def kilograms_in_grams
+      self * KILO
+    end
   end
 
   alias kilogram_in_grams kilograms_in_grams
 
-  def less_than?(num)
-    num > self
+  unless defined?(less_than?)
+    def less_than?(num)
+      num > self
+    end
   end
 
-  def less_than_or_equal_to?(num)
-    num >= self
+  unless defined?(less_than_or_equal_to?)
+    def less_than_or_equal_to?(num)
+      num >= self
+    end
   end
 
-  def metric_tons_in_grams
-    self * METRIC_TON
+  unless defined?(metric_tons_in_grams)
+    def metric_tons_in_grams
+      self * METRIC_TON
+    end
   end
 
   alias metric_ton_in_grams metric_tons_in_grams
 
-  def megabytes_in_bytes
-    self * MEGABYTE
+  unless defined?(megabytes_in_bytes)
+    def megabytes_in_bytes
+      self * MEGABYTE
+    end
   end
 
   alias megabyte_in_bytes megabytes_in_bytes
 
-  def meters_in_meters
-    self
+  unless defined?(meters_in_meters)
+    def meters_in_meters
+      self
+    end
   end
 
   alias meter_in_meters meters_in_meters
 
-  def miles_in_inches
-    self * MILE
+  unless defined?(miles_in_inches)
+    def miles_in_inches
+      self * MILE
+    end
   end
 
   alias mile_in_inches miles_in_inches
 
-  def millenniums_in_seconds
-    self * MILLENNIUM
+  unless defined?(millenniums_in_seconds)
+    def millenniums_in_seconds
+      self * MILLENNIUM
+    end
   end
 
   alias millennium_in_seconds millenniums_in_seconds
 
-  def milligrams_in_grams
-    self * MILLI
+  unless defined?(milligrams_in_grams)
+    def milligrams_in_grams
+      self * MILLI
+    end
   end
 
   alias milligram_in_grams milligrams_in_grams
 
-  def millimeters_in_meters
-    self * MILLI
+  unless defined?(millimeters_in_meters)
+    def millimeters_in_meters
+      self * MILLI
+    end
   end
 
   alias millimeter_in_meters millimeters_in_meters
 
-  def minutes_in_seconds
-    self * MINUTE
+  unless defined?(minutes_in_seconds)
+    def minutes_in_seconds
+      self * MINUTE
+    end
   end
 
   alias minute_in_seconds minutes_in_seconds
 
-  def multiply(num)
-    self * num
+  unless defined?(multiply)
+    def multiply(num)
+      self * num
+    end
   end
 
-  def multiple_of?(number)
-    return zero? if number.zero?
+  unless defined?(multiple_of?)
+    def multiple_of?(number)
+      return zero? if number.zero?
 
-    modulo(number).zero?
+      modulo(number).zero?
+    end
   end
 
-  def nautical_miles_in_inches
-    self * NAUTICAL_MILE
+  unless defined?(nautical_miles_in_inches)
+    def nautical_miles_in_inches
+      self * NAUTICAL_MILE
+    end
   end
 
   alias nautical_mile_in_inches nautical_miles_in_inches
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
-  def negative?
-    0 > self
+  unless defined?(negative?)
+    def negative?
+      0 > self
+    end
   end
   # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
-  def ordinal
-    return 'th' if (11..13).cover?(abs % 100)
+  unless defined?(ordinal)
+    def ordinal
+      return 'th' if (11..13).cover?(abs % 100)
 
-    case abs % 10
-    when 1 then 'st'
-    when 2 then 'nd'
-    when 3 then 'rd'
-    else 'th'
+      case abs % 10
+      when 1 then 'st'
+      when 2 then 'nd'
+      when 3 then 'rd'
+      else 'th'
+      end
     end
   end
 
-  def ordinalize
-    "#{self}#{ordinal}"
+  unless defined?(ordinalize)
+    def ordinalize
+      "#{self}#{ordinal}"
+    end
   end
 
-  def ounces_in_ounces
-    self
+  unless defined?(ounces_in_ounces)
+    def ounces_in_ounces
+      self
+    end
   end
 
   alias ounce_in_ounces ounces_in_ounces
 
-  def outside?(start, finish)
-    (start > self) || (finish < self)
+  unless defined?(outside?)
+    def outside?(start, finish)
+      (start > self) || (finish < self)
+    end
   end
 
-  def pad(options = {})
-    pad_number = options[:pad_number] || 0
-    precision = options[:precision] || 3
+  unless defined?(pad)
+    def pad(options = {})
+      pad_number = options[:pad_number] || 0
+      precision = options[:precision] || 3
 
-    to_s.rjust(precision, pad_number.to_s)
+      to_s.rjust(precision, pad_number.to_s)
+    end
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength, Metrics/PerceivedComplexity
-  def pad_precision(options = {})
-    pad_number = options[:pad_number] || 0
-    precision = options[:precision] || 2
-    separator = options[:separator] || '.'
-    string = to_s
+  unless defined?(pad_precision)
+    def pad_precision(options = {})
+      pad_number = options[:pad_number] || 0
+      precision = options[:precision] || 2
+      separator = options[:separator] || '.'
+      string = to_s
 
-    string << separator unless string.include?(separator)
-    ljust_count = string.split(separator).first.length
-    ljust_count += (string.count(separator) + precision) if precision.positive?
+      string << separator unless string.include?(separator)
+      ljust_count = string.split(separator).first.length
+      ljust_count += (string.count(separator) + precision) if precision.positive?
 
-    if ljust_count >= string.length
-      string.ljust(ljust_count, pad_number.to_s)
-    else
-      string[0..(ljust_count - 1)]
+      if ljust_count >= string.length
+        string.ljust(ljust_count, pad_number.to_s)
+      else
+        string[0..(ljust_count - 1)]
+      end
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength, Metrics/PerceivedComplexity
 
-  def percentage_of(number)
-    return 0 if zero? || number.zero?
+  unless defined?(percentage_of)
+    def percentage_of(number)
+      return 0 if zero? || number.zero?
 
-    (to_f / number.to_f) * 100.0
+      (to_f / number.to_f) * 100.0
+    end
   end
 
-  def petabytes_in_bytes
-    self * PETABYTE
+  unless defined?(petabytes_in_bytes)
+    def petabytes_in_bytes
+      self * PETABYTE
+    end
   end
 
   alias petabyte_in_bytes petabytes_in_bytes
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
-  def positive?
-    0 < self
+  unless defined?(positive?)
+    def positive?
+      0 < self
+    end
   end
   # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
-  def pounds_in_ounces
-    self * POUND
+  unless defined?(pounds_in_ounces)
+    def pounds_in_ounces
+      self * POUND
+    end
   end
 
   alias pound_in_ounces pounds_in_ounces
 
-  def power(num)
-    self**num
+  unless defined?(power)
+    def power(num)
+      self**num
+    end
   end
 
-  def root(num)
-    self**(1.0 / num)
+  unless defined?(root)
+    def root(num)
+      self**(1.0 / num)
+    end
   end
 
-  def seconds_in_seconds
-    self
+  unless defined?(seconds_in_seconds)
+    def seconds_in_seconds
+      self
+    end
   end
 
   alias second_in_seconds seconds_in_seconds
 
-  def stones_in_ounces
-    self * STONE
+  unless defined?(stones_in_ounces)
+    def stones_in_ounces
+      self * STONE
+    end
   end
 
   alias stone_in_ounces stones_in_ounces
 
-  def subtract(num)
-    self - num
+  unless defined?(subtract)
+    def subtract(num)
+      self - num
+    end
   end
 
-  def terabytes_in_bytes
-    self * TERABYTE
+  unless defined?(terabytes_in_bytes)
+    def terabytes_in_bytes
+      self * TERABYTE
+    end
   end
 
   alias terabyte_in_bytes terabytes_in_bytes
 
-  def to_byte(from, to)
-    assert_inclusion_of_valid_keys!(BYTE_KEYS, from, to)
+  unless defined?(to_byte)
+    def to_byte(from, to)
+      assert_inclusion_of_valid_keys!(BYTE_KEYS, from, to)
 
-    to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
+      to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
+    end
   end
 
-  def to_currency(options = {})
-    unit = options[:unit] || '$'
+  unless defined?(to_currency)
+    def to_currency(options = {})
+      unit = options[:unit] || '$'
 
-    "#{unit}#{pad_precision(options.only(:precision))}"
+      "#{unit}#{pad_precision(options.only(:precision))}"
+    end
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def to_length(from, to)
-    assert_inclusion_of_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
+  unless defined?(to_length)
+    def to_length(from, to)
+      assert_inclusion_of_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
 
-    return self if from == to
+      return self if from == to
 
-    metric_keys = LENGTH_KEYS.fetch(:metric)
-    metrics_included_from = metric_keys.include?(from)
+      metric_keys = LENGTH_KEYS.fetch(:metric)
+      metrics_included_from = metric_keys.include?(from)
 
-    case to
-    when :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter,
-         :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
-      if metrics_included_from
-        to_f * 1.send("#{from}_in_meters").to_f / 1.send("#{to}_in_meters").to_f
-      else
-        to_f * ((1.send("#{from}_in_inches").to_f * 0.0254) / 1.send("#{to}_in_meters").to_f)
-      end
-    when :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile,
-         :nautical_miles
-      if metrics_included_from
-        to_f * ((1.send("#{from}_in_meters").to_f * 39.3701) / 1.send("#{to}_in_inches").to_f)
-      else
-        to_f * 1.send("#{from}_in_inches").to_f / 1.send("#{to}_in_inches").to_f
+      case to
+      when :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter,
+           :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
+        if metrics_included_from
+          to_f * 1.send("#{from}_in_meters").to_f / 1.send("#{to}_in_meters").to_f
+        else
+          to_f * ((1.send("#{from}_in_inches").to_f * 0.0254) / 1.send("#{to}_in_meters").to_f)
+        end
+      when :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile,
+           :nautical_miles
+        if metrics_included_from
+          to_f * ((1.send("#{from}_in_meters").to_f * 39.3701) / 1.send("#{to}_in_inches").to_f)
+        else
+          to_f * 1.send("#{from}_in_inches").to_f / 1.send("#{to}_in_inches").to_f
+        end
       end
     end
   end
 
-  def to_mass(from, to)
-    assert_inclusion_of_valid_keys!(MASS_KEYS.values.flatten, from, to)
+  unless defined?(to_mass)
+    def to_mass(from, to)
+      assert_inclusion_of_valid_keys!(MASS_KEYS.values.flatten, from, to)
 
-    return self if from == to
+      return self if from == to
 
-    metric_keys = MASS_KEYS.fetch(:metric)
-    metrics_included_from = metric_keys.include?(from)
+      metric_keys = MASS_KEYS.fetch(:metric)
+      metrics_included_from = metric_keys.include?(from)
 
-    case to
-    when :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams,
-         :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton,
-         :metric_tons
-      if metrics_included_from
-        to_f * 1.send("#{from}_in_grams").to_f / 1.send("#{to}_in_grams").to_f
-      else
-        to_f * ((1.send("#{from}_in_ounces") * 28.3495).to_f / 1.send("#{to}_in_grams").to_f)
-      end
-    when :ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons
-      if metrics_included_from
-        to_f * ((1.send("#{from}_in_grams") * 0.035274).to_f / 1.send("#{to}_in_ounces").to_f)
-      else
-        to_f * 1.send("#{from}_in_ounces").to_f / 1.send("#{to}_in_ounces").to_f
+      case to
+      when :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams,
+           :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton,
+           :metric_tons
+        if metrics_included_from
+          to_f * 1.send("#{from}_in_grams").to_f / 1.send("#{to}_in_grams").to_f
+        else
+          to_f * ((1.send("#{from}_in_ounces") * 28.3495).to_f / 1.send("#{to}_in_grams").to_f)
+        end
+      when :ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons
+        if metrics_included_from
+          to_f * ((1.send("#{from}_in_grams") * 0.035274).to_f / 1.send("#{to}_in_ounces").to_f)
+        else
+          to_f * 1.send("#{from}_in_ounces").to_f / 1.send("#{to}_in_ounces").to_f
+        end
       end
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  def to_nearest_value(values = [])
-    return self if values.length.zero?
+  unless defined?(to_nearest_value)
+    def to_nearest_value(values = [])
+      return self if values.length.zero?
 
-    value = values.first
-    difference = (self - value).abs
+      value = values.first
+      difference = (self - value).abs
 
-    values.each do |val|
-      next unless (self - val).abs < difference
+      values.each do |val|
+        next unless (self - val).abs < difference
 
-      difference = (self - val).abs
-      value = val
+        difference = (self - val).abs
+        value = val
+      end
+
+      value
     end
-
-    value
   end
 
-  def to_percentage(options = {})
-    unit = options[:unit] || '%'
+  unless defined?(to_percentage)
+    def to_percentage(options = {})
+      unit = options[:unit] || '%'
 
-    "#{pad_precision(options.only(:precision))}#{unit}"
+      "#{pad_precision(options.only(:precision))}#{unit}"
+    end
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-  def to_temperature(from, to)
-    assert_inclusion_of_valid_keys!(TEMPERATURE_KEYS, from, to)
+  unless defined?(to_temperature)
+    def to_temperature(from, to)
+      assert_inclusion_of_valid_keys!(TEMPERATURE_KEYS, from, to)
 
-    case to
-    when from
-      self
-    when :celsius
-      from == :kelvin ? (self - 273.15) : ((self - 32.0) * 5.0 / 9.0)
-    when :fahrenheit
-      from == :kelvin ? (1.8 * (self - 273.15) + 32.0) : ((self * 9.0 / 5.0) + 32.0)
-    when :kelvin
-      from == :celsius ? (self + 273.15) : (((self - 32.0) * 5.0 / 9.0) + 273.15)
+      case to
+      when from
+        self
+      when :celsius
+        from == :kelvin ? (self - 273.15) : ((self - 32.0) * 5.0 / 9.0)
+      when :fahrenheit
+        from == :kelvin ? (1.8 * (self - 273.15) + 32.0) : ((self * 9.0 / 5.0) + 32.0)
+      when :kelvin
+        from == :celsius ? (self + 273.15) : (((self - 32.0) * 5.0 / 9.0) + 273.15)
+      end
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
@@ -549,55 +689,67 @@ class Numeric
   #   assert_inclusion_of_valid_keys!(TIME_KEYS, from, to)
   #
   #   (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
-  # end
+  # end  unless defined?()
 
-  def tons_in_ounces
-    self * TON
+  unless defined?(tons_in_ounces)
+    def tons_in_ounces
+      self * TON
+    end
   end
 
   alias ton_in_ounces tons_in_ounces
 
-  def weeks_in_seconds
-    self * WEEK
+  unless defined?(weeks_in_seconds)
+    def weeks_in_seconds
+      self * WEEK
+    end
   end
 
   alias week_in_seconds weeks_in_seconds
 
-  def within?(number, epsilon = 0.01)
-    return number == self if epsilon.zero?
+  unless defined?(within?)
+    def within?(number, epsilon = 0.01)
+      return number == self if epsilon.zero?
 
-    alpha = to_f
-    beta = number.to_f
+      alpha = to_f
+      beta = number.to_f
 
-    if alpha.zero? || beta.zero?
-      (alpha - beta).abs < epsilon
-    else
-      (alpha / beta - 1).abs < epsilon
+      if alpha.zero? || beta.zero?
+        (alpha - beta).abs < epsilon
+      else
+        (alpha / beta - 1).abs < epsilon
+      end
     end
   end
 
-  def yards_in_inches
-    self * YARD
+  unless defined?(yards_in_inches)
+    def yards_in_inches
+      self * YARD
+    end
   end
 
   alias yard_in_inches yards_in_inches
 
-  def years_in_seconds
-    self * YEAR
+  unless defined?(years_in_seconds)
+    def years_in_seconds
+      self * YEAR
+    end
   end
 
   alias year_in_seconds years_in_seconds
 
   private
 
-  def assert_inclusion_of_valid_keys!(cns, from, to)
-    return if cns.include?(from) && cns.include?(to)
+  unless defined?(assert_inclusion_of_valid_keys!)
+    def assert_inclusion_of_valid_keys!(cns, from, to)
+      return if cns.include?(from) && cns.include?(to)
 
-    raise ArgumentError,
-          [
-            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}.",
-            "Valid keys are: #{cns.map(&:inspect).join(', ')}"
-          ].join(' ')
+      raise ArgumentError,
+            [
+              "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}.",
+              "Valid keys are: #{cns.map(&:inspect).join(', ')}"
+            ].join(' ')
+    end
   end
 
 end
