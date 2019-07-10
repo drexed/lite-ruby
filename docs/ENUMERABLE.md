@@ -148,8 +148,8 @@ returns the middle value of a collection of numbers.
 returns the most frequent value of a collection of numbers.
 
 ```ruby
-[].mode        #=> 0
-[].mode(nil)   #=> nil
+[].mode        #=> nil
+[].mode(0)     #=> 0
 [1,2,3].mode   #=> nil
 [1,1,2,6].mode #=> 1
 ```

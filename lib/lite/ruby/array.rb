@@ -103,14 +103,15 @@ class Array
 
   unless defined?(dig)
     def dig(key, *rest)
-      value = (begin
-                 self[key]
-               rescue StandardError
-                 nil
-               end)
+      value = begin
+                self[key]
+              rescue StandardError
+                nil
+              end
 
-      return value if value.nil? || rest.empty?
-      return value.dig(*rest) if value.respond_to?(:dig)
+      return value if value.nil? || rest.empty? || !value.respond_to?(:dig)
+
+      value.dig(*rest)
     end
   end
 
@@ -219,7 +220,7 @@ class Array
   unless defined?(position)
     def position(value)
       idx = index(value)
-      return if idx.nil?
+      return idx if idx.nil?
 
       idx + 1
     end
@@ -267,7 +268,7 @@ class Array
   unless defined?(rposition)
     def rposition(value)
       idx = rindex(value)
-      return if idx.nil?
+      return idx if idx.nil?
 
       idx + 1
     end

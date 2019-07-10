@@ -191,13 +191,13 @@ module Enumerable
 
   # rubocop:disable Metrics/AbcSize
   unless defined?(mode)
-    def mode(identity = 0)
+    def mode(identity = nil)
       return identity unless size.positive?
 
       frequency_distribution = each_with_object(::Hash.new(0)) { |val, hsh| hsh[val] += 1 }
       frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
       top_two_first = frequency_top_two.first
-      return if frequency_top_two.size != 1 && top_two_first.last == frequency_top_two.last.last
+      return identity if frequency_top_two.size != 1 && top_two_first.last == frequency_top_two.last.last
 
       top_two_first.first
     end

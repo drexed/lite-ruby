@@ -213,13 +213,13 @@ RSpec.describe Enumerable do
   end
 
   describe '#mode' do
-    it 'to be 0' do
-      expect([].mode).to eq(0)
+    it 'to be nil' do
+      expect([].mode).to eq(nil)
+      expect([1, 2, 3].mode).to eq(nil)
     end
 
-    it 'to be nil' do
-      expect([].mode(nil)).to eq(nil)
-      expect([1, 2, 3].mode).to eq(nil)
+    it 'to be 0' do
+      expect([].mode(0)).to eq(0)
     end
 
     it 'to be 1' do
