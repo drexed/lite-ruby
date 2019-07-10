@@ -24,14 +24,14 @@ Like `times` but returns a collection of the yield results.
 3.of { |i| i + 1 } #=> ['1', '2', '3']
 ```
 
-`roman`
+`roman_numeral`
 ------
-Converts an integer to a roman numeral.
+Converts an integer to a roman_numeral numeral.
 
 ```ruby
-0.roman   #=> ''
-49.roman  #=> 'XLIX'
--49.roman #=> '-XLIX'
+0.roman_numeral   #=> ''
+49.roman_numeral  #=> 'XLIX'
+-49.roman_numeral #=> '-XLIX'
 ```
 
 `time`

@@ -22,17 +22,17 @@ RSpec.describe Integer do
     end
   end
 
-  describe '#roman' do
+  describe '#roman_numeral' do
     it 'to be ""' do
-      expect(0.roman).to eq('')
+      expect(0.roman_numeral).to eq('')
     end
 
     it 'to be "XLIX"' do
-      expect(49.roman).to eq('XLIX')
+      expect(49.roman_numeral).to eq('XLIX')
     end
 
     it 'to be "-XLIX"' do
-      expect(-8.roman).to eq('-VIII')
+      expect(-8.roman_numeral).to eq('-VIII')
     end
   end
 
