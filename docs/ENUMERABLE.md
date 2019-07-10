@@ -1,4 +1,4 @@
-## Enumerable
+# Enumerable
 
 `critical_zscore`
 ------
