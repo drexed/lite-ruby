@@ -277,7 +277,7 @@ class Hash
   end unless defined?(to_o)
 
   def transform_keys(&block)
-    return enum_for(:transform_keys!) unless block_given?
+    return enum_for(:transform_keys) unless block_given?
 
     each_with_object({}) { |(key, val), hash| hash[yield(key)] = val }
   end unless defined?(transform_keys)
@@ -289,7 +289,7 @@ class Hash
   # rubocop:enable Lint/UnusedMethodArgument
 
   def transform_values(&block)
-    return enum_for(:transform_values!) unless block_given?
+    return enum_for(:transform_values) unless block_given?
 
     each_with_object({}) { |(key, val), hash| hash[key] = yield(val) }
   end unless defined?(transform_values)
