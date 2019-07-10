@@ -311,20 +311,13 @@ class Hash
 
   unless defined?(slice)
     def slice(*keys)
-      keys.each_with_object({}) { |key, hsh| hsh[key] = self[key] if key?(key) }
+      keys.each_with_object({}) { |key, hash| hash[key] = self[key] if key?(key) }
     end
   end
 
   unless defined?(slice!)
     def slice!(*keys)
-      omit = slice(*self.keys - keys)
-      hash = slice(*keys)
-
-      hash.default = default
-      hash.default_proc = default_proc if default_proc
-
-      replace(hash)
-      omit # TODO: remove this
+      replace(slice(*keys))
     end
   end
 
