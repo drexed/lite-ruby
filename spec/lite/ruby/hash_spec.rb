@@ -4,65 +4,65 @@ require 'spec_helper'
 
 RSpec.describe Hash do
 
-  describe '#assert_valid_k1s' do
+  describe '#assert_valid_keys' do
     it 'to be {}' do
-      expect({}.assert_valid_k1s(:foo)).to eq({})
+      expect({}.assert_valid_keys(:foo)).to eq({})
     end
 
     it 'to be { foo: "bar" }' do
-      expect({ foo: 'bar' }.assert_valid_k1s(:foo)).to eq(foo: 'bar')
+      expect({ foo: 'bar' }.assert_valid_keys(:foo)).to eq(foo: 'bar')
     end
 
     it 'to raise error' do
-      expect { { foo: 'bar', baz: 'boz' }.assert_valid_k1s(:foo) }.to raise_error(ArgumentError)
+      expect { { foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo) }.to raise_error(ArgumentError)
     end
   end
 
-  describe '#assert_valid_k1s!' do
+  describe '#assert_valid_keys!' do
     it 'to be {}' do
-      expect { {}.assert_valid_k1s!(:foo) }.to raise_error(ArgumentError)
+      expect { {}.assert_valid_keys!(:foo) }.to raise_error(ArgumentError)
     end
 
     it 'to be { foo: "bar" }' do
-      expect({ foo: 'bar' }.assert_valid_k1s!(:foo)).to eq(foo: 'bar')
+      expect({ foo: 'bar' }.assert_valid_keys!(:foo)).to eq(foo: 'bar')
     end
 
     it 'to raise error' do
-      expect { { foo: 'bar', baz: 'boz' }.assert_valid_k1s!(:foo) }.to raise_error(ArgumentError)
+      expect { { foo: 'bar', baz: 'boz' }.assert_valid_keys!(:foo) }.to raise_error(ArgumentError)
     end
   end
 
   describe '#bury' do
-    h1 = { foo: { baz: 'boo' } }
+    hash = { foo: { baz: 'boo' } }
 
     it 'to be { foo: :moo }' do
-      expect(h1.bury(:foo, :moo)).to eq(foo: :moo)
+      expect(hash.bury(:foo, :moo)).to eq(foo: :moo)
     end
 
     it 'to be { foo: { baz: :moo } }' do
-      expect(h1.bury(:foo, :baz, :moo)).to eq(foo: { baz: :moo })
+      expect(hash.bury(:foo, :baz, :moo)).to eq(foo: { baz: :moo })
     end
 
     it 'to raise error' do
-      expect { h1.bury(:moo) }.to raise_error(ArgumentError)
+      expect { hash.bury(:moo) }.to raise_error(ArgumentError)
     end
   end
 
-  describe '#collect_k1s' do
+  describe '#collect_keys' do
     it 'to be ["FOO", "BAZ"]' do
-      h1 = { foo: 'bar', baz: 'boo' }
-      a1 = %w[FOO BAZ]
+      hash_one = { foo: 'bar', baz: 'boo' }
+      array = %w[FOO BAZ]
 
-      expect(h1.collect_k1s { |k| k.to_s.upcase }).to eq(a1)
+      expect(hash_one.collect_keys { |k| k.to_s.upcase }).to eq(array)
     end
   end
 
   describe '#collect_values' do
     it 'to be ["BAR", "BOO"]' do
-      h1 = { foo: 'bar', baz: 'boo' }
-      a1 = %w[BAR BOO]
+      hash_one = { foo: 'bar', baz: 'boo' }
+      array = %w[BAR BOO]
 
-      expect(h1.collect_values { |k| k.to_s.upcase }).to eq(a1)
+      expect(hash_one.collect_values { |k| k.to_s.upcase }).to eq(array)
     end
   end
 
@@ -72,101 +72,101 @@ RSpec.describe Hash do
     end
 
     it 'to be {}' do
-      h1 = { foo: nil }
-      h2 = {}
+      hash_one = { foo: nil }
+      hash_two = {}
 
-      expect(h2.compact).to eq(h2)
-      expect(h1.compact).to eq(h2)
-      expect(h1.compact!).to eq(h2)
+      expect(hash_two.compact).to eq(hash_two)
+      expect(hash_one.compact).to eq(hash_two)
+      expect(hash_one.compact!).to eq(hash_two)
     end
 
     it 'to be { foo: "bar", baz: false, boo: nil }' do
-      h1 = { foo: 'bar', baz: false, boo: nil }
-      h2 = { foo: 'bar', baz: false }
+      hash_one = { foo: 'bar', baz: false, boo: nil }
+      hash_two = { foo: 'bar', baz: false }
 
-      expect(h1.compact).to eq(h2)
-      expect(h1.compact!).to eq(h2)
+      expect(hash_one.compact).to eq(hash_two)
+      expect(hash_one.compact!).to eq(hash_two)
     end
   end
 
   describe '#deep_dup(!)' do
     it 'to be { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }' do
-      h1 = { a: true, b: { c: [1, 2, 3] } }
-      h2 = { a: false, b: { x: [3, 4, 5] } }
-      h3 = { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
+      hash = { a: true, b: { c: [1, 2, 3] } }
+      hash_two = { a: false, b: { x: [3, 4, 5] } }
+      hash_three = { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 
-      expect(h1.deep_merge(h2)).to eq(h3)
-      expect(h1.deep_merge!(h2)).to eq(h3)
+      expect(hash.deep_merge(hash_two)).to eq(hash_three)
+      expect(hash.deep_merge!(hash_two)).to eq(hash_three)
     end
   end
 
   describe '#demote(!)' do
-    h1 = { a: 0, b: 1, c: 2 }
+    hash = { a: 0, b: 1, c: 2 }
 
     it 'to be { a: 0, c: 2, b: 1 }' do
-      expect(h1.demote(:b)).to eq(a: 0, c: 2, b: 1)
+      expect(hash.demote(:b)).to eq(a: 0, c: 2, b: 1)
     end
 
     it 'to be { a: 0, b: 1, c: 2 }' do
-      expect(h1.demote!(:d)).to eq(h1)
+      expect(hash.demote!(:d)).to eq(hash)
     end
   end
 
   describe '#denillify(!)' do
     it 'to be { abc: 0, xyz: 1 }' do
-      h1 = { abc: nil, xyz: 1 }
-      h2 = { abc: 0, xyz: 1 }
+      hash = { abc: nil, xyz: 1 }
+      hash_two = { abc: 0, xyz: 1 }
 
-      expect(h1.denillify).to eq(h2)
-      expect(h1.denillify!).to eq(h2)
+      expect(hash.denillify).to eq(hash_two)
+      expect(hash.denillify!).to eq(hash_two)
     end
 
     it 'to be { abc: 9, xyz: 1 }' do
-      h1 = { abc: nil, xyz: 1 }
-      h2 = { abc: 9, xyz: 1 }
+      hash = { abc: nil, xyz: 1 }
+      hash_two = { abc: 9, xyz: 1 }
 
-      expect(h1.denillify(9)).to eq(h2)
-      expect(h1.denillify!(9)).to eq(h2)
+      expect(hash.denillify(9)).to eq(hash_two)
+      expect(hash.denillify!(9)).to eq(hash_two)
     end
   end
 
   describe '#dig' do
-    h1 = { a: { b: { c: :d } } }
+    hash = { a: { b: { c: :d } } }
 
     it 'to be { c: :d }' do
-      expect(h1.dig(:a, :b)).to eq(c: :d)
+      expect(hash.dig(:a, :b)).to eq(c: :d)
     end
 
     it 'to be :d' do
-      expect(h1.dig(:a, :b, :c)).to eq(:d)
+      expect(hash.dig(:a, :b, :c)).to eq(:d)
     end
   end
 
   describe '#except(!)' do
     it 'to be {}' do
-      h1 = {}
-      k1 = :foo
+      hash_one = {}
+      key = :foo
 
-      expect(h1.except(k1)).to eq(h1)
-      expect(h1.except!(k1)).to eq(h1)
+      expect(hash_one.except(key)).to eq(hash_one)
+      expect(hash_one.except!(key)).to eq(hash_one)
     end
 
     it 'to be { :foo => 1 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
-      h2 = { foo: 1 }
-      a1 = [:baz, :bar]
+      hash_one = { foo: 1, baz: 2, bar: 3 }
+      hash_two = { foo: 1 }
+      array = [:baz, :bar]
 
-      expect(h1.except(*a1)).to eq(h2)
-      expect(h1.except!(*a1)).to eq(h2)
+      expect(hash_one.except(*array)).to eq(hash_two)
+      expect(hash_one.except!(*array)).to eq(hash_two)
     end
 
     it 'to be { :baz => 2, :bar => 3 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
-      h2 = { baz: 2, bar: 3 }
-      k1 = :foo
+      hash_one = { foo: 1, baz: 2, bar: 3 }
+      hash_two = { baz: 2, bar: 3 }
+      key = :foo
 
-      expect(h1.except(k1)).to eq(h2)
-      expect(h1.except!(k1)).to eq(h2)
+      expect(hash_one.except(key)).to eq(hash_two)
+      expect(hash_one.except!(key)).to eq(hash_two)
     end
   end
 
@@ -182,229 +182,229 @@ RSpec.describe Hash do
 
   describe '#hmap!' do
     it 'to be { a: 4, b: 5, c: 6 }' do
-      h1 = { a: 1, b: 2, c: 3 }
-      h2 = { a: 4, b: 5, c: 6 }
+      hash_one = { a: 1, b: 2, c: 3 }
+      hash_two = { a: 4, b: 5, c: 6 }
 
-      expect(h1.hmap { |k, v| { k => v + 3 } }).to eq(h2)
-      expect(h1.hmap! { |k, v| { k => v + 3 } }).to eq(h2)
+      expect(hash_one.hmap { |k, v| { k => v + 3 } }).to eq(hash_two)
+      expect(hash_one.hmap! { |k, v| { k => v + 3 } }).to eq(hash_two)
     end
   end
 
   describe '#nillify' do
     it 'to be {a: 1, b: "test", c: nil, d: nil, e: nil, f: nil}' do
-      h1 = { a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }
-      h2 = { a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil }
+      hash_one = { a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }
+      hash_two = { a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil }
 
-      expect(h1.nillify).to eq(h2)
-      expect(h1.nillify!).to eq(h2)
+      expect(hash_one.nillify).to eq(hash_two)
+      expect(hash_one.nillify!).to eq(hash_two)
     end
   end
 
   describe '#only(!)' do
     it 'to be {}' do
-      h1 = {}
-      k1 = :foo
+      hash_one = {}
+      key = :foo
 
-      expect(h1.only(k1)).to eq(h1)
-      expect(h1.only!(k1)).to eq(h1)
+      expect(hash_one.only(key)).to eq(hash_one)
+      expect(hash_one.only!(key)).to eq(hash_one)
     end
 
     it 'to be { :foo => 1 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
-      h2 = { foo: 1 }
-      k1 = :foo
+      hash_one = { foo: 1, baz: 2, bar: 3 }
+      hash_two = { foo: 1 }
+      key = :foo
 
-      expect(h1.only(k1)).to eq(h2)
-      expect(h1.only!(k1)).to eq(h2)
+      expect(hash_one.only(key)).to eq(hash_two)
+      expect(hash_one.only!(key)).to eq(hash_two)
     end
 
     it 'to be { :baz => 2, :bar => 3 }' do
-      h1 = { foo: 1, baz: 2, bar: 3 }
-      h2 = { baz: 2, bar: 3 }
-      a1 = [:baz, :bar]
+      hash_one = { foo: 1, baz: 2, bar: 3 }
+      hash_two = { baz: 2, bar: 3 }
+      array = [:baz, :bar]
 
-      expect(h1.only(*a1)).to eq(h2)
-      expect(h1.only!(*a1)).to eq(h2)
+      expect(hash_one.only(*array)).to eq(hash_two)
+      expect(hash_one.only!(*array)).to eq(hash_two)
     end
   end
 
   describe '#only_fill(!)' do
     it 'to be { foo: nil }' do
-      h1 = {}
-      h2 = {foo: nil}
-      k1 = :foo
+      hash = {}
+      hash_two = {foo: nil}
+      key = :foo
 
-      expect(h1.only_fill(k1)).to eq(h2)
-      expect(h1.only_fill!(k1)).to eq(h2)
+      expect(hash.only_fill(key)).to eq(hash_two)
+      expect(hash.only_fill!(key)).to eq(hash_two)
     end
 
     it 'to be { foo: 0 }' do
-      h1 = {}
-      h2 = { foo: 0 }
-      a1 = [:foo, placeholder: 0]
+      hash_one = {}
+      hash_two = { foo: 0 }
+      array = [:foo, placeholder: 0]
 
-      expect(h1.only_fill(*a1)).to eq(h2)
-      expect(h1.only_fill!(*a1)).to eq(h2)
+      expect(hash_one.only_fill(*array)).to eq(hash_two)
+      expect(hash_one.only_fill!(*array)).to eq(hash_two)
     end
 
     it 'to be { :foo => 1 }' do
-      h1 = { foo: 1, baz: 2 }
-      h2 = { foo: 1, bar: nil }
-      a1 = [:foo, :bar]
+      hash_one = { foo: 1, baz: 2 }
+      hash_two = { foo: 1, bar: nil }
+      array = [:foo, :bar]
 
-      expect(h1.only_fill(*a1)).to eq(h2)
-      expect(h1.only_fill!(*a1)).to eq(h2)
+      expect(hash_one.only_fill(*array)).to eq(hash_two)
+      expect(hash_one.only_fill!(*array)).to eq(hash_two)
     end
   end
 
   describe '#pair?' do
-    h1 = { a: 1 }
+    hash = { a: 1 }
 
     it 'to be true' do
-      expect(h1.pair?(:a, 1)).to eq(true)
+      expect(hash.pair?(:a, 1)).to eq(true)
     end
 
     it 'to be false' do
-      expect(h1.pair?(:a, 2)).to eq(false)
+      expect(hash.pair?(:a, 2)).to eq(false)
     end
   end
 
   describe '#promote(!)' do
-    h1 = { a: 0, b: 1, c: 2 }
+    hash = { a: 0, b: 1, c: 2 }
 
     it 'to be { b: 1, a: 0, c: 2 }' do
-      expect(h1.promote(:b)).to eq(b: 1, a: 0, c: 2)
+      expect(hash.promote(:b)).to eq(b: 1, a: 0, c: 2)
     end
 
     it 'to be { a: 0, b: 1, c: 2 }' do
-      expect(h1.promote!(:d)).to eq(h1)
+      expect(hash.promote!(:d)).to eq(hash)
     end
   end
 
-  describe '#rename_k1s(!)' do
+  describe '#rename_keys(!)' do
     it 'to be [:baz, :bar]' do
-      h1 = { foo: 'foo', baz: 'baz' }
-      h2 = { foo: :bar }
-      a1 = %i[baz bar]
+      hash_one = { foo: 'foo', baz: 'baz' }
+      hash_two = { foo: :bar }
+      array = %i[baz bar]
 
-      expect(h1.rename_k1s(h2).k1s).to eq(a1)
-      expect(h1.rename_k1s!(h2).k1s).to eq(a1)
+      expect(hash_one.rename_keys(hash_two).keys).to eq(array)
+      expect(hash_one.rename_keys!(hash_two).keys).to eq(array)
     end
 
     it 'to be [:foo, "tick"]' do
-      h1 = { foo: 'foo', 'baz' => 'baz' }
-      h2 = { 'baz' => 'tick' }
-      a1 = [:foo, 'tick']
+      hash_one = { foo: 'foo', 'baz' => 'baz' }
+      hash_two = { 'baz' => 'tick' }
+      array = [:foo, 'tick']
 
-      expect(h1.rename_k1s(h2).k1s).to eq(a1)
-      expect(h1.rename_k1s!(h2).k1s).to eq(a1)
+      expect(hash_one.rename_keys(hash_two).keys).to eq(array)
+      expect(hash_one.rename_keys!(hash_two).keys).to eq(array)
     end
 
     it 'to be [:bar, :tick]' do
-      h1 = { foo: 'foo', baz: 'baz' }
-      h2 = { foo: :bar, baz: :tick }
-      a1 = %i[bar tick]
+      hash_one = { foo: 'foo', baz: 'baz' }
+      hash_two = { foo: :bar, baz: :tick }
+      array = %i[bar tick]
 
-      expect(h1.rename_k1s(h2).k1s).to eq(a1)
-      expect(h1.rename_k1s!(h2).k1s).to eq(a1)
+      expect(hash_one.rename_keys(hash_two).keys).to eq(array)
+      expect(hash_one.rename_keys!(hash_two).keys).to eq(array)
     end
 
     it 'to be [:bar, "tick"]' do
-      h1 = { foo: 'foo', 'baz' => 'baz' }
-      h2 = { foo: :bar, 'baz' => 'tick' }
-      a1 = [:bar, 'tick']
+      hash_one = { foo: 'foo', 'baz' => 'baz' }
+      hash_two = { foo: :bar, 'baz' => 'tick' }
+      array = [:bar, 'tick']
 
-      expect(h1.rename_k1s(h2).k1s).to eq(a1)
-      expect(h1.rename_k1s!(h2).k1s).to eq(a1)
+      expect(hash_one.rename_keys(hash_two).keys).to eq(array)
+      expect(hash_one.rename_keys!(hash_two).keys).to eq(array)
     end
   end
 
   describe '#reverse_merge(!)' do
     it 'to be { foo: "bar" }' do
-      h1 = { foo: 'bar' }
+      hash = { foo: 'bar' }
 
-      expect({}.reverse_merge(h1)).to eq(h1)
-      expect({}.reverse_merge!(h1)).to eq(h1)
+      expect({}.reverse_merge(hash)).to eq(hash)
+      expect({}.reverse_merge!(hash)).to eq(hash)
     end
 
     it 'to be { foo: "bar", baz: "boo", boo: "bam" }' do
-      h1 = { foo: 'bar' }
-      h2 = { baz: 'boo', boo: 'bam' }
-      h3 = { foo: 'bar', baz: 'boo', boo: 'bam' }
+      hash_one = { foo: 'bar' }
+      hash_two = { baz: 'boo', boo: 'bam' }
+      hash_three = { foo: 'bar', baz: 'boo', boo: 'bam' }
 
-      expect(h1.reverse_merge(h2)).to eq(h3)
-      expect(h1.reverse_merge!(h2)).to eq(h3)
+      expect(hash_one.reverse_merge(hash_two)).to eq(hash_three)
+      expect(hash_one.reverse_merge!(hash_two)).to eq(hash_three)
     end
   end
 
   describe '#sample(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    hash = { a: 1, b: 2, c: 3, d: 4, e: 5 }
 
     it 'to be true' do
-      expect(h1.k1?(h1.sample.first)).to eq(true)
+      expect(hash.key?(hash.sample.first)).to eq(true)
     end
 
     it 'to be false' do
-      expect(h1.k1?(h1.sample!.first)).to eq(false)
+      expect(hash.key?(hash.sample!.first)).to eq(false)
     end
   end
 
-  describe '#sample_k1(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+  describe '#sample_key(!)' do
+    hash = { a: 1, b: 2, c: 3, d: 4, e: 5 }
 
     it 'to be true' do
-      expect(h1.k1?(h1.sample_k1)).to eq(true)
+      expect(hash.key?(hash.sample_key)).to eq(true)
     end
 
     it 'to be false' do
-      expect(h1.k1?(h1.sample_k1!)).to eq(false)
+      expect(hash.key?(hash.sample_key!)).to eq(false)
     end
   end
 
   describe '#sample_value(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    hash = { a: 1, b: 2, c: 3, d: 4, e: 5 }
 
     it 'to be true' do
-      expect(h1.value?(h1.sample_value)).to eq(true)
+      expect(hash.value?(hash.sample_value)).to eq(true)
     end
 
     it 'to be false' do
-      expect(h1.value?(h1.sample_value!)).to eq(false)
+      expect(hash.value?(hash.sample_value!)).to eq(false)
     end
   end
 
   describe '#shuffle(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+    hash = { a: 1, b: 2, c: 3, d: 4, e: 5 }
 
     it 'to not be { a: 1, b: 2, c: 3, d: 4, e: 5 }' do
-      expect(h1.k1s).not_to eq(h1.shuffle.k1s)
+      expect(hash.keys).not_to eq(hash.shuffle.keys)
     end
 
     it 'to be { a: 1, b: 2, c: 3, d: 4, e: 5 }' do
-      expect(h1.k1s).not_to eq(h1.shuffle!.k1s)
+      expect(hash.keys).not_to eq(hash.shuffle!.keys)
     end
   end
 
   describe '#slice(!)' do
-    h1 = { a: 1, b: 2, c: 3, d: 4 }
-    k1 = [:a, :b]
+    hash = { a: 1, b: 2, c: 3, d: 4 }
+    key = [:a, :b]
 
     it 'to be { a: 1, b: 2 }' do
-      expect(h1.slice(*k1)).to eq(a: 1, b: 2)
+      expect(hash.slice(*key)).to eq(a: 1, b: 2)
     end
 
     it 'to be { a: 3, b: 4 }' do
-      expect(h1.slice!(*k1)).to eq(c: 3, d: 4)
+      expect(hash.slice!(*key)).to eq(c: 3, d: 4)
     end
   end
 
-  describe '#stringify_k1s(!)' do
+  describe '#stringify_keys(!)' do
     it 'to be { "foo" => "foo", "bar" => "bar" }' do
-      h1 = { foo: 'foo', 'bar' => 'bar' }
-      h2 = { 'foo' => 'foo', 'bar' => 'bar' }
+      hash_one = { foo: 'foo', 'bar' => 'bar' }
+      hash_two = { 'foo' => 'foo', 'bar' => 'bar' }
 
-      expect(h1.stringify_k1s).to eq(h2)
-      expect(h1.stringify_k1s!).to eq(h2)
+      expect(hash_one.stringify_keys).to eq(hash_two)
+      expect(hash_one.stringify_keys!).to eq(hash_two)
     end
   end
 
@@ -414,74 +414,74 @@ RSpec.describe Hash do
     end
 
     it 'to be {}' do
-      h1 = { foo: nil, baz: false, boo: '', faz: ' ' }
-      h2 = {}
+      hash = { foo: nil, baz: false, boo: '', faz: ' ' }
+      hash_two = {}
 
-      expect(h2.strip).to eq(h2)
-      expect(h1.strip).to eq(h2)
-      expect(h1.strip!).to eq(h2)
+      expect(hash_two.strip).to eq(hash_two)
+      expect(hash.strip).to eq(hash_two)
+      expect(hash.strip!).to eq(hash_two)
     end
 
     it 'to be { foo: "bar", baz: false, boo: nil }' do
-      h1 = { foo: 'bar', baz: false, boo: nil, boz: '', faz: ' ' }
-      h2 = { foo: 'bar' }
+      hash_one = { foo: 'bar', baz: false, boo: nil, boz: '', faz: ' ' }
+      hash_two = { foo: 'bar' }
 
-      expect(h1.strip).to eq(h2)
-      expect(h1.strip!).to eq(h2)
+      expect(hash_one.strip).to eq(hash_two)
+      expect(hash_one.strip!).to eq(hash_two)
     end
   end
 
-  describe '#symbolize_k1s(!)' do
+  describe '#symbolize_keys(!)' do
     it 'to be { foo: "foo", bar: "bar" }' do
-      h1 = { foo: 'foo', 'bar' => 'bar' }
-      h2 = { foo: 'foo', bar: 'bar' }
+      hash_one = { foo: 'foo', 'bar' => 'bar' }
+      hash_two = { foo: 'foo', bar: 'bar' }
 
-      expect(h1.symbolize_k1s).to eq(h2)
-      expect(h1.symbolize_k1s!).to eq(h2)
+      expect(hash_one.symbolize_keys).to eq(hash_two)
+      expect(hash_one.symbolize_keys!).to eq(hash_two)
     end
   end
 
-  describe '#symbolize_and_underscore_k1s(!)' do
+  describe '#symbolize_and_underscore_keys(!)' do
     it 'to be { foo_bar: "example", baz_bar: "string" }' do
-      h1 = { 'foo Bar' => 'example', bazBar: 'string' }
-      h2 = { foo_bar: 'example', baz_bar: 'string' }
+      hash_one = { 'foo Bar' => 'example', bazBar: 'string' }
+      hash_two = { foo_bar: 'example', baz_bar: 'string' }
 
-      expect(h1.symbolize_and_underscore_k1s).to eq(h2)
-      expect(h1.symbolize_and_underscore_k1s!).to eq(h2)
+      expect(hash_one.symbolize_and_underscore_keys).to eq(hash_two)
+      expect(hash_one.symbolize_and_underscore_keys!).to eq(hash_two)
     end
   end
 
   describe '#to_o' do
     it 'to be OpenStruct' do
-      h1 = { foo: { bar: true } }
+      hash = { foo: { bar: true } }
 
-      expect(h1.to_o.is_a?(OpenStruct)).to eq(true)
+      expect(hash.to_o.is_a?(OpenStruct)).to eq(true)
     end
 
     it 'to be true' do
-      h1 = { foo: { bar: true } }
+      hash = { foo: { bar: true } }
 
-      expect(h1.to_o.foo.bar).to eq(true)
+      expect(hash.to_o.foo.bar).to eq(true)
     end
   end
 
-  describe '#transform_k1s(!)' do
+  describe '#transform_keys(!)' do
     it 'to be { "FOO" => "foo", "BAZ" => "bar" }' do
-      h1 = { foo: 'bar', baz: 'boo' }
-      h2 = { 'FOO' => 'bar', 'BAZ' => 'boo' }
+      hash_one = { foo: 'bar', baz: 'boo' }
+      hash_two = { 'FOO' => 'bar', 'BAZ' => 'boo' }
 
-      expect(h1.transform_k1s { |k| k.to_s.upcase }).to eq(h2)
-      expect(h1.transform_k1s! { |k| k.to_s.upcase }).to eq(h2)
+      expect(hash_one.transform_keys { |k| k.to_s.upcase }).to eq(hash_two)
+      expect(hash_one.transform_keys! { |k| k.to_s.upcase }).to eq(hash_two)
     end
   end
 
   describe '#transform_values(!)' do
     it 'to be { foo: "BAR", baz: "BOO" }' do
-      h1 = { foo: 'bar', baz: 'boo' }
-      h2 = { foo: 'BAR', baz: 'BOO' }
+      hash_one = { foo: 'bar', baz: 'boo' }
+      hash_two = { foo: 'BAR', baz: 'BOO' }
 
-      expect(h1.transform_values { |v| v.to_s.upcase }).to eq(h2)
-      expect(h1.transform_values! { |v| v.to_s.upcase }).to eq(h2)
+      expect(hash_one.transform_values { |v| v.to_s.upcase }).to eq(hash_two)
+      expect(hash_one.transform_values! { |v| v.to_s.upcase }).to eq(hash_two)
     end
   end
 
