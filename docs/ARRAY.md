@@ -195,11 +195,15 @@
 ['1', '2', '3'].to(-1) #=> ['3']
 ```
 
-* `to_sentence` converts the array to a comma-separated sentence where the last element is joined by the connector word.
+`to_sentence`
+------
+Converts the array to a comma-separated sentence where the last element is joined by the connector word.
 
-`words_connector: ", "`
-`two_words_connector: " and "`
-`last_word_connector: ", and "`
+Option | Default
+--- | ---
+words_connector | ", "
+two_words_connector | " and "
+last_word_connector | ", and "
 
 ```ruby
 [].to_sentence                                                                                     #=> ''
