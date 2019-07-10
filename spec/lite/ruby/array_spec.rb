@@ -210,12 +210,13 @@ RSpec.describe Array do
     end
   end
 
-  describe '#merge' do
+  describe '#merge(!)' do
     it 'to be [0, 1, 2, 3, 4, 5]' do
       arr_one = [2, 3]
       arr_two = [4, 5]
 
       expect([0, 1].merge(arr_one, arr_two)).to eq([0, 1, 2, 3, 4, 5])
+      expect([0, 1].merge!(arr_one, arr_two)).to eq([0, 1, 2, 3, 4, 5])
     end
   end
 

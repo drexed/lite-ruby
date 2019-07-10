@@ -142,13 +142,15 @@ class Array
 
       num, rem = size.divmod(number)
       collection = (0..(num - 1)).collect { |val| self[(val * number), number] }
-      rem.positive? ? collection << self[-rem, rem] : collection
+      return collection unless rem.positive?
+
+      collection << self[-rem, rem]
     end
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
   unless defined?(in_groups)
-    def in_groups(number, fill_with = nil)
+    def in_groups(number, fill_with = nil, &block)
       collection_size = size
       division = collection_size.div(number)
       modulo = collection_size % number
@@ -163,14 +165,16 @@ class Array
         start += grouping
       end
 
-      block_given? ? collection.each { |val| yield(val) } : collection
+      return collection unless block_given?
+
+      collection.each { |val| yield(val) }
     end
   end
   # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Style/GuardClause
   unless defined?(in_groups_of)
-    def in_groups_of(number, fill_with = nil)
+    def in_groups_of(number, fill_with = nil, &block)
       if number.to_i <= 0
         raise ArgumentError, "Group size must be a positive integer, was #{number.inspect}"
       elsif fill_with == false
@@ -198,8 +202,13 @@ class Array
 
   unless defined?(merge)
     def merge(*values)
-      values.each { |val| concat(val) }
-      self
+      dup.merge!(*values)
+    end
+  end
+
+  unless defined?(merge!)
+    def merge!(*values)
+      values.each_with_object(self) { |val, arr| arr.concat(val) }
     end
   end
 

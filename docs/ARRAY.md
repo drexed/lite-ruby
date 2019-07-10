@@ -143,7 +143,7 @@ Returns all indexes of the matching value.
 [:a,:b,:a,:c].indexes(:a) #=> [0,2]
 ```
 
-`merge`
+`merge(!)`
 ------
 Concats multiple arrays.
 
