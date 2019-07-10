@@ -156,7 +156,7 @@ module Enumerable
 
       if block_given?
         any? do |val|
-          found_count += 1 if yield val
+          found_count += 1 if yield(val)
           found_count > 1
         end
       else
@@ -342,7 +342,7 @@ module Enumerable
   unless defined?(zscore)
     def zscore(value)
       sd = standard_deviation
-      return 0 if sd.zero?
+      return sd if sd.zero?
 
       (mean - value).abs / sd
     end

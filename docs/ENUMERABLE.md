@@ -2,7 +2,7 @@
 
 `critical_zscore`
 ------
-returns the critical_zscore of elements of a collection.
+Returns the critical_zscore of elements of a collection.
 
 ```ruby
 [].critical_zscore                              #=> nil

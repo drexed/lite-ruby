@@ -6,7 +6,7 @@ class Array
     def after(value)
       return unless include?(value)
 
-      self[(index(value).to_i + 1) % length]
+      self[(index(value).to_i + 1) % size]
     end
   end
 
@@ -14,7 +14,7 @@ class Array
     def before(value)
       return unless include?(value)
 
-      self[(index(value).to_i - 1) % length]
+      self[(index(value).to_i - 1) % size]
     end
   end
 
@@ -109,8 +109,7 @@ class Array
                  nil
                end)
 
-      return if value.nil?
-      return value if rest.empty?
+      return value if value.nil? || rest.empty?
       return value.dig(*rest) if value.respond_to?(:dig)
     end
   end
@@ -125,15 +124,15 @@ class Array
 
   unless defined?(from)
     def from(position)
-      self[position, length] || []
+      self[position, size] || []
     end
   end
 
   unless defined?(fulfill)
     def fulfill(value, amount)
-      return self if amount <= length
+      return self if amount <= size
 
-      fill(value, length..(amount - 1))
+      fill(value, size..(amount - 1))
     end
   end
 
@@ -141,7 +140,7 @@ class Array
     def groups(number)
       return [] if number <= 0
 
-      num, rem = length.divmod(number)
+      num, rem = size.divmod(number)
       collection = (0..(num - 1)).collect { |val| self[(val * number), number] }
       rem.positive? ? collection << self[-rem, rem] : collection
     end
@@ -150,9 +149,9 @@ class Array
   # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
   unless defined?(in_groups)
     def in_groups(number, fill_with = nil)
-      collection_length = length
-      division = collection_length.div(number)
-      modulo = collection_length % number
+      collection_size = size
+      division = collection_size.div(number)
+      modulo = collection_size % number
 
       collection = []
       start = 0
@@ -174,13 +173,13 @@ class Array
     def in_groups_of(number, fill_with = nil)
       if number.to_i <= 0
         raise ArgumentError,
-              "Group length must be a positive integer, was #{number.inspect}"
+              "Group size must be a positive integer, was #{number.inspect}"
       end
 
       if fill_with == false
         collection = self
       else
-        padding = (number - length % number) % number
+        padding = (number - size % number) % number
         collection = dup.concat(::Array.new(padding, fill_with))
       end
 
@@ -276,7 +275,7 @@ class Array
 
   unless defined?(sample!)
     def sample!
-      delete_at(::Random.rand(length - 1))
+      delete_at(::Random.rand(size - 1))
     end
   end
 
@@ -297,7 +296,7 @@ class Array
             arr.shift
             results << []
           else
-            results.last.concat(arr.shift(arr.length))
+            results.last.concat(arr.shift(arr.size))
           end
         end
 
@@ -332,7 +331,7 @@ class Array
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/LineLength, Metrics/MethodLength
   unless defined?(to_sentence)
     def to_sentence(options = {})
       options = {
@@ -341,18 +340,14 @@ class Array
         last_word_connector: ', and '
       }.merge!(options)
 
-      case length
-      when 0
-        ''
-      when 1
-        self[0].to_s.dup
-      when 2
-        "#{self[0]}#{options[:two_words_connector]}#{self[1]}"
-      else
-        "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
+      case size
+      when 0 then ''
+      when 1 then self[0].to_s.dup
+      when 2 then "#{self[0]}#{options[:two_words_connector]}#{self[1]}"
+      else "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/LineLength, Metrics/MethodLength
 
 end

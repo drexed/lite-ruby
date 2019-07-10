@@ -17,7 +17,7 @@ module Kernel
   unless defined?(try_eval)
     def try_eval
       val = SANITIZE_EVAL_REGEXP.match(to_s).to_s
-      return if val.nil?
+      return val if val.nil?
 
       eval(val)
     end
