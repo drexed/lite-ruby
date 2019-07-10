@@ -1,6 +1,8 @@
 # Kernel
 
-* `caller_name` returns the name of the method calling it.
+`caller_name`
+------
+Returns the name of the method calling it.
 
 ```ruby
 def sample_key
@@ -10,14 +12,18 @@ end
 sample_key #=> 'sample_key'
 ```
 
-* `safe_eval` trys to evalute or return it's self.
+`safe_eval`
+------
+Try's to evaluate or returns self.
 
 ```ruby
 '[1,2,3]'.safe_eval  #=> [1,2,3]
 '[#1,2,3]'.safe_eval #=> '[#1,2,3]'
 ```
 
-* `try_eval` trys to evalute or return it's nil.
+`try_eval`
+------
+Try's to evaluate or returns nil.
 
 ```ruby
 '[1,2,3]'.try_eval  #=> [1,2,3]

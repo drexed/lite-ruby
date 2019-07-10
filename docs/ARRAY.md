@@ -167,27 +167,35 @@
 [1, 2, 3, 4, 5].sample! #=> 2
 ```
 
-* `split` divides the array into one or more subarrays based on a delimiting value or the result of an optional block.
+* `split`
+------
+divides the array into one or more subarrays based on a delimiting value or the result of an optional block.
 
 ```ruby
 [1, 2, 3, 4, 5].split(3)              # => [[1, 2], [4, 5]]
 (1..10).to_a.split { |i| i % 3 == 0 } # => [[1, 2], [4, 5], [7, 8], [10]]
 ```
 
-* `strip` and `strip!` removes blank elements from an array.
+* `strip` and `strip!`
+------
+removes blank elements from an array.
 
 ```ruby
 ['this', '', 'that', nil, false].strip  #=> ['this', 'that']
 'this    is   a  test'.split(' ').strip #=> ['this', 'is', 'a', 'test']
 ```
 
-* `swap` switches places of two elements.
+* `swap`
+------
+switches places of two elements.
 
 ```ruby
 [1, 2, 3].swap(0, 2) #=> [3, 2, 1]
 ```
 
-* `to` returns the beginning of the array up to position.
+* `to`
+------
+returns the beginning of the array up to position.
 
 ```ruby
 ['1', '2', '3'].to(0)  #=> ['1']
@@ -199,11 +207,11 @@
 ------
 Converts the array to a comma-separated sentence where the last element is joined by the connector word.
 
-Option | Default
---- | ---
-words_connector | ", "
-two_words_connector | " and "
-last_word_connector | ", and "
+Option | Type | Default
+--- | --- | ---
+words_connector | string | ", "
+two_words_connector | string | " and "
+last_word_connector | string | ", and "
 
 ```ruby
 [].to_sentence                                                                                     #=> ''
