@@ -1,7 +1,6 @@
 # Array
 
 `after`
-
 ------
 Returns the value after a given value.
 
