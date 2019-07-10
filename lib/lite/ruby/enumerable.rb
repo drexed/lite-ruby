@@ -25,11 +25,11 @@ module Enumerable
 
   unless defined?(critical_zscore)
     def critical_zscore(identity = nil)
-      collection_length = length
+      collection_size = size
       result = nil
 
       CRITICAL_ZSCORES.keys.sort.each do |key|
-        break if key > collection_length
+        break if key > collection_size
 
         result = CRITICAL_ZSCORES[key]
       end
@@ -60,10 +60,10 @@ module Enumerable
 
   unless defined?(drop_last)
     def drop_last(num)
-      collection_length = to_a.length
-      return self if num > collection_length
+      collection_size = to_a.size
+      return self if num > collection_size
 
-      self[0...(collection_length - num)]
+      self[0...(collection_size - num)]
     end
   end
 
@@ -169,7 +169,7 @@ module Enumerable
     def mean(identity = 0)
       return identity if empty?
 
-      sum / length.to_f
+      sum / size.to_f
     end
 
     alias average mean
@@ -177,13 +177,13 @@ module Enumerable
 
   unless defined?(median)
     def median(identity = 0)
-      collection_length = length.to_f
+      collection_size = size.to_f
       collection_sorted = sort
-      return identity unless collection_length > 0.0
+      return identity unless collection_size > 0.0
 
-      half_collection = collection_length / 2.0
+      half_collection = collection_size / 2.0
       sorted_collection = collection_sorted[half_collection]
-      return sorted_collection unless (collection_length % 2).zero?
+      return sorted_collection unless (collection_size % 2).zero?
 
       (collection_sorted[half_collection - 1.0] + sorted_collection) / 2.0
     end
@@ -192,12 +192,12 @@ module Enumerable
   # rubocop:disable Metrics/AbcSize
   unless defined?(mode)
     def mode(identity = 0)
-      return identity unless length.positive?
+      return identity unless size.positive?
 
       frequency_distribution = each_with_object(::Hash.new(0)) { |val, hsh| hsh[val] += 1 }
       frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
       top_two_first = frequency_top_two.first
-      return if frequency_top_two.length != 1 && top_two_first.last == frequency_top_two.last.last
+      return if frequency_top_two.size != 1 && top_two_first.last == frequency_top_two.last.last
 
       top_two_first.first
     end
@@ -223,14 +223,14 @@ module Enumerable
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   unless defined?(percentile)
     def percentile(num, identity = 0)
-      return identity unless length.positive?
+      return identity unless size.positive?
 
       collection_sorted = sort
-      index = (num.to_f / 100) * collection_sorted.length - 1
+      index = (num.to_f / 100) * collection_sorted.size - 1
 
       if index != index.to_i
         collection_sorted[index.ceil] || identity
-      elsif collection_sorted.length.even?
+      elsif collection_sorted.size.even?
         sample_one = collection_sorted.at(index)
         sample_two = collection_sorted.at(index + 1)
         (sample_one + sample_two) / 2
@@ -243,7 +243,7 @@ module Enumerable
 
   unless defined?(range)
     def range(identity = 0)
-      return identity unless length.positive?
+      return identity unless size.positive?
 
       collection_sorted = sort
       collection_sorted.last - collection_sorted.first
@@ -294,7 +294,7 @@ module Enumerable
 
   unless defined?(standard_deviation)
     def standard_deviation(identity = 0)
-      return identity if length < 2
+      return identity if size < 2
 
       ::Math.sqrt(variance)
     end
@@ -312,10 +312,10 @@ module Enumerable
 
   unless defined?(take_last)
     def take_last(num)
-      collection_length = to_a.length
-      return self if num > collection_length
+      collection_size = to_a.size
+      return self if num > collection_size
 
-      self[(collection_length - num)..-1]
+      self[(collection_size - num)..-1]
     end
   end
 
@@ -331,11 +331,11 @@ module Enumerable
 
   unless defined?(variance)
     def variance(identity = 0)
-      collection_length = length
-      return identity if collection_length <= 1
+      collection_size = size
+      return identity if collection_size <= 1
 
       total = inject(0.0) { |sum, val| sum + (val - mean)**2.0 }
-      total.to_f / (collection_length.to_f - 1.0)
+      total.to_f / (collection_size.to_f - 1.0)
     end
   end
 
