@@ -1,6 +1,7 @@
 # Array
 
 `after`
+
 ------
 Returns the value after a given value.
 
@@ -91,7 +92,7 @@ Returns a list of duplicate elements.
 
 `from`
 ------
-Returns the tail of the array from position.
+Returns the tail of the array from a given position.
 
 ```ruby
 ['1', '2', '3'].from(0)  #=> ['1', '2', '3']
@@ -117,7 +118,7 @@ Splits or iterates over the array to a given number of groups.
 
 `in_groups`
 ------
-Splits or iterates over the array to a given number of groups, padding any remaining slots with filler unless it is false.
+Splits or iterates over the array to a given number of groups, padding any remaining slots with filler unless it is `false`.
 
 ```ruby
 %w(1 2 3 4 5 6 7 8 9 10).in_groups(3)           #=> [['1', '2', '3', '4'], ['5', '6', '7', nil], ['8', '9', '10', nil]]
@@ -127,7 +128,7 @@ Splits or iterates over the array to a given number of groups, padding any remai
 
 `in_groups_of`
 ------
-Splits or iterates over the array in groups of a given size number, padding any remaining slots with filler unless it is false.
+Splits or iterates over the array in groups of a given size number, padding any remaining slots with filler unless it is `false`.
 
 ```ruby
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)           #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10', nil, nil]]
@@ -153,7 +154,7 @@ Concats multiple arrays.
 
 `nillify(!)`
 ------
-Converts blank values into nils.
+Converts blank values into `nil`.
 
 ```ruby
 [nil, 3, 4].nillify #=> [nil, 3, 4]
