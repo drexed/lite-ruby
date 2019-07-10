@@ -5,7 +5,8 @@ require 'spec_helper'
 RSpec.describe Array do
 
   describe '#after' do
-    a1 = [1, 2, 3]
+    let(:a1) { [1, 2, 3] }
+
     it 'to be 3' do
       expect(a1.after(2)).to eq(3)
     end
@@ -20,7 +21,7 @@ RSpec.describe Array do
   end
 
   describe '#bury' do
-    a1 = [:a1, { b1: :c1 }]
+    let(:a1) { [:a1, { b1: :c1 }] }
 
     it 'to be [:a1, { b1: :d1 }]' do
       expect(a1.bury(1, :b1, :d1)).to eq([:a1, { b1: :d1 }])
@@ -36,7 +37,7 @@ RSpec.describe Array do
   end
 
   describe '#before' do
-    a1 = [1, 2, 3]
+    let(:a1) { [1, 2, 3] }
 
     it 'to be 3' do
       expect(a1.before(2)).to eq(1)
@@ -138,7 +139,7 @@ RSpec.describe Array do
   end
 
   describe '#from' do
-    a1 = [1, 2, 3]
+    let(:a1) { [1, 2, 3] }
 
     it 'to be [1, 2, 3]' do
       expect(a1.from(0)).to eq(a1)
@@ -177,7 +178,7 @@ RSpec.describe Array do
   end
 
   describe '#in_groups' do
-    a1 = %w[1 2 3 4 5 6 7 8 9 10]
+    let(:a1) { %w[1 2 3 4 5 6 7 8 9 10] }
 
     it 'to be [["1", "2", "3", "4"], ["5", "6", "7", nil], ["8", "9", "10", nil]]' do
       expect(a1.in_groups(3)).to eq([
@@ -205,7 +206,7 @@ RSpec.describe Array do
   end
 
   describe '#in_groups_of' do
-    a1 = %w[1 2 3 4 5 6 7 8 9 10]
+    let(:a1) { %w[1 2 3 4 5 6 7 8 9 10] }
 
     it 'to be [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", nil, nil]]' do
       expect(a1.in_groups_of(3)).to eq([%w[1 2 3], %w[4 5 6], %w[7 8 9], ['10', nil, nil]])
@@ -356,7 +357,7 @@ RSpec.describe Array do
   end
 
   describe '#to' do
-    a1 = [1, 2, 3]
+    let(:a1) { [1, 2, 3] }
 
     it 'to be [1]' do
       expect(a1.to(0)).to eq([1])
@@ -372,8 +373,8 @@ RSpec.describe Array do
   end
 
   describe '#to_sentence' do
-    a1 = %w[one two]
-    a2 = %w[one two three]
+    let(:a1) { %w[one two] }
+    let(:a2) { %w[one two three] }
 
     it 'to be ""' do
       expect([].to_sentence).to eq('')
