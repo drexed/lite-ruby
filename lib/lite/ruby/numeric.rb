@@ -541,11 +541,12 @@ class Numeric
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
-  def to_time(from, to)
-    assert_inclusion_of_valid_keys!(TIME_KEYS, from, to)
-
-    (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
-  end
+  # TODO: rename as it will clash with integer
+  # def to_time(from, to)
+  #   assert_inclusion_of_valid_keys!(TIME_KEYS, from, to)
+  #
+  #   (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
+  # end
 
   def tons_in_ounces
     self * TON

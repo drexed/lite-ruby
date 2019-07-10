@@ -34,10 +34,10 @@ Converts an integer to a roman_numeral numeral.
 -49.roman_numeral #=> '-XLIX'
 ```
 
-`time`
+`to_time` aka `to_t`
 ------
 Returns a Time object for the given Integer.
 
 ```ruby
-3.time #=> '1969-12-31 19:00:03.000000000 -0500'
+3.to_time #=> '1969-12-31 19:00:03.000000000 -0500'
 ```

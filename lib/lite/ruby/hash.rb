@@ -2,6 +2,8 @@
 
 class Hash
 
+  # TODO: add assert min valid keys
+
   unless defined?(assert_valid_keys)
     def assert_valid_keys(*valid_keys)
       each_key do |key|

@@ -742,34 +742,34 @@ RSpec.describe Numeric do
     end
   end
 
-  describe '#to_time' do
-    it 'to be 2' do
-      expect(120.to_time(:seconds, :minutes)).to eq(2)
-    end
-
-    it 'to be 40' do
-      expect(2400.to_time(:minutes, :hours)).to eq(40)
-    end
-
-    it 'to be 3' do
-      expect(72.to_time(:hours, :days)).to eq(3)
-    end
-
-    it 'to be 5' do
-      expect(1825.to_time(:days, :years)).to eq(4.996577686516085)
-    end
-
-    it 'to be 172800' do
-      expect(2.to_time(:days, :seconds)).to eq(172800)
-    end
-
-    it 'to raise error' do
-      expect { 1.to_time }.to raise_error(ArgumentError)
-      expect { 1.to_time(:bad, :days) }.to raise_error(ArgumentError)
-      expect { 1.to_time(:days, :bad) }.to raise_error(ArgumentError)
-      expect { 1.to_time(:bad, :bad) }.to raise_error(ArgumentError)
-    end
-  end
+  # describe '#to_time' do
+  #   it 'to be 2' do
+  #     expect(120.to_time(:seconds, :minutes)).to eq(2)
+  #   end
+  #
+  #   it 'to be 40' do
+  #     expect(2400.to_time(:minutes, :hours)).to eq(40)
+  #   end
+  #
+  #   it 'to be 3' do
+  #     expect(72.to_time(:hours, :days)).to eq(3)
+  #   end
+  #
+  #   it 'to be 5' do
+  #     expect(1825.to_time(:days, :years)).to eq(4.996577686516085)
+  #   end
+  #
+  #   it 'to be 172800' do
+  #     expect(2.to_time(:days, :seconds)).to eq(172800)
+  #   end
+  #
+  #   it 'to raise error' do
+  #     expect { 1.to_time }.to raise_error(ArgumentError)
+  #     expect { 1.to_time(:bad, :days) }.to raise_error(ArgumentError)
+  #     expect { 1.to_time(:days, :bad) }.to raise_error(ArgumentError)
+  #     expect { 1.to_time(:bad, :bad) }.to raise_error(ArgumentError)
+  #   end
+  # end
 
   describe '#ton_in_ounces' do
     it 'to be 96000' do

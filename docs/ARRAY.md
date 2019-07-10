@@ -260,9 +260,9 @@ Converts the array to a comma-separated sentence where the last element is joine
 
 Option | Type | Default
 --- | --- | ---
-words_connector | string | ", "
-two_words_connector | string | " and "
-last_word_connector | string | ", and "
+words_connector | string | ', '
+two_words_connector | string | ' and '
+last_word_connector | string | ', and '
 
 ```ruby
 [].to_sentence                                                                                    #=> ''

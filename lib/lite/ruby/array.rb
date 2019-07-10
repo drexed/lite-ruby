@@ -2,6 +2,9 @@
 
 class Array
 
+  # TODO: add assert valid values
+  # TODO: add assert min valid values
+
   unless defined?(after)
     def after(value)
       return unless include?(value)
