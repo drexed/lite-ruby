@@ -116,6 +116,17 @@ RSpec.describe Enumerable do
     end
   end
 
+  describe '#excase?' do
+    it 'to be true' do
+      expect([1, 2, 'a'].excase?(3)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect([1, 2, 'a'].excase?(2)).to eq(false)
+      expect([1, 2, 'a'].excase?(String)).to eq(false)
+    end
+  end
+
   describe '#exclude?' do
     it 'to be true' do
       expect([1, 2, 3].exclude?(4)).to eq(true)

@@ -99,6 +99,14 @@ module Enumerable
     end
   end
 
+  # rubocop:disable Style/CaseEquality
+  unless defined?(excase?)
+    def excase?(object)
+      none? { |val| object === val }
+    end
+  end
+  # rubocop:enable Style/CaseEquality
+
   unless defined?(exclude?)
     def exclude?(object)
       !include?(object)

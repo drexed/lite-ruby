@@ -168,7 +168,7 @@ class Array
   end
   # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Style/GuardClause
   unless defined?(in_groups_of)
     def in_groups_of(number, fill_with = nil)
       if number.to_i <= 0
@@ -186,7 +186,7 @@ class Array
       sliced_collection { |val| yield(val) }
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Style/GuardClause
 
   unless defined?(indexes)
     def indexes(value)
