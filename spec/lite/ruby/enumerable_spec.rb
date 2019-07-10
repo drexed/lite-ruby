@@ -24,7 +24,9 @@ RSpec.describe Enumerable do
 
   describe '#cluster' do
     it 'to be [[2, 2, 2], [3, 3], [4], [2, 2], [1]]' do
-      expect([2, 2, 2, 3, 3, 4, 2, 2, 1].cluster { |x| x }).to eq([[2, 2, 2], [3, 3], [4], [2, 2], [1]])
+      array = [2, 2, 2, 3, 3, 4, 2, 2, 1]
+
+      expect(array.cluster { |x| x }).to eq([[2, 2, 2], [3, 3], [4], [2, 2], [1]])
     end
   end
 
@@ -249,7 +251,9 @@ RSpec.describe Enumerable do
     end
 
     it 'to be { 1 => 2, :symbol => 2, "string" => 1, 3 => 1 }' do
-      expect([1, :symbol, 'string', 3, :symbol, 1].occurrences).to eq({ 1 => 2, :symbol => 2, 'string' => 1, 3 => 1 })
+      array = [1, :symbol, 'string', 3, :symbol, 1]
+
+      expect(array.occurrences).to eq(1 => 2, :symbol => 2, 'string' => 1, 3 => 1)
     end
   end
 
@@ -291,15 +295,21 @@ RSpec.describe Enumerable do
 
   describe '#reject_outliers(!)' do
     it 'to be [1, 2, 3, 4, 5, 6, 7, 8, 9]' do
-      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 30].reject_outliers).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9])
-      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 30].reject_outliers!).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9])
+      array_one = [1, 2, 3, 4, 5, 6, 7, 8, 9, 30]
+      array_two = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+      expect(array_one.reject_outliers).to eq(array_two)
+      expect(array_one.reject_outliers!).to eq(array_two)
     end
   end
 
   describe '#select_outliers(!)' do
     it 'to be [30]' do
-      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 30].select_outliers).to eq([30])
-      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 30].select_outliers!).to eq([30])
+      array_one = [1, 2, 3, 4, 5, 6, 7, 8, 9, 30]
+      array_two = [30]
+
+      expect(array_one.select_outliers).to eq(array_two)
+      expect(array_one.select_outliers!).to eq(array_two)
     end
   end
 
@@ -325,7 +335,7 @@ RSpec.describe Enumerable do
       expect([].standard_deviation(nil)).to eq(nil)
     end
 
-    it 'to be 0' do
+    it 'to be 0 when only one value given' do
       expect([1].standard_deviation).to eq(0)
     end
 
@@ -344,7 +354,7 @@ RSpec.describe Enumerable do
     end
 
     it 'to be "foobar"' do
-      expect(%w(foo bar).sum).to eq('foobar')
+      expect(%w[foo bar].sum).to eq('foobar')
     end
   end
 
