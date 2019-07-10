@@ -147,10 +147,10 @@ RSpec.describe Hash do
   describe '#except(!)' do
     it 'to be {}' do
       h1 = {}
-      key = :foo
+      k1 = :foo
 
-      expect(h1.except(key)).to eq(h1)
-      expect(h1.except!(key)).to eq(h1)
+      expect(h1.except(k1)).to eq(h1)
+      expect(h1.except!(k1)).to eq(h1)
     end
 
     it 'to be { :foo => 1 }' do
@@ -165,10 +165,10 @@ RSpec.describe Hash do
     it 'to be { :baz => 2, :bar => 3 }' do
       h1 = { foo: 1, baz: 2, bar: 3 }
       h2 = { baz: 2, bar: 3 }
-      key = :foo
+      k1 = :foo
 
-      expect(h1.except(key)).to eq(h2)
-      expect(h1.except!(key)).to eq(h2)
+      expect(h1.except(k1)).to eq(h2)
+      expect(h1.except!(k1)).to eq(h2)
     end
   end
 
@@ -205,19 +205,19 @@ RSpec.describe Hash do
   describe '#only(!)' do
     it 'to be {}' do
       h1 = {}
-      key = :foo
+      k1 = :foo
 
-      expect(h1.only(key)).to eq(h1)
-      expect(h1.only!(key)).to eq(h1)
+      expect(h1.only(k1)).to eq(h1)
+      expect(h1.only!(k1)).to eq(h1)
     end
 
     it 'to be { :foo => 1 }' do
       h1 = { foo: 1, baz: 2, bar: 3 }
       h2 = { foo: 1 }
-      key = :foo
+      k1 = :foo
 
-      expect(h1.only(key)).to eq(h2)
-      expect(h1.only!(key)).to eq(h2)
+      expect(h1.only(k1)).to eq(h2)
+      expect(h1.only!(k1)).to eq(h2)
     end
 
     it 'to be { :baz => 2, :bar => 3 }' do
@@ -234,10 +234,10 @@ RSpec.describe Hash do
     it 'to be { foo: nil }' do
       h1 = {}
       h2 = { foo: nil }
-      key = :foo
+      k1 = :foo
 
-      expect(h1.only_fill(key)).to eq(h2)
-      expect(h1.only_fill!(key)).to eq(h2)
+      expect(h1.only_fill(k1)).to eq(h2)
+      expect(h1.only_fill!(k1)).to eq(h2)
     end
 
     it 'to be { foo: 0 }' do
@@ -389,14 +389,14 @@ RSpec.describe Hash do
 
   describe '#slice(!)' do
     h1 = { a: 1, b: 2, c: 3, d: 4 }
-    key = %i[a b]
+    a1 = %i[a b]
 
     it 'to be { a: 1, b: 2 }' do
-      expect(h1.slice(*key)).to eq(a: 1, b: 2)
+      expect(h1.slice(*a1)).to eq(a: 1, b: 2)
     end
 
     it 'to be { a: 3, b: 4 }' do
-      expect(h1.slice!(*key)).to eq(c: 3, d: 4)
+      expect(h1.slice!(*a1)).to eq(c: 3, d: 4)
     end
   end
 
