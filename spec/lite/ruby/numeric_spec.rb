@@ -42,7 +42,7 @@ RSpec.describe Numeric do
   describe '#century_in_second' do
     it 'to be 259200' do
       n1 = 3
-      n2 = 9467280000.0
+      n2 = 9_467_280_000.0
 
       expect(n1.century_in_seconds).to eq(n2)
       expect(n1.centuries_in_seconds).to eq(n2)
@@ -75,7 +75,7 @@ RSpec.describe Numeric do
   describe '#day_in_second' do
     it 'to be 259200' do
       n1 = 3
-      n2 = 259200
+      n2 = 259_200
 
       expect(n1.day_in_seconds).to eq(n2)
       expect(n1.days_in_seconds).to eq(n2)
@@ -85,7 +85,7 @@ RSpec.describe Numeric do
   describe '#decade_in_second' do
     it 'to be 259200' do
       n1 = 3
-      n2 = 946728000.0
+      n2 = 946_728_000.0
 
       expect(n1.decade_in_seconds).to eq(n2)
       expect(n1.decades_in_seconds).to eq(n2)
@@ -178,7 +178,7 @@ RSpec.describe Numeric do
   describe '#exabyte_in_bytes' do
     it 'to be 3458764513820540928' do
       n1 = 3
-      n2 = 3458764513820540928
+      n2 = 3_458_764_513_820_540_928
 
       expect(n1.exabyte_in_bytes).to eq(n2)
       expect(n1.exabytes_in_bytes).to eq(n2)
@@ -221,7 +221,7 @@ RSpec.describe Numeric do
   describe '#gigabyte_in_bytes' do
     it 'to be 3221225472' do
       n1 = 3
-      n2 = 3221225472
+      n2 = 3_221_225_472
 
       expect(n1.gigabyte_in_bytes).to eq(n2)
       expect(n1.gigabytes_in_bytes).to eq(n2)
@@ -286,7 +286,7 @@ RSpec.describe Numeric do
   describe '#hour_in_second' do
     it 'to be 10800' do
       n1 = 3
-      n2 = 10800
+      n2 = 10_800
 
       expect(n1.hour_in_seconds).to eq(n2)
       expect(n1.hours_in_seconds).to eq(n2)
@@ -371,7 +371,7 @@ RSpec.describe Numeric do
   describe '#metric_ton_in_grams' do
     it 'to be 3000000' do
       n1 = 3
-      n2 = 3000000
+      n2 = 3_000_000
 
       expect(n1.metric_ton_in_grams).to eq(n2)
       expect(n1.metric_tons_in_grams).to eq(n2)
@@ -381,7 +381,7 @@ RSpec.describe Numeric do
   describe '#megabyte_in_bytes' do
     it 'to be 3145728' do
       n1 = 3
-      n2 = 3145728
+      n2 = 3_145_728
 
       expect(n1.megabyte_in_bytes).to eq(n2)
       expect(n1.megabytes_in_bytes).to eq(n2)
@@ -400,7 +400,7 @@ RSpec.describe Numeric do
   describe '#mile_in_inches' do
     it 'to be 190080' do
       n1 = 3
-      n2 = 190080
+      n2 = 190_080
 
       expect(n1.mile_in_inches).to eq(n2)
       expect(n1.miles_in_inches).to eq(n2)
@@ -410,7 +410,7 @@ RSpec.describe Numeric do
   describe '#millennium_in_second' do
     it 'to be 94672800000.0' do
       n1 = 3
-      n2 = 94672800000.0
+      n2 = 94_672_800_000.0
 
       expect(n1.millennium_in_seconds).to eq(n2)
       expect(n1.millenniums_in_seconds).to eq(n2)
@@ -466,7 +466,7 @@ RSpec.describe Numeric do
   describe '#nautical_mile_in_inches' do
     it 'to be 218740.26239999998' do
       n1 = 3
-      n2 = 218740.26239999998
+      n2 = 218_740.26239999998
 
       expect(n1.nautical_mile_in_inches).to eq(n2)
       expect(n1.nautical_miles_in_inches).to eq(n2)
@@ -602,7 +602,7 @@ RSpec.describe Numeric do
   describe '#petabyte_in_bytes' do
     it 'to be 3377699720527872' do
       n1 = 3
-      n2 = 3377699720527872
+      n2 = 3_377_699_720_527_872
 
       expect(n1.petabyte_in_bytes).to eq(n2)
       expect(n1.petabytes_in_bytes).to eq(n2)
@@ -669,7 +669,7 @@ RSpec.describe Numeric do
   describe '#terabyte_in_bytes' do
     it 'to be 3298534883328' do
       n1 = 3
-      n2 = 3298534883328
+      n2 = 3_298_534_883_328
 
       expect(n1.terabyte_in_bytes).to eq(n2)
       expect(n1.terabytes_in_bytes).to eq(n2)
@@ -694,7 +694,7 @@ RSpec.describe Numeric do
     end
 
     it 'to be 1048576' do
-      expect(n1.to_byte(:gigabyte, :kilobyte)).to eq(1048576)
+      expect(n1.to_byte(:gigabyte, :kilobyte)).to eq(1_048_576)
     end
 
     it 'to be 0.078125' do
@@ -917,7 +917,7 @@ RSpec.describe Numeric do
   #   end
   #
   #   it 'to be 172800' do
-  #     expect(n2.to_time(:days, :seconds)).to eq(172800)
+  #     expect(n2.to_time(:days, :seconds)).to eq(172_800)
   #   end
   #
   #   it 'to raise error' do
@@ -931,7 +931,7 @@ RSpec.describe Numeric do
   describe '#ton_in_ounces' do
     it 'to be 96000' do
       n1 = 3
-      n2 = 96000
+      n2 = 96_000
 
       expect(n1.ton_in_ounces).to eq(n2)
       expect(n1.tons_in_ounces).to eq(n2)
@@ -948,7 +948,7 @@ RSpec.describe Numeric do
   describe '#week_in_seconds' do
     it 'to be 1814400' do
       n1 = 3
-      n2 = 1814400
+      n2 = 1_814_400
 
       expect(n1.week_in_seconds).to eq(n2)
       expect(n1.weeks_in_seconds).to eq(n2)
@@ -968,7 +968,7 @@ RSpec.describe Numeric do
   describe '#year_in_seconds' do
     it 'to be 94672800.0' do
       n1 = 3
-      n2 = 94672800.0
+      n2 = 94_672_800.0
 
       expect(n1.year_in_seconds).to eq(n2)
       expect(n1.years_in_seconds).to eq(n2)

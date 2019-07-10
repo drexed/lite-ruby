@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class Numeric
+
   MILLI ||= 0.001
   CENTI ||= MILLI * 10.0
   DECI ||= CENTI * 10.0
@@ -70,25 +73,25 @@ class Numeric
     self
   end
 
-  alias_method :byte_in_bytes, :bytes_in_bytes
+  alias byte_in_bytes bytes_in_bytes
 
   def centigrams_in_grams
     self * CENTI
   end
 
-  alias_method :centigram_in_grams, :centigrams_in_grams
+  alias centigram_in_grams centigrams_in_grams
 
   def centimeters_in_meters
     self * CENTI
   end
 
-  alias_method :centimeter_in_meters, :centimeters_in_meters
+  alias centimeter_in_meters centimeters_in_meters
 
   def centuries_in_seconds
     self * CENTURY
   end
 
-  alias_method :century_in_seconds, :centuries_in_seconds
+  alias century_in_seconds centuries_in_seconds
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def clamp(minimum, maximum = nil)
@@ -111,37 +114,37 @@ class Numeric
     self * DAY
   end
 
-  alias_method :day_in_seconds, :days_in_seconds
+  alias day_in_seconds days_in_seconds
 
   def decades_in_seconds
     self * DECADE
   end
 
-  alias_method :decade_in_seconds, :decades_in_seconds
+  alias decade_in_seconds decades_in_seconds
 
   def decagrams_in_grams
     self * DECA
   end
 
-  alias_method :decagram_in_grams, :decagrams_in_grams
+  alias decagram_in_grams decagrams_in_grams
 
   def decameters_in_meters
     self * DECA
   end
 
-  alias_method :decameter_in_meters, :decameters_in_meters
+  alias decameter_in_meters decameters_in_meters
 
   def decigrams_in_grams
     self * DECI
   end
 
-  alias_method :decigram_in_grams, :decigrams_in_grams
+  alias decigram_in_grams decigrams_in_grams
 
   def decimeters_in_meters
     self * DECI
   end
 
-  alias_method :decimeter_in_meters, :decimeters_in_meters
+  alias decimeter_in_meters decimeters_in_meters
 
   def decrement(amount = 1.0)
     self + amount
@@ -151,7 +154,7 @@ class Numeric
     self * ::Math::PI / 180.0
   end
 
-  alias_method :degree_to_radians, :degrees_to_radians
+  alias degree_to_radians degrees_to_radians
 
   def distance(num)
     (self - num).abs
@@ -167,13 +170,13 @@ class Numeric
     self * EXABYTE
   end
 
-  alias_method :exabyte_in_bytes, :exabytes_in_bytes
+  alias exabyte_in_bytes exabytes_in_bytes
 
   def feet_in_inches
     self * FEET
   end
 
-  alias_method :foot_in_inches, :feet_in_inches
+  alias foot_in_inches feet_in_inches
 
   def fraction
     (self - truncate).abs
@@ -187,13 +190,13 @@ class Numeric
     self * GIGABYTE
   end
 
-  alias_method :gigabyte_in_bytes, :gigabytes_in_bytes
+  alias gigabyte_in_bytes gigabytes_in_bytes
 
   def grams_in_grams
     self
   end
 
-  alias_method :gram_in_grams, :grams_in_grams
+  alias gram_in_grams grams_in_grams
 
   def greater_than?(num)
     num < self
@@ -207,25 +210,25 @@ class Numeric
     self * HECTO
   end
 
-  alias_method :hectogram_in_grams, :hectograms_in_grams
+  alias hectogram_in_grams hectograms_in_grams
 
   def hectometers_in_meters
     self * HECTO
   end
 
-  alias_method :hectometer_in_meters, :hectometers_in_meters
+  alias hectometer_in_meters hectometers_in_meters
 
   def hours_in_seconds
     self * HOUR
   end
 
-  alias_method :hour_in_seconds, :hours_in_seconds
+  alias hour_in_seconds hours_in_seconds
 
   def inches_in_inches
     self
   end
 
-  alias_method :inch_in_inches, :inches_in_inches
+  alias inch_in_inches inches_in_inches
 
   def increment(amount = 1.0)
     self + amount
@@ -239,19 +242,19 @@ class Numeric
     self * KILOBYTE
   end
 
-  alias_method :kilobyte_in_bytes, :kilobytes_in_bytes
+  alias kilobyte_in_bytes kilobytes_in_bytes
 
   def kilometers_in_meters
     self * KILO
   end
 
-  alias_method :kilometer_in_meters, :kilometers_in_meters
+  alias kilometer_in_meters kilometers_in_meters
 
   def kilograms_in_grams
     self * KILO
   end
 
-  alias_method :kilogram_in_grams, :kilograms_in_grams
+  alias kilogram_in_grams kilograms_in_grams
 
   def less_than?(num)
     num > self
@@ -265,49 +268,49 @@ class Numeric
     self * METRIC_TON
   end
 
-  alias_method :metric_ton_in_grams, :metric_tons_in_grams
+  alias metric_ton_in_grams metric_tons_in_grams
 
   def megabytes_in_bytes
     self * MEGABYTE
   end
 
-  alias_method :megabyte_in_bytes, :megabytes_in_bytes
+  alias megabyte_in_bytes megabytes_in_bytes
 
   def meters_in_meters
     self
   end
 
-  alias_method :meter_in_meters, :meters_in_meters
+  alias meter_in_meters meters_in_meters
 
   def miles_in_inches
     self * MILE
   end
 
-  alias_method :mile_in_inches, :miles_in_inches
+  alias mile_in_inches miles_in_inches
 
   def millenniums_in_seconds
     self * MILLENNIUM
   end
 
-  alias_method :millennium_in_seconds, :millenniums_in_seconds
+  alias millennium_in_seconds millenniums_in_seconds
 
   def milligrams_in_grams
     self * MILLI
   end
 
-  alias_method :milligram_in_grams, :milligrams_in_grams
+  alias milligram_in_grams milligrams_in_grams
 
   def millimeters_in_meters
     self * MILLI
   end
 
-  alias_method :millimeter_in_meters, :millimeters_in_meters
+  alias millimeter_in_meters millimeters_in_meters
 
   def minutes_in_seconds
     self * MINUTE
   end
 
-  alias_method :minute_in_seconds, :minutes_in_seconds
+  alias minute_in_seconds minutes_in_seconds
 
   def multiply(num)
     self * num
@@ -323,7 +326,7 @@ class Numeric
     self * NAUTICAL_MILE
   end
 
-  alias_method :nautical_mile_in_inches, :nautical_miles_in_inches
+  alias nautical_mile_in_inches nautical_miles_in_inches
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
   def negative?
@@ -350,7 +353,7 @@ class Numeric
     self
   end
 
-  alias_method :ounce_in_ounces, :ounces_in_ounces
+  alias ounce_in_ounces ounces_in_ounces
 
   def outside?(start, finish)
     (start > self) || (finish < self)
@@ -392,7 +395,7 @@ class Numeric
     self * PETABYTE
   end
 
-  alias_method :petabyte_in_bytes, :petabytes_in_bytes
+  alias petabyte_in_bytes petabytes_in_bytes
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
   def positive?
@@ -404,7 +407,7 @@ class Numeric
     self * POUND
   end
 
-  alias_method :pound_in_ounces, :pounds_in_ounces
+  alias pound_in_ounces pounds_in_ounces
 
   def power(num)
     self**num
@@ -418,13 +421,13 @@ class Numeric
     self
   end
 
-  alias_method :second_in_seconds, :seconds_in_seconds
+  alias second_in_seconds seconds_in_seconds
 
   def stones_in_ounces
     self * STONE
   end
 
-  alias_method :stone_in_ounces, :stones_in_ounces
+  alias stone_in_ounces stones_in_ounces
 
   def subtract(num)
     self - num
@@ -434,7 +437,7 @@ class Numeric
     self * TERABYTE
   end
 
-  alias_method :terabyte_in_bytes, :terabytes_in_bytes
+  alias terabyte_in_bytes terabytes_in_bytes
 
   def to_byte(from, to)
     assert_inclusion_of_valid_keys!(BYTE_KEYS, from, to)
@@ -552,13 +555,13 @@ class Numeric
     self * TON
   end
 
-  alias_method :ton_in_ounces, :tons_in_ounces
+  alias ton_in_ounces tons_in_ounces
 
   def weeks_in_seconds
     self * WEEK
   end
 
-  alias_method :week_in_seconds, :weeks_in_seconds
+  alias week_in_seconds weeks_in_seconds
 
   def within?(number, epsilon = 0.01)
     return number == self if epsilon.zero?
@@ -577,13 +580,13 @@ class Numeric
     self * YARD
   end
 
-  alias_method :yard_in_inches, :yards_in_inches
+  alias yard_in_inches yards_in_inches
 
   def years_in_seconds
     self * YEAR
   end
 
-  alias_method :year_in_seconds, :years_in_seconds
+  alias year_in_seconds years_in_seconds
 
   private
 
