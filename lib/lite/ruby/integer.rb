@@ -7,7 +7,7 @@ class Integer
     I: 1
   }.freeze
 
-  unless defined?()
+  unless defined?(factorial)
     def factorial
       return 1 if zero?
 
@@ -15,7 +15,7 @@ class Integer
     end
   end
 
-  unless defined?()
+  unless defined?(factors)
     def factors
       limit = Math.sqrt(self).floor
 
@@ -29,13 +29,13 @@ class Integer
     end
   end
 
-  unless defined?()
+  unless defined?(of)
     def of(&block)
       Array.new(self, &block)
     end
   end
 
-  unless defined?()
+  unless defined?(roman_numeral)
     def roman_numeral
       return '' if zero?
       return "-#{(-self).roman_numeral}" if negative?
