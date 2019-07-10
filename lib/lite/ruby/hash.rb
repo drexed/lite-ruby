@@ -9,7 +9,7 @@ class Hash
       raise ArgumentError,
             "Unknown key: #{key.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
     end
-  end
+  end unless defined?(assert_valid_keys)
 
   def assert_valid_keys!(*valid_keys)
     if empty?
@@ -18,7 +18,7 @@ class Hash
     else
       assert_valid_keys(*valid_keys)
     end
-  end
+  end unless defined?(assert_valid_keys!)
 
   # rubocop:disable Style/GuardClause
   def bury(*args)
@@ -34,34 +34,34 @@ class Hash
     end
 
     self
-  end
+  end unless defined?(bury)
   # rubocop:enable Style/GuardClause
 
   def compact
     select { |_, val| !val.nil? }
-  end
+  end unless defined?(compact)
 
   def compact!
     reject! { |_, val| val.nil? }
-  end
+  end unless defined?(compact!)
 
   # rubocop:disable Lint/UnusedMethodArgument
   def collect_keys(&block)
     return enum_for(:collect_keys) unless block_given?
 
     collect { |key, _| yield(key) }
-  end
+  end unless defined?(collect_keys)
 
   def collect_values(&block)
     return enum_for(:collect_values) unless block_given?
 
     collect { |_, val| yield(val) }
-  end
+  end unless defined?(collect_values)
   # rubocop:enable Lint/UnusedMethodArgument
 
   def deep_merge(other_hash, &block)
     dup.deep_merge!(other_hash, yield(block))
-  end
+  end unless defined?(deep_merge)
 
   # rubocop:disable Metrics/MethodLength
   def deep_merge!(other_hash, &block)
@@ -78,26 +78,26 @@ class Hash
     end
 
     self
-  end
+  end unless defined?(deep_merge!)
   # rubocop:enable Metrics/MethodLength
 
   def demote(key)
     return self unless key?(key)
 
     merge(key => delete(key))
-  end
+  end unless defined?(demote)
 
   def demote!(key)
     replace(demote(key))
-  end
+  end unless defined?(demote!)
 
   def denillify(value = 0)
     each { |key, val| self[key] = val.nil? ? value : val }
-  end
+  end unless defined?(denillify)
 
   def denillify!(value = 0)
     replace(denillify(value))
-  end
+  end unless defined?(denillify!)
 
   def dig(key, *rest)
     value = (self[key] rescue nil)
@@ -105,136 +105,136 @@ class Hash
     return if value.nil?
     return value if rest.empty?
     return value.dig(*rest) if value.respond_to?(:dig)
-  end
+  end unless defined?(dig)
 
   def except(*keys)
     dup.except!(*keys)
-  end
+  end unless defined?(except)
 
   def except!(*keys)
     keys.flatten.each { |key| delete(key) }
     self
-  end
+  end unless defined?(except!)
 
   def extract!(*keys)
     keys.each_with_object({}) { |key, hash| hash[key] = delete(key) if key?(key) }
-  end
+  end unless defined?(extract!)
 
   def hmap(&block)
     dup.hmap!(&block)
-  end
+  end unless defined?(hmap)
 
   # rubocop:disable Lint/UnusedMethodArgument
   def hmap!(&block)
     inject({}) { |hash, (key, val)| hash.merge(yield(key, val)) }
-  end
+  end unless defined?(hmap!)
   # rubocop:enable Lint/UnusedMethodArgument
 
   def nillify
     dup.nillify!
-  end
+  end unless defined?(nillify)
 
   def nillify!
     each do |key, val|
       self[key] = nil if !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?)
     end
-  end
+  end unless defined?(nillify!)
 
   def only(*keys)
     dup.only!(*keys)
-  end
+  end unless defined?(only)
 
   def only!(*keys)
     hash = {}
     keys.flatten.each { |key| hash[key] = self[key] if key?(key) }
     replace(hash)
-  end
+  end unless defined?(only!)
 
   def only_fill(*keys, placeholder: nil)
     dup.only_fill!(*keys, placeholder: placeholder)
-  end
+  end unless defined?(only_fill)
 
   def only_fill!(*keys, placeholder: nil)
     hash = {}
     keys.flatten.each { |key| hash[key] = key?(key) ? self[key] : placeholder }
     replace(hash)
-  end
+  end unless defined?(only_fill!)
 
   def pair?(key, value)
     self[key] == value
-  end
+  end unless defined?(pair?)
 
   def promote(key)
     return self unless key?(key)
 
     { key => delete(key) }.merge(self)
-  end
+  end unless defined?(promote)
 
   def promote!(key)
     replace(promote(key))
-  end
+  end unless defined?(promote!)
 
   def rename_keys(*keys)
     dup.rename_keys!(*keys)
-  end
+  end unless defined?(rename_keys)
 
   def rename_keys!(*keys)
     keys = ::Hash[*keys.flatten]
     keys.each { |key, val| self[val] = delete(key) if self[key] }
     self
-  end
+  end unless defined?(rename_keys!)
 
   def reverse_merge(other_hash)
     other_hash.merge(self)
-  end
+  end unless defined?(reverse_merge)
 
   def reverse_merge!(other_hash)
     replace(reverse_merge(other_hash))
-  end
+  end unless defined?(reverse_merge!)
 
   def sample
     key = sample_key
     [key, fetch(key)]
-  end
+  end unless defined?(sample)
 
   def sample!
     key, value = sample
     delete(key)
     [key, value]
-  end
+  end unless defined?(sample!)
 
   def sample_key
     hash_keys = keys
     hash_keys.at(::Random.rand(hash_keys.length - 1))
-  end
+  end unless defined?(sample_key)
 
   def sample_key!
     key, = sample
     delete(key)
     key
-  end
+  end unless defined?(sample_key!)
 
   def sample_value
     fetch(sample_key)
-  end
+  end unless defined?(sample_value)
 
   def sample_value!
     key, value = sample
     delete(key)
     value
-  end
+  end unless defined?(sample_value!)
 
   def shuffle
     ::Hash[to_a.sample(length)]
-  end
+  end unless defined?(shuffle)
 
   def shuffle!
     replace(shuffle)
-  end
+  end unless defined?(shuffle!)
 
   def slice(*keys)
     keys.flatten.each_with_object({}) { |key, hsh| hsh[key] = self[key] if key?(key) }
-  end
+  end unless defined?(slice)
 
   def slice!(*keys)
     omit = slice(*self.keys - keys)
@@ -245,49 +245,49 @@ class Hash
 
     replace(hash)
     omit
-  end
+  end unless defined?(slice!)
 
   def stringify_keys
     dup.stringify_keys!
-  end
+  end unless defined?(stringify_keys)
 
   def stringify_keys!
     each_with_object({}) { |(key, val), options| options[key.to_s] = val }
-  end
+  end unless defined?(stringify_keys!)
 
   def strip
     select { |_, val| !val.blank? }
-  end
+  end unless defined?(strip)
 
   def strip!
     reject! { |_, val| val.blank? }
-  end
+  end unless defined?(strip!)
 
   def symbolize_keys
     dup.symbolize_keys!
-  end
+  end unless defined?(symbolize_keys)
 
   def symbolize_keys!
     each_with_object({}) { |(key, val), options| options[(key.to_sym rescue key) || key] = val }
-  end
+  end unless defined?(symbolize_keys!)
 
   def symbolize_and_underscore_keys
     dup.symbolize_and_underscore_keys!
-  end
+  end unless defined?(symbolize_and_underscore_keys)
 
   def symbolize_and_underscore_keys!
     each_with_object({}) do |(key, val), options|
       options[(key.to_s.tr(' ', '_').underscore.to_sym rescue key) || key] = val
     end
-  end
+  end unless defined?(symbolize_and_underscore_keys!)
 
   def to_o
     JSON.parse(to_json, object_class: OpenStruct)
-  end
+  end unless defined?(to_o)
 
   def transform_keys(&block)
     dup.transform_keys!(&block)
-  end
+  end unless defined?(transform_keys)
 
   # rubocop:disable Lint/UnusedMethodArgument
   def transform_keys!(&block)
@@ -295,23 +295,23 @@ class Hash
 
     each_key { |key| self[yield(key)] = delete(key) }
     self
-  end
+  end unless defined?(transform_keys!)
   # rubocop:enable Lint/UnusedMethodArgument
 
   def transform_values(&block)
     dup.transform_values!(&block)
-  end
+  end unless defined?(transform_values)
 
   # rubocop:disable Lint/UnusedMethodArgument
   def transform_values!(&block)
     return enum_for(:transform_values!) unless block_given?
 
     each { |key, val| self[key] = yield(val) }
-  end
+  end unless defined?(transform_values!)
   # rubocop:enable Lint/UnusedMethodArgument
 
   def vacant?(key)
     self[key].blank?
-  end
+  end unless defined?(vacant?)
 
 end
