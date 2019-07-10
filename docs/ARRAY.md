@@ -32,7 +32,7 @@ Returns the value before a given value.
 
 `delete_first(!)`
 ------
-Removes the first element from an array. Like `shift`,but returns the array instead of the removed element.
+Removes the first element from an array. Like `shift`, but returns the array instead of the removed element.
 
 ```ruby
 ['1','2','3'].delete_first #=> ['2','3']
@@ -40,7 +40,7 @@ Removes the first element from an array. Like `shift`,but returns the array inst
 
 `delete_last(!)`
 ------
-Removes the last element from an array. Like `pop`,but returns the array instead of the removed element.
+Removes the last element from an array. Like `pop`, but returns the array instead of the removed element.
 
 ```ruby
 ['1','2','3'].delete_last #=> ['1','2']
