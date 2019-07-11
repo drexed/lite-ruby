@@ -116,16 +116,16 @@ class Numeric
   unless defined?(clamp)
     def clamp(minimum, maximum = nil)
       if minimum.is_a?(Range)
-        min_min = minimum.min
-        min_max = minimum.max
+        maximum = minimum.max
+        minimum = minimum.min
+      end
 
-        return min_min if min_min > self
-
-        min_max < self ? min_max : self
+      if minimum > self
+        minimum
+      elsif maximum < self
+        maximum
       else
-        return minimum if minimum > self
-
-        maximum < self ? maximum : self
+        self
       end
     end
   end
