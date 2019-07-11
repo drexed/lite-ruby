@@ -260,10 +260,12 @@ RSpec.describe Object do
 
   describe '#salvage' do
     it 'to be "---"' do
-      expect(false.salvage).to eq('---')
-      expect(''.salvage).to eq('---')
-      expect(' '.salvage).to eq('---')
-      expect(nil.salvage).to eq('---')
+      s1 = '---'
+
+      expect(false.salvage).to eq(s1)
+      expect(''.salvage).to eq(s1)
+      expect(' '.salvage).to eq(s1)
+      expect(nil.salvage).to eq(s1)
     end
 
     it 'to be "bar"' do
@@ -271,11 +273,15 @@ RSpec.describe Object do
     end
 
     it 'to be "foo"' do
-      expect('foo'.salvage).to eq('foo')
+      s1 = 'foo'
+
+      expect(s1.salvage).to eq(s1)
     end
 
     it 'to be 12' do
-      expect(12.salvage).to eq(12)
+      n1 = 12
+
+      expect(n1.salvage).to eq(n1)
     end
   end
 
