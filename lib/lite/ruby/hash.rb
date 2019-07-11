@@ -243,7 +243,7 @@ class Hash
   def symbolize_keys
     each_with_object({}) do |(key, val), hash|
       new_key = begin
-                  key.to_sym
+                  key.to_s.to_sym
                 rescue StandardError
                   key
                 end
@@ -256,10 +256,17 @@ class Hash
     replace(symbolize_keys)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def symbolize_and_underscore_keys
     each_with_object({}) do |(key, val), hash|
       new_key = begin
-                  key.to_s.tr(' -', '_').underscore.to_sym
+                  key.to_s
+                     .gsub(/::/, '/')
+                     .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+                     .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+                     .tr(' -', '_')
+                     .downcase
+                     .to_sym
                 rescue StandardError
                   key
                 end
@@ -267,6 +274,7 @@ class Hash
       hash[new_key] = val
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def symbolize_and_underscore_keys!
     replace(symbolize_and_underscore_keys)
