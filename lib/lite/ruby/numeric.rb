@@ -75,33 +75,33 @@ class Numeric
     def bytes_in_bytes
       self
     end
-  end
 
-  alias byte_in_bytes bytes_in_bytes
+    alias byte_in_bytes bytes_in_bytes
+  end
 
   unless defined?(centigrams_in_grams)
     def centigrams_in_grams
       self * CENTI
     end
-  end
 
-  alias centigram_in_grams centigrams_in_grams
+    alias centigram_in_grams centigrams_in_grams
+  end
 
   unless defined?(centimeters_in_meters)
     def centimeters_in_meters
       self * CENTI
     end
-  end
 
-  alias centimeter_in_meters centimeters_in_meters
+    alias centimeter_in_meters centimeters_in_meters
+  end
 
   unless defined?(centuries_in_seconds)
     def centuries_in_seconds
       self * CENTURY
     end
-  end
 
-  alias century_in_seconds centuries_in_seconds
+    alias century_in_seconds centuries_in_seconds
+  end
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   unless defined?(clamp)
@@ -126,49 +126,49 @@ class Numeric
     def days_in_seconds
       self * DAY
     end
-  end
 
-  alias day_in_seconds days_in_seconds
+    alias day_in_seconds days_in_seconds
+  end
 
   unless defined?(decades_in_seconds)
     def decades_in_seconds
       self * DECADE
     end
-  end
 
-  alias decade_in_seconds decades_in_seconds
+    alias decade_in_seconds decades_in_seconds
+  end
 
   unless defined?(decagrams_in_grams)
     def decagrams_in_grams
       self * DECA
     end
-  end
 
-  alias decagram_in_grams decagrams_in_grams
+    alias decagram_in_grams decagrams_in_grams
+  end
 
   unless defined?(decameters_in_meters)
     def decameters_in_meters
       self * DECA
     end
-  end
 
-  alias decameter_in_meters decameters_in_meters
+    alias decameter_in_meters decameters_in_meters
+  end
 
   unless defined?(decigrams_in_grams)
     def decigrams_in_grams
       self * DECI
     end
-  end
 
-  alias decigram_in_grams decigrams_in_grams
+    alias decigram_in_grams decigrams_in_grams
+  end
 
   unless defined?(decimeters_in_meters)
     def decimeters_in_meters
       self * DECI
     end
-  end
 
-  alias decimeter_in_meters decimeters_in_meters
+    alias decimeter_in_meters decimeters_in_meters
+  end
 
   unless defined?(decrement)
     def decrement(amount = 1.0)
@@ -180,9 +180,9 @@ class Numeric
     def degrees_to_radians
       self * ::Math::PI / 180.0
     end
-  end
 
-  alias degree_to_radians degrees_to_radians
+    alias degree_to_radians degrees_to_radians
+  end
 
   unless defined?(distance)
     def distance(num)
@@ -202,17 +202,17 @@ class Numeric
     def exabytes_in_bytes
       self * EXABYTE
     end
-  end
 
-  alias exabyte_in_bytes exabytes_in_bytes
+    alias exabyte_in_bytes exabytes_in_bytes
+  end
 
   unless defined?(feet_in_inches)
     def feet_in_inches
       self * FEET
     end
-  end
 
-  alias foot_in_inches feet_in_inches
+    alias foot_in_inches feet_in_inches
+  end
 
   unless defined?(fraction)
     def fraction
@@ -230,17 +230,17 @@ class Numeric
     def gigabytes_in_bytes
       self * GIGABYTE
     end
-  end
 
-  alias gigabyte_in_bytes gigabytes_in_bytes
+    alias gigabyte_in_bytes gigabytes_in_bytes
+  end
 
   unless defined?(grams_in_grams)
     def grams_in_grams
       self
     end
-  end
 
-  alias gram_in_grams grams_in_grams
+    alias gram_in_grams grams_in_grams
+  end
 
   unless defined?(greater_than?)
     def greater_than?(num)
@@ -258,33 +258,33 @@ class Numeric
     def hectograms_in_grams
       self * HECTO
     end
-  end
 
-  alias hectogram_in_grams hectograms_in_grams
+    alias hectogram_in_grams hectograms_in_grams
+  end
 
   unless defined?(hectometers_in_meters)
     def hectometers_in_meters
       self * HECTO
     end
-  end
 
-  alias hectometer_in_meters hectometers_in_meters
+    alias hectometer_in_meters hectometers_in_meters
+  end
 
   unless defined?(hours_in_seconds)
     def hours_in_seconds
       self * HOUR
     end
-  end
 
-  alias hour_in_seconds hours_in_seconds
+    alias hour_in_seconds hours_in_seconds
+  end
 
   unless defined?(inches_in_inches)
     def inches_in_inches
       self
     end
-  end
 
-  alias inch_in_inches inches_in_inches
+    alias inch_in_inches inches_in_inches
+  end
 
   unless defined?(increment)
     def increment(amount = 1.0)
@@ -302,25 +302,25 @@ class Numeric
     def kilobytes_in_bytes
       self * KILOBYTE
     end
-  end
 
-  alias kilobyte_in_bytes kilobytes_in_bytes
+    alias kilobyte_in_bytes kilobytes_in_bytes
+  end
 
   unless defined?(kilometers_in_meters)
     def kilometers_in_meters
       self * KILO
     end
-  end
 
-  alias kilometer_in_meters kilometers_in_meters
+    alias kilometer_in_meters kilometers_in_meters
+  end
 
   unless defined?(kilograms_in_grams)
     def kilograms_in_grams
       self * KILO
     end
-  end
 
-  alias kilogram_in_grams kilograms_in_grams
+    alias kilogram_in_grams kilograms_in_grams
+  end
 
   unless defined?(less_than?)
     def less_than?(num)
@@ -338,65 +338,65 @@ class Numeric
     def metric_tons_in_grams
       self * METRIC_TON
     end
-  end
 
-  alias metric_ton_in_grams metric_tons_in_grams
+    alias metric_ton_in_grams metric_tons_in_grams
+  end
 
   unless defined?(megabytes_in_bytes)
     def megabytes_in_bytes
       self * MEGABYTE
     end
-  end
 
-  alias megabyte_in_bytes megabytes_in_bytes
+    alias megabyte_in_bytes megabytes_in_bytes
+  end
 
   unless defined?(meters_in_meters)
     def meters_in_meters
       self
     end
-  end
 
-  alias meter_in_meters meters_in_meters
+    alias meter_in_meters meters_in_meters
+  end
 
   unless defined?(miles_in_inches)
     def miles_in_inches
       self * MILE
     end
-  end
 
-  alias mile_in_inches miles_in_inches
+    alias mile_in_inches miles_in_inches
+  end
 
   unless defined?(millenniums_in_seconds)
     def millenniums_in_seconds
       self * MILLENNIUM
     end
-  end
 
-  alias millennium_in_seconds millenniums_in_seconds
+    alias millennium_in_seconds millenniums_in_seconds
+  end
 
   unless defined?(milligrams_in_grams)
     def milligrams_in_grams
       self * MILLI
     end
-  end
 
-  alias milligram_in_grams milligrams_in_grams
+    alias milligram_in_grams milligrams_in_grams
+  end
 
   unless defined?(millimeters_in_meters)
     def millimeters_in_meters
       self * MILLI
     end
-  end
 
-  alias millimeter_in_meters millimeters_in_meters
+    alias millimeter_in_meters millimeters_in_meters
+  end
 
   unless defined?(minutes_in_seconds)
     def minutes_in_seconds
       self * MINUTE
     end
-  end
 
-  alias minute_in_seconds minutes_in_seconds
+    alias minute_in_seconds minutes_in_seconds
+  end
 
   unless defined?(multiply)
     def multiply(num)
@@ -416,9 +416,9 @@ class Numeric
     def nautical_miles_in_inches
       self * NAUTICAL_MILE
     end
-  end
 
-  alias nautical_mile_in_inches nautical_miles_in_inches
+    alias nautical_mile_in_inches nautical_miles_in_inches
+  end
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
   unless defined?(negative?)
@@ -451,9 +451,9 @@ class Numeric
     def ounces_in_ounces
       self
     end
-  end
 
-  alias ounce_in_ounces ounces_in_ounces
+    alias ounce_in_ounces ounces_in_ounces
+  end
 
   unless defined?(outside?)
     def outside?(start, finish)
@@ -495,7 +495,7 @@ class Numeric
     def percentage_of(number)
       return 0 if zero? || number.zero?
 
-      (to_f / number.to_f) * 100.0
+      (self / number.to_f) * 100.0
     end
   end
 
@@ -503,9 +503,9 @@ class Numeric
     def petabytes_in_bytes
       self * PETABYTE
     end
-  end
 
-  alias petabyte_in_bytes petabytes_in_bytes
+    alias petabyte_in_bytes petabytes_in_bytes
+  end
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
   unless defined?(positive?)
@@ -519,9 +519,9 @@ class Numeric
     def pounds_in_ounces
       self * POUND
     end
-  end
 
-  alias pound_in_ounces pounds_in_ounces
+    alias pound_in_ounces pounds_in_ounces
+  end
 
   unless defined?(power)
     def power(num)
@@ -539,17 +539,17 @@ class Numeric
     def seconds_in_seconds
       self
     end
-  end
 
-  alias second_in_seconds seconds_in_seconds
+    alias second_in_seconds seconds_in_seconds
+  end
 
   unless defined?(stones_in_ounces)
     def stones_in_ounces
       self * STONE
     end
-  end
 
-  alias stone_in_ounces stones_in_ounces
+    alias stone_in_ounces stones_in_ounces
+  end
 
   unless defined?(subtract)
     def subtract(num)
@@ -561,9 +561,9 @@ class Numeric
     def terabytes_in_bytes
       self * TERABYTE
     end
-  end
 
-  alias terabyte_in_bytes terabytes_in_bytes
+    alias terabyte_in_bytes terabytes_in_bytes
+  end
 
   unless defined?(to_byte)
     def to_byte(from, to)
@@ -624,15 +624,15 @@ class Numeric
            :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton,
            :metric_tons
         if metrics_included_from
-          to_f * 1.send("#{from}_in_grams").to_f / 1.send("#{to}_in_grams").to_f
+          self * 1.send("#{from}_in_grams") / 1.send("#{to}_in_grams").to_f
         else
-          to_f * ((1.send("#{from}_in_ounces") * 28.3495).to_f / 1.send("#{to}_in_grams").to_f)
+          self * ((1.send("#{from}_in_ounces") * 28.3495) / 1.send("#{to}_in_grams").to_f)
         end
       when :ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons
         if metrics_included_from
-          to_f * ((1.send("#{from}_in_grams") * 0.035274).to_f / 1.send("#{to}_in_ounces").to_f)
+          self * ((1.send("#{from}_in_grams") * 0.035274) / 1.send("#{to}_in_ounces").to_f)
         else
-          to_f * 1.send("#{from}_in_ounces").to_f / 1.send("#{to}_in_ounces").to_f
+          self * 1.send("#{from}_in_ounces") / 1.send("#{to}_in_ounces").to_f
         end
       end
     end
@@ -695,17 +695,17 @@ class Numeric
     def tons_in_ounces
       self * TON
     end
-  end
 
-  alias ton_in_ounces tons_in_ounces
+    alias ton_in_ounces tons_in_ounces
+  end
 
   unless defined?(weeks_in_seconds)
     def weeks_in_seconds
       self * WEEK
     end
-  end
 
-  alias week_in_seconds weeks_in_seconds
+    alias week_in_seconds weeks_in_seconds
+  end
 
   unless defined?(within?)
     def within?(number, epsilon = 0.01)
@@ -734,9 +734,9 @@ class Numeric
     def years_in_seconds
       self * YEAR
     end
-  end
 
-  alias year_in_seconds years_in_seconds
+    alias year_in_seconds years_in_seconds
+  end
 
   private
 
