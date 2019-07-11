@@ -187,7 +187,7 @@ module Enumerable
       sum / size.to_f
     end
 
-    alias average mean
+    alias average mean unless defined?(average)
   end
 
   unless defined?(median)

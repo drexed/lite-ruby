@@ -73,29 +73,27 @@ class Numeric
     def base_unit
       self
     end
+
+    alias byte_in_bytes base_unit unless defined?(byte_in_bytes)
+    alias bytes_in_bytes base_unit unless defined?(bytes_in_bytes)
+    alias gram_in_grams base_unit unless defined?(gram_in_grams)
+    alias grams_in_grams base_unit unless defined?(grams_in_grams)
+    alias inch_in_inches base_unit unless defined?(inch_in_inches)
+    alias inches_in_inches base_unit unless defined?(inches_in_inches)
+    alias meter_in_meters base_unit unless defined?(meter_in_meters)
+    alias meters_in_meters base_unit unless defined?(meters_in_meters)
+    alias ounce_in_ounces base_unit unless defined?(ounce_in_ounces)
+    alias ounces_in_ounces base_unit unless defined?(ounces_in_ounces)
+    alias second_in_seconds base_unit unless defined?(second_in_seconds)
+    alias seconds_in_seconds base_unit unless defined?(seconds_in_seconds)
   end
-
-  # TODO: add defined checks to alias in all files
-
-  alias byte_in_bytes base_unit unless defined?(byte_in_bytes)
-  alias bytes_in_bytes base_unit unless defined?(bytes_in_bytes)
-  alias gram_in_grams base_unit unless defined?(gram_in_grams)
-  alias grams_in_grams base_unit unless defined?(grams_in_grams)
-  alias inch_in_inches base_unit unless defined?(inch_in_inches)
-  alias inches_in_inches base_unit unless defined?(inches_in_inches)
-  alias meter_in_meters base_unit unless defined?(meter_in_meters)
-  alias meters_in_meters base_unit unless defined?(meters_in_meters)
-  alias ounce_in_ounces base_unit unless defined?(ounce_in_ounces)
-  alias ounces_in_ounces base_unit unless defined?(ounces_in_ounces)
-  alias second_in_seconds base_unit unless defined?(second_in_seconds)
-  alias seconds_in_seconds base_unit unless defined?(seconds_in_seconds)
 
   unless defined?(centigrams_in_grams)
     def centigrams_in_grams
       self * BASE_SIZES[:centi]
     end
 
-    alias centigram_in_grams centigrams_in_grams
+    alias centigram_in_grams centigrams_in_grams unless defined?(centigram_in_grams)
   end
 
   unless defined?(centimeters_in_meters)
@@ -103,7 +101,7 @@ class Numeric
       self * BASE_SIZES[:centi]
     end
 
-    alias centimeter_in_meters centimeters_in_meters
+    alias centimeter_in_meters centimeters_in_meters unless defined?(centimeter_in_meters)
   end
 
   unless defined?(centuries_in_seconds)
@@ -111,7 +109,7 @@ class Numeric
       self * BASE_TIMES[:century]
     end
 
-    alias century_in_seconds centuries_in_seconds
+    alias century_in_seconds centuries_in_seconds unless defined?(century_in_seconds)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -138,7 +136,7 @@ class Numeric
       self * BASE_TIMES[:day]
     end
 
-    alias day_in_seconds days_in_seconds
+    alias day_in_seconds days_in_seconds unless defined?(day_in_seconds)
   end
 
   unless defined?(decades_in_seconds)
@@ -146,7 +144,7 @@ class Numeric
       self * BASE_TIMES[:decade]
     end
 
-    alias decade_in_seconds decades_in_seconds
+    alias decade_in_seconds decades_in_seconds unless defined?(decade_in_seconds)
   end
 
   unless defined?(decagrams_in_grams)
@@ -154,7 +152,7 @@ class Numeric
       self * BASE_SIZES[:deca]
     end
 
-    alias decagram_in_grams decagrams_in_grams
+    alias decagram_in_grams decagrams_in_grams unless defined?(decagram_in_grams)
   end
 
   unless defined?(decameters_in_meters)
@@ -162,7 +160,7 @@ class Numeric
       self * BASE_SIZES[:deca]
     end
 
-    alias decameter_in_meters decameters_in_meters
+    alias decameter_in_meters decameters_in_meters unless defined?(decameter_in_meters)
   end
 
   unless defined?(decigrams_in_grams)
@@ -170,7 +168,7 @@ class Numeric
       self * BASE_SIZES[:deci]
     end
 
-    alias decigram_in_grams decigrams_in_grams
+    alias decigram_in_grams decigrams_in_grams unless defined?(decigram_in_grams)
   end
 
   unless defined?(decimeters_in_meters)
@@ -178,7 +176,7 @@ class Numeric
       self * BASE_SIZES[:deci]
     end
 
-    alias decimeter_in_meters decimeters_in_meters
+    alias decimeter_in_meters decimeters_in_meters unless defined?(decimeter_in_meters)
   end
 
   unless defined?(decrement)
@@ -192,7 +190,7 @@ class Numeric
       self * Math::PI / 180.0
     end
 
-    alias degree_to_radians degrees_to_radians
+    alias degree_to_radians degrees_to_radians unless defined?(degree_to_radians)
   end
 
   unless defined?(distance)
@@ -214,7 +212,7 @@ class Numeric
       self * BASE_BYTES[:exa]
     end
 
-    alias exabyte_in_bytes exabytes_in_bytes
+    alias exabyte_in_bytes exabytes_in_bytes unless defined?(exabyte_in_bytes)
   end
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
@@ -223,7 +221,7 @@ class Numeric
       self == num
     end
 
-    alias eq? equal_to?
+    alias eq? equal_to? unless defined?(eq?)
   end
   # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
@@ -232,7 +230,7 @@ class Numeric
       self * BASE_LENGTHS[:feet]
     end
 
-    alias foot_in_inches feet_in_inches
+    alias foot_in_inches feet_in_inches unless defined?(foot_in_inches)
   end
 
   unless defined?(fraction)
@@ -252,7 +250,7 @@ class Numeric
       self * BASE_BYTES[:giga]
     end
 
-    alias gigabyte_in_bytes gigabytes_in_bytes
+    alias gigabyte_in_bytes gigabytes_in_bytes unless defined?(gigabyte_in_bytes)
   end
 
   unless defined?(greater_than?)
@@ -260,7 +258,7 @@ class Numeric
       num < self
     end
 
-    alias gt? greater_than?
+    alias gt? greater_than? unless defined?(gt?)
   end
 
   unless defined?(greater_than_or_equal_to?)
@@ -268,7 +266,7 @@ class Numeric
       num <= self
     end
 
-    alias gteq? greater_than_or_equal_to?
+    alias gteq? greater_than_or_equal_to? unless defined?(gteq?)
   end
 
   unless defined?(hectograms_in_grams)
@@ -276,7 +274,7 @@ class Numeric
       self * BASE_SIZES[:hecto]
     end
 
-    alias hectogram_in_grams hectograms_in_grams
+    alias hectogram_in_grams hectograms_in_grams unless defined?(hectogram_in_grams)
   end
 
   unless defined?(hectometers_in_meters)
@@ -284,7 +282,7 @@ class Numeric
       self * BASE_SIZES[:hecto]
     end
 
-    alias hectometer_in_meters hectometers_in_meters
+    alias hectometer_in_meters hectometers_in_meters unless defined?(hectometer_in_meters)
   end
 
   unless defined?(hours_in_seconds)
@@ -292,7 +290,7 @@ class Numeric
       self * BASE_TIMES[:hour]
     end
 
-    alias hour_in_seconds hours_in_seconds
+    alias hour_in_seconds hours_in_seconds unless defined?(hour_in_seconds)
   end
 
   unless defined?(increment)
@@ -312,7 +310,7 @@ class Numeric
       self * BASE_BYTES[:kilo]
     end
 
-    alias kilobyte_in_bytes kilobytes_in_bytes
+    alias kilobyte_in_bytes kilobytes_in_bytes unless defined?(kilobyte_in_bytes)
   end
 
   unless defined?(kilometers_in_meters)
@@ -320,7 +318,7 @@ class Numeric
       self * BASE_SIZES[:kilo]
     end
 
-    alias kilometer_in_meters kilometers_in_meters
+    alias kilometer_in_meters kilometers_in_meters unless defined?(kilometer_in_meters)
   end
 
   unless defined?(kilograms_in_grams)
@@ -328,7 +326,7 @@ class Numeric
       self * BASE_SIZES[:kilo]
     end
 
-    alias kilogram_in_grams kilograms_in_grams
+    alias kilogram_in_grams kilograms_in_grams unless defined?(kilogram_in_grams)
   end
 
   unless defined?(less_than?)
@@ -348,7 +346,7 @@ class Numeric
       self * BASE_WEIGHTS[:metric_ton]
     end
 
-    alias metric_ton_in_grams metric_tons_in_grams
+    alias metric_ton_in_grams metric_tons_in_grams unless defined?(metric_ton_in_grams)
   end
 
   unless defined?(megabytes_in_bytes)
@@ -356,7 +354,7 @@ class Numeric
       self * BASE_BYTES[:mega]
     end
 
-    alias megabyte_in_bytes megabytes_in_bytes
+    alias megabyte_in_bytes megabytes_in_bytes unless defined?(megabyte_in_bytes)
   end
 
   unless defined?(miles_in_inches)
@@ -364,7 +362,7 @@ class Numeric
       self * BASE_LENGTHS[:mile]
     end
 
-    alias mile_in_inches miles_in_inches
+    alias mile_in_inches miles_in_inches unless defined?(mile_in_inches)
   end
 
   unless defined?(millenniums_in_seconds)
@@ -372,7 +370,7 @@ class Numeric
       self * BASE_TIMES[:millennium]
     end
 
-    alias millennium_in_seconds millenniums_in_seconds
+    alias millennium_in_seconds millenniums_in_seconds unless defined?(millennium_in_seconds)
   end
 
   unless defined?(milligrams_in_grams)
@@ -380,7 +378,7 @@ class Numeric
       self * BASE_SIZES[:milli]
     end
 
-    alias milligram_in_grams milligrams_in_grams
+    alias milligram_in_grams milligrams_in_grams unless defined?(milligram_in_grams)
   end
 
   unless defined?(millimeters_in_meters)
@@ -388,7 +386,7 @@ class Numeric
       self * BASE_SIZES[:milli]
     end
 
-    alias millimeter_in_meters millimeters_in_meters
+    alias millimeter_in_meters millimeters_in_meters unless defined?(millimeter_in_meters)
   end
 
   unless defined?(minutes_in_seconds)
@@ -396,7 +394,7 @@ class Numeric
       self * BASE_TIMES[:minute]
     end
 
-    alias minute_in_seconds minutes_in_seconds
+    alias minute_in_seconds minutes_in_seconds unless defined?(minute_in_seconds)
   end
 
   unless defined?(multiply)
@@ -418,7 +416,7 @@ class Numeric
       self * BASE_LENGTHS[:nautical_mile]
     end
 
-    alias nautical_mile_in_inches nautical_miles_in_inches
+    alias nautical_mile_in_inches nautical_miles_in_inches unless defined?(nautical_mile_in_inches)
   end
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
@@ -434,9 +432,9 @@ class Numeric
       self != num
     end
 
-    alias not_eq? not_equal_to?
-    alias inequal_to? not_equal_to?
-    alias ineq? not_equal_to?
+    alias not_eq? not_equal_to? unless defined?(not_eq?)
+    alias inequal_to? not_equal_to? unless defined?(inequal_to?)
+    alias ineq? not_equal_to? unless defined?(ineq?)
   end
 
   unless defined?(ordinal)
@@ -509,7 +507,7 @@ class Numeric
       self * BASE_BYTES[:peta]
     end
 
-    alias petabyte_in_bytes petabytes_in_bytes
+    alias petabyte_in_bytes petabytes_in_bytes unless defined?(petabyte_in_bytes)
   end
 
   # rubocop:disable Style/NumericPredicate, Style/YodaCondition
@@ -525,7 +523,7 @@ class Numeric
       self * BASE_WEIGHTS[:pound]
     end
 
-    alias pound_in_ounces pounds_in_ounces
+    alias pound_in_ounces pounds_in_ounces unless defined?(pound_in_ounces)
   end
 
   unless defined?(power)
@@ -545,7 +543,7 @@ class Numeric
       self * BASE_WEIGHTS[:stone]
     end
 
-    alias stone_in_ounces stones_in_ounces
+    alias stone_in_ounces stones_in_ounces unless defined?(stone_in_ounces)
   end
 
   unless defined?(subtract)
@@ -559,7 +557,7 @@ class Numeric
       self * BASE_BYTES[:tera]
     end
 
-    alias terabyte_in_bytes terabytes_in_bytes
+    alias terabyte_in_bytes terabytes_in_bytes unless defined?(terabyte_in_bytes)
   end
 
   unless defined?(to_byte)
@@ -693,7 +691,7 @@ class Numeric
       self * BASE_WEIGHTS[:ton]
     end
 
-    alias ton_in_ounces tons_in_ounces
+    alias ton_in_ounces tons_in_ounces unless defined?(ton_in_ounces)
   end
 
   unless defined?(weeks_in_seconds)
@@ -701,7 +699,7 @@ class Numeric
       self * BASE_TIMES[:week]
     end
 
-    alias week_in_seconds weeks_in_seconds
+    alias week_in_seconds weeks_in_seconds unless defined?(week_in_seconds)
   end
 
   unless defined?(within?)
@@ -723,16 +721,16 @@ class Numeric
     def yards_in_inches
       self * BASE_LENGTHS[:yard]
     end
-  end
 
-  alias yard_in_inches yards_in_inches
+    alias yard_in_inches yards_in_inches unless defined?(yard_in_inches)
+  end
 
   unless defined?(years_in_seconds)
     def years_in_seconds
       self * BASE_TIMES[:year]
     end
 
-    alias year_in_seconds years_in_seconds
+    alias year_in_seconds years_in_seconds unless defined?(year_in_seconds)
   end
 
   private
