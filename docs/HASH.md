@@ -7,15 +7,33 @@ Raises an error if key is not included in a list of keys.
 ```ruby
 {}.assert_valid_keys(:foo)                   #=> {}
 { foo: 'bar' }.assert_valid_keys(:foo)       #=> { foo: 'bar' }
-{ baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises ArgumentError: 'Unknown key: :baz. Valid keys are: :foo, :boo'
+{ baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises ArgumentError: 'Invalid key: ":baz". Allowed keys are: ":foo", ":boo"'
 ```
 
 `assert_all_valid_keys!`
 ------
-Raises an error if key is not included in a list of keys.
+Raises like an error like `assert_valid_values!` but also on empty.
 
 ```ruby
-{}.assert_all_valid_keys!(:foo) #=> raises ArgumentError: 'Empty hash. Valid keys are: :foo'
+{}.assert_all_valid_keys!(:foo) #=> raises ArgumentError: 'An empty hash is not allowed'
+```
+
+`assert_valid_values!`
+------
+Raises an error if value is not included in a list of values.
+
+```ruby
+{}.assert_valid_values(:foo)                   #=> {}
+{ foo: 'bar' }.assert_valid_values('bar')      #=> { foo: 'bar' }
+{ baz: 'boz' }.assert_valid_values(:foo, :boo) #=> raises ArgumentError: 'Invalid value: "boz". Allowed values are: ":foo", ":boo"'
+```
+
+`assert_all_valid_values!`
+------
+Raises like an error like `assert_valid_values!` but also on empty.
+
+```ruby
+{}.assert_all_valid_values!(:foo) #=> raises ArgumentError: 'An empty hash is not allowed'
 ```
 
 `bury`

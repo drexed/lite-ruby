@@ -13,7 +13,23 @@ class Hash
   end
 
   def assert_all_valid_keys!(*valid_keys)
-    return assert_valid_keys(*valid_keys) unless empty?
+    return assert_valid_keys!(*valid_keys) unless empty?
+
+    raise ArgumentError, 'An empty hash is not allowed'
+  end
+
+  def assert_valid_values!(*valid_values)
+    each_value do |value|
+      next if valid_values.include?(value)
+
+      raise ArgumentError,
+            "Invalid value: #{value.inspect}." \
+            "Allowed values are: #{valid_values.map(&:inspect).join(', ')}"
+    end
+  end
+
+  def assert_all_valid_values!(*valid_values)
+    return assert_valid_values!(*valid_values) unless empty?
 
     raise ArgumentError, 'An empty hash is not allowed'
   end

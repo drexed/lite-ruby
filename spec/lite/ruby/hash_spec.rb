@@ -24,6 +24,26 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#assert_valid_values!' do
+    it 'to be {}' do
+      expect({}.assert_valid_values!(:foo)).to eq({})
+    end
+
+    it 'to be { foo: "bar" }' do
+      expect({ foo: 'bar' }.assert_valid_values!('bar')).to eq(foo: 'bar')
+    end
+
+    it 'to raise error' do
+      expect { { foo: 'bar', baz: 'boz' }.assert_valid_values!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#assert_all_valid_values!' do
+    it 'to raise error' do
+      expect { {}.assert_all_valid_values!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#bury' do
     let(:h1) do
       { foo: { baz: 'boo' } }
