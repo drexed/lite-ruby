@@ -79,18 +79,6 @@ class Array
     replace(denillify(identity))
   end
 
-  def dig(key, *rest)
-    value = begin
-              self[key]
-            rescue StandardError
-              nil
-            end
-
-    return value if value.nil? || rest.empty? || !value.respond_to?(:dig)
-
-    value.dig(*rest)
-  end
-
   def duplicates(minimum = 2)
     hash = Hash.new(0)
     each { |val| hash[val] += 1 }
@@ -166,6 +154,8 @@ class Array
     each_with_index { |val, i| results << i if value == val }
     results
   end
+
+  alias indices indexes
 
   def merge(*values)
     dup.merge!(*values)

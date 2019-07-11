@@ -122,12 +122,6 @@ RSpec.describe Array do
     end
   end
 
-  describe '#dig' do
-    it 'to be twelve' do
-      expect(['zero', %w[ten eleven twelve], 'two'].dig(1, 2)).to eq('twelve')
-    end
-  end
-
   describe '#duplicates' do
     it 'to be [1, 2]' do
       expect([1, 1, 2, 2, 2, 3].duplicates).to eq([1, 2])

@@ -72,14 +72,6 @@ Converts `nil` into a given value.
 [nil, 3, 4].denillify!(9) #=> [9, 3, 4]
 ```
 
-`dig`
-------
-Returns the value of a nested array.
-
-```ruby
-['zero', ['ten', 'eleven', 'twelve'], 'two'].dig(1, 2) #=> 'twelve'
-```
-
 `duplicates`
 ------
 Returns a list of duplicate elements.
@@ -135,7 +127,7 @@ Splits or iterates over the array in groups of a given size number, padding any 
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']]
 ```
 
-`indexes`
+`indexes` aka `indicies`
 ------
 Returns all indexes of the matching value.
 
