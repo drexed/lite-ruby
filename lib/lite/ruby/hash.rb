@@ -251,9 +251,9 @@ class Hash
     each_with_object({}) do |(key, val), hash|
       new_key = begin
                   key.to_s
-                     .gsub(/::/, '/')
-                     .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
-                     .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+                     .gsub(UNDERSCORE_LVL_1, '/')
+                     .gsub(UNDERSCORE_LVL_2, '\1_\2')
+                     .gsub(UNDERSCORE_LVL_3, '\1_\2')
                      .tr(' -', '_')
                      .downcase
                      .to_sym
@@ -279,5 +279,11 @@ class Hash
   def vacant?(key)
     self[key].blank?
   end
+
+  private
+
+  UNDERSCORE_LVL_1 ||= /::/.freeze
+  UNDERSCORE_LVL_2 ||= /([A-Z\d]+)([A-Z][a-z])/.freeze
+  UNDERSCORE_LVL_3 ||= /([a-z\d])([A-Z])/.freeze
 
 end
