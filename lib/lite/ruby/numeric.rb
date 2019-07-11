@@ -63,6 +63,9 @@ class Numeric
     celsius fahrenheit kelvin
   ].freeze
 
+  # TODO: remove unless definded
+  # TODO: remove already implemented methods
+
   unless defined?(add)
     def add(num)
       self + num
@@ -560,7 +563,7 @@ class Numeric
 
   unless defined?(to_byte)
     def to_byte(from, to)
-      assert_inclusion_of_valid_keys!(BYTE_KEYS, from, to)
+      assert_valid_keys!(BYTE_KEYS, from, to)
 
       to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
     end
@@ -577,7 +580,7 @@ class Numeric
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   unless defined?(to_length)
     def to_length(from, to)
-      assert_inclusion_of_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
+      assert_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
 
       return self if from == to
 
@@ -605,7 +608,7 @@ class Numeric
 
   unless defined?(to_mass)
     def to_mass(from, to)
-      assert_inclusion_of_valid_keys!(WEIGHT_KEYS.values.flatten, from, to)
+      assert_valid_keys!(WEIGHT_KEYS.values.flatten, from, to)
 
       return self if from == to
 
@@ -661,7 +664,11 @@ class Numeric
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
   unless defined?(to_temperature)
     def to_temperature(from, to)
-      assert_inclusion_of_valid_keys!(TEMPERATURE_KEYS, from, to)
+      assert_valid_keys!(TEMPERATURE_KEYS, from, to)
+
+      celcius = 5.0 / 9.0
+      fahrenheit = 32.0
+      kelvin = 273.15
 
       case to
       when from
@@ -679,7 +686,7 @@ class Numeric
 
   # TODO: rename as it will clash with integer
   # def to_time(from, to)
-  #   assert_inclusion_of_valid_keys!(TIME_KEYS, from, to)
+  #   assert_valid_keys!(TIME_KEYS, from, to)
   #
   #   (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
   # end  unless defined?()
@@ -733,14 +740,14 @@ class Numeric
 
   private
 
-  unless defined?(assert_inclusion_of_valid_keys!)
-    def assert_inclusion_of_valid_keys!(cns, from, to)
-      return if cns.include?(from) && cns.include?(to)
+  unless defined?(assert_valid_keys!)
+    def assert_valid_keys!(keys, from, to)
+      return if keys.include?(from) && keys.include?(to)
 
       raise ArgumentError,
             [
-              "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}.",
-              "Valid keys are: #{cns.map(&:inspect).join(', ')}"
+              "Unknown key(s): from: #{from.inspect} and/or to: #{to.inspect}.",
+              "Valid keys are: #{keys.map(&:inspect).join(', ')}"
             ].join(' ')
     end
   end
