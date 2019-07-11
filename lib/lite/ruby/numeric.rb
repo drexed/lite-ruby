@@ -75,6 +75,8 @@ class Numeric
     end
   end
 
+  # TODO: add defined checks to alias in all files
+
   alias byte_in_bytes base_unit unless defined?(byte_in_bytes)
   alias bytes_in_bytes base_unit unless defined?(bytes_in_bytes)
   alias gram_in_grams base_unit unless defined?(gram_in_grams)
@@ -187,7 +189,7 @@ class Numeric
 
   unless defined?(degrees_to_radians)
     def degrees_to_radians
-      self * ::Math::PI / 180.0
+      self * Math::PI / 180.0
     end
 
     alias degree_to_radians degrees_to_radians
@@ -201,7 +203,7 @@ class Numeric
 
   unless defined?(divide)
     def divide(num)
-      return 0 if num.zero?
+      return num if num.zero?
 
       self / num
     end
@@ -214,6 +216,16 @@ class Numeric
 
     alias exabyte_in_bytes exabytes_in_bytes
   end
+
+  # rubocop:disable Style/NumericPredicate, Style/YodaCondition
+  unless defined?(equal_to?)
+    def equal_to?(num)
+      self == num
+    end
+
+    alias eq? equal_to?
+  end
+  # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
   unless defined?(feet_in_inches)
     def feet_in_inches
@@ -247,12 +259,16 @@ class Numeric
     def greater_than?(num)
       num < self
     end
+
+    alias gt? greater_than?
   end
 
   unless defined?(greater_than_or_equal_to?)
     def greater_than_or_equal_to?(num)
       num <= self
     end
+
+    alias gteq? greater_than_or_equal_to?
   end
 
   unless defined?(hectograms_in_grams)
@@ -413,6 +429,16 @@ class Numeric
   end
   # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
+  unless defined?(equal_to?)
+    def not_equal_to?(num)
+      self != num
+    end
+
+    alias not_eq? not_equal_to?
+    alias inequal_to? not_equal_to?
+    alias ineq? not_equal_to?
+  end
+
   unless defined?(ordinal)
     def ordinal
       return 'th' if (11..13).cover?(abs % 100)
@@ -447,7 +473,8 @@ class Numeric
     end
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   unless defined?(pad_precision)
     def pad_precision(options = {})
       pad_number = options[:pad_number] || 0
@@ -466,7 +493,8 @@ class Numeric
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
   unless defined?(percentage_of)
     def percentage_of(number)

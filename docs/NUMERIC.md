@@ -134,6 +134,15 @@ Returns the division of two numbers.
 4.divide(0) #=> 0
 ```
 
+`equal_to?` aka `eq?`
+------
+Returns if matching equality using `==`.
+
+```ruby
+3.equal_to?(2) #=> false
+3.equal_to?(3) #=> true
+```
+
 `exabyte_in_bytes` aka `exabytes_in_bytes`
 ------
 Returns the amount of bytes in exabytes.
@@ -185,7 +194,7 @@ Returns self as it's the lowest unit.
 3.grams_in_grams #=> 3
 ```
 
-`greater_than?`
+`greater_than?` aka `gt?`
 ------
 Returns if self is greater than n.
 
@@ -195,7 +204,7 @@ Returns if self is greater than n.
 3.greater_than?(4) #=> false
 ```
 
-`greater_than_or_equal_to?`
+`greater_than_or_equal_to?` aka `gteq?`
 ------
 Returns if self is greater than or equal to n.
 
@@ -396,6 +405,15 @@ Returns if a number is less than zero.
 ```ruby
 -1.negative? #=> true
 1.negative?  #=> false
+```
+
+`not_equal_to?` aka `not_eq?` aka `inequal_to?` aka `ineq?`
+------
+Returns if not matching equality using `!=`.
+
+```ruby
+3.not_equal_to?(2) #=> true
+3.not_equal_to?(3) #=> false
 ```
 
 `ordinal`

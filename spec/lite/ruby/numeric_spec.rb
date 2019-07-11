@@ -173,6 +173,18 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#equal_to?' do
+    let(:n1) { 1 }
+
+    it 'to be true' do
+      expect(n1.equal_to?(n1)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(n1.equal_to?(2)).to eq(false)
+    end
+  end
+
   describe '#exabyte_in_bytes' do
     it 'to be 3458764513820540928' do
       n1 = 3
@@ -478,6 +490,18 @@ RSpec.describe Numeric do
 
     it 'to be false' do
       expect(1.negative?).to eq(false)
+    end
+  end
+
+  describe '#not_equal_to?' do
+    let(:n1) { 1 }
+
+    it 'to be false' do
+      expect(n1.not_equal_to?(n1)).to eq(false)
+    end
+
+    it 'to be true' do
+      expect(n1.not_equal_to?(2)).to eq(true)
     end
   end
 
