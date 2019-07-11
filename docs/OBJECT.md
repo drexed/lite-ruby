@@ -113,6 +113,15 @@ Returns if an object's string value is `numeric`.
 '$2.55'.numeral?  #=> false
 ```
 
+`open_struct?`
+------
+Returns if an object is a `open_struct`.
+
+```ruby
+OpenStruct.new.open_struct? #=> true
+1.open_struct?              #=> false
+```
+
 `palindrome?`
 ------
 Returns if an object is equal when reversed.
@@ -214,6 +223,15 @@ Sends a caller to an object if it responds to it.
 3.send_if(:add, 4)    #=> 7
 ```
 
+`set?`
+------
+Returns if an object is a `set`.
+
+```ruby
+Set[1, 2].set? #=> true
+1.set?         #=> false
+```
+
 `string?`
 ------
 Returns if an object is a `string`.
@@ -221,6 +239,17 @@ Returns if an object is a `string`.
 ```ruby
 'foo'.string? #=> true
 1.string?     #=> false
+```
+
+`struct?`
+------
+Returns if an object is a `struct`.
+
+```ruby
+person = Struct.new(:name)
+
+person.new('john').struct? #=> true
+1.set?                     #=> false
 ```
 
 `symbol?`

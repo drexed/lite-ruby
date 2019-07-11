@@ -65,6 +65,10 @@ class Object
     is_a?(Numeric)
   end
 
+  def open_struct?
+    is_a?(OpenStruct)
+  end
+
   def palindrome?
     to_s == to_s.reverse
   end
@@ -107,8 +111,16 @@ class Object
     send(key, *args)
   end
 
+  def set?
+    is_a?(Set)
+  end
+
   def string?
     is_a?(String)
+  end
+
+  def struct?
+    is_a?(Struct)
   end
 
   def symbol?

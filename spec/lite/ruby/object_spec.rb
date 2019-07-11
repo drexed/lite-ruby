@@ -11,7 +11,6 @@ RSpec.describe Object do
 
     it 'to be false' do
       expect(1.array?).to eq(false)
-      expect(''.array?).to eq(false)
     end
   end
 
@@ -64,7 +63,6 @@ RSpec.describe Object do
 
     it 'to be false' do
       expect(1.date?).to eq(false)
-      expect([].date?).to eq(false)
     end
   end
 
@@ -98,9 +96,7 @@ RSpec.describe Object do
     end
 
     it 'to be false' do
-      expect('1'.float?).to eq(false)
       expect(1.float?).to eq(false)
-      expect(-1.float?).to eq(false)
     end
   end
 
@@ -111,7 +107,6 @@ RSpec.describe Object do
 
     it 'to be false' do
       expect(1.hash?).to eq(false)
-      expect(''.hash?).to eq(false)
     end
   end
 
@@ -124,7 +119,6 @@ RSpec.describe Object do
     it 'to be false' do
       expect('1'.integer?).to eq(false)
       expect(1.0.integer?).to eq(false)
-      expect(-1.0.integer?).to eq(false)
     end
   end
 
@@ -137,8 +131,6 @@ RSpec.describe Object do
 
     it 'to be false' do
       expect('1'.numeric?).to eq(false)
-      expect([].integer?).to eq(false)
-      expect({}.integer?).to eq(false)
     end
   end
 
@@ -159,6 +151,18 @@ RSpec.describe Object do
       expect('$9.86'.numeral?).to eq(false)
       expect('x'.numeral?).to eq(false)
       expect('foo'.numeral?).to eq(false)
+    end
+  end
+
+  describe '#open_struct?' do
+    it 'to be true' do
+      s1 = OpenStruct.new
+
+      expect(s1.open_struct?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(1.open_struct?).to eq(false)
     end
   end
 
@@ -227,26 +231,30 @@ RSpec.describe Object do
   end
 
   describe '#safe_send' do
+    let(:n1) { 3 }
+
     it 'to be 3' do
-      expect(3.safe_send(:fake)).to eq(3)
+      expect(n1.safe_send(:fake)).to eq(n1)
     end
 
     it 'to be "3"' do
-      expect(3.safe_send(:to_s)).to eq('3')
+      expect(n1.safe_send(:to_s)).to eq('3')
     end
 
     it 'to be "5"' do
-      expect(3.safe_send(:+, 2)).to eq(5)
+      expect(n1.safe_send(:+, 2)).to eq(5)
     end
   end
 
   describe '#safe_try' do
+    let(:s1) { 'example' }
+
     it 'to be "example"' do
-      expect('example'.safe_try(:fake_method)).to eq('example')
+      expect(s1.safe_try(:fake_method)).to eq(s1)
     end
 
     it 'to be "EXAMPLE"' do
-      expect('example'.safe_try(:upcase)).to eq('EXAMPLE')
+      expect(s1.safe_try(:upcase)).to eq('EXAMPLE')
     end
   end
 
@@ -272,48 +280,66 @@ RSpec.describe Object do
   end
 
   describe '#send_chain' do
+    let(:n1) { 3 }
+
     it 'to be 6' do
-      expect(3.send_chain(:factorial)).to eq(6)
+      expect(n1.send_chain(:factorial)).to eq(6)
     end
 
     it 'to be 7' do
-      expect(3.send_chain([:add, 4])).to eq(7)
+      expect(n1.send_chain([:add, 4])).to eq(7)
     end
 
-    it 'to be 10' do
-      expect(3.send_chain(:factorial, [:add, 4])).to eq(10)
+    it 'to be 11' do
+      expect(n1.send_chain(:factorial, [:add, 5])).to eq(11)
     end
   end
 
   describe '#send_chain_if' do
+    let(:n1) { 3 }
+
     it 'to be 3' do
-      expect(3.send_chain_if(:test)).to eq(3)
+      expect(n1.send_chain_if(:test)).to eq(n1)
     end
 
     it 'to be 6' do
-      expect(3.send_chain_if(:factorial)).to eq(6)
+      expect(n1.send_chain_if(:factorial)).to eq(6)
     end
 
     it 'to be 7' do
-      expect(3.send_chain_if([:add, 4])).to eq(7)
+      expect(n1.send_chain_if([:add, 4])).to eq(7)
     end
 
-    it 'to be 10' do
-      expect(3.send_chain_if(:factorial, [:add, 4], :test)).to eq(10)
+    it 'to be 11' do
+      expect(n1.send_chain_if(:factorial, [:add, 5], :test)).to eq(11)
     end
   end
 
   describe '#send_if' do
-    it 'to be nil' do
-      expect(3.send_if(:test)).to eq(3)
+    let(:n1) { 3 }
+
+    it 'to be 3' do
+      expect(n1.send_if(:test)).to eq(n1)
     end
 
     it 'to be 6' do
-      expect(3.send_if(:factorial)).to eq(6)
+      expect(n1.send_if(:factorial)).to eq(6)
     end
 
     it 'to be 7' do
-      expect(3.send_if(:add, 4)).to eq(7)
+      expect(n1.send_if(:add, 4)).to eq(7)
+    end
+  end
+
+  describe '#set?' do
+    it 'to be true' do
+      s1 = Set[1, 2]
+
+      expect(s1.set?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(1.set?).to eq(false)
     end
   end
 
@@ -324,7 +350,18 @@ RSpec.describe Object do
 
     it 'to be false' do
       expect(1.string?).to eq(false)
-      expect([].string?).to eq(false)
+    end
+  end
+
+  describe '#struct?' do
+    it 'to be true' do
+      s1 = Struct.new(:name)
+
+      expect(s1.new('test').struct?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(1.struct?).to eq(false)
     end
   end
 
@@ -335,7 +372,6 @@ RSpec.describe Object do
 
     it 'to be false' do
       expect(1.symbol?).to eq(false)
-      expect(''.symbol?).to eq(false)
     end
   end
 
@@ -346,7 +382,6 @@ RSpec.describe Object do
 
     it 'to be false' do
       expect(1.time?).to eq(false)
-      expect([].time?).to eq(false)
     end
   end
 
@@ -374,17 +409,18 @@ RSpec.describe Object do
   end
 
   describe '#try(!)' do
+    let(:s1) { 'example' }
+
     it 'to be nil' do
-      expect('example'.try(:fake_method)).to eq(nil)
+      expect(s1.try(:fake_method)).to eq(nil)
     end
 
     it 'to be upcase' do
-      expect('example'.try(:upcase)).to eq('EXAMPLE')
-      expect('example'.try!(:upcase)).to eq('EXAMPLE')
+      expect(s1.try(:upcase)).to eq('EXAMPLE')
     end
 
     it 'to raise error' do
-      expect { 'example'.try!(:fake_method) }.to raise_error(NoMethodError)
+      expect { s1.try!(:fake_method) }.to raise_error(NoMethodError)
     end
   end
 
@@ -415,16 +451,18 @@ RSpec.describe Object do
   end
 
   describe '#try_send' do
+    let(:n1) { 3 }
+
     it 'to be nil' do
-      expect(3.try_send(:fake)).to eq(nil)
+      expect(n1.try_send(:fake)).to eq(nil)
     end
 
     it 'to be "3"' do
-      expect(3.try_send(:to_s)).to eq('3')
+      expect(n1.try_send(:to_s)).to eq('3')
     end
 
     it 'to be "5"' do
-      expect(3.try_send(:+, 2)).to eq(5)
+      expect(n1.try_send(:+, 2)).to eq(5)
     end
   end
 
