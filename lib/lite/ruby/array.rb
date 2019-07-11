@@ -118,9 +118,8 @@ class Array
     collection << self[-rem, rem]
   end
 
-  # rubocop:disable Lint/UnusedMethodArgument, Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
-  def in_groups(number, fill_with = nil, &block)
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+  def in_groups(number, fill_with = nil)
     collection_size = size
     division = collection_size.div(number)
     modulo = collection_size % number
@@ -139,12 +138,10 @@ class Array
 
     collection.each { |val| yield(val) }
   end
-  # rubocop:enable Lint/UnusedMethodArgument, Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
-  # rubocop:disable Lint/UnusedMethodArgument, Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength, Style/GuardClause
-  def in_groups_of(number, fill_with = nil, &block)
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Style/GuardClause
+  def in_groups_of(number, fill_with = nil)
     if number.to_i <= 0
       raise ArgumentError, "Group size must be a positive integer, was #{number.inspect}"
     elsif fill_with == false
@@ -159,8 +156,7 @@ class Array
 
     sliced_collection { |val| yield(val) }
   end
-  # rubocop:enable Lint/UnusedMethodArgument, Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength, Style/GuardClause
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Style/GuardClause
 
   def indexes(value)
     array = []
