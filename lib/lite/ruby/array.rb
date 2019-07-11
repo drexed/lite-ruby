@@ -2,8 +2,21 @@
 
 class Array
 
-  # TODO: add assert valid values
-  # TODO: add assert min valid values
+  def assert_valid_values!(*valid_values)
+    each do |value|
+      next if valid_values.include?(value)
+
+      raise ArgumentError,
+            "Invalid value: #{value.inspect}." \
+            "Allowed values are: #{valid_values.map(&:inspect).join(', ')}"
+    end
+  end
+
+  def assert_all_valid_values!(*valid_values)
+    return assert_valid_values!(*valid_values) unless empty?
+
+    raise ArgumentError, "An empty array is not allowed and a value must be provided"
+  end
 
   def after(value)
     return unless include?(value)
@@ -60,7 +73,7 @@ class Array
   end
 
   def delete_values(*args)
-    args.each_with_object([]) { |val, results| results << delete(val) }
+    args.each_with_object([]) { |val, array| array << delete(val) }
   end
 
   def demote(value)
@@ -150,9 +163,9 @@ class Array
   # rubocop:enable Metrics/MethodLength, Style/GuardClause
 
   def indexes(value)
-    results = []
-    each_with_index { |val, i| results << i if value == val }
-    results
+    array = []
+    each_with_index { |val, i| array << i if value == val }
+    array
   end
 
   alias indices indexes
@@ -222,26 +235,25 @@ class Array
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def split(number = nil)
-    if block_given?
-      each_with_object([[]]) do |element, results|
-        yield(element) ? (results << []) : (results.last << element)
-      end
-    else
-      results = [[]]
-      arr = dup
+    array = [[]]
 
-      until arr.empty?
-        if (idx = arr.index(number))
-          results.last.concat(arr.shift(idx))
-          arr.shift
-          results << []
+    if block_given?
+      each { |val| yield(val) ? (array << []) : (array .last << val) }
+    else
+      dup_arr = dup
+
+      until dup_arr.empty?
+        if (idx = dup_arr.index(number))
+          array.last << dup_arr.shift(idx)
+          dup_arr.shift
+          array << []
         else
-          results.last.concat(arr.shift(arr.size))
+          array.last << arr.shift(dup_arr.size)
         end
       end
-
-      results
     end
+
+    array
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

@@ -1,5 +1,23 @@
 # Array
 
+`assert_valid_values!`
+------
+Raises an error if key is not included in a list of values.
+
+```ruby
+{}.assert_valid_values!(:foo)                   #=> {}
+{ foo: 'bar' }.assert_valid_values!(:foo)       #=> { foo: 'bar' }
+{ baz: 'boz' }.assert_valid_values!(:foo, :boo) #=> raises ArgumentError: 'Invalid value: ":baz". Allowed values are: ":foo", ":boo"'
+```
+
+`assert_all_valid_values!`
+------
+Raises like an error like `assert_valid_values!` but also on empty.
+
+```ruby
+{}.assert_all_valid_values!(:foo) #=> raises ArgumentError: 'An empty array is not allowed and a value must be provided'
+```
+
 `after`
 ------
 Returns the value after a given value.

@@ -4,6 +4,26 @@ require 'spec_helper'
 
 RSpec.describe Array do
 
+  describe '#assert_valid_values!' do
+    it 'to be []' do
+      expect([].assert_valid_values!(:foo)).to eq([])
+    end
+
+    it 'to be [:foo]' do
+      expect(%i[foo].assert_valid_values!(:foo)).to eq([:foo])
+    end
+
+    it 'to raise ArgumentError when invalid' do
+      expect { %i[foo bar].assert_valid_values!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#assert_all_valid_values!' do
+    it 'to be raise ArgumentError when empty' do
+      expect { [].assert_all_valid_values!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#after' do
     let(:a1) { [1, 2, 3] }
 
