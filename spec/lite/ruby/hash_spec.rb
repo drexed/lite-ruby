@@ -82,29 +82,6 @@ RSpec.describe Hash do
     end
   end
 
-  describe '#compact(!)' do
-    it 'to be nil' do
-      expect({}.compact!).to eq(nil)
-    end
-
-    it 'to be {}' do
-      h1 = { foo: nil }
-      h2 = {}
-
-      expect(h2.compact).to eq(h2)
-      expect(h1.compact).to eq(h2)
-      expect(h1.compact!).to eq(h2)
-    end
-
-    it 'to be { foo: "bar", baz: false, boo: nil }' do
-      h1 = { foo: 'bar', baz: false, boo: nil }
-      h2 = { foo: 'bar', baz: false }
-
-      expect(h1.compact).to eq(h2)
-      expect(h1.compact!).to eq(h2)
-    end
-  end
-
   describe '#deep_dup(!)' do
     it 'to be { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }' do
       h1 = { a: true, b: { c: [1, 2, 3] } }
@@ -147,20 +124,6 @@ RSpec.describe Hash do
 
       expect(h1.denillify(9)).to eq(h2)
       expect(h1.denillify!(9)).to eq(h2)
-    end
-  end
-
-  describe '#dig' do
-    let(:h1) do
-      { a: { b: { c: :d } } }
-    end
-
-    it 'to be { c: :d }' do
-      expect(h1.dig(:a, :b)).to eq(c: :d)
-    end
-
-    it 'to be :d' do
-      expect(h1.dig(:a, :b, :c)).to eq(:d)
     end
   end
 
@@ -221,36 +184,6 @@ RSpec.describe Hash do
 
       expect(h1.nillify).to eq(h2)
       expect(h1.nillify!).to eq(h2)
-    end
-  end
-
-  describe '#only(!)' do
-    let(:h1) do
-      { foo: 1, baz: 2, bar: 3 }
-    end
-
-    it 'to be {}' do
-      h1 = {}
-      k1 = :foo
-
-      expect(h1.only(k1)).to eq(h1)
-      expect(h1.only!(k1)).to eq(h1)
-    end
-
-    it 'to be { :foo => 1 }' do
-      h2 = { foo: 1 }
-      k1 = :foo
-
-      expect(h1.only(k1)).to eq(h2)
-      expect(h1.only!(k1)).to eq(h2)
-    end
-
-    it 'to be { :baz => 2, :bar => 3 }' do
-      h2 = { baz: 2, bar: 3 }
-      a1 = %i[baz bar]
-
-      expect(h1.only(*a1)).to eq(h2)
-      expect(h1.only!(*a1)).to eq(h2)
     end
   end
 
@@ -431,11 +364,9 @@ RSpec.describe Hash do
     end
 
     it 'to be { a: 1, b: 2 }' do
-      expect(h1.slice(*a1)).to eq(a: 1, b: 2)
-    end
+      h1.slice!(*a1)
 
-    it 'to be { a: 3, b: 4 }' do
-      expect(h1.slice!(*a1)).to eq(c: 3, d: 4)
+      expect(h1).to eq(a: 1, b: 2)
     end
   end
 
@@ -503,26 +434,6 @@ RSpec.describe Hash do
       h1 = { foo: { bar: true } }
 
       expect(h1.to_o.foo.bar).to eq(true)
-    end
-  end
-
-  describe '#transform_keys(!)' do
-    it 'to be { "FOO" => "foo", "BAZ" => "bar" }' do
-      h1 = { foo: 'bar', baz: 'boo' }
-      h2 = { 'FOO' => 'bar', 'BAZ' => 'boo' }
-
-      expect(h1.transform_keys { |k| k.to_s.upcase }).to eq(h2)
-      expect(h1.transform_keys! { |k| k.to_s.upcase }).to eq(h2)
-    end
-  end
-
-  describe '#transform_values(!)' do
-    it 'to be { foo: "BAR", baz: "BOO" }' do
-      h1 = { foo: 'bar', baz: 'boo' }
-      h2 = { foo: 'BAR', baz: 'BOO' }
-
-      expect(h1.transform_values { |v| v.to_s.upcase }).to eq(h2)
-      expect(h1.transform_values! { |v| v.to_s.upcase }).to eq(h2)
     end
   end
 

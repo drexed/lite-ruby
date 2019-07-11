@@ -64,16 +64,6 @@ Returns an array with all values converted using the block operation.
 { foo: 'bar', baz: :boo }.collect_values { |k| k.to_s.upcase } #=> ['BAR', BOO']
 ```
 
-`compact(!)`
-------
-Returns a hash with non `nil` values.
-
-```ruby
-{}.compact                                   #=> {}
-{ foo: nil }.compact                         #=> {}
-{ foo: 'bar', baz: false, boo: nil }.compact #=> { foo: 'bar', baz: false }
-```
-
 `deep_merge(!)`
 ------
 Returns a new hash with self and other_hash merged recursively.
@@ -101,17 +91,6 @@ Converts `nil` into a given value.
 ```ruby
 { abc: nil, xyz: 1 }.denillify     #=> { abc: 0, xyz: 1 }
 { abc: nil, xyz: 1 }.denillify!(9) #=> { abc: 9, xyz: 1 }
-```
-
-`dig`
-------
-Returns the value of a nested element.
-
-```ruby
-h1 = { a: { b: { c: :d } } }
-
-h1.dig(:a, :b)     #=> { c: :d }
-h1.dig(:a, :b, :c) #=> :d
 ```
 
 `except(!)`
@@ -148,16 +127,6 @@ Transforms all blank values to `nil`.
 
 ```ruby
 { a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }.nillify #=> {a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil}
-```
-
-`only(!)`
-------
-Returns only key value pairs matching certain keys.
-
-```ruby
-{}.only(:foo)                                                    #=> {}
-{ foo: 'foo', baz: 'baz', bar: 'bar' }.only(:foo)                #=> { foo: 'foo' }
-{ :foo => 'foo', :baz => 'baz', :bar => 'bar' }.only(:baz, :bar) #=> { :baz => 'baz', :bar => 'bar' }
 ```
 
 `only_fill(!)`
@@ -249,7 +218,7 @@ h.shuffle  #=> { b: 2, c: 3, a: 1, d: 4 }
 h.shuffle! #=> { d: 4, b: 2, c: 3, a: 1 }
 ```
 
-`slice(!)`
+`slice(!)` aka `only(!)`
 ------
 Returns a hash that includes only the given keys.
 
@@ -257,7 +226,7 @@ Returns a hash that includes only the given keys.
 h = { a: 1, b: 2, c: 3, d: 4 }
 
 h.slice(:a, :b)  #=> { a: 1, b: 2 }
-h.slice!(:a, :b) #=> { c: 3, d: 4 }
+h.slice!(:a, :b) #=> { a: 1, b: 2 }
 ```
 
 `stringify_keys(!)`
@@ -294,28 +263,12 @@ Symbolize and underscore hash keys.
 { 'firstName' => 'foo', 'last Name' => 'test' }.symbolize_and_underscore_keys #=> { first_name: 'foo', last_name: 'test' }
 ```
 
-`to_o`
+`to_object` aka `to_o`
 ------
 Converts an object to have an object like API.
 
 ```ruby
-{ foo: { bar: true } }.to_o.foo.bar #=> true
-```
-
-`transform_keys(!)`
-------
-Returns a hash with all keys converted using the block operation.
-
-```ruby
-{ foo: 'bar', baz: 'boo' }.transform_keys { |k| k.to_s.upcase } #=> { 'FOO' => 'bar', 'BAZ' => 'boo' }
-```
-
-`transform_values(!)`
-------
-Returns a hash with all values converted using the block operation.
-
-```ruby
-{ foo: 'bar', baz: 'boo' }.transform_values { |v| v.to_s.upcase } #=> {foo: 'BAR', baz: 'BOO' }
+{ foo: { bar: true } }.to_object.foo.bar #=> true
 ```
 
 `vacant?`

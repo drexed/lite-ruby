@@ -50,14 +50,6 @@ class Hash
   end
   # rubocop:enable Style/GuardClause
 
-  def compact
-    select { |_, val| !val.nil? }
-  end
-
-  def compact!
-    reject! { |_, val| val.nil? }
-  end
-
   # rubocop:disable Lint/UnusedMethodArgument
 
   def collect_keys(&block)
@@ -113,18 +105,6 @@ class Hash
     each { |key, val| self[key] = val.nil? ? value : val }
   end
 
-  def dig(key, *rest)
-    value = begin
-              self[key]
-            rescue StandardError
-              nil
-            end
-
-    return value if value.nil? || rest.empty? || !value.respond_to?(:dig)
-
-    value.dig(*rest)
-  end
-
   def except(*keys)
     dup.except!(*keys)
   end
@@ -156,16 +136,6 @@ class Hash
     each do |key, val|
       self[key] = nil if !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?)
     end
-  end
-
-  def only(*keys)
-    dup.only!(*keys)
-  end
-
-  def only!(*keys)
-    hash = {}
-    keys.each { |key| hash[key] = self[key] if key?(key) }
-    replace(hash)
   end
 
   def only_fill(*keys, placeholder: nil)
@@ -247,13 +217,12 @@ class Hash
     replace(shuffle)
   end
 
-  def slice(*keys)
-    keys.each_with_object({}) { |key, hash| hash[key] = self[key] if key?(key) }
-  end
-
   def slice!(*keys)
     replace(slice(*keys))
   end
+
+  alias only slice
+  alias only! slice!
 
   def stringify_keys
     each_with_object({}) { |(key, val), hash| hash[key.to_s] = val }
@@ -303,29 +272,11 @@ class Hash
     replace(symbolize_and_underscore_keys)
   end
 
-  def to_o
+  def to_object
     JSON.parse(to_json, object_class: OpenStruct)
   end
 
-  def transform_keys
-    return enum_for(:transform_keys) unless block_given?
-
-    each_with_object({}) { |(key, val), hash| hash[yield(key)] = val }
-  end
-
-  def transform_keys!(&block)
-    replace(transform_keys(&block))
-  end
-
-  def transform_values
-    return enum_for(:transform_values) unless block_given?
-
-    each_with_object({}) { |(key, val), hash| hash[key] = yield(val) }
-  end
-
-  def transform_values!(&block)
-    replace(transform_values(&block))
-  end
+  alias to_o to_object
 
   def vacant?(key)
     self[key].blank?

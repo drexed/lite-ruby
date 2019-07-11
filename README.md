@@ -3,8 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/lite-ruby.svg)](http://badge.fury.io/rb/lite-ruby)
 [![Build Status](https://travis-ci.org/drexed/lite-ruby.svg?branch=master)](https://travis-ci.org/drexed/lite-ruby)
 
-Lite::Ruby is a collection of useful Ruby methods for its primitive classes. It does **not** override
-any of similarly name methods.
+Lite::Ruby is a collection of useful Ruby methods for its primitive classes.
 
 **NOTE:** If you are coming from `ActiveObject`, please read the [port](#port) section.
 
