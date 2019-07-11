@@ -2,38 +2,36 @@
 
 class Numeric
 
-  MILLI ||= 0.001
-  CENTI ||= MILLI * 10.0
-  DECI ||= CENTI * 10.0
-  DECA ||= 10.0
-  HECTO ||= DECA * 10.0
-  KILO ||= HECTO * 10.0
+  BASE_SIZE ||= 1
+  BASE_SIZES ||= {
+    milli: BASE_SIZE / 1000.0, centi: BASE_SIZE / 100.0, deci: BASE_SIZE / 10.0,
+    deca: BASE_SIZE * 10.0, hecto: BASE_SIZE * 100.0, kilo: BASE_SIZE * 1000.0
+  }.freeze
 
-  KILOBYTE ||= 1024.0
-  MEGABYTE ||= KILOBYTE * 1024.0
-  GIGABYTE ||= MEGABYTE * 1024.0
-  TERABYTE ||= GIGABYTE * 1024.0
-  PETABYTE ||= TERABYTE * 1024.0
-  EXABYTE ||= PETABYTE * 1024.0
+  BASE_BYTE ||= 1024.0
+  BASE_BYTES ||= {
+    kilo: BASE_BYTE, mega: BASE_BYTE**2, giga: BASE_BYTE**3,
+    tera: BASE_BYTE**4, peta: BASE_BYTE**5, exa: BASE_BYTE**6
+  }.freeze
 
-  FEET ||= 12.0
-  YARD ||= FEET * 3.0
-  MILE ||= YARD * 1760.0
-  NAUTICAL_MILE ||= MILE * 1.15078
+  BASE_LENGTH ||= 12.0
+  BASE_LENGTHS ||= {
+    feet: BASE_LENGTH, yard: BASE_LENGTH * 3.0, mile: BASE_LENGTH * 5280.0,
+    nautical_mile: BASE_LENGTH * 6076.118399999999
+  }.freeze
 
-  METRIC_TON ||= KILO * 1000.0
-  POUND ||= 16.0
-  STONE ||= POUND * 14.0
-  TON ||= POUND * 2000.0
+  BASE_WEIGHT ||= 16.0
+  BASE_WEIGHTS ||= {
+    pound: BASE_WEIGHT, stone: BASE_WEIGHT * 14.0, ton: BASE_WEIGHT * 2000.0,
+    metric_ton: 1000000.0
+  }.freeze
 
-  MINUTE ||= 60.0
-  HOUR ||= MINUTE * 60.0
-  DAY ||= HOUR * 24.0
-  WEEK ||= DAY * 7.0
-  YEAR ||= DAY * 365.25
-  DECADE ||= YEAR * 10.0
-  CENTURY ||= DECADE * 10.0
-  MILLENNIUM ||= CENTURY * 10.0
+  BASE_TIME ||= 60.0
+  BASE_TIMES ||= {
+    minute: BASE_TIME, hour: BASE_TIME ** 2, day: BASE_TIME * 1440.0,
+    week: BASE_TIME * 10080.0, year: BASE_TIME * 525960.0, decade: BASE_TIME * 5259600.0,
+    century: BASE_TIME * 52596000.0, millennium: BASE_TIME * 525960000.0
+  }.freeze
 
   BYTE_KEYS ||= %i[
     byte bytes kilobyte kilobytes megabyte megabytes gigabyte gigabytes terabyte terabytes
@@ -81,7 +79,7 @@ class Numeric
 
   unless defined?(centigrams_in_grams)
     def centigrams_in_grams
-      self * CENTI
+      self * BASE_SIZES[:centi]
     end
 
     alias centigram_in_grams centigrams_in_grams
@@ -89,7 +87,7 @@ class Numeric
 
   unless defined?(centimeters_in_meters)
     def centimeters_in_meters
-      self * CENTI
+      self * BASE_SIZES[:centi]
     end
 
     alias centimeter_in_meters centimeters_in_meters
@@ -97,7 +95,7 @@ class Numeric
 
   unless defined?(centuries_in_seconds)
     def centuries_in_seconds
-      self * CENTURY
+      self * BASE_TIMES[:century]
     end
 
     alias century_in_seconds centuries_in_seconds
@@ -124,7 +122,7 @@ class Numeric
 
   unless defined?(days_in_seconds)
     def days_in_seconds
-      self * DAY
+      self * BASE_TIMES[:day]
     end
 
     alias day_in_seconds days_in_seconds
@@ -132,7 +130,7 @@ class Numeric
 
   unless defined?(decades_in_seconds)
     def decades_in_seconds
-      self * DECADE
+      self * BASE_TIMES[:decade]
     end
 
     alias decade_in_seconds decades_in_seconds
@@ -140,7 +138,7 @@ class Numeric
 
   unless defined?(decagrams_in_grams)
     def decagrams_in_grams
-      self * DECA
+      self * BASE_SIZES[:deca]
     end
 
     alias decagram_in_grams decagrams_in_grams
@@ -148,7 +146,7 @@ class Numeric
 
   unless defined?(decameters_in_meters)
     def decameters_in_meters
-      self * DECA
+      self * BASE_SIZES[:deca]
     end
 
     alias decameter_in_meters decameters_in_meters
@@ -156,7 +154,7 @@ class Numeric
 
   unless defined?(decigrams_in_grams)
     def decigrams_in_grams
-      self * DECI
+      self * BASE_SIZES[:deci]
     end
 
     alias decigram_in_grams decigrams_in_grams
@@ -164,7 +162,7 @@ class Numeric
 
   unless defined?(decimeters_in_meters)
     def decimeters_in_meters
-      self * DECI
+      self * BASE_SIZES[:deci]
     end
 
     alias decimeter_in_meters decimeters_in_meters
@@ -200,7 +198,7 @@ class Numeric
 
   unless defined?(exabytes_in_bytes)
     def exabytes_in_bytes
-      self * EXABYTE
+      self * BASE_BYTES[:exa]
     end
 
     alias exabyte_in_bytes exabytes_in_bytes
@@ -208,7 +206,7 @@ class Numeric
 
   unless defined?(feet_in_inches)
     def feet_in_inches
-      self * FEET
+      self * BASE_LENGTHS[:feet]
     end
 
     alias foot_in_inches feet_in_inches
@@ -228,7 +226,7 @@ class Numeric
 
   unless defined?(gigabytes_in_bytes)
     def gigabytes_in_bytes
-      self * GIGABYTE
+      self * BASE_BYTES[:giga]
     end
 
     alias gigabyte_in_bytes gigabytes_in_bytes
@@ -256,7 +254,7 @@ class Numeric
 
   unless defined?(hectograms_in_grams)
     def hectograms_in_grams
-      self * HECTO
+      self * BASE_SIZES[:hecto]
     end
 
     alias hectogram_in_grams hectograms_in_grams
@@ -264,7 +262,7 @@ class Numeric
 
   unless defined?(hectometers_in_meters)
     def hectometers_in_meters
-      self * HECTO
+      self * BASE_SIZES[:hecto]
     end
 
     alias hectometer_in_meters hectometers_in_meters
@@ -272,7 +270,7 @@ class Numeric
 
   unless defined?(hours_in_seconds)
     def hours_in_seconds
-      self * HOUR
+      self * BASE_TIMES[:hour]
     end
 
     alias hour_in_seconds hours_in_seconds
@@ -300,7 +298,7 @@ class Numeric
 
   unless defined?(kilobytes_in_bytes)
     def kilobytes_in_bytes
-      self * KILOBYTE
+      self * BASE_BYTES[:kilo]
     end
 
     alias kilobyte_in_bytes kilobytes_in_bytes
@@ -308,7 +306,7 @@ class Numeric
 
   unless defined?(kilometers_in_meters)
     def kilometers_in_meters
-      self * KILO
+      self * BASE_SIZES[:kilo]
     end
 
     alias kilometer_in_meters kilometers_in_meters
@@ -316,7 +314,7 @@ class Numeric
 
   unless defined?(kilograms_in_grams)
     def kilograms_in_grams
-      self * KILO
+      self * BASE_SIZES[:kilo]
     end
 
     alias kilogram_in_grams kilograms_in_grams
@@ -336,7 +334,7 @@ class Numeric
 
   unless defined?(metric_tons_in_grams)
     def metric_tons_in_grams
-      self * METRIC_TON
+      self * BASE_WEIGHTS[:metric_ton]
     end
 
     alias metric_ton_in_grams metric_tons_in_grams
@@ -344,7 +342,7 @@ class Numeric
 
   unless defined?(megabytes_in_bytes)
     def megabytes_in_bytes
-      self * MEGABYTE
+      self * BASE_BYTES[:mega]
     end
 
     alias megabyte_in_bytes megabytes_in_bytes
@@ -360,7 +358,7 @@ class Numeric
 
   unless defined?(miles_in_inches)
     def miles_in_inches
-      self * MILE
+      self * BASE_LENGTHS[:mile]
     end
 
     alias mile_in_inches miles_in_inches
@@ -368,7 +366,7 @@ class Numeric
 
   unless defined?(millenniums_in_seconds)
     def millenniums_in_seconds
-      self * MILLENNIUM
+      self * BASE_TIMES[:millennium]
     end
 
     alias millennium_in_seconds millenniums_in_seconds
@@ -376,7 +374,7 @@ class Numeric
 
   unless defined?(milligrams_in_grams)
     def milligrams_in_grams
-      self * MILLI
+      self * BASE_SIZES[:milli]
     end
 
     alias milligram_in_grams milligrams_in_grams
@@ -384,7 +382,7 @@ class Numeric
 
   unless defined?(millimeters_in_meters)
     def millimeters_in_meters
-      self * MILLI
+      self * BASE_SIZES[:milli]
     end
 
     alias millimeter_in_meters millimeters_in_meters
@@ -392,7 +390,7 @@ class Numeric
 
   unless defined?(minutes_in_seconds)
     def minutes_in_seconds
-      self * MINUTE
+      self * BASE_TIMES[:minute]
     end
 
     alias minute_in_seconds minutes_in_seconds
@@ -414,7 +412,7 @@ class Numeric
 
   unless defined?(nautical_miles_in_inches)
     def nautical_miles_in_inches
-      self * NAUTICAL_MILE
+      self * BASE_LENGTHS[:nautical_mile]
     end
 
     alias nautical_mile_in_inches nautical_miles_in_inches
@@ -501,7 +499,7 @@ class Numeric
 
   unless defined?(petabytes_in_bytes)
     def petabytes_in_bytes
-      self * PETABYTE
+      self * BASE_BYTES[:peta]
     end
 
     alias petabyte_in_bytes petabytes_in_bytes
@@ -517,7 +515,7 @@ class Numeric
 
   unless defined?(pounds_in_ounces)
     def pounds_in_ounces
-      self * POUND
+      self * BASE_WEIGHTS[:pound]
     end
 
     alias pound_in_ounces pounds_in_ounces
@@ -545,7 +543,7 @@ class Numeric
 
   unless defined?(stones_in_ounces)
     def stones_in_ounces
-      self * STONE
+      self * BASE_WEIGHTS[:stone]
     end
 
     alias stone_in_ounces stones_in_ounces
@@ -559,7 +557,7 @@ class Numeric
 
   unless defined?(terabytes_in_bytes)
     def terabytes_in_bytes
-      self * TERABYTE
+      self * BASE_BYTES[:tera]
     end
 
     alias terabyte_in_bytes terabytes_in_bytes
@@ -693,7 +691,7 @@ class Numeric
 
   unless defined?(tons_in_ounces)
     def tons_in_ounces
-      self * TON
+      self * BASE_WEIGHTS[:ton]
     end
 
     alias ton_in_ounces tons_in_ounces
@@ -701,7 +699,7 @@ class Numeric
 
   unless defined?(weeks_in_seconds)
     def weeks_in_seconds
-      self * WEEK
+      self * BASE_TIMES[:week]
     end
 
     alias week_in_seconds weeks_in_seconds
@@ -724,7 +722,7 @@ class Numeric
 
   unless defined?(yards_in_inches)
     def yards_in_inches
-      self * YARD
+      self * BASE_LENGTHS[:yard]
     end
   end
 
@@ -732,7 +730,7 @@ class Numeric
 
   unless defined?(years_in_seconds)
     def years_in_seconds
-      self * YEAR
+      self * BASE_TIMES[:year]
     end
 
     alias year_in_seconds years_in_seconds

@@ -273,7 +273,7 @@ class Hash
   unless defined?(sample_key)
     def sample_key
       hash_keys = keys
-      hash_keys.at(Random.rand(hash_keys.length - 1))
+      hash_keys.at(Random.rand(hash_keys.size - 1))
     end
   end
 
@@ -301,7 +301,7 @@ class Hash
 
   unless defined?(shuffle)
     def shuffle
-      Hash[to_a.sample(length)]
+      Hash[to_a.sample(size)]
     end
   end
 
