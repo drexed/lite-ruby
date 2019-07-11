@@ -165,12 +165,12 @@ RSpec.describe Object do
   describe '#palindrome?' do
     it 'to be true' do
       expect('racecar'.palindrome?).to eq(true)
-      expect(12321.palindrome?).to eq(true)
+      expect(12_321.palindrome?).to eq(true)
     end
 
     it 'to be false' do
       expect('example'.palindrome?).to eq(false)
-      expect(12345.palindrome?).to eq(false)
+      expect(12_345.palindrome?).to eq(false)
     end
   end
 

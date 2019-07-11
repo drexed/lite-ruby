@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Object
+
+  NUMERAL_REGEXP ||= /\A[+-]?\d+?(\.\d+)?\Z/.freeze
+
   FALSE_VALUES ||= [
     false, 0, '0', 'false', 'FALSE', 'f', 'F'
   ].freeze
@@ -15,7 +18,9 @@ class Object
   def blank?
     object = self
     object = object.strip if respond_to?(:strip)
-    respond_to?(:empty?) ? object.empty? : !object
+    return object.empty? if respond_to?(:empty?)
+
+    !object
   end
 
   def bool?
@@ -53,7 +58,7 @@ class Object
   end
 
   def numeral?
-    !to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/).nil?
+    !to_s.match(NUMERAL_REGEXP).nil?
   end
 
   def numeric?
@@ -143,19 +148,25 @@ class Object
   end
 
   def try_send(*keys)
-    send(*keys) rescue nil
+    send(*keys)
+  rescue StandardError
+    nil
   end
 
 end
 
 class FalseClass
+
   def to_i
     0
   end
+
 end
 
 class TrueClass
+
   def to_i
     1
   end
+
 end
