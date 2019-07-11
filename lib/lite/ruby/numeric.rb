@@ -8,24 +8,50 @@ class Numeric
     deca: BASE_SIZE * 10.0, hecto: BASE_SIZE * 100.0, kilo: BASE_SIZE * 1000.0
   }.freeze
 
+  BYTE_KEYS ||= %i[
+    byte bytes kilobyte kilobytes megabyte megabytes gigabyte gigabytes terabyte terabytes
+    petabyte petabytes exabyte exabytes
+  ].freeze
   BASE_BYTE ||= 1024.0
   BASE_BYTES ||= {
     kilo: BASE_BYTE, mega: BASE_BYTE**2, giga: BASE_BYTE**3,
     tera: BASE_BYTE**4, peta: BASE_BYTE**5, exa: BASE_BYTE**6
   }.freeze
 
+  LENGTH_KEYS ||= {
+    metric: %i[
+      meter meters millimeter millimeters centimeter centimeters decimeter decimeters decameter
+      decameters hectometer hectometers kilometer kilometers
+    ],
+    emperical: %i[
+      inch inches foot feet yard yards mile miles nautical_mile nautical_miles
+    ]
+  }.freeze
   BASE_LENGTH ||= 12.0
   BASE_LENGTHS ||= {
     feet: BASE_LENGTH, yard: BASE_LENGTH * 3.0, mile: BASE_LENGTH * 5280.0,
     nautical_mile: BASE_LENGTH * 6076.118399999999
   }.freeze
 
+  WEIGHT_KEYS ||= {
+    metric: %i[
+      gram grams milligram milligrams centigram centigrams decigram decigrams decagram decagrams
+      hectogram hectograms kilogram kilograms metric_ton metric_tons
+    ],
+    emperical: %i[
+      ounce ounces pound pounds stone stones ton tons
+    ]
+  }.freeze
   BASE_WEIGHT ||= 16.0
   BASE_WEIGHTS ||= {
     pound: BASE_WEIGHT, stone: BASE_WEIGHT * 14.0, ton: BASE_WEIGHT * 2000.0,
     metric_ton: 1000000.0
   }.freeze
 
+  TIME_KEYS ||= %i[
+    second seconds minute minutes hour hours day days week weeks year years decade decades century
+    centuries millennium millenniums
+  ].freeze
   BASE_TIME ||= 60.0
   BASE_TIMES ||= {
     minute: BASE_TIME, hour: BASE_TIME ** 2, day: BASE_TIME * 1440.0,
@@ -33,34 +59,8 @@ class Numeric
     century: BASE_TIME * 52596000.0, millennium: BASE_TIME * 525960000.0
   }.freeze
 
-  BYTE_KEYS ||= %i[
-    byte bytes kilobyte kilobytes megabyte megabytes gigabyte gigabytes terabyte terabytes
-    petabyte petabytes exabyte exabytes
-  ].freeze
-  LENGTH_KEYS ||= {
-    metric: %i[
-      meter meters millimeter millimeters centimeter centimeters decimeter decimeters decameter
-      decameters hectometer hectometers kilometer kilometers
-    ],
-    imperical: %i[
-      inch inches foot feet yard yards mile miles nautical_mile nautical_miles
-    ]
-  }.freeze
-  MASS_KEYS ||= {
-    metric: %i[
-      gram grams milligram milligrams centigram centigrams decigram decigrams decagram decagrams
-      hectogram hectograms kilogram kilograms metric_ton metric_tons
-    ],
-    imperical: %i[
-      ounce ounces pound pounds stone stones ton tons
-    ]
-  }.freeze
   TEMPERATURE_KEYS ||= %i[
     celsius fahrenheit kelvin
-  ].freeze
-  TIME_KEYS ||= %i[
-    second seconds minute minutes hour hours day days week weeks year years decade decades century
-    centuries millennium millenniums
   ].freeze
 
   unless defined?(add)
@@ -69,13 +69,24 @@ class Numeric
     end
   end
 
-  unless defined?(bytes_in_bytes)
-    def bytes_in_bytes
+  unless defined?(base_unit)
+    def base_unit
       self
     end
-
-    alias byte_in_bytes bytes_in_bytes
   end
+
+  alias byte_in_bytes base_unit unless defined?(byte_in_bytes)
+  alias bytes_in_bytes base_unit unless defined?(bytes_in_bytes)
+  alias gram_in_grams base_unit unless defined?(gram_in_grams)
+  alias grams_in_grams base_unit unless defined?(grams_in_grams)
+  alias inch_in_inches base_unit unless defined?(inch_in_inches)
+  alias inches_in_inches base_unit unless defined?(inches_in_inches)
+  alias meter_in_meters base_unit unless defined?(meter_in_meters)
+  alias meters_in_meters base_unit unless defined?(meters_in_meters)
+  alias ounce_in_ounces base_unit unless defined?(ounce_in_ounces)
+  alias ounces_in_ounces base_unit unless defined?(ounces_in_ounces)
+  alias second_in_seconds base_unit unless defined?(second_in_seconds)
+  alias seconds_in_seconds base_unit unless defined?(seconds_in_seconds)
 
   unless defined?(centigrams_in_grams)
     def centigrams_in_grams
@@ -232,14 +243,6 @@ class Numeric
     alias gigabyte_in_bytes gigabytes_in_bytes
   end
 
-  unless defined?(grams_in_grams)
-    def grams_in_grams
-      self
-    end
-
-    alias gram_in_grams grams_in_grams
-  end
-
   unless defined?(greater_than?)
     def greater_than?(num)
       num < self
@@ -274,14 +277,6 @@ class Numeric
     end
 
     alias hour_in_seconds hours_in_seconds
-  end
-
-  unless defined?(inches_in_inches)
-    def inches_in_inches
-      self
-    end
-
-    alias inch_in_inches inches_in_inches
   end
 
   unless defined?(increment)
@@ -346,14 +341,6 @@ class Numeric
     end
 
     alias megabyte_in_bytes megabytes_in_bytes
-  end
-
-  unless defined?(meters_in_meters)
-    def meters_in_meters
-      self
-    end
-
-    alias meter_in_meters meters_in_meters
   end
 
   unless defined?(miles_in_inches)
@@ -445,14 +432,6 @@ class Numeric
     end
   end
 
-  unless defined?(ounces_in_ounces)
-    def ounces_in_ounces
-      self
-    end
-
-    alias ounce_in_ounces ounces_in_ounces
-  end
-
   unless defined?(outside?)
     def outside?(start, finish)
       (start > self) || (finish < self)
@@ -533,14 +512,6 @@ class Numeric
     end
   end
 
-  unless defined?(seconds_in_seconds)
-    def seconds_in_seconds
-      self
-    end
-
-    alias second_in_seconds seconds_in_seconds
-  end
-
   unless defined?(stones_in_ounces)
     def stones_in_ounces
       self * BASE_WEIGHTS[:stone]
@@ -610,11 +581,11 @@ class Numeric
 
   unless defined?(to_mass)
     def to_mass(from, to)
-      assert_inclusion_of_valid_keys!(MASS_KEYS.values.flatten, from, to)
+      assert_inclusion_of_valid_keys!(WEIGHT_KEYS.values.flatten, from, to)
 
       return self if from == to
 
-      metric_keys = MASS_KEYS.fetch(:metric)
+      metric_keys = WEIGHT_KEYS.fetch(:metric)
       metrics_included_from = metric_keys.include?(from)
 
       case to
