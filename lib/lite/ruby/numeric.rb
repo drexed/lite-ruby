@@ -215,7 +215,6 @@ class Numeric
     alias exabyte_in_bytes exabytes_in_bytes unless defined?(exabyte_in_bytes)
   end
 
-  # rubocop:disable Style/NumericPredicate, Style/YodaCondition
   unless defined?(equal_to?)
     def equal_to?(num)
       self == num
@@ -223,7 +222,6 @@ class Numeric
 
     alias eq? equal_to? unless defined?(eq?)
   end
-  # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
   unless defined?(feet_in_inches)
     def feet_in_inches
@@ -471,7 +469,7 @@ class Numeric
     end
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   unless defined?(pad_precision)
     def pad_precision(options = {})
@@ -491,7 +489,7 @@ class Numeric
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
   unless defined?(percentage_of)

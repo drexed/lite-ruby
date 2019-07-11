@@ -49,7 +49,7 @@ class Integer
       Time.at(self)
     end
 
-    alias to_t to_time  unless defined?(to_t)
+    alias to_t to_time unless defined?(to_t)
   end
 
 end
