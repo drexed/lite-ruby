@@ -2,6 +2,10 @@
 
 class Hash
 
+  UNDERSCORE_LVL_1 ||= /::/.freeze
+  UNDERSCORE_LVL_2 ||= /([A-Z\d]+)([A-Z][a-z])/.freeze
+  UNDERSCORE_LVL_3 ||= /([a-z\d])([A-Z])/.freeze
+
   def assert_valid_keys!(*valid_keys)
     each_key do |key|
       next if valid_keys.include?(key)
@@ -279,11 +283,5 @@ class Hash
   def vacant?(key)
     self[key].blank?
   end
-
-  private
-
-  UNDERSCORE_LVL_1 ||= /::/.freeze
-  UNDERSCORE_LVL_2 ||= /([A-Z\d]+)([A-Z][a-z])/.freeze
-  UNDERSCORE_LVL_3 ||= /([a-z\d])([A-Z])/.freeze
 
 end

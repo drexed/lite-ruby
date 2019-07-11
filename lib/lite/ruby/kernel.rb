@@ -2,6 +2,9 @@
 
 module Kernel
 
+  SANITIZE_EVAL_REGEXP ||= /\[\d*,?\d*,?\d*\]/.freeze
+  CALLER_METHOD_REGEXP ||= /`([^']*)'/.freeze
+
   # rubocop:disable Lint/RescueException, Security/Eval
   def safe_eval
     eval(self)
@@ -18,9 +21,6 @@ module Kernel
   # rubocop:enable Lint/RescueException, Security/Eval
 
   private
-
-  SANITIZE_EVAL_REGEXP ||= /\[\d*,?\d*,?\d*\]/.freeze
-  CALLER_METHOD_REGEXP ||= /`([^']*)'/.freeze
 
   def caller_name(depth = 0)
     val = caller[depth][CALLER_METHOD_REGEXP, 1]
