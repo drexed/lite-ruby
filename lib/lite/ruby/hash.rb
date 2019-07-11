@@ -2,10 +2,6 @@
 
 class Hash
 
-  UNDERSCORE_REGEXP_1 ||= /::/.freeze
-  UNDERSCORE_REGEXP_2 ||= /([A-Z\d]+)([A-Z][a-z])/.freeze
-  UNDERSCORE_REGEXP_3 ||= /([a-z\d])([A-Z])/.freeze
-
   def assert_valid_keys!(*valid_keys)
     each_key do |key|
       next if valid_keys.include?(key)
@@ -91,7 +87,8 @@ class Hash
   def demote!(key)
     return self unless key?(key)
 
-    merge!(key => delete(key))
+    self[key] = delete(key)
+    self
   end
 
   def denillify(value = 0)
@@ -255,9 +252,9 @@ class Hash
     each_with_object({}) do |(key, val), hash|
       new_key = begin
                   key.to_s
-                     .gsub(UNDERSCORE_REGEXP_1, '/')
-                     .gsub(UNDERSCORE_REGEXP_2, '\1_\2')
-                     .gsub(UNDERSCORE_REGEXP_3, '\1_\2')
+                     .gsub(/::/, '/')
+                     .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+                     .gsub(/([a-z\d])([A-Z])/, '\1_\2')
                      .tr(' -', '_')
                      .downcase
                      .to_sym

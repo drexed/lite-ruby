@@ -22,7 +22,7 @@ Returns the characters at index position, matching string, or regex.
 'example_string'.at(99)    #=> nil
 ```
 
-`camelize(!)`
+`camelize(!)` aka `camelcase(!)`
 ------
 Transforms a string to camelcase.
 
@@ -113,15 +113,6 @@ separator | string | ' '
 '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(50)                   #=> '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, offset: 2)        #=> '01...YZ'
 '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, separator: '+++') #=> '0123+++WXYZ'
-```
-
-`exclude?`
-------
-Returns true if the string does not include the other string.
-
-```ruby
-'example_string'.exclude?('exa') #=> false
-'example_string'.exclude?('xxx') #=> true
 ```
 
 `first`

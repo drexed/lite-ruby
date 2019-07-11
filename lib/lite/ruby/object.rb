@@ -2,8 +2,6 @@
 
 class Object
 
-  NUMERAL_REGEXP ||= /\A[+-]?\d+?(\.\d+)?\Z/.freeze
-
   FALSE_VALUES ||= [
     false, 0, '0', 'false', 'FALSE', 'f', 'F'
   ].freeze
@@ -58,7 +56,7 @@ class Object
   end
 
   def numeral?
-    !to_s.match(NUMERAL_REGEXP).nil?
+    !to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/).nil?
   end
 
   def numeric?

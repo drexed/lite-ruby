@@ -5,126 +5,172 @@ require 'spec_helper'
 RSpec.describe String do
 
   describe '#any?' do
+    let(:s1) { 'example string' }
+
     it 'to be true' do
-      expect('example string'.any?('example')).to eq(true)
-      expect('example string'.any?('foo', 'string')).to eq(true)
+      expect(s1.any?('example')).to eq(true)
+      expect(s1.any?('foo', 'string')).to eq(true)
     end
 
     it 'to be false' do
-      expect('example string'.any?('foo')).to eq(false)
-      expect('example string'.any?('foo', 'bar')).to eq(false)
+      expect(s1.any?('foo')).to eq(false)
+      expect(s1.any?('foo', 'bar')).to eq(false)
     end
   end
 
   describe '#at' do
-    it 'to be e' do
-      expect('example'.at(0)).to eq('e')
-      expect('example'.at(-1)).to eq('e')
+    let(:s1) { 'example' }
+
+    it 'to be "e"' do
+      expect(s1.at(0)).to eq('e')
+      expect(s1.at(-1)).to eq('e')
     end
 
-    it 'to be m' do
-      expect('example'.at(3)).to eq('m')
+    it 'to be "m"' do
+      expect(s1.at(3)).to eq('m')
     end
 
-    it 'to be xam' do
-      expect('example'.at(1..3)).to eq('xam')
+    it 'to be "xam"' do
+      expect(s1.at(1..3)).to eq('xam')
     end
 
     it 'to be ""' do
-      expect('example'.at(7..-1)).to eq('')
+      expect(s1.at(7..-1)).to eq('')
     end
 
-    it 'to be pl' do
-      expect('example'.at('pl')).to eq('pl')
-      expect('example'.at(/pl/)).to eq('pl')
+    it 'to be "pl"' do
+      expect(s1.at('pl')).to eq('pl')
+      expect(s1.at(/pl/)).to eq('pl')
     end
 
     it 'to be nil' do
-      expect('example'.at('xp')).to eq(nil)
-      expect('example'.at(/xp/)).to eq(nil)
+      expect(s1.at('xp')).to eq(nil)
+      expect(s1.at(/xp/)).to eq(nil)
     end
   end
 
   describe '#camelize(!)' do
-    it 'to be ExampleString' do
-      expect('example_string'.camelize).to eq('ExampleString')
-      expect('example_string'.camelcase).to eq('ExampleString')
-      expect('example_string'.camelize!).to eq('ExampleString')
-      expect('example_string'.camelcase!).to eq('ExampleString')
+    let(:s1) { 'example_string' }
+
+    it 'to be "ExampleString"' do
+      s2 = 'ExampleString'
+
+      expect(s1.camelize).to eq(s2)
+      expect(s1.camelcase).to eq(s2)
+      expect(s1.camelize!).to eq(s2)
+      expect(s1.camelcase!).to eq(s2)
     end
 
-    it 'to be exampleString' do
-      expect('example_string'.camelize(:lower)).to eq('exampleString')
-      expect('example_string'.camelcase(:lower)).to eq('exampleString')
-      expect('example_string'.camelize!(:lower)).to eq('exampleString')
-      expect('example_string'.camelcase!(:lower)).to eq('exampleString')
+    it 'to be "exampleString"' do
+      s2 = 'exampleString'
+
+      expect(s1.camelize(:lower)).to eq(s2)
+      expect(s1.camelcase(:lower)).to eq(s2)
+      expect(s1.camelize!(:lower)).to eq(s2)
+      expect(s1.camelcase!(:lower)).to eq(s2)
     end
   end
 
   describe '#classify' do
-    it 'to be ExampleString' do
-      expect('example_string'.classify).to eq('ExampleString')
-      expect('example_string'.classify!).to eq('ExampleString')
+    it 'to be "ExampleString"' do
+      s1 = 'example_string'
+      s2 = 'ExampleString'
+
+      expect(s1.classify).to eq(s2)
+      expect(s1.classify!).to eq(s2)
     end
 
-    it 'to be ExampleString::Test' do
-      expect('example_string/test'.classify).to eq('ExampleString::Test')
-      expect('example_string/test'.classify!).to eq('ExampleString::Test')
+    it 'to be "ExampleString::Test"' do
+      s1 = 'example_string/test'
+      s2 = 'ExampleString::Test'
+
+      expect(s1.classify).to eq(s2)
+      expect(s1.classify!).to eq(s2)
     end
 
-    it 'to be Test' do
-      expect('example_string.test'.classify).to eq('Test')
-      expect('example_string.test'.classify!).to eq('Test')
+    it 'to be "Test"' do
+      s1 = 'example_string.test'
+      s2 = 'Test'
+
+      expect(s1.classify).to eq(s2)
+      expect(s1.classify!).to eq(s2)
     end
   end
 
   describe '#deconstantize' do
-    it 'to be String' do
-      expect('Example::String'.deconstantize).to eq('Example')
-      expect('Example::String'.deconstantize!).to eq('Example')
-      expect('::Example::String'.deconstantize).to eq('::Example')
-      expect('::Example::String'.deconstantize!).to eq('::Example')
-      expect('String'.deconstantize).to eq('')
-      expect('String'.deconstantize!).to eq('')
-      expect('::String'.deconstantize).to eq('')
-      expect('::String'.deconstantize!).to eq('')
-      expect(''.deconstantize).to eq('')
-      expect(''.deconstantize!).to eq('')
+    it 'to be "String"' do
+      s1 = 'String'
+      s2 = '::String'
+      s3 = ''
+
+      expect(s1.deconstantize).to eq(s3)
+      expect(s1.deconstantize!).to eq(s3)
+      expect(s2.deconstantize).to eq(s3)
+      expect(s2.deconstantize!).to eq(s3)
+      expect(s3.deconstantize).to eq(s3)
+      expect(s3.deconstantize!).to eq(s3)
+    end
+
+    it 'to be "String" with leading word' do
+      s1 = 'Example::String'
+      s2 = 'Example'
+
+      expect(s1.deconstantize).to eq(s2)
+      expect(s1.deconstantize!).to eq(s2)
+    end
+
+    it 'to be "String" with leading "::"' do
+      s1 = '::Example::String'
+      s2 = '::Example'
+
+      expect(s1.deconstantize).to eq(s2)
+      expect(s1.deconstantize!).to eq(s2)
     end
   end
 
   describe '#demodulize' do
-    it 'to be String' do
-      expect('Example::String'.demodulize).to eq('String')
-      expect('Example::String'.demodulize!).to eq('String')
-      expect('String'.demodulize).to eq('String')
-      expect('String'.demodulize!).to eq('String')
+    it 'to be "String"' do
+      s1 = 'Example::String'
+      s2 = 'String'
+
+      expect(s1.demodulize).to eq(s2)
+      expect(s1.demodulize!).to eq(s2)
+      expect(s2.demodulize).to eq(s2)
+      expect(s2.demodulize!).to eq(s2)
     end
   end
 
   describe '#dasherize' do
-    it 'to be example-string' do
-      expect('example_string'.dasherize).to eq('example-string')
-      expect('example_string'.dasherize!).to eq('example-string')
+    it 'to be "example-string"' do
+      s1 = 'example_string'
+      s2 = 'example-string'
+
+      expect(s1.dasherize).to eq(s2)
+      expect(s1.dasherize!).to eq(s2)
     end
   end
 
   describe '#domain' do
+    let(:s1) { '' }
+    let(:s2) { ' ' }
+    let(:s3) { 'example string' }
+    let(:s4) { 'www.example.com' }
+
     it 'to be ""' do
-      expect(''.domain).to eq('')
+      expect(s1.domain).to eq(s1)
     end
 
     it 'to be " "' do
-      expect(' '.domain).to eq(' ')
+      expect(s2.domain).to eq(s2)
     end
 
-    it 'to be example string' do
-      expect('example string'.domain).to eq('example string')
+    it 'to be "example string"' do
+      expect(s3.domain).to eq(s3)
     end
 
-    it 'to be www.example.com' do
-      expect('http://www.example.com'.domain).to eq('www.example.com')
-      expect('http://www.example.com/fake-page'.domain).to eq('www.example.com')
+    it 'to be "www.example.com"' do
+      expect('http://www.example.com'.domain).to eq(s4)
+      expect('http://www.example.com/fake-page'.domain).to eq(s4)
     end
   end
 
@@ -137,127 +183,125 @@ RSpec.describe String do
     it 'to be false' do
       expect('Mixedcase'.downcase?).to eq(false)
       expect('UPCASE'.downcase?).to eq(false)
-      expect('Mixedcase string'.downcase?).to eq(false)
     end
   end
 
   describe '#ellipsize' do
-    it 'to be 0123...WXYZ' do
-      expect('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30)).to eq('0123...WXYZ')
+    let(:s1) { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' }
+
+    it 'to be "0123...WXYZ"' do
+      expect(s1.ellipsize(30)).to eq('0123...WXYZ')
     end
 
-    it 'to be 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' do
-      expect('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(50)).to eq('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    it 'to be "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"' do
+      expect(s1.ellipsize(50)).to eq(s1)
     end
 
-    it 'to be 012...XYZ' do
-      expect('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, offset: 3)).to eq('012...XYZ')
+    it 'to be "012...XYZ"' do
+      expect(s1.ellipsize(30, offset: 3)).to eq('012...XYZ')
     end
 
-    it 'to be 0123+++WXYZ' do
-      expect('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, separator: '+++')).to eq('0123+++WXYZ')
-    end
-  end
-
-  describe '#exclude?' do
-    it 'to be true' do
-      expect('example_string'.exclude?('xxx')).to eq(true)
-    end
-
-    it 'to be false' do
-      expect('example_string'.exclude?('exa')).to eq(false)
+    it 'to be "0123+++WXYZ"' do
+      expect(s1.ellipsize(30, separator: '+++')).to eq('0123+++WXYZ')
     end
   end
 
   describe '#first' do
-    it 'to be e' do
-      expect('example'.first).to eq('e')
+    let(:s1) { 'example' }
+
+    it 'to be "e"' do
+      expect(s1.first).to eq('e')
     end
 
     it 'to be ""' do
-      expect('example'.first(0)).to eq('')
+      expect(s1.first(0)).to eq('')
     end
 
-    it 'to be exa' do
-      expect('example'.first(3)).to eq('exa')
+    it 'to be "exa"' do
+      expect(s1.first(3)).to eq('exa')
     end
   end
 
+  # rubocop:disable Style/FormatStringToken
   describe '#format' do
-    it 'to be example string' do
+    it 'to be "example string"' do
       expect('example %s'.format('string')).to eq('example string')
     end
 
-    it 'to be test example string' do
-      expect('test %{one} %{two}'.format(one: 'example', two: 'string')).to eq('test example string')
+    it 'to be "test example string"' do
+      s1 = 'test %{one} %{two}'
+      s2 = 'test example string'
+
+      expect(s1.format(one: 'example', two: 'string')).to eq(s2)
     end
 
-    it 'to be 1 + 2' do
+    it 'to be "1 + 2"' do
       expect('%d + %d'.format([1, 2])).to eq('1 + 2')
     end
   end
+  # rubocop:enable Style/FormatStringToken
 
   describe '#from' do
-    it 'to be example' do
-      expect('example'.from(0)).to eq('example')
+    let(:s1) { 'example' }
+
+    it 'to be "example"' do
+      expect(s1.from(0)).to eq(s1)
     end
 
-    it 'to be mple' do
-      expect('example'.from(3)).to eq('mple')
+    it 'to be "mple"' do
+      expect(s1.from(3)).to eq('mple')
     end
   end
 
   describe '#headerize(!)' do
     it 'to be "Example Test-sample"' do
-      expect(' example test-sample '.headerize).to eq('Example Test-sample')
-      expect(' example test-sample '.headerize!).to eq('Example Test-sample')
+      s1 = ' example test-sample '
+      s2 = 'Example Test-sample'
+
+      expect(s1.headerize).to eq(s2)
+      expect(s1.headerize!).to eq(s2)
     end
   end
 
   describe '#humanize(!)' do
-    it 'to be Example string test' do
-      expect('example_string_test'.humanize).to eq('Example string test')
-      expect('example_string_test'.humanize!).to eq('Example string test')
-      expect('_example_string_test_id'.humanize).to eq('Example string test')
-      expect('_example_string_test_id'.humanize!).to eq('Example string test')
+    it 'to be "Example string test"' do
+      s1 = 'example_string_test'
+      s2 = 'Example string test'
 
-      unless defined?(ActiveSupport)
-        expect('exampleStringTest'.humanize).to eq('Example string test')
-        expect('exampleStringTest'.humanize!).to eq('Example string test')
-        expect('ExampleStringTest'.humanize).to eq('Example string test')
-        expect('ExampleStringTest'.humanize!).to eq('Example string test')
-      end
+      expect(s1.humanize).to eq(s2)
+      expect(s1.humanize!).to eq(s2)
     end
 
-    it 'to be example string test' do
-      expect('example_string_test'.humanize(capitalize: false)).to eq('example string test')
-      expect('example_string_test'.humanize!(capitalize: false)).to eq('example string test')
+    it 'to be "example string test"' do
+      s1 = 'example_string_test'
+      s2 = 'example string test'
 
-      unless defined?(ActiveSupport)
-        expect('exampleStringTest'.humanize(capitalize: false)).to eq('example string test')
-        expect('exampleStringTest'.humanize!(capitalize: false)).to eq('example string test')
-        expect('ExampleStringTest'.humanize(capitalize: false)).to eq('example string test')
-        expect('ExampleStringTest'.humanize!(capitalize: false)).to eq('example string test')
-      end
+      expect(s1.humanize(capitalize: false)).to eq(s2)
+      expect(s1.humanize!(capitalize: false)).to eq(s2)
     end
   end
 
   describe '#indent(!)' do
+    let(:s1) { 'example' }
+
     it 'to be "  example"' do
-      expect('example'.indent(2)).to eq('  example')
-      expect('example'.indent!(2)).to eq('  example')
+      s2 = '  example'
+
+      expect(s1.indent(2)).to eq(s2)
+      expect(s1.indent!(2)).to eq(s2)
     end
 
     it 'to be "\t\texample"' do
-      expect('example'.indent(2, '\t')).to eq('\t\texample')
-      expect('example'.indent!(2, '\t')).to eq('\t\texample')
+      s2 = '\t\texample'
+
+      expect(s1.indent(2, '\t')).to eq(s2)
+      expect(s1.indent!(2, '\t')).to eq(s2)
     end
   end
 
   describe '#index_all' do
     it 'to be [0, 7, 13]' do
       expect('012324507654301243'.index_all(0)).to eq([0, 7, 13])
-      expect('012324507654301243'.index_all('0')).to eq([0, 7, 13])
     end
 
     it 'to be [0, 13, 31]' do
@@ -270,39 +314,48 @@ RSpec.describe String do
   end
 
   describe '#labelize(!)' do
-    it 'to be Example string test' do
-      expect('example_string_test'.labelize).to eq('Example string test')
-      expect('example_string_test'.labelize!).to eq('Example string test')
-      expect('exampleStringTest'.labelize).to eq('Example string test')
-      expect('exampleStringTest'.labelize!).to eq('Example string test')
-      expect('ExampleStringTest'.labelize).to eq('Example string test')
-      expect('ExampleStringTest'.labelize!).to eq('Example string test')
+    it 'to be "Example string test"' do
+      s1 = 'example_string_test'
+      s2 = 'exampleStringTest'
+      s3 = 'ExampleStringTest'
+      s4 = 'Example string test'
+
+      expect(s1.labelize).to eq(s4)
+      expect(s1.labelize!).to eq(s4)
+      expect(s2.labelize).to eq(s4)
+      expect(s2.labelize!).to eq(s4)
+      expect(s3.labelize).to eq(s4)
+      expect(s3.labelize!).to eq(s4)
     end
 
-    it 'to be Example string test Id' do
-      expect('_example_string_test_id'.labelize).to eq('Example string test ID')
-      expect('_example_string_test_id'.labelize!).to eq('Example string test ID')
+    it 'to be "Example string test Id"' do
+      s1 = '_example_string_test_id'
+      s2 = 'Example string test ID'
+
+      expect(s1.labelize).to eq(s2)
+      expect(s1.labelize!).to eq(s2)
     end
   end
 
   describe '#last' do
-    it 'to be e' do
-      expect('example'.last).to eq('e')
+    let(:s1) { 'example' }
+
+    it 'to be "e"' do
+      expect(s1.last).to eq('e')
     end
 
     it 'to be ""' do
-      expect('example'.last(0)).to eq('')
+      expect(s1.last(0)).to eq('')
     end
 
-    it 'to be ple' do
-      expect('example'.last(3)).to eq('ple')
+    it 'to be "ple"' do
+      expect(s1.last(3)).to eq('ple')
     end
   end
 
   describe '#mixedcase?' do
     it 'to be true' do
       expect('Mixedcase'.mixedcase?).to eq(true)
-      expect('Mixedcase STRING type'.mixedcase?).to eq(true)
     end
 
     it 'to be false' do
@@ -312,294 +365,376 @@ RSpec.describe String do
   end
 
   describe '#ordinal' do
-    it 'to be st' do
+    it 'to be "st"' do
       expect('1'.ordinal).to eq('st')
     end
 
-    it 'to be nd' do
+    it 'to be "nd"' do
       expect('2'.ordinal).to eq('nd')
     end
 
-    it 'to be rd' do
+    it 'to be "rd"' do
       expect('3'.ordinal).to eq('rd')
     end
 
-    it 'to be th' do
+    it 'to be "th"' do
       expect('11'.ordinal).to eq('th')
     end
   end
 
   describe '#ordinalize' do
-    it 'to be st' do
+    it 'to be "st"' do
       expect('1'.ordinalize).to eq('1st')
     end
 
-    it 'to be nd' do
+    it 'to be "nd"' do
       expect('2'.ordinalize).to eq('2nd')
     end
 
-    it 'to be rd' do
+    it 'to be "rd"' do
       expect('3'.ordinalize).to eq('3rd')
     end
 
-    it 'to be th' do
+    it 'to be "th"' do
       expect('11'.ordinalize).to eq('11th')
     end
   end
 
   describe '#parameterize(!)' do
-    it 'to be example-string' do
-      expect('example string'.parameterize).to eq('example-string')
-      expect('example string'.parameterize!).to eq('example-string')
+    let(:s1) { 'example string' }
+
+    it 'to be "example-string"' do
+      s2 = 'example-string'
+
+      expect(s1.parameterize).to eq(s2)
+      expect(s1.parameterize!).to eq(s2)
     end
 
-    it 'to be example_string' do
-      expect('example string'.parameterize(separator: '?')).to eq('example?string')
-      expect('example string'.parameterize!(separator: '?')).to eq('example?string')
+    it 'to be "example_string"' do
+      s2 = 'example?string'
+
+      expect(s1.parameterize(separator: '?')).to eq(s2)
+      expect(s1.parameterize!(separator: '?')).to eq(s2)
     end
   end
 
   describe '#pollute(!)' do
-    it 'to be t^--^--^e^--^--^s^--^--^t^--^--^' do
-      expect('test'.pollute).to eq('t^--^--^e^--^--^s^--^--^t^--^--^')
-      expect('test'.pollute!).to eq('t^--^--^e^--^--^s^--^--^t^--^--^')
+    let(:s1) { 'test' }
+
+    it 'to be "t^--^--^e^--^--^s^--^--^t^--^--^"' do
+      s2 = 't^--^--^e^--^--^s^--^--^t^--^--^'
+
+      expect(s1.pollute).to eq(s2)
+      expect(s1.pollute!).to eq(s2)
     end
 
-    it 'to be t-e-s-t-' do
-      expect('test'.pollute('-')).to eq('t-e-s-t-')
-      expect('test'.pollute!('-')).to eq('t-e-s-t-')
+    it 'to be "t-e-s-t-"' do
+      s2 = 't-e-s-t-'
+
+      expect(s1.pollute('-')).to eq(s2)
+      expect(s1.pollute!('-')).to eq(s2)
     end
   end
 
   describe '#pop' do
-    it 'to be r' do
+    it 'to be "r"' do
       expect('tester'.pop).to eq('r')
     end
   end
 
   describe '#push' do
-    it 'to be tester' do
+    it 'to be "tester"' do
       expect('test'.push('er')).to eq('tester')
     end
   end
 
   describe '#remove(!)' do
     it 'to be "this  that "' do
-      expect('this thing that thing'.remove('thing')).to eq('this  that ')
-      expect('this thing that thing'.remove!('thing')).to eq('this  that ')
-      expect('this thing that them'.remove('thing', 'them')).to eq('this  that ')
-      expect('this thing that them'.remove!('thing', 'them')).to eq('this  that ')
+      s1 = 'this thing that thing'
+      s2 = 'this thing that them'
+      s3 = 'thing'
+      s4 = 'them'
+      s5 = 'this  that '
 
-      unless defined?(ActiveSupport)
-        expect('this thing that thing'.remove(1..3)).to eq('t thing that thing')
-        expect('this thing that thing'.remove!(1..3)).to eq('t thing that thing')
-        expect('this thing that them'.remove('thing', 1..3)).to eq('t  that them')
-        expect('this thing that them'.remove!('thing', 1..3)).to eq('t  that them')
-      end
+      expect(s1.remove(s3)).to eq(s5)
+      expect(s1.remove!(s3)).to eq(s5)
+      expect(s2.remove(s3, s4)).to eq(s5)
+      expect(s2.remove!(s3, s4)).to eq(s5)
     end
   end
 
   describe '#remove_tags(!)' do
-    it 'to be example' do
-      expect('example'.remove_tags).to eq('example')
-      expect('example'.remove_tags!).to eq('example')
+    it 'to be "example"' do
+      s1 = 'example'
+
+      expect(s1.remove_tags).to eq(s1)
+      expect(s1.remove_tags!).to eq(s1)
     end
 
-    it 'to be click' do
-      expect('<a href="http://example.com">click</a>'.remove_tags).to eq('click')
-      expect('<a href="http://example.com">click</a>'.remove_tags!).to eq('click')
+    it 'to be "click"' do
+      s1 = '<a href="http://example.com">click</a>'
+      s2 = 'click'
+
+      expect(s1.remove_tags).to eq(s2)
+      expect(s1.remove_tags!).to eq(s2)
     end
 
-    it 'to be this is bold and emphatic' do
-      expect('this is <b>bold</b> and <em>emphatic</em>'.remove_tags).to eq('this is bold and emphatic')
-      expect('this is <b>bold</b> and <em>emphatic</em>'.remove_tags!).to eq('this is bold and emphatic')
+    it 'to be "this is bold and emphatic"' do
+      s1 = 'this is <b>bold</b> and <em>emphatic</em>'
+      s2 = 'this is bold and emphatic'
+
+      expect(s1.remove_tags).to eq(s2)
+      expect(s1.remove_tags!).to eq(s2)
     end
   end
 
   describe '#sample(!)' do
     it 'to be true' do
-      expect('this thing that thing'.include?('this thing that thing'.sample)).to eq(true)
-      expect('this thing that thing'.include?('this thing that thing'.sample!)).to eq(true)
+      s1 = 'this thing that thing'
+
+      expect(s1.include?(s1.sample)).to eq(true)
+      expect(s1.include?(s1.sample!)).to eq(true)
     end
   end
 
   describe '#shift(!)' do
+    let(:s1) { 'this thing that thing' }
+
     it 'to be "t"' do
-      expect('this thing that thing'.shift).to eq('t')
-      expect('this thing that thing'.shift!).to eq('t')
+      s2 = 't'
+
+      expect(s1.shift).to eq(s2)
+      expect(s1.shift!).to eq(s2)
     end
 
     it 'to be "this  that thing"' do
-      expect('this thing that thing'.shift('thing')).to eq('this  that thing')
-      expect('this thing that thing'.shift!('thing')).to eq('this  that thing')
+      s2 = 'this  that thing'
+      s3 = 'thing'
+
+      expect(s1.shift(s3)).to eq(s2)
+      expect(s1.shift!(s3)).to eq(s2)
     end
 
     it 'to be " thing  thing"' do
-      expect('this thing that thing'.shift('this', 'that')).to eq(' thing  thing')
-      expect('this thing that thing'.shift!('this', 'that')).to eq(' thing  thing')
+      s1 = ' thing  thing'
+      a1 = %w[this that]
+
+      expect(s1.shift(*a1)).to eq(s1)
+      expect(s1.shift!(*a1)).to eq(s1)
     end
   end
 
   describe '#shuffle(!)' do
     it 'to not be "this thing that thing"' do
-      expect('this thing that thing'.shuffle).not_to eq('this thing that thing')
-      expect('this thing that thing'.shuffle!).not_to eq('this thing that thing')
+      s1 = 'this thing that thing'
+
+      expect(s1.shuffle).not_to eq(s1)
+      expect(s1.shuffle!).not_to eq('this thing that thing')
     end
   end
 
   describe '#sift(!)' do
     it 'to be "23456789"' do
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift('0123456789')).to eq('23456789')
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift!('0123456789')).to eq('23456789')
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift(0..9)).to eq('23456789')
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift!(0..9)).to eq('23456789')
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])).to eq('23456789')
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])).to eq('23456789')
+      s1 = 'qa2ws3ed4rf5tg6yh7uj8ik9ol'
+      s2 = '0123456789'
+      s3 = '23456789'
+      r1 = (0..9)
+      a1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+      expect(s1.sift(s2)).to eq(s3)
+      expect(s1.sift!(s2)).to eq(s3)
+      expect(s1.sift(r1)).to eq(s3)
+      expect(s1.sift!(r1)).to eq(s3)
+      expect(s1.sift(a1)).to eq(s3)
+      expect(s1.sift!(a1)).to eq(s3)
     end
   end
 
   describe '#slugify(!)' do
-    it 'to be example' do
-      expect('example'.slugify).to eq('example')
-      expect('example'.slugify!).to eq('example')
+    it 'to be "example"' do
+      s1 = 'example'
+
+      expect(s1.slugify).to eq(s1)
+      expect(s1.slugify!).to eq(s1)
     end
 
-    it 'to be example-string' do
-      expect('example string'.slugify).to eq('example-string')
-      expect('example string'.slugify!).to eq('example-string')
+    it 'to be "example-string"' do
+      s1 = 'example string'
+      s2 = 'example-string'
+
+      expect(s1.slugify).to eq(s2)
+      expect(s1.slugify!).to eq(s2)
     end
 
-    it 'to be example-string-test' do
-      expect('Example string @@@ test!'.slugify).to eq('example-string-test')
-      expect('Example string @@@ test!'.slugify!).to eq('example-string-test')
+    it 'to be "example-string-test"' do
+      s1 = 'Example string @@@ test!'
+      s2 = 'example-string-test'
+
+      expect(s1.slugify).to eq(s2)
+      expect(s1.slugify!).to eq(s2)
     end
 
-    it 'to be a-real-doozie' do
-      expect(' A REal Doozi\'e?  \' '.slugify).to eq('a-real-doozie')
-      expect(' A REal Doozi\'e?  \' '.slugify!).to eq('a-real-doozie')
+    it 'to be "a-real-doozie"' do
+      s1 = ' A REal Doozi\'e?  \' '
+      s2 = 'a-real-doozie'
+
+      expect(s1.slugify).to eq(s2)
+      expect(s1.slugify!).to eq(s2)
     end
   end
 
   describe '#sort(!)' do
     it 'to be "abcde"' do
-      expect('adbec'.sort).to eq('abcde')
-      expect('adbec'.sort!).to eq('abcde')
+      s1 = 'adbec'
+      s2 = 'abcde'
+
+      expect(s1.sort).to eq(s2)
+      expect(s1.sort!).to eq(s2)
     end
   end
 
   describe '#squish(!)' do
     it 'to be example test' do
-      expect('example     test'.squish).to eq('example test')
-      expect("example  \n   \t   test".squish!).to eq('example test')
-      expect("  example  \n   \t   test  ".squish).to eq('example test')
-      expect('  example     test  '.squish!).to eq('example test')
+      s1 = 'example test'
+
+      expect('example     test'.squish).to eq(s1)
+      expect("example  \n   \t   test".squish!).to eq(s1)
+      expect("  example  \n   \t   test  ".squish).to eq(s1)
+      expect('  example     test  '.squish!).to eq(s1)
     end
   end
 
   describe '#titleize(!)' do
-    it 'to be Example String Test' do
-      expect('example string test'.titleize).to eq('Example String Test')
-      expect('example string test'.titlecase).to eq('Example String Test')
-      expect('example string test'.titleize!).to eq('Example String Test')
-      expect('example string test'.titlecase!).to eq('Example String Test')
-      expect('Example string Test'.titleize).to eq('Example String Test')
-      expect('Example string Test'.titleize!).to eq('Example String Test')
-      expect('ExampleStringTest'.titleize).to eq('Example String Test')
-      expect('ExampleStringTest'.titleize!).to eq('Example String Test')
-      expect('Example_string_test'.titleize).to eq('Example String Test')
-      expect('Example_string_test'.titleize!).to eq('Example String Test')
+    it 'to be "Example String Test"' do
+      s1 = 'example string test'
+      s2 = 'Example string Test'
+      s3 = 'ExampleStringTest'
+      s4 = 'Example_string_test'
+      s5 = 'Example String Test'
+
+      expect(s1.titleize).to eq(s5)
+      expect(s1.titlecase).to eq(s5)
+      expect(s1.titleize!).to eq(s5)
+      expect(s1.titlecase!).to eq(s5)
+      expect(s2.titleize).to eq(s5)
+      expect(s2.titleize!).to eq(s5)
+      expect(s3.titleize).to eq(s5)
+      expect(s3.titleize!).to eq(s5)
+      expect(s4.titleize).to eq(s5)
+      expect(s4.titleize!).to eq(s5)
     end
   end
 
   describe '#to' do
-    it 'to be e' do
-      expect('example'.to(0)).to eq('e')
+    let(:s1) { 'example' }
+
+    it 'to be "e"' do
+      expect(s1.to(0)).to eq('e')
     end
 
-    it 'to be exampl' do
-      expect('example'.to(-2)).to eq('exampl')
+    it 'to be "exampl"' do
+      expect(s1.to(-2)).to eq('exampl')
     end
 
-    it 'to be exam' do
-      expect('example'.to(3)).to eq('exam')
+    it 'to be "exam"' do
+      expect(s1.to(3)).to eq('exam')
     end
   end
 
   describe '#transliterize' do
     it 'to be "zaoe"' do
-      expect('źåöé'.transliterize).to eq('zaoe')
-      expect('źåöé'.transliterize!).to eq('zaoe')
+      s1 = 'źåöé'
+      s2 = 'zaoe'
+
+      expect(s1.transliterize).to eq(s2)
+      expect(s1.transliterize!).to eq(s2)
     end
   end
 
   describe '#truncate' do
-    it 'to be ...' do
-      expect('example string'.truncate(3)).to eq('...')
+    let(:s1) { 'example string' }
+
+    it 'to be "..."' do
+      expect(s1.truncate(3)).to eq('...')
     end
 
-    it 'to be exa...' do
-      expect('example string'.truncate(6)).to eq('exa...')
+    it 'to be "exa..."' do
+      expect(s1.truncate(6)).to eq('exa...')
     end
 
-    it 'to be example...' do
-      expect('example string'.truncate(12, separator: ' ')).to eq('example...')
+    it 'to be "example..."' do
+      expect(s1.truncate(12, separator: ' ')).to eq('example...')
     end
 
-    it 'to be exa... (more)' do
-      expect('example string'.truncate(13, omission: '... (more)')).to eq('exa... (more)')
+    it 'to be "exa... (more)"' do
+      expect(s1.truncate(13, omission: '... (more)')).to eq('exa... (more)')
     end
 
-    it 'to be example string' do
-      expect('example string'.truncate(15)).to eq('example string')
+    it 'to be "example string"' do
+      expect(s1.truncate(15)).to eq(s1)
     end
   end
 
   describe '#truncate_words' do
-    it 'to be example...' do
+    it 'to be "example..."' do
       expect('example string test'.truncate_words(1)).to eq('example...')
     end
 
-    it 'to be Once<br>upon<br>a<br>time<br>in...' do
-      str = 'Once<br>upon<br>a<br>time<br>in<br>a<br>world'
+    it 'to be "Once<br>upon<br>a<br>time<br>in..."' do
+      s1 = 'Once<br>upon<br>a<br>time<br>in<br>a<br>world'
+      s2 = 'Once<br>upon<br>a<br>time<br>in...'
 
-      expect(str.truncate_words(5, separator: '<br>')).to eq('Once<br>upon<br>a<br>time<br>in...')
+      expect(s1.truncate_words(5, separator: '<br>')).to eq(s2)
     end
 
-    it 'to be And they found that many... (continued)' do
-      str = 'And they found that many people were sleeping better.'
+    it 'to be "And they found that many... (continued)"' do
+      s1 = 'And they found that many people were sleeping better.'
+      s2 = 'And they found that many... (continued)'
 
-      expect(str.truncate_words(5, omission: '... (continued)')).to eq('And they found that many... (continued)')
+      expect(s1.truncate_words(5, omission: '... (continued)')).to eq(s2)
     end
   end
 
   describe '#underscore(!)' do
-    it 'to be example_string' do
-      expect('ExampleString'.underscore).to eq('example_string')
-      expect('ExampleString'.underscore!).to eq('example_string')
-      expect('exampleString'.underscore).to eq('example_string')
-      expect('exampleString'.underscore!).to eq('example_string')
-      expect('example_string'.underscore).to eq('example_string')
-      expect('example_string'.underscore!).to eq('example_string')
-      expect('example_String'.underscore).to eq('example_string')
-      expect('example_String'.underscore!).to eq('example_string')
-      expect('EXAMPLE_String'.underscore!).to eq('example_string')
+    it 'to be "example_string"' do
+      s1 = 'ExampleString'
+      s2 = 'exampleString'
+      s3 = 'example_string'
+      s4 = 'EXAMPLE_String'
+      s5 = 'example_string'
+
+      expect(s1.underscore).to eq(s5)
+      expect(s1.underscore!).to eq(s5)
+      expect(s2.underscore).to eq(s5)
+      expect(s2.underscore!).to eq(s5)
+      expect(s3.underscore).to eq(s5)
+      expect(s3.underscore!).to eq(s5)
+      expect(s4.underscore).to eq(s5)
+      expect(s4.underscore!).to eq(s5)
     end
 
-    it 'to be example_string/test' do
-      expect('ExampleString::Test'.underscore).to eq('example_string/test')
-      expect('ExampleString::Test'.underscore!).to eq('example_string/test')
+    it 'to be "example_string/test"' do
+      s1 = 'ExampleString::Test'
+      s2 = 'example_string/test'
+
+      expect(s1.underscore).to eq(s2)
+      expect(s1.underscore!).to eq(s2)
     end
   end
 
   describe '#unpollute(!)' do
-    it 'to be test' do
-      expect('test'.unpollute).to eq('test')
-      expect('test'.unpollute!).to eq('test')
+    let(:s1) { 'test' }
+
+    it 'to be "test"' do
+      expect(s1.unpollute).to eq(s1)
+      expect(s1.unpollute!).to eq(s1)
     end
 
-    it 'to be test' do
-      expect('t-e-s-t-'.unpollute('-')).to eq('test')
-      expect('t-e-s-t-'.unpollute!('-')).to eq('test')
+    it 'to be "test" when polluted' do
+      s2 = 't-e-s-t-'
+
+      expect(s2.unpollute('-')).to eq(s1)
+      expect(s2.unpollute!('-')).to eq(s1)
     end
   end
 
@@ -612,19 +747,24 @@ RSpec.describe String do
     it 'to be false' do
       expect('downcase'.upcase?).to eq(false)
       expect('Mixedcase'.upcase?).to eq(false)
-      expect('Mixedcase string'.upcase?).to eq(false)
     end
   end
 
   describe '#unshift(!)' do
+    let(:s1) { 'this thing that thing' }
+
     it 'to be "thing this thing that thing"' do
-      expect('this thing that thing'.unshift('thing ')).to eq('thing this thing that thing')
-      expect('this thing that thing'.unshift!('thing ')).to eq('thing this thing that thing')
+      s2 = 'thing this thing that thing'
+
+      expect(s1.unshift('thing ')).to eq(s2)
+      expect(s1.unshift!('thing ')).to eq(s2)
     end
 
     it 'to be "this that this thing that thing"' do
-      expect('this thing that thing'.unshift('this ', 'that ')).to eq('this that this thing that thing')
-      expect('this thing that thing'.unshift!('this ', 'that ')).to eq('this that this thing that thing')
+      s2 = 'this that this thing that thing'
+
+      expect(s1.unshift('this ', 'that ')).to eq(s2)
+      expect(s1.unshift!('this ', 'that ')).to eq(s2)
     end
   end
 

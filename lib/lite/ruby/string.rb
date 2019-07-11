@@ -49,13 +49,13 @@ class String
     end
   end
 
-  alias_method :camelcase, :camelize
+  alias camelcase camelize
 
   def camelize!(first_letter = :upper)
     replace(camelize(first_letter))
   end
 
-  alias_method :camelcase!, :camelize!
+  alias camelcase! camelize!
 
   def classify
     to_s.sub(/.*\./, '').camelize
@@ -94,7 +94,9 @@ class String
   end
 
   def domain
-    self =~ %r{^(?:\w+:\/\/)?([^\/?]+)(?:\/|\?|$)} ? Regexp.last_match(1) : self
+    return self unless self =~ %r{^(?:\w+:\/\/)?([^\/?]+)(?:\/|\?|$)}
+
+    Regexp.last_match(1)
   end
 
   def downcase?
@@ -110,14 +112,14 @@ class String
     "#{self[0, offset]}#{separator}#{self[-offset, offset]}"
   end
 
-  def exclude?(string)
-    !include?(string)
-  end
-
   def first(limit = 1)
-    return '' if limit.zero?
-
-    limit >= length ? self : to(limit - 1)
+    if limit.zero?
+      ''
+    elsif limit >= length
+      self
+    else
+      to(limit - 1)
+    end
   end
 
   def format(*args)
@@ -185,18 +187,22 @@ class String
               .gsub(/ id\z/, ' ID')
   end
 
-  alias_method :labelcase, :labelize
+  alias labelcase labelize
 
   def labelize!(options = {})
     replace(labelize(options))
   end
 
-  alias_method :labelcase!, :labelize!
+  alias labelcase! labelize!
 
   def last(limit = 1)
-    return '' if limit.zero?
-
-    limit >= length ? self : from(-limit)
+    if limit.zero?
+      ''
+    elsif limit >= length
+      self
+    else
+      from(-limit)
+    end
   end
 
   def mixedcase?
@@ -236,9 +242,9 @@ class String
   end
 
   def remove(*patterns)
-    string = dup
-    patterns.flatten.each { |pat| pat.is_a?(Range) ? string.slice!(pat) : string.gsub!(pat, '') }
-    string
+    patterns.each_with_object(dup) do |pat, str|
+      pat.is_a?(Range) ? str.slice!(pat) : str.gsub!(pat, '')
+    end
   end
 
   def remove!(*patterns)
@@ -264,9 +270,7 @@ class String
   def shift(*patterns)
     return self[0] if patterns.empty?
 
-    string = dup
-    patterns.flatten.each { |pat| string.sub!(pat, '') }
-    string
+    patterns.each_with_object(dup) { |pat, str| str.sub!(pat, '') }
   end
 
   def shift!(*patterns)
@@ -281,19 +285,19 @@ class String
     replace(shuffle(separator))
   end
 
-  def sift(chars_to_keep)
-    chars_to_keep = case chars_to_keep
-                    when String then chars_to_keep.chars
-                    when Array then chars_to_keep.map(&:to_s)
-                    when Range then chars_to_keep.to_a.map(&:to_s)
-                    else raise TypeError, 'Invalid parameter'
-                    end
+  def sift(keep)
+    keep = case keep
+           when String then keep.chars
+           when Array then keep.map(&:to_s)
+           when Range then keep.to_a.map(&:to_s)
+           else raise TypeError, "Invalid parameter #{keep.inspect}"
+           end
 
-    chars.keep_if { |chr| chars_to_keep.include?(chr) }.join
+    chars.keep_if { |chr| keep.include?(chr) }.join
   end
 
-  def sift!(chars_to_keep)
-    replace(sift(chars_to_keep))
+  def sift!(keep)
+    replace(sift(keep))
   end
 
   def slugify
@@ -328,20 +332,20 @@ class String
     underscore.humanize.gsub(/\b(?<!['’`])[a-z]/) { $&.capitalize }
   end
 
-  alias_method :titlecase, :titleize
+  alias titlecase titleize
 
   def titleize!
     replace(titleize)
   end
 
-  alias_method :titlecase!, :titleize!
+  alias titlecase! titleize!
 
   def to(position)
     self[0..position]
   end
 
   def transliterize
-    TRANSLITERATIONS.each_with_object(dup) { |(k, v), str| str.gsub!(k, v) }
+    dup.transliterize!
   end
 
   def transliterize!
@@ -397,10 +401,8 @@ class String
   end
 
   def unshift(*patterns)
-    string = ''
-    patterns.flatten.each { |pat| string.concat(pat) }
-    string.concat(self)
-    string
+    patterns.each_with_object('') { |pat, str| str << pat }
+            .concat(self)
   end
 
   def unshift!(*patterns)
