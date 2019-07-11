@@ -134,13 +134,14 @@ RSpec.describe Numeric do
 
   describe '#decrement' do
     let(:n1) { 1 }
+    let(:n2) { 0.5 }
 
     it 'to be 2' do
-      expect(n1.decrement).to eq(2)
+      expect(n1.decrement).to eq(0)
     end
 
-    it 'to be 1.5' do
-      expect(n1.decrement(0.5)).to eq(1.5)
+    it 'to be 0.5' do
+      expect(n1.decrement(n2)).to eq(n2)
     end
   end
 

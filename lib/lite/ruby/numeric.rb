@@ -45,7 +45,7 @@ class Numeric
   BASE_WEIGHT ||= 16.0
   BASE_WEIGHTS ||= {
     pound: BASE_WEIGHT, stone: BASE_WEIGHT * 14.0, ton: BASE_WEIGHT * 2000.0,
-    metric_ton: 1000000.0
+    metric_ton: 1_000_000.0
   }.freeze
 
   TIME_KEYS ||= %i[
@@ -54,9 +54,9 @@ class Numeric
   ].freeze
   BASE_TIME ||= 60.0
   BASE_TIMES ||= {
-    minute: BASE_TIME, hour: BASE_TIME ** 2, day: BASE_TIME * 1440.0,
-    week: BASE_TIME * 10080.0, year: BASE_TIME * 525960.0, decade: BASE_TIME * 5259600.0,
-    century: BASE_TIME * 52596000.0, millennium: BASE_TIME * 525960000.0
+    minute: BASE_TIME, hour: BASE_TIME**2, day: BASE_TIME * 1440.0,
+    week: BASE_TIME * 10_080.0, year: BASE_TIME * 525_960.0, decade: BASE_TIME * 5_259_600.0,
+    century: BASE_TIME * 52_596_000.0, millennium: BASE_TIME * 525_960_000.0
   }.freeze
 
   TEMPERATURE_KEYS ||= %i[
@@ -112,7 +112,7 @@ class Numeric
     alias century_in_seconds centuries_in_seconds
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/MethodLength
   unless defined?(clamp)
     def clamp(minimum, maximum = nil)
       if minimum.is_a?(Range)
@@ -129,7 +129,7 @@ class Numeric
       end
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength
 
   unless defined?(days_in_seconds)
     def days_in_seconds
@@ -181,7 +181,7 @@ class Numeric
 
   unless defined?(decrement)
     def decrement(amount = 1.0)
-      self + amount
+      self - amount
     end
   end
 

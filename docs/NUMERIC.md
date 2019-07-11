@@ -98,6 +98,15 @@ Returns the amount of meters in decimeters.
 3.decimeters_in_meters #=> 0.3
 ```
 
+`decrement`
+------
+Returns the n decremented number.
+
+```ruby
+1.decrement      #=> 0
+1.decrement(0.5) #=> 0.5
+```
+
 `degrees_to_radians`
 ------
 Returns number of degrees into radians.
@@ -218,6 +227,15 @@ Returns the amount of seconds in hours.
 
 ```ruby
 3.hours_in_seconds #=> 10800
+```
+
+`increment`
+------
+Returns the n incremented number.
+
+```ruby
+1.increment      #=> 2
+1.increment(0.5) #=> 1.5
 ```
 
 `inch_in_inches` aka `inches_in_inches`
