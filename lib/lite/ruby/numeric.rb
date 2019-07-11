@@ -115,7 +115,7 @@ class Numeric
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   unless defined?(clamp)
     def clamp(minimum, maximum = nil)
-      if maximum.nil? && minimum.is_a?(Range)
+      if minimum.is_a?(Range)
         min_min = minimum.min
         min_max = minimum.max
 
