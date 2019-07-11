@@ -50,20 +50,13 @@ class Hash
   end
   # rubocop:enable Style/GuardClause
 
-  # rubocop:disable Lint/UnusedMethodArgument
-
-  def collect_keys(&block)
-    return enum_for(:collect_keys) unless block_given?
-
+  def collect_keys
     collect { |key, _| yield(key) }
   end
 
-  def collect_values(&block)
-    return enum_for(:collect_values) unless block_given?
-
+  def collect_values
     collect { |_, val| yield(val) }
   end
-  # rubocop:enable Lint/UnusedMethodArgument
 
   def deep_merge(other_hash, &block)
     dup.deep_merge!(other_hash, &block)
@@ -121,12 +114,9 @@ class Hash
     dup.hmap!(&block)
   end
 
-  # rubocop:disable Lint/UnusedMethodArgument
-
-  def hmap!(&block)
+  def hmap!
     inject(self) { |hash, (key, val)| hash.merge(yield(key, val)) }
   end
-  # rubocop:enable Lint/UnusedMethodArgument
 
   def nillify
     dup.nillify!

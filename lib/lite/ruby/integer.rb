@@ -7,49 +7,39 @@ class Integer
     I: 1
   }.freeze
 
-  unless defined?(factorial)
-    def factorial
-      return 1 if zero?
+  def factorial
+    return 1 if zero?
 
-      2.upto(self).inject(1) { |acc, i| acc * i }
+    2.upto(self).inject(1) { |acc, i| acc * i }
+  end
+
+  def factors
+    limit = Math.sqrt(self).floor
+
+    (1..limit).each_with_object([]) do |i, array|
+      next unless (self % i).zero?
+
+      sq = (self / i)
+      array.push(i)
+      array.push(sq) if sq != i
     end
   end
 
-  unless defined?(factors)
-    def factors
-      limit = Math.sqrt(self).floor
-
-      (1..limit).each_with_object([]) do |i, array|
-        next unless (self % i).zero?
-
-        sq = (self / i)
-        array.push(i)
-        array.push(sq) if sq != i
-      end
-    end
+  def of(&block)
+    Array.new(self, &block)
   end
 
-  unless defined?(of)
-    def of(&block)
-      Array.new(self, &block)
-    end
+  def roman_numeral
+    return '' if zero?
+    return "-#{(-self).roman_numeral}" if negative?
+
+    ROMAN_NUMERALS.each { |key, val| break "#{key}#{(self - val).roman_numeral}" if val <= self }
   end
 
-  unless defined?(roman_numeral)
-    def roman_numeral
-      return '' if zero?
-      return "-#{(-self).roman_numeral}" if negative?
-
-      ROMAN_NUMERALS.each { |key, val| break "#{key}#{(self - val).roman_numeral}" if val <= self }
-    end
+  def to_time
+    Time.at(self)
   end
 
-  unless defined?(to_time)
-    def to_time
-      Time.at(self)
-    end
-
-    alias to_t to_time unless defined?(to_t)
-  end
+  alias to_t to_time unless defined?(to_t)
 
 end
