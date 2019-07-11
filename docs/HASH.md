@@ -1,14 +1,21 @@
 # Hash
 
-`assert_valid_keys(!)`
+`assert_valid_keys!`
 ------
 Raises an error if key is not included in a list of keys.
 
 ```ruby
-{}.assert_valid_keys(:foo)                               #=> {}
-{}.assert_valid_keys!(:foo)                              #=> raises ArgumentError: 'Empty hash. Valid keys are: :foo'
-{ foo: 'bar' }.assert_valid_keys(:foo)                   #=> { foo: 'bar' }
-{ foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises ArgumentError: 'Unknown key: :baz. Valid keys are: :foo, :boo'
+{}.assert_valid_keys(:foo)                   #=> {}
+{ foo: 'bar' }.assert_valid_keys(:foo)       #=> { foo: 'bar' }
+{ baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises ArgumentError: 'Unknown key: :baz. Valid keys are: :foo, :boo'
+```
+
+`assert_all_valid_keys!`
+------
+Raises an error if key is not included in a list of keys.
+
+```ruby
+{}.assert_all_valid_keys!(:foo) #=> raises ArgumentError: 'Empty hash. Valid keys are: :foo'
 ```
 
 `bury`

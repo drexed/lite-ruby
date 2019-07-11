@@ -15,7 +15,7 @@ Raises an error if key is not included in a list of values.
 Raises like an error like `assert_valid_values!` but also on empty.
 
 ```ruby
-{}.assert_all_valid_values!(:foo) #=> raises ArgumentError: 'An empty array is not allowed and a value must be provided'
+{}.assert_all_valid_values!(:foo) #=> raises ArgumentError: 'An empty array is not allowed'
 ```
 
 `after`

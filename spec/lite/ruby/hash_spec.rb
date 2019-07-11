@@ -4,23 +4,9 @@ require 'spec_helper'
 
 RSpec.describe Hash do
 
-  describe '#assert_valid_keys' do
-    it 'to be {}' do
-      expect({}.assert_valid_keys(:foo)).to eq({})
-    end
-
-    it 'to be { foo: "bar" }' do
-      expect({ foo: 'bar' }.assert_valid_keys(:foo)).to eq(foo: 'bar')
-    end
-
-    it 'to raise error' do
-      expect { { foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo) }.to raise_error(ArgumentError)
-    end
-  end
-
   describe '#assert_valid_keys!' do
     it 'to be {}' do
-      expect { {}.assert_valid_keys!(:foo) }.to raise_error(ArgumentError)
+      expect({}.assert_valid_keys!(:foo)).to eq({})
     end
 
     it 'to be { foo: "bar" }' do
@@ -29,6 +15,12 @@ RSpec.describe Hash do
 
     it 'to raise error' do
       expect { { foo: 'bar', baz: 'boz' }.assert_valid_keys!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#assert_all_valid_keys!' do
+    it 'to raise error' do
+      expect { {}.assert_all_valid_keys!(:foo) }.to raise_error(ArgumentError)
     end
   end
 

@@ -13,13 +13,13 @@ RSpec.describe Array do
       expect(%i[foo].assert_valid_values!(:foo)).to eq([:foo])
     end
 
-    it 'to raise ArgumentError when invalid' do
+    it 'to raise error' do
       expect { %i[foo bar].assert_valid_values!(:foo) }.to raise_error(ArgumentError)
     end
   end
 
   describe '#assert_all_valid_values!' do
-    it 'to be raise ArgumentError when empty' do
+    it 'to be raise error' do
       expect { [].assert_all_valid_values!(:foo) }.to raise_error(ArgumentError)
     end
   end

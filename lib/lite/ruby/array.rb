@@ -15,7 +15,7 @@ class Array
   def assert_all_valid_values!(*valid_values)
     return assert_valid_values!(*valid_values) unless empty?
 
-    raise ArgumentError, "An empty array is not allowed and a value must be provided"
+    raise ArgumentError, 'An empty array is not allowed'
   end
 
   def after(value)
