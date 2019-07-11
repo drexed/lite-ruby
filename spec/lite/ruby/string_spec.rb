@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe ActiveObject::String do
+RSpec.describe String do
 
   describe '#any?' do
     it 'to be true' do
@@ -76,10 +76,6 @@ describe ActiveObject::String do
       expect('example_string.test'.classify).to eq('Test')
       expect('example_string.test'.classify!).to eq('Test')
     end
-  end
-
-  describe '#constantize' do
-    # INFO: No test could be generated
   end
 
   describe '#deconstantize' do

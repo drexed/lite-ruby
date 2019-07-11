@@ -33,14 +33,7 @@ class String
   }.freeze
 
   def any?(*keys)
-    included = false
-
-    keys.flatten.each do |key|
-      included = include?(key)
-      break if included
-    end
-
-    included
+    keys.any? { |key| include?(key) }
   end
 
   def at(position)
@@ -49,7 +42,7 @@ class String
 
   def camelize(first_letter = :upper)
     if first_letter.to_sym != :lower
-      regex_last = ::Regexp.last_match(1).upcase
+      regex_last = Regexp.last_match(1).upcase
       to_s.gsub(%r{\/(.?)}) { "::#{regex_last}" }.gsub(%r{^/(?:^|_)(.)}) { regex_last }
     else
       "#{to_s.first.chr.downcase}#{camelize(self)[1..-1]}"
@@ -73,7 +66,7 @@ class String
   end
 
   def constantize
-    ::Object.const_get(self)
+    Object.const_get(self)
   end
 
   def dasherize
@@ -101,7 +94,7 @@ class String
   end
 
   def domain
-    self =~ %r{^(?:\w+:\/\/)?([^\/?]+)(?:\/|\?|$)} ? ::Regexp.last_match(1) : self
+    self =~ %r{^(?:\w+:\/\/)?([^\/?]+)(?:\/|\?|$)} ? Regexp.last_match(1) : self
   end
 
   def downcase?
@@ -373,7 +366,7 @@ class String
 
   def truncate_words(words_count, options = {})
     sep = options[:separator] || /\s+/
-    sep = ::Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
+    sep = Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
     return self unless self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
 
     "#{::Regexp.last_match(1)}#{options[:omissio] || '...'}"
