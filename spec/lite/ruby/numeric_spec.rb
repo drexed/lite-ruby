@@ -168,9 +168,6 @@ RSpec.describe Numeric do
 
     it 'to be 0' do
       expect(0.divide(2)).to eq(0)
-    end
-
-    it 'to be 0' do
       expect(4.divide(0)).to eq(0)
     end
   end
@@ -723,6 +720,7 @@ RSpec.describe Numeric do
 
     it 'to be $3.11' do
       expect(n2.to_currency).to eq('$3.11')
+      expect(3.11111.to_currency).to eq('$3.11')
     end
 
     it 'to be @3.11' do
@@ -731,10 +729,6 @@ RSpec.describe Numeric do
 
     it 'to be $3.00000' do
       expect(n1.to_currency(precision: 5)).to eq('$3.00000')
-    end
-
-    it 'to be $3.11' do
-      expect(3.11111.to_currency).to eq('$3.11')
     end
   end
 
@@ -845,6 +839,7 @@ RSpec.describe Numeric do
 
     it 'to be 3.11%' do
       expect(3.11.to_percentage).to eq('3.11%')
+      expect(3.11111.to_percentage).to eq('3.11%')
     end
 
     it 'to be 3.11@' do
@@ -853,10 +848,6 @@ RSpec.describe Numeric do
 
     it 'to be 3.00000%' do
       expect(n1.to_percentage(precision: 5)).to eq('3.00000%')
-    end
-
-    it 'to be 3.11%' do
-      expect(3.11111.to_percentage).to eq('3.11%')
     end
   end
 
