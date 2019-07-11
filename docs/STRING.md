@@ -1,6 +1,5 @@
-## String
+# String
 
-**Any:**
 `any?`
 ------
 Returns if a string includes a set of string(s).
@@ -10,7 +9,6 @@ Returns if a string includes a set of string(s).
 'example string'.any?('foo', 'string') #=> true
 ```
 
-**At:**
 `at`
 ------
 Returns the characters at index position, matching string, or regex.
@@ -24,7 +22,6 @@ Returns the characters at index position, matching string, or regex.
 'example_string'.at(99)    #=> nil
 ```
 
-**Camelize:**
 `camelize(!)`
 ------
 Transforms a string to camelcase.
@@ -36,7 +33,6 @@ Transforms a string to camelcase.
 'example_String'.camecase(:lower) #=> 'exampleString'
 ```
 
-**Classify:**
 `classify(!)`
 ------
 Transforms a string to a class name like Rails does for table names to models.
@@ -47,7 +43,6 @@ Transforms a string to a class name like Rails does for table names to models.
 'example_string.test'.classify #=> 'Test'
 ```
 
-**Constantize:**
 `constantize`
 ------
 Converts a string in an object.
@@ -56,7 +51,6 @@ Converts a string in an object.
 'Example::String'.constantize #=> Class Object
 ```
 
-**Dasherize:**
 `dasherize(!)`
 ------
 Replaces underscores with dashes in the string.
@@ -65,7 +59,6 @@ Replaces underscores with dashes in the string.
 'example_string'.dasherize #=> 'example-string'
 ```
 
-**Deconstantize:**
 `deconstantize(!)`
 ------
 Removes the rightmost segment from the constant expression in the string.
@@ -78,7 +71,6 @@ Removes the rightmost segment from the constant expression in the string.
 ''.deconstantize                  # => ''
 ```
 
-**Demodulize:**
 `demodulize(!)`
 ------
 Removes the module part from the expression in the string.
@@ -88,7 +80,6 @@ Removes the module part from the expression in the string.
 'String'.demodulize          #=> 'String'
 ```
 
-**Domain:**
 `domain`
 ------
 Extracts the domain name from a URL.
@@ -98,7 +89,6 @@ Extracts the domain name from a URL.
 'example string'.domain                   #=> 'example string'
 ```
 
-**Downcase:**
 `downcase?`
 ------
 Returns true if all characters are lowercase.
@@ -109,7 +99,6 @@ Returns true if all characters are lowercase.
 'EXAMPLE'.downcase? #=> false
 ```
 
-**Ellipsize:**
 `ellipsize`
 ------
 Truncate a string in the middle.
@@ -126,7 +115,6 @@ separator | string | ' '
 '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, separator: '+++') #=> '0123+++WXYZ'
 ```
 
-**Exclude:**
 `exclude?`
 ------
 Returns true if the string does not include the other string.
@@ -136,7 +124,6 @@ Returns true if the string does not include the other string.
 'example_string'.exclude?('xxx') #=> true
 ```
 
-**First:**
 `first`
 ------
 Returns the first character. If a limit is supplied, Returns a substring from the beginning of the
@@ -149,7 +136,6 @@ length, Returns a copy of self.
 'example'.first(3) #=> 'exa'
 ```
 
-**Format:**
 `format`
 ------
 Returns an interpolated string that allows for options.
@@ -160,7 +146,6 @@ Returns an interpolated string that allows for options.
 '%d + %d'.format([1, 2])                                   #=> '1 + 2'
 ```
 
-**From:**
 `from`
 ------
 Returns a substring from the given position to the end of the string. If the position is negative, it is counted from the end of the string.
@@ -170,7 +155,6 @@ Returns a substring from the given position to the end of the string. If the pos
 'example'.from(3) #=> 'mple'
 ```
 
-**Headerize:**
 `headerize(!)`
 ------
 Capitalizes each word.
@@ -179,7 +163,6 @@ Capitalizes each word.
 ' example test-sample '.headerize #=> 'Example Test-sample'
 ```
 
-**Humanize:**
 `humanize(!)`
 ------
 Transforms a string to a human readable string.
@@ -188,16 +171,12 @@ Option | Type | Default
 --- | --- | ---
 capitalize | boolean | true
 
-**Options**
- *  capitalize: true
-
 ```ruby
 'ExampleString'.humanize                     #=> 'Example string'
 '_example_string_id'.humanize                #=> 'Example string'
 'example_string'.humanize(capitalize: false) #=> 'example string'
 ```
 
-**Indent:**
 `indent(!)`
 ------
 Indents the lines in the receiver.
@@ -207,7 +186,6 @@ Indents the lines in the receiver.
 'example'.indent(2, '\t') #=> '\t\texample'
 ```
 
-**Index all:**
 `index_all`
 ------
 Returns the index values of matching patterns.
@@ -218,7 +196,6 @@ Returns the index values of matching patterns.
 'asdfasdfasdf'.index_all(/sd/)                              #=> [1,5,9]
 ```
 
-**Labelize:**
 `labelize(!)`
 ------
 Transforms a string to a human readable string.
@@ -229,7 +206,6 @@ Transforms a string to a human readable string.
 'ExampleString'.labelize      #=> 'Example string'
 ```
 
-**Last:**
 `last`
 ------
 Returns the last character of the string. If a limit is supplied, Returns a substring from the end
@@ -242,7 +218,6 @@ than or equal to the string length, Returns a copy of self.
 'example'.first(3) #=> 'ple'
 ```
 
-**Mixcase:**
 `mixcase?`
 ------
 Returns true if characters are mixedcase.
@@ -253,7 +228,6 @@ Returns true if characters are mixedcase.
 'example'.mixedcase? #=> false
 ```
 
-**Ordinal:**
 `ordinal`
 ------
 Returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
@@ -265,7 +239,6 @@ Returns the suffix that should be added to a number to denote the position in an
 '11'.ordinal #=> 'th'
 ```
 
-**Ordinalize:**
 `ordinalize`
 ------
 Transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
@@ -277,7 +250,6 @@ Transforms a number into an ordinal string used to denote the position in an ord
 '11'.ordinalize #=> '4th'
 ```
 
-**Parameterize:**
 `parameterize(!)`
 ------
 Makes a string suitable for a dashed url parameter string.
@@ -287,7 +259,6 @@ Makes a string suitable for a dashed url parameter string.
 'example_string'.parameterize(separator: '?') #=> 'example?string'
 ```
 
-**Pollute:**
 `pollute(!)`
 ------
 Pollutes the space between every letter in a string, so it will be exempt from any impending string searches.
@@ -297,7 +268,6 @@ Pollutes the space between every letter in a string, so it will be exempt from a
 'test'.pollute('-') #=> 't-e-s-t-'
 ```
 
-**Pop:**
 `pop`
 ------
 Returns the last character of a string.
@@ -306,7 +276,6 @@ Returns the last character of a string.
 'test'.pop #=> 't'
 ```
 
-**Push:**
 `push`
 ------
 Concats string to self.
@@ -315,7 +284,6 @@ Concats string to self.
 'test'.push('er') #=> 'tester'
 ```
 
-**Remove:**
 `remove(!)`
 ------
 Removes every instance of a string.
@@ -327,7 +295,6 @@ Removes every instance of a string.
 'this thing that them'.remove('thing', 1..3)   #=> 't  that them'
 ```
 
-**Remove Tags:**
 `remove_tags(!)`
 ------
 Removes HTML tags from a string.
@@ -338,7 +305,6 @@ Removes HTML tags from a string.
 'this is <b>bold</b> and <em>emphatic</em>'.remove_tags #=> 'this is bold and emphatic'
 ```
 
-**Sample:**
 `sample(!)`
 ------
 Removes a random value and returns that value.
@@ -348,7 +314,6 @@ Removes a random value and returns that value.
 'this thing that'.sample(' thing ') #=> 'that'
 ```
 
-**Shift:**
 `shift(!)`
 ------
 Removes the first instance of a string.
@@ -359,7 +324,6 @@ Removes the first instance of a string.
 'this thing that thing'.shift('this', 'that') #=> ' thing  thing'
 ```
 
-**Shuffle:**
 `shuffle(!)`
 ------
 Randomizes the characters in a string.
@@ -369,7 +333,6 @@ Randomizes the characters in a string.
 'ruby rules'.sample! #=> 'rblse syru'
 ```
 
-**Sift:**
 `sift(!)`
 ------
 Returns a string matching any character in a pattern.
@@ -380,7 +343,6 @@ Returns a string matching any character in a pattern.
 'qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift([0,1,2,3,4,5,6,7,8,9]) #=> '23456789'
 ```
 
-**Slugify:**
 `slugify(!)`
 ------
 Returns a permalink-style string, with odd characters removed.
@@ -391,7 +353,6 @@ Returns a permalink-style string, with odd characters removed.
 'Example string @@@ test!'.slugify #=> 'example-string-test'
 ```
 
-**Sort:**
 `sort(!)`
 ------
 Returns a sorted a string.
@@ -400,7 +361,6 @@ Returns a sorted a string.
 'adbec'.sort #=> 'abcde'
 ```
 
-**Squish:**
 `squish(!)`
 ------
 Returns the string, first removing all whitespace on both ends of the string, and then changing
@@ -412,7 +372,6 @@ remaining consecutive whitespace groups into one space each.
 '   example    string   '.squish  #=> 'example string'
 ```
 
-**Titleize:**
 `titleize(!)`
 ------
 Capitalizes each word in a string.
@@ -423,7 +382,6 @@ Capitalizes each word in a string.
 'ExampleString'.titleize      #=> 'Example String'
 ```
 
-**To:**
 `to`
 ------
 Returns a substring from the beginning of the string to the given position.
@@ -435,7 +393,6 @@ If the position is negative, it is counted from the end of the string.
 'example'.to(-2) #=> 'exampl'
 ```
 
-**Transliterize:**
 `transliterize(!)`
 ------
 Returns a string with swapped special characters.
@@ -444,7 +401,6 @@ Returns a string with swapped special characters.
 'źåöé'.transliterize #=> 'zaoe'
 ```
 
-**Truncate:**
 `truncate`
 ------
 Retuns a trimmed string after a given length if string is longer than length.
@@ -462,7 +418,6 @@ separator | string | ' '
 'example string'.truncate(15)                         #=> 'example string'
 ```
 
-**Truncate Words:**
 `truncate_words`
 ------
 Truncates a given text after a given number of words.
@@ -478,7 +433,6 @@ separator | string | ' '
 'And they found that many people were sleeping better.'.truncate_words(5, omission: '... (continued)') #=> 'And they found that many... (continued)'
 ```
 
-**Underscore:**
 `underscore(!)`
 ------
 Transforms a string to snake case.
@@ -489,7 +443,6 @@ Transforms a string to snake case.
 'ExampleString::Test'.underscore #=> 'example_string/test'
 ```
 
-**Unpollute:**
 `unpollute(!)`
 ------
 Removes the default or custom pollution character. Can also be used to remove an unwanted character.
@@ -499,7 +452,6 @@ Removes the default or custom pollution character. Can also be used to remove an
 't-e-s-t-'.unpollute                         #=> 'test'
 ```
 
-**Upcase:**
 `upcase?`
 ------
 Returns true if all characters are uppercase.
@@ -510,7 +462,6 @@ Returns true if all characters are uppercase.
 'Example'.upcase? #=> false
 ```
 
-**Unshift:**
 `unshift(!)`
 ------
 Prepends string(s) to self.
