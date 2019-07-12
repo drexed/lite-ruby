@@ -17,10 +17,10 @@ Converts a `time` object to `strftime` it using a human readable string.
 | Second | Second | `s`, `second` | %S | (00..59) |
 | Meridian | Lowercase | `ampm`, `meridian` | %p | am..pm |
 | Meridian | Uppercase | `AMPM`, `MERIDIAN` | %P | AM..PM |
-| Time zone | Zone | `z`, `time_zone` | %z | +0900 |
-| Time zone | Offset | `zz`, `time_zone_offset` | %:z | +09:00 |
-| Time zone | Full-offset | `zzz`, `time_zone_offset_full` | %::z | +09:00:00 |
-| Time zone | Name | `zzzz`, `time_zone_name` | %Z | UTC |
+| Time-zone | Zone | `z`, `time_zone` | %z | +0900 |
+| Time-zone | Offset | `zz`, `time_zone_offset` | %:z | +09:00 |
+| Time-zone | Full-offset | `zzz`, `time_zone_offset_full` | %::z | +09:00:00 |
+| Time-zone | Name | `zzzz`, `time_zone_name` | %Z | UTC |
 
 ```ruby
 Time.now.format('month_name day, year hour:minute ampm') #=> 'January 09, 2014 02:31 pm'
