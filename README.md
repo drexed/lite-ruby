@@ -47,6 +47,7 @@ Lite::Ruby.configure do |config|
   config.object = true
   config.range = true
   config.string = true
+  config.struct = true
   config.time = true
 end
 ```
@@ -63,15 +64,16 @@ end
 * [Object](https://github.com/drexed/lite-ruby/blob/master/docs/OBJECT.md)
 * [Range](https://github.com/drexed/lite-ruby/blob/master/docs/RANGE.md)
 * [String](https://github.com/drexed/lite-ruby/blob/master/docs/STRING.md)
+* [Struct](https://github.com/drexed/lite-ruby/blob/master/docs/STRUCT.md)
 * [Time](https://github.com/drexed/lite-ruby/blob/master/docs/TIME.md)
 
 ## 3rd-party
 
 The following are highly recommended 3rd-party extensions to supplement your workflow:
 
-* **String:** Escape Utils - https://github.com/brianmario/escape_utils
-* **String:** Fast Blank - https://github.com/SamSaffron/fast_blank
-* **Primitives:** Facets - https://github.com/rubyworks/facets
+* **Performance:** Escape Utils - https://github.com/brianmario/escape_utils
+* **Performance:** Fast Blank - https://github.com/SamSaffron/fast_blank
+* **Extensions:** Facets - https://github.com/rubyworks/facets
 
 ## Port
 

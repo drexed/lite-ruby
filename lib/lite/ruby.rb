@@ -7,7 +7,9 @@ require 'lite/ruby/configuration'
   require "lite/ruby/helpers/#{filename}_helper"
 end
 
-%w[array date enumerable hash integer kernel numeric object range string time].each do |filename|
+%w[
+  array date enumerable hash integer kernel numeric object range string struct time
+].each do |filename|
   next unless Lite::Ruby.configuration.send(filename)
 
   require "lite/ruby/#{filename}"

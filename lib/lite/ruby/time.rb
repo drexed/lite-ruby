@@ -5,10 +5,14 @@ class Time
   include Lite::Ruby::DateHelper
   include Lite::Ruby::TimeHelper
 
-  def self.elapse
-    time = now.to_f
-    yield
-    now.to_f - time
+  class << self
+
+    def elapse
+      time = now.to_f
+      yield
+      now.to_f - time
+    end
+
   end
 
   private

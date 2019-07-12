@@ -87,7 +87,7 @@ Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 
 `elapse`
 ------
-Returns if a string includes a set of string(s).
+Returns the amount of time taken to execute a block.
 
 ```ruby
 Time.elapse { sleep 1 } #=> 1.00005465

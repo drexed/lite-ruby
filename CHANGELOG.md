@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.1] - 2019-07-12
 ### Added
-- Time: `elapse`
+- Added `Struct` extensions
+- Added `Time.elapse`
 
 ## [1.0.0] - 2019-07-12
 ### Added

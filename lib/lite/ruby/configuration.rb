@@ -6,7 +6,7 @@ module Lite
     class Configuration
 
       attr_accessor :array, :date, :enumerable, :hash, :integer, :kernel, :numeric, :object, :range,
-                    :string, :time
+                    :string, :struct, :time
 
       # rubocop:disable Metrics/MethodLength
       def initialize
@@ -20,6 +20,7 @@ module Lite
         @object = true
         @range = true
         @string = true
+        @struct = true
         @time = true
       end
       # rubocop:enable Metrics/MethodLength

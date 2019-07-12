@@ -11,5 +11,6 @@ Lite::Ruby.configure do |config|
   config.object = true
   config.range = true
   config.string = true
+  config.struct = true
   config.time = true
 end
