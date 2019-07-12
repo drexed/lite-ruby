@@ -4,7 +4,7 @@
 ------
 Converts a `date` object to `strftime` it using a human readable string.
 
-| Name | Type | Key | `strftime` | Result |
+| Directive | Type | Key | `strftime` | Result |
 | --- | --- | --- | --- | --- |
 | Weekday | Monday | `w`, `weekday` | %u | (1..7) |
 | Weekday | Sunday | `ww`, `weekday_offset` | %w | (0..6) |
@@ -35,7 +35,7 @@ Converts a `date` object to a predefined format.
 
 #### Base
 
-| Name | Type | Key | `strftime` | Result |
+| Directive | Type | Key | `strftime` | Result |
 | --- | --- | --- | --- | --- |
 | Weekday | Zero-padded | `weekday`, `:weekday_padded` | %d | (01..31) |
 | Weekday | Blank-padded | `:weekday_blank` | %_d | ( 1..31) |
@@ -55,7 +55,7 @@ Converts a `date` object to a predefined format.
 
 #### Combinations
 
-| Name | Type | Key | `strftime` | Result |
+| Directive | Type | Key | `strftime` | Result |
 | --- | --- | --- | --- | --- |
 | Combo | Month day | `:day` | %B %-d | January 9 |
 | Combo | Month day | `:day_abbr` | %b %-d | Jan 9 |

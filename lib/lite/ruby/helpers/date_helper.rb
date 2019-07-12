@@ -85,6 +85,21 @@ module Lite
         yyyy: 'Y'
       }.freeze
 
+      def format(string = nil)
+        string ||= default_format
+        delimiters = string.scan(/\W+/)
+        formatters = string.scan(/[a-z0-9_]+/i)
+        string = formatters.map { |key| "%#{format_for(key.to_sym)}#{delimiters.shift}" }
+        strftime(string.join)
+      end
+
+      def stamp(key = nil)
+        key = stamp_for(key&.to_sym || default_stamp)
+        strftime(key)
+      end
+
+      alias to_format stamp
+
     end
   end
 end
