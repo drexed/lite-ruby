@@ -33,6 +33,8 @@ Date.today.format('month_name day, year') #=> 'May 05, 2000'
 ------
 Converts a `date` object to a predefined format.
 
+#### Base
+
 | Name | Type | Key | `strftime` | Result |
 | --- | --- | --- | --- | --- |
 | Weekday | Zero-padded | `weekday`, `:weekday_padded` | %d | (01..31) |
@@ -50,6 +52,11 @@ Converts a `date` object to a predefined format.
 | Week | Monday | `:week_monday` | %W | (00..53) |
 | Year | 2 Digits | `:yr`, `:year_abbr` | %y | (00..99) |
 | Year | 4 Digits | `:year` | %Y | 1999 |
+
+#### Combinations
+
+| Name | Type | Key | `strftime` | Result |
+| --- | --- | --- | --- | --- |
 | Combo | Month day | `:day` | %B %-d | January 9 |
 | Combo | Month day | `:day_abbr` | %b %-d | Jan 9 |
 | Combo | Month day | `:day_iso` | %m-%d | 01-09 |
@@ -58,7 +65,7 @@ Converts a `date` object to a predefined format.
 | Combo | Month year | `:month_unpadded_year` | %-m %Y | (1..12) 2015 |
 | Combo | Month year | `:month_name_year` | %B %Y | January 2015 |
 | Combo | Month year | `:month_name_abbr_year` | %b %Y | Jan 2015 |
-| Week | Week year | `:week_year_iso` | %V-%G | 04-2014 |
+| Combo | Week year | `:week_year_iso` | %V-%G | 04-2014 |
 | Combo | Year day | `:year_day` | %Y-%m-%d | 1999-01-21 |
 | Combo | Year week | `:year_week` | %G-%V | 1999-52 |
 | Combo | Year month | `:year_month` | %Y-%m | 1999-01 |
