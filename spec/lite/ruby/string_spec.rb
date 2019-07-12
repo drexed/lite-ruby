@@ -4,6 +4,18 @@ require 'spec_helper'
 
 RSpec.describe String do
 
+  describe '#acronym(!)' do
+    let(:s1) { 'example string' }
+
+    it 'to be true' do
+      s1 = 'example string'
+      s2 = 'es'
+
+      expect(s1.acronym).to eq(s2)
+      expect(s1.acronym!).to eq(s2)
+    end
+  end
+
   describe '#any?' do
     let(:s1) { 'example string' }
 

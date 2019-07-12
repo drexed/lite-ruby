@@ -16,7 +16,7 @@ RSpec.describe Struct do
 
   describe '#replace' do
     it 'to be "tom"' do
-      s1.replace(name: 'tom')
+      s1.replace(name: 'tom', age: 28)
 
       expect(s1.name).to eq('tom')
     end

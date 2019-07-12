@@ -32,6 +32,14 @@ class String
     'Ÿ' => 'Y', 'Ź' => 'Z', 'ź' => 'z', 'Ż' => 'Z', 'ż' => 'z', 'Ž' => 'Z', 'ž' => 'z'
   }.freeze
 
+  def acronym
+    gsub(/(([a-zA-Z0-9])([a-zA-Z0-9])*)./, '\\2')
+  end
+
+  def acronym!
+    replace(acronym)
+  end
+
   def any?(*keys)
     keys.any? { |key| include?(key) }
   end

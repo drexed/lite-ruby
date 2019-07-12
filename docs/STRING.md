@@ -1,5 +1,13 @@
 # String
 
+`acronym(!)`
+------
+Returns the first letter of each word without spaces.
+
+```ruby
+'example string'.acronym #=> 'es'
+```
+
 `any?`
 ------
 Returns if a string includes a set of string(s).
