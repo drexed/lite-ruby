@@ -7,7 +7,7 @@ RSpec.describe Time do
   let(:time) { described_class.parse('2014-01-09 00:31:58 UTC') }
 
   describe '#format' do
-    it 'to be "January 9, 2014 12:31 am +0000"' do
+    it 'to be "2014-01-09 00:31"' do
       expect(time.format).to eq(s1)
     end
 
