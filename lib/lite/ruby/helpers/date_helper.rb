@@ -26,22 +26,16 @@ module Lite
         day: '%B %-d',
         day_abbr: '%b %-d',
         day_iso: '%m-%d',
-
-
-
         month_year: '%m %Y',
         month_blank_year: '%_m %Y',
         month_padded_year: '%m %Y',
         month_unpadded_year: '%-m %Y',
         month_name_year: '%B %Y',
         month_name_abbr_year: '%b %Y',
-
         week_year_iso: '%V-%G',
-
         year_day: '%Y-%m-%d',
         year_month: '%Y-%m',
         year_week: '%G-%V',
-
         date: '%B %-d, %Y',
         date_abbr: '%b %-d, %Y',
         date_iso: '%Y-%m-%d'

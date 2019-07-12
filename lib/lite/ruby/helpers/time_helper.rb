@@ -11,10 +11,14 @@ module Lite
         hour_emperical: '%I',
         hour_emperical_padded: '%I',
         hour_emperical_blank: '%l',
+
         minute: '%M',
+
         second: '%S',
+
         ampm: '%P',
         meridian: '%P',
+
         time: '%H:%M',
         time_blank: '%k:%M',
         time_padded: '%H:%M',
@@ -29,12 +33,14 @@ module Lite
         time_emperical_blank: '%l:%M %P',
         time_emperical_tz: '%I:%M %P %z',
         time_emperical_tzn: '%I:%M %P %Z',
+
         daytime: '%B %-d %H:%M',
         daytime_abbr: '%b %-d %H:%M',
         daytime_iso: '%m-%d %H:%M',
         daytime_emperical: '%B %-d %I:%M %P',
         daytime_emperical_abbr: '%b %-d %I:%M %P',
         daytime_emperical_iso: '%m-%d %I:%M %P',
+
         datetime: '%B %-d, %Y %H:%M',
         datetime_abbr: '%b %-d, %Y %H:%M',
         datetime_iso: '%Y-%m-%d %H:%M',
@@ -59,16 +65,20 @@ module Lite
         hour_emperical: 'I',
         hour_emperical_padded: 'I',
         hhhh: 'l',
-        HOUR_IMPERICAL: 'l',
+        HOUR_EMPERICAL: 'l',
         hour_emperical_blank: 'l',
+
         n: 'M',
         minute: 'M',
+
         s: 'S',
         second: 'S',
+
         ampm: 'P',
         meridian: 'P',
         AMPM: 'p',
         MERIDIAN: 'p',
+
         z: 'z',
         time_zone: 'z',
         zz: ':z',
