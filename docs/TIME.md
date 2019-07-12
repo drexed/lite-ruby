@@ -84,3 +84,11 @@ Converts a `time` object to a predefined format.
 ```ruby
 Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 ```
+
+`elapse`
+------
+Returns if a string includes a set of string(s).
+
+```ruby
+Time.elapse { sleep 1 } #=> 1.00005465
+```

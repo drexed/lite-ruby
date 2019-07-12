@@ -33,4 +33,12 @@ RSpec.describe Time do
     end
   end
 
+  describe '#elapse' do
+    it 'to be 1' do
+      n1 = 1
+
+      expect(Time.elapse { sleep(n1) }.to_i).to eq(n1)
+    end
+  end
+
 end
