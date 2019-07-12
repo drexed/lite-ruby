@@ -1,163 +1,32 @@
 # frozen_string_literal: true
 
 class Time
+
   include Lite::Ruby::DateHelper
   include Lite::Ruby::TimeHelper
 
-  KEY_UNITS = {
-    month: '%m',
-    month_padded: '%m',
-    month_unpadded: '%-m',
-    month_blank: '%_m',
-    month_name: '%B',
-    month_name_abbr: '%b',
-    month_year: '%m %Y',
-    month_padded_year: '%m %Y',
-    month_unpadded_year: '%-m %Y',
-    month_blank_year: '%_m %Y',
-    month_name_year: '%B %Y',
-    month_name_abbr_year: '%b %Y',
-    sunday_week: '%U',
-    monday_week: '%W',
-    week_iso: '%V',
-    week_year_iso: '%V-%G',
-    weekday: '%d',
-    weekday_padded: '%d',
-    weekday_unpadded: '%-d',
-    weekday_blank: '%_d',
-    weekday_name: '%A',
-    weekday_name_abbr: '%a',
-    day: '%B %-d',
-    day_abbr: '%b %-d',
-    day_iso: '%m-%d',
-    hour: '%H',
-    hour_padded: '%H',
-    hour_blank: '%k',
-    hour_imperical: '%I',
-    hour_imperical_padded: '%I',
-    hour_imperical_blank: '%l',
-    ampm: '%P',
-    meridian: '%P',
-    minute: '%M',
-    second: '%S',
-    time_tz: '%H:%M %z',
-    time_blank: '%k:%M',
-    time_tzn: '%H:%M %Z',
-    time_zone: '%z',
-    time_zone_offset: '%:z',
-    time_padded: '%H:%M',
-    time_zone_offset_full: '%::z',
-    time_zone_name: '%Z',
-    date: '%B %-d, %Y',
-    date_abbr: '%b %-d, %Y',
-    date_iso: '%Y-%m-%d',
-    datetime: '%B %-d, %Y %H:%M',
-    datetime_abbr: '%b %-d, %Y %H:%M',
-    datetime_iso: '%Y-%m-%d %H:%M',
-    datetime_imperical: '%B %-d, %Y %I:%M %P',
-    datetime_imperical_abbr: '%b %-d, %Y %I:%M %P',
-    datetime_imperical_iso: '%Y-%m-%d %I:%M %P',
-    datetime_tzn: '%B %-d, %Y %H:%M %Z',
-    datetime_abbr_tzn: '%b %-d, %Y %H:%M %Z',
-    datetime_iso_tzn: '%Y-%m-%d %H:%M %z',
-    datetime_imperical_tzn: '%B %-d, %Y %I:%M %P %Z',
-    datetime_imperical_abbr_tzn: '%b %-d, %Y %I:%M %P %Z',
-    datetime_imperical_iso_tzn: '%Y-%m-%d %I:%M %P %z',
-    daytime: '%B %-d %H:%M',
-    daytime_abbr: '%b %-d %H:%M',
-    daytime_iso: '%m-%d %H:%M',
-    daytime_imperical: '%B %-d %I:%M %P',
-    daytime_imperical_abbr: '%b %-d %I:%M %P',
-    daytime_imperical_iso: '%m-%d %I:%M %P',
-    time: '%H:%M',
-    time_imperical: '%I:%M %P',
-    time_imperical_padded: '%I:%M %P',
-    time_imperical_blank: '%l:%M %P',
-    time_imperical_tz: '%I:%M %P %z',
-    time_imperical_tzn: '%I:%M %P %Z',
-    yr: '%y',
-    year_abbr: '%y',
-    year: '%Y',
-    year_day: '%Y-%m-%d',
-    year_month: '%Y-%m',
-    year_week: '%G-%V'
-  }.freeze
+  def format(string = 'year-month-day hour:minute')
+    delimiters = string.scan(/\W+/)
+    formatters = string.scan(/[a-z0-9_]+/i)
+    string = formatters.map { |key| "%#{format_for(key.to_sym)}#{delimiters.shift}" }
+    strftime(string.join)
+  end
 
-  STRING_UNITS = {
-    m: 'm',
-    month: 'm',
-    month_padded: 'm',
-    mm: '-m',
-    Month: '-m',
-    month_unpadded: '-m',
-    mmm: '_m',
-    MONTH: '_m',
-    month_blank: '_m',
-    mmmm: 'B',
-    month_name: 'B',
-    mmmmm: 'b',
-    month_name_abbr: 'b',
-    swe: 'U',
-    sunday_week: 'U',
-    mwe: 'W',
-    monday_week: 'W',
-    we: 'V',
-    week: 'V',
-    w: 'u',
-    weekday: 'u',
-    ww: 'w',
-    weekday_offset: 'w',
-    www: 'A',
-    weekday_name: 'A',
-    wwww: 'a',
-    weekday_name_abbr: 'a',
-    d: 'd',
-    day: 'd',
-    day_padded: 'd',
-    dd: '-d',
-    Day: '-d',
-    day_unpadded: '-d',
-    ddd: '_d',
-    DAY: '_d',
-    day_blank: '_d',
-    dddd: 'j',
-    day_of_the_year: 'j',
-    yy: 'y',
-    yr: 'y',
-    year: 'Y',
-    yyyy: 'Y',
-    h: 'H',
-    hour: 'H',
-    hour_padded: 'H',
-    hh: 'k',
-    HOUR: 'k',
-    hour_blank: 'k',
-    hhh: 'I',
-    hour_imperical: 'I',
-    hour_imperical_padded: 'I',
-    hhhh: 'l',
-    HOUR_IMPERICAL: 'l',
-    hour_imperical_blank: 'l',
-    n: 'M',
-    minute: 'M',
-    s: 'S',
-    second: 'S',
-    ampm: 'P',
-    meridian: 'P',
-    AMPM: 'p',
-    MERIDIAN: 'p',
-    z: 'z',
-    time_zone: 'z',
-    zz: ':z',
-    time_zone_offset: ':z',
-    zzz: '::z',
-    time_zone_offset_full: '::z',
-    zzzz: 'Z',
-    time_zone_name: 'Z'
-  }.freeze
+  def stamp(key = :datetime_iso)
+    key = stamp_for(key.to_sym)
+    strftime(key)
+  end
 
-  def to_format(key = :datetime_iso)
-    super(key)
+  alias to_format stamp
+
+  private
+
+  def format_for(key)
+    TIME_UNITS[key] || DATE_UNITS[key]
+  end
+
+  def stamp_for(key)
+    TIME_STAMPS[key] || DATE_STAMPS[key]
   end
 
 end
