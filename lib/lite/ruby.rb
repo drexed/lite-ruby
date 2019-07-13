@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
-require 'lite/ruby/version'
-require 'lite/ruby/configuration'
+%w[version configuration].each do |filename|
+  require "lite/ruby/#{filename}"
+end
 
 %w[date time].each do |filename|
   require "lite/ruby/helpers/#{filename}_helper"
 end
 
-%w[
-  array date enumerable hash integer kernel numeric object range string struct time
-].each do |filename|
-  next unless Lite::Ruby.configuration.send(filename)
-
+Lite::Ruby.configuration.monkey_patches.each do |filename|
   require "lite/ruby/#{filename}"
 end
 

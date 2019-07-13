@@ -5,18 +5,9 @@ require 'lite/ruby'
 require 'generator_spec'
 
 Lite::Ruby.configure do |config|
-  config.array = true
-  config.date = true
-  config.enumerable = true
-  config.hash = true
-  config.integer = true
-  config.kernel = true
-  config.numeric = true
-  config.object = true
-  config.range = true
-  config.string = true
-  config.struct = true
-  config.time = true
+  config.monkey_patches = %w[
+    array date enumerable hash integer kernel numeric object range string struct time
+  ]
 end
 
 spec_path = Pathname.new(File.expand_path('../spec', File.dirname(__FILE__)))

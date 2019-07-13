@@ -5,25 +5,13 @@ module Lite
 
     class Configuration
 
-      attr_accessor :array, :date, :enumerable, :hash, :integer, :kernel, :numeric, :object, :range,
-                    :string, :struct, :time
+      attr_accessor :monkey_patches
 
-      # rubocop:disable Metrics/MethodLength
       def initialize
-        @array = true
-        @date = true
-        @enumerable = true
-        @hash = true
-        @integer = true
-        @kernel = true
-        @numeric = true
-        @object = true
-        @range = true
-        @string = true
-        @struct = true
-        @time = true
+        @monkey_patches = %w[
+          array date enumerable hash integer kernel numeric object range string struct time
+        ]
       end
-      # rubocop:enable Metrics/MethodLength
 
     end
 

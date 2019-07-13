@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added String => `acronym`
 - Added Struct extensions
 - Added Time => `elapse`
+# Changed
+- Configuration
 
 ## [1.0.0] - 2019-07-12
 ### Added
