@@ -37,7 +37,7 @@ RSpec.describe Time do
     it 'to be 1' do
       n1 = 1
 
-      expect(Time.elapse { sleep(n1) }.to_i).to eq(n1)
+      expect(described_class.elapse { sleep(n1) }.to_i).to eq(n1)
     end
   end
 
