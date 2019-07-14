@@ -18,16 +18,6 @@ Returns the difference of a collection of numbers.
 [1,2,3].deduce #=> -4
 ```
 
-`divisible`
-------
-Returns the division of a collection of numbers.
-
-```ruby
-[].divisible       #=> 0
-[].divisible(nil)  #=> nil
-[16,4,2].divisible #=> 2
-```
-
 `drop_last`
 ------
 Drops the last number of elements in a collection.
@@ -123,16 +113,6 @@ Returns if a collection has more than one element while respecting `nil` and `fa
 
 ```
 
-`multiple`
-------
-Returns the multiplication of a collection of numbers.
-
-```ruby
-[].multiple      #=> 0
-[].multiple(nil) #=> nil
-[1,2,3].multiple #=> 6
-```
-
 `occurrences`
 ------
 Returns a hash of the number of times a value appears in an array.
@@ -140,6 +120,26 @@ Returns a hash of the number of times a value appears in an array.
 ```ruby
 [].occurrences                               #=> {}
 [1,:symbol,'string',3,:symbol,1].occurrences #=> { 1 => 2,:symbol => 2,'string' => 1,3 => 1 }
+```
+
+`product`
+------
+Returns the multiplication of a collection of numbers.
+
+```ruby
+[].product      #=> 0
+[].product(nil) #=> nil
+[1,2,3].product #=> 6
+```
+
+`quotient`
+------
+Returns the division of a collection of numbers.
+
+```ruby
+[].quotient       #=> 0
+[].quotient(nil)  #=> nil
+[16,4,2].quotient #=> 2
 ```
 
 `several?`

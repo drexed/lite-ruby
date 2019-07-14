@@ -22,14 +22,6 @@ module Enumerable
     end
   end
 
-  def divisible(identity = 0, &block)
-    if block_given?
-      map(&block).divisible(identity)
-    else
-      inject { |key, val| key / val } || identity
-    end
-  end
-
   def drop_last(num)
     collection_size = to_a.size
     return self if num > collection_size
@@ -125,16 +117,24 @@ module Enumerable
     end
   end
 
-  def multiple(identity = 0, &block)
+  def occurrences
+    each_with_object(Hash.new(0)) { |key, hsh| hsh[key] += 1 }
+  end
+
+  def product(identity = 0, &block)
     if block_given?
-      map(&block).multiple(identity)
+      map(&block).product(identity)
     else
       inject { |key, val| key * val } || identity
     end
   end
 
-  def occurrences
-    each_with_object(Hash.new(0)) { |key, hsh| hsh[key] += 1 }
+  def quotient(identity = 0, &block)
+    if block_given?
+      map(&block).quotient(identity)
+    else
+      inject { |key, val| key / val } || identity
+    end
   end
 
   def several?

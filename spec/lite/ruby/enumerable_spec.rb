@@ -26,20 +26,6 @@ RSpec.describe Enumerable do
     end
   end
 
-  describe '#divisible' do
-    it 'to be 0' do
-      expect([].divisible).to eq(0)
-    end
-
-    it 'to be nil' do
-      expect([].divisible(nil)).to eq(nil)
-    end
-
-    it 'to be 2' do
-      expect([16, 4, 2].divisible).to eq(2)
-    end
-  end
-
   describe '#drop_last' do
     it 'to be []' do
       expect([].drop_last(1)).to eq([])
@@ -155,20 +141,6 @@ RSpec.describe Enumerable do
     end
   end
 
-  describe '#multiple' do
-    it 'to be 0' do
-      expect([].multiple).to eq(0)
-    end
-
-    it 'to be nil' do
-      expect([].multiple(nil)).to eq(nil)
-    end
-
-    it 'to be 6' do
-      expect([1, 2, 3].multiple).to eq(6)
-    end
-  end
-
   describe '#occurrences' do
     it 'to be {}' do
       expect([].occurrences).to eq({})
@@ -178,6 +150,34 @@ RSpec.describe Enumerable do
       array = [1, :symbol, 'string', 3, :symbol, 1]
 
       expect(array.occurrences).to eq(1 => 2, :symbol => 2, 'string' => 1, 3 => 1)
+    end
+  end
+
+  describe '#product' do
+    it 'to be 0' do
+      expect([].product).to eq(0)
+    end
+
+    it 'to be nil' do
+      expect([].product(nil)).to eq(nil)
+    end
+
+    it 'to be 6' do
+      expect([1, 2, 3].product).to eq(6)
+    end
+  end
+
+  describe '#quotient' do
+    it 'to be 0' do
+      expect([].quotient).to eq(0)
+    end
+
+    it 'to be nil' do
+      expect([].quotient(nil)).to eq(nil)
+    end
+
+    it 'to be 2' do
+      expect([16, 4, 2].quotient).to eq(2)
     end
   end
 
