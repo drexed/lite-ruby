@@ -329,34 +329,34 @@ class String
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-  def quote(type = :double, count = nil)
+  def quote(type = :double, amount = nil)
     if type.is_a?(Integer)
-      tmp = count
-      count = type
+      tmp = amount
+      amount = type
       type = tmp || :mixed
     else
-      count ||= 1
+      amount ||= 1
     end
 
     case type.to_s
     when "'", 'single', 's', '1'
-      f = "'" * count
+      f = "'" * amount
       b = f
     when '"', 'double', 'd', '2'
-      f = '"' * count
+      f = '"' * amount
       b = f
     when '`', 'back', 'backtick', 'b', '-1'
-      f = '`' * count
+      f = '`' * amount
       b = f
     when "`'", 'bracket', 'sb'
-      f = '`' * count
-      b = "'" * count
+      f = '`' * amount
+      b = "'" * amount
     when "'\"", 'mixed', 'm', 'Integer'
-      c = (count.to_f / 2).to_i
+      c = (amount.to_f / 2).to_i
       f = '"' * c
       b = f
 
-      if count.odd?
+      if amount.odd?
         f = "'" + f
         b += "'"
       end
@@ -368,8 +368,8 @@ class String
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
-  def quote!(type = :double, count = nil)
-    replace(quote(type, count))
+  def quote!(type = :double, amount = nil)
+    replace(quote(type, amount))
   end
 
   def remove(*patterns)
@@ -388,6 +388,15 @@ class String
 
   def remove_tags!
     gsub!(%r{<\/?[^>]*>}, '') || self
+  end
+
+  def rotate(amount = 1)
+    dup.rotate!(amount)
+  end
+
+  def rotate!(amount = 1)
+    amount += size if amount.negative?
+    slice!(amount, size - amount) + slice!(0, amount)
   end
 
   def sample(separator = ' ')
@@ -449,7 +458,7 @@ class String
 
   def squish!
     strip!
-    gsub!(/\s+/, ' ')
+    gsub!(/\s+/, ' ') || self
   end
 
   def sort
@@ -514,6 +523,8 @@ class String
     dup.underscore!
   end
 
+  alias snakecase underscore
+
   def underscore!
     gsub!(/::/, '/')
     gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
@@ -521,6 +532,8 @@ class String
     tr!('-', '_')
     downcase! || self
   end
+
+  alias snakecase! underscore!
 
   def unpollute(delimiter = '^--^--^')
     dup.unpollute!(delimiter)
@@ -572,7 +585,16 @@ class String
     str.words
   end
 
+  def variablize
+    "@#{gsub(/\W/, '_')}"
+  end
+
+  def variablize!
+    replace(variablize)
+  end
+
   alias ends_with? end_with?
   alias starts_with? start_with?
+  alias store []=
 
 end

@@ -623,6 +623,24 @@ RSpec.describe String do
     end
   end
 
+  describe '#rotate(!)' do
+    it 'to be "xamplee"' do
+      s1 = 'example'
+      s2 = 'xamplee'
+
+      expect(s1.rotate).to eq(s2)
+      expect(s1.rotate!).to eq(s2)
+    end
+
+    it 'to be "ampleex"' do
+      s1 = 'example'
+      s2 = 'ampleex'
+
+      expect(s1.rotate(2)).to eq(s2)
+      expect(s1.rotate!(2)).to eq(s2)
+    end
+  end
+
   describe '#sample(!)' do
     it 'to be true' do
       s1 = 'this thing that thing'
@@ -867,9 +885,40 @@ RSpec.describe String do
 
     it 'to be "test" when polluted' do
       s2 = 't-e-s-t-'
+      s3 = '-'
 
-      expect(s2.unpollute('-')).to eq(s1)
-      expect(s2.unpollute!('-')).to eq(s1)
+      expect(s2.unpollute(s3)).to eq(s1)
+      expect(s2.unpollute!(s3)).to eq(s1)
+    end
+  end
+
+  describe '#unshift(!)' do
+    let(:s1) { 'this thing that thing' }
+
+    it 'to be "thing this thing that thing"' do
+      s2 = 'thing this thing that thing'
+      s3 = 'thing '
+
+      expect(s1.unshift(s3)).to eq(s2)
+      expect(s1.unshift!(s3)).to eq(s2)
+    end
+
+    it 'to be "this that this thing that thing"' do
+      s2 = 'this that this thing that thing'
+      a1 = ['this ', 'that ']
+
+      expect(s1.unshift(*a1)).to eq(s2)
+      expect(s1.unshift!(*a1)).to eq(s2)
+    end
+  end
+
+  describe '#unquote(!)' do
+    it 'to be "example"' do
+      s1 = '"example"'
+      s2 = 'example'
+
+      expect(s1.unquote).to eq(s2)
+      expect(s1.unquote!).to eq(s2)
     end
   end
 
@@ -882,34 +931,6 @@ RSpec.describe String do
     it 'to be false' do
       expect('downcase'.upcase?).to eq(false)
       expect('Mixedcase'.upcase?).to eq(false)
-    end
-  end
-
-  describe '#unshift(!)' do
-    let(:s1) { 'this thing that thing' }
-
-    it 'to be "thing this thing that thing"' do
-      s2 = 'thing this thing that thing'
-
-      expect(s1.unshift('thing ')).to eq(s2)
-      expect(s1.unshift!('thing ')).to eq(s2)
-    end
-
-    it 'to be "this that this thing that thing"' do
-      s2 = 'this that this thing that thing'
-
-      expect(s1.unshift('this ', 'that ')).to eq(s2)
-      expect(s1.unshift!('this ', 'that ')).to eq(s2)
-    end
-  end
-
-  describe '#unquote(!)' do
-    it 'to be "example"' do
-      s1 = '"example"'
-      s2 = 'example'
-
-      expect(s1.unquote).to eq(s2)
-      expect(s1.unquote!).to eq(s2)
     end
   end
 
@@ -928,6 +949,16 @@ RSpec.describe String do
       a1 = %w[Slowly grudgingly he said This has to stop]
 
       expect(s1.words_without_punctuation).to eq(a1)
+    end
+  end
+
+  describe '#variablize(!)' do
+    it 'to be "@example"' do
+      s1 = 'example String'
+      s2 = '@example_String'
+
+      expect(s1.variablize).to eq(s2)
+      expect(s1.variablize!).to eq(s2)
     end
   end
 

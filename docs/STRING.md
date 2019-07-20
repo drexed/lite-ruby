@@ -385,6 +385,15 @@ Removes HTML tags from a string.
 'this is <b>bold</b> and <em>emphatic</em>'.remove_tags #=> 'this is bold and emphatic'
 ```
 
+`rotate(!)`
+------
+Rotate string to the left with count.
+
+```ruby
+'example'.rotate    #=> 'xamplee'
+'example'.rotate(2) #=> 'ampleex'
+```
+
 `sample(!)`
 ------
 Removes a random value and returns that value.
@@ -513,7 +522,7 @@ separator | string | ' '
 'And they found that many people were sleeping better.'.truncate_words(5, omission: '... (continued)') #=> 'And they found that many... (continued)'
 ```
 
-`underscore(!)`
+`underscore(!)` aka `snakecase(!)`
 ------
 Transforms a string to snake case.
 
@@ -557,6 +566,14 @@ Removes any quote types from a given string.
 
 ```ruby
 '`example`'.unquote #=> 'example'
+```
+
+`variablize(!)`
+------
+Prepend an "@" to the beginning of a string and replace non-valid characters with underscores.
+
+```ruby
+'example String'.variablize #=> '@example_String'
 ```
 
 `words`
