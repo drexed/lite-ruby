@@ -459,4 +459,7 @@ class String
     str.split(' ')
   end
 
+  alias ends_with? end_with?
+  alias starts_with? start_with?
+
 end
