@@ -18,6 +18,14 @@ Returns the closest number outside of the lower and upper bound.
 8.clamp(3, 6) # => 6
 ```
 
+`close?`
+------
+Returns if a number is within the degree of another.
+
+```ruby
+10.006.close?(10, 0.1) #=> true
+```
+
 `decrement`
 ------
 Returns the n decremented number.
@@ -27,13 +35,31 @@ Returns the n decremented number.
 1.decrement(0.5) #=> 0.5
 ```
 
-`distance`
+`delta`
 ------
 Returns the absolute difference between numbers.
 
 ```ruby
+5.delta(3) #=> 2
+3.delta(5) #=> 2
+```
+
+`delimit`
+------
+Returns a string representation of the number.
+
+```ruby
+5.delimit                                 #=> "1,000,000.1234"
+3.delimit(delimiter: '.', separator: ',') #=> "1.000.000,1234"
+```
+
+`distance`
+------
+Returns the difference between numbers.
+
+```ruby
 5.distance(3) #=> 2
-3.distance(5) #=> 2
+3.distance(5) #=> -2
 ```
 
 `divide`

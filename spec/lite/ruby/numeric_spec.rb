@@ -33,6 +33,18 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#close?' do
+    let(:n1) { 10.006 }
+
+    it 'to be true' do
+      expect(n1.close?(10, 0.1)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(100.4.close?(n1, 1)).to eq(false)
+    end
+  end
+
   describe '#decrement' do
     let(:n1) { 1 }
     let(:n2) { 0.5 }
@@ -56,14 +68,32 @@ RSpec.describe Numeric do
     end
   end
 
-  describe '#distance' do
-    it 'to be 2' do
-      n1 = 3
-      n2 = 5
-      n3 = 2
+  describe '#delimit' do
+    let(:n1) { 1_000_000.1234 }
 
-      expect(n2.distance(n1)).to eq(n3)
-      expect(n1.distance(n2)).to eq(n3)
+    it 'to be "1,000,000.1234"' do
+      s1 = '1,000,000.1234'
+
+      expect(n1.delimit).to eq(s1)
+    end
+
+    it 'to be "1.000.000,1234"' do
+      s1 = '1.000.000,1234'
+
+      expect(n1.delimit(delimiter: '.', separator: ',')).to eq(s1)
+    end
+  end
+
+  describe '#distance' do
+    let(:n1) { 3 }
+    let(:n2) { 5 }
+
+    it 'to be 2' do
+      expect(n2.distance(n1)).to eq(2)
+    end
+
+    it 'to be -2' do
+      expect(n1.distance(n2)).to eq(-2)
     end
   end
 

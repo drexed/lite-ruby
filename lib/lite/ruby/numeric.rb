@@ -23,8 +23,33 @@ class Numeric
   end
   # rubocop:enable Metrics/MethodLength
 
+  def close?(number, epsilon = 0.01)
+    return self == number if epsilon.zero?
+
+    a = to_f
+    b = number.to_f
+
+    if a.zero? || b.zero?
+      (a - b).abs < epsilon
+    else
+      (a / b - 1).abs < epsilon
+    end
+  end
+
   def decrement(amount = 1.0)
     self - amount
+  end
+
+  def delimit(options = {})
+    delimiter = options[:delimiter] || ','
+    separator = options[:separator] || '.'
+
+    digits, decimals = to_s.split('.')
+    digits = digits.reverse.chars.each_slice(3).map(&:join).join(delimiter).reverse
+
+    return digits unless decimals
+
+    [digits, decimals].join(separator)
   end
 
   def delta(num)
@@ -32,7 +57,7 @@ class Numeric
   end
 
   def distance(num)
-    (self - num).abs
+    self - num
   end
 
   def divide(num)
