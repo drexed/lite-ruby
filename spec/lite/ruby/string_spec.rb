@@ -576,7 +576,7 @@ RSpec.describe String do
 
     it 'to be "example" with backticks' do
       s1 = 'example'
-      s2 = "`example`"
+      s2 = '`example`'
 
       expect(s1.quote(:backtick)).to eq(s2)
       expect(s1.quote!(:backtick)).to eq(s2)

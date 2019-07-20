@@ -303,10 +303,10 @@ class String
   end
 
   def pathize!
-    gsub!(/([A-Z]+)([A-Z])/,'\1_\2')
-    gsub!(/([a-z])([A-Z])/,'\1_\2')
-    gsub!('__','/')
-    gsub!('::','/')
+    gsub!(/([A-Z]+)([A-Z])/, '\1_\2')
+    gsub!(/([a-z])([A-Z])/, '\1_\2')
+    gsub!('__', '/')
+    gsub!('::', '/')
     gsub!(/\s+/, '')
     gsub!(/[?%*:|"<>.]+/, '')
     downcase! || self
@@ -328,6 +328,7 @@ class String
     replace(concat(string))
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
   def quote(type = :double, count = nil)
     if type.is_a?(Integer)
       tmp = count
@@ -348,16 +349,16 @@ class String
       f = '`' * count
       b = f
     when "`'", 'bracket', 'sb'
-      f = "`" * count
+      f = '`' * count
       b = "'" * count
-    when "'\"", 'mixed', "m", 'Integer'
+    when "'\"", 'mixed', 'm', 'Integer'
       c = (count.to_f / 2).to_i
       f = '"' * c
       b = f
 
-      if count % 2 != 0
+      if count.odd?
         f = "'" + f
-        b = b + "'"
+        b += "'"
       end
     else
       raise ArgumentError, "Invalid quote type: #{type.inspect}"
@@ -365,6 +366,7 @@ class String
 
     "#{f}#{self}#{b}"
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
   def quote!(type = :double, count = nil)
     replace(quote(type, count))
