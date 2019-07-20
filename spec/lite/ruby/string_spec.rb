@@ -220,6 +220,15 @@ RSpec.describe String do
     end
   end
 
+  describe '#each_word' do
+    it 'to be [ ... ]' do
+      s1 = 'example string'
+      s2 = 'Example String'
+
+      expect(s1.each_word(&:capitalize)).to eq(s2)
+    end
+  end
+
   describe '#encode_only(!)' do
     it 'to be 123' do
       s1 = '中文123'

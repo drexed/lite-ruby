@@ -121,6 +121,10 @@ class String
     downcase == self
   end
 
+  def each_word(&block)
+    words.each(&block)
+  end
+
   def encode_only(encoding, alt = '')
     dup.encode_only!(encoding, alt)
   end
