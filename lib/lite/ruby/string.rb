@@ -257,10 +257,10 @@ class String
   end
 
   def methodize!
-    gsub!(/([A-Z]+)([A-Z])/,'\1_\2')
-    gsub!(/([a-z])([A-Z])/,'\1_\2')
-    gsub!('/' ,'__')
-    gsub!('::','__')
+    gsub!(/([A-Z]+)([A-Z])/, '\1_\2')
+    gsub!(/([a-z])([A-Z])/, '\1_\2')
+    gsub!('/', '__')
+    gsub!('::', '__')
     downcase! || self
   end
 
@@ -269,10 +269,10 @@ class String
   end
 
   def modulize!
-    gsub!(/__(.?)/){ "::#{$1.upcase}" }
-    gsub!(/\/(.?)/){ "::#{$1.upcase}" }
-    gsub!(/(?:_+|-+)([a-z])/){ $1.upcase }
-    gsub!(/(\A|\s)([a-z])/){ $1 + $2.upcase } || self
+    gsub!(/__(.?)/) { "::#{$1.upcase}" }
+    gsub!(%r{/(.?)}) { "::#{$1.upcase}" }
+    gsub!(/(?:_+|-+)([a-z])/) { $1.upcase }
+    gsub!(/(\A|\s)([a-z])/) { $1 + $2.upcase } || self
   end
 
   def mixedcase?
