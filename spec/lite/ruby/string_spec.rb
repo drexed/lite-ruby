@@ -407,6 +407,51 @@ RSpec.describe String do
     end
   end
 
+  describe '#lchomp(!)' do
+    it 'to be "xample"' do
+      s1 = 'example'
+      s2 = 'xample'
+
+      expect(s1.lchomp('e')).to eq(s2)
+      expect(s1.lchomp!('e')).to eq(s2)
+    end
+
+    it 'to be "example"' do
+      s1 = 'example'
+
+      expect(s1.lchomp('z')).to eq(s1)
+      expect(s1.lchomp!('z')).to eq(s1)
+    end
+  end
+
+  describe '#methodize(!)' do
+    it 'to be "example__class_string"' do
+      s1 = 'Example::ClassString'
+      s2 = 'example__class_string'
+
+      expect(s1.methodize).to eq(s2)
+      expect(s1.methodize!).to eq(s2)
+    end
+  end
+
+  describe '#modulize(!)' do
+    it 'to be "ExampleString"' do
+      s1 = 'example_string'
+      s2 = 'ExampleString'
+
+      expect(s1.modulize).to eq(s2)
+      expect(s1.modulize!).to eq(s2)
+    end
+
+    it 'to be "Example::String"' do
+      s1 = 'example/string'
+      s2 = 'Example::String'
+
+      expect(s1.modulize).to eq(s2)
+      expect(s1.modulize!).to eq(s2)
+    end
+  end
+
   describe '#mixedcase?' do
     it 'to be true' do
       expect('Mixedcase'.mixedcase?).to eq(true)

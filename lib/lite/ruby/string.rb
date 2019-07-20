@@ -33,11 +33,11 @@ class String
   }.freeze
 
   def acronym
-    gsub(/(([a-zA-Z0-9])([a-zA-Z0-9])*)./, '\\2')
+    dup.acronym!
   end
 
   def acronym!
-    replace(acronym)
+    gsub!(/(([a-zA-Z0-9])([a-zA-Z0-9])*)./, '\\2') || self
   end
 
   def any?(*keys)
@@ -45,7 +45,7 @@ class String
   end
 
   def ascii_only(alt = '')
-    dup.encode_only!('ASCII', alt)
+    dup.ascii_only!(alt)
   end
 
   def ascii_only!(alt = '')
@@ -58,9 +58,9 @@ class String
 
   def camelize(first_letter = :upper)
     case first_letter
-    when :upper, true then str.gsub(/(\A|\s)([a-z])/) { $1 + $2.upcase }
-    when :lower, false then str.gsub(/(\A|\s)([A-Z])/) { $1 + $2.downcase }
-    end
+    when :upper, true then gsub(/(\A|\s)([a-z])/) { $1 + $2.upcase }
+    when :lower, false then gsub(/(\A|\s)([A-Z])/) { $1 + $2.downcase }
+    end || self
   end
 
   alias camelcase camelize
@@ -76,11 +76,12 @@ class String
   end
 
   def classify
-    to_s.sub(/.*\./, '').camelize
+    dup.classify!
   end
 
   def classify!
-    replace(classify)
+    sub!(/.*\./, '')
+    camelize!
   end
 
   def constantize
@@ -88,15 +89,15 @@ class String
   end
 
   def dasherize
-    tr(/_/, '-')
+    dup.dasherize!
   end
 
   def dasherize!
-    replace(dasherize)
+    tr!('_', '-')
   end
 
   def deconstantize
-    to_s[0, rindex('::') || 0]
+    [0, rindex('::') || 0]
   end
 
   def deconstantize!
@@ -104,7 +105,7 @@ class String
   end
 
   def demodulize
-    to_s.gsub(/^.*::/, '')
+    gsub(/^.*::/, '')
   end
 
   def demodulize!
@@ -168,7 +169,7 @@ class String
   end
 
   def headerize
-    squish.split(' ').map(&:capitalize).join(' ')
+    squish.each_word(&:capitalize!).join(' ')
   end
 
   def headerize!
@@ -176,28 +177,27 @@ class String
   end
 
   def humanize(options = {})
-    capitalize = options[:capitalize] || true
-
-    underscore.gsub(/_id\z/, '')
-              .tr('_', ' ')
-              .squish
-              .gsub(/([a-z\d]*)/i, &:downcase)
-              .gsub(/\A\w/) { |str| capitalize ? str.upcase : str }
+    dup.humanize!(options)
   end
 
-  def humanize!(options = {})
-    replace(humanize(options))
+  def humanize!(capitalize: true)
+    underscore!
+    gsub!(/_id\z/, '')
+    tr!('_', ' ')
+    squish!
+    gsub!(/([a-z\d]*)/i, &:downcase)
+    gsub!(/\A\w/) { |str| capitalize ? str.upcase : str } || self
   end
 
   def indent(amount, indent_string = nil, indent_empty_lines = false)
-    indent_string = indent_string || self[/^[ \t]/] || ' '
-    substitutes = indent_empty_lines ? /^/ : /^(?!$)/
-
-    gsub(substitutes, indent_string * amount)
+    dup.indent!(amount, indent_string, indent_empty_lines)
   end
 
   def indent!(amount, indent_string = nil, indent_empty_lines = false)
-    replace(indent(amount, indent_string, indent_empty_lines))
+    indent_string = indent_string || self[/^[ \t]/] || ' '
+    substitutes = indent_empty_lines ? /^/ : /^(?!$)/
+
+    gsub!(substitutes, indent_string * amount) || self
   end
 
   def index_all(pattern)
@@ -215,19 +215,18 @@ class String
   end
 
   def labelize(options = {})
-    capitalize = options[:capitalize] || true
-
-    underscore.tr('_', ' ')
-              .squish
-              .gsub(/([a-z\d]*)/i, &:downcase)
-              .gsub(/\A\w/) { |str| capitalize ? str.upcase : str }
-              .gsub(/ id\z/, ' ID')
+    dup.labelize!(options)
   end
 
   alias labelcase labelize
 
-  def labelize!(options = {})
-    replace(labelize(options))
+  def labelize!(capitalize: true)
+    underscore!
+    tr!('_', ' ')
+    squish!
+    gsub!(/([a-z\d]*)/i, &:downcase)
+    gsub!(/\A\w/) { |str| capitalize ? str.upcase : str }
+    gsub!(/ id\z/, ' ID') || self
   end
 
   alias labelcase! labelize!
@@ -240,6 +239,40 @@ class String
     else
       from(-limit)
     end
+  end
+
+  def lchomp(match)
+    dup.lchomp!(match)
+  end
+
+  def lchomp!(match)
+    return self unless index(match)
+
+    self[0...match.size] = ''
+    self
+  end
+
+  def methodize
+    dup.methodize!
+  end
+
+  def methodize!
+    gsub!(/([A-Z]+)([A-Z])/,'\1_\2')
+    gsub!(/([a-z])([A-Z])/,'\1_\2')
+    gsub!('/' ,'__')
+    gsub!('::','__')
+    downcase! || self
+  end
+
+  def modulize
+    dup.modulize!
+  end
+
+  def modulize!
+    gsub!(/__(.?)/){ "::#{$1.upcase}" }
+    gsub!(/\/(.?)/){ "::#{$1.upcase}" }
+    gsub!(/(?:_+|-+)([a-z])/){ $1.upcase }
+    gsub!(/(\A|\s)([a-z])/){ $1 + $2.upcase } || self
   end
 
   def mixedcase?
@@ -255,15 +288,17 @@ class String
   end
 
   def parameterize(separator: '-')
-    underscore.gsub(/\s+/, separator).downcase
+    dup.parameterize!(separator: separator)
   end
 
   def parameterize!(separator: '-')
-    replace(parameterize(separator: separator))
+    underscore!
+    gsub!(/\s+/, separator)
+    downcase! || self
   end
 
   def pollute(delimiter = '^--^--^')
-    split('').map { |chr| "#{chr}#{delimiter}" }.join
+    chars.map { |chr| "#{chr}#{delimiter}" }.join
   end
 
   def pollute!(delimiter = '^--^--^')
@@ -279,21 +314,21 @@ class String
   end
 
   def remove(*patterns)
-    patterns.each_with_object(dup) do |pat, str|
+    dup.remove!(*patterns)
+  end
+
+  def remove!(*patterns)
+    patterns.each_with_object(self) do |pat, str|
       pat.is_a?(Range) ? str.slice!(pat) : str.gsub!(pat, '')
     end
   end
 
-  def remove!(*patterns)
-    replace(remove(*patterns))
-  end
-
   def remove_tags
-    gsub(%r{<\/?[^>]*>}, '')
+    dup.remove_tags!
   end
 
   def remove_tags!
-    replace(remove_tags)
+    gsub!(%r{<\/?[^>]*>}, '') || self
   end
 
   def sample(separator = ' ')
@@ -305,13 +340,13 @@ class String
   end
 
   def shift(*patterns)
-    return self[0] if patterns.empty?
-
-    patterns.each_with_object(dup) { |pat, str| str.sub!(pat, '') }
+    dup.shift!(*patterns)
   end
 
   def shift!(*patterns)
-    replace(shift(*patterns))
+    return self[0] if patterns.empty?
+
+    patterns.each_with_object(self) { |pat, str| str.sub!(pat, '') }
   end
 
   def shuffle(separator = '')
@@ -327,7 +362,7 @@ class String
            when String then keep.chars
            when Array then keep.map(&:to_s)
            when Range then keep.to_a.map(&:to_s)
-           else raise TypeError, "Invalid parameter #{keep.inspect}"
+           else raise TypeError, "Invalid parameter: #{keep.inspect}"
            end
 
     chars.keep_if { |chr| keep.include?(chr) }.join
@@ -338,23 +373,24 @@ class String
   end
 
   def slugify
-    to_s.gsub(/[^\x00-\x7F]+/, '')
-        .gsub(/[^\w_ \-]+/i, '')
-        .gsub(/[ \-]+/i, '-')
-        .gsub(/^\-|\-$/i, '')
-        .downcase
+    dup.slugify!
   end
 
   def slugify!
-    replace(slugify)
+    gsub!(/[^\x00-\x7F]+/, '')
+    gsub!(/[^\w_ \-]+/i, '')
+    gsub!(/[ \-]+/i, '-')
+    gsub!(/^\-|\-$/i, '')
+    downcase! || self
   end
 
   def squish
-    strip.gsub(/\s+/, ' ')
+    dup.squish!
   end
 
   def squish!
-    replace(squish)
+    strip!
+    gsub!(/\s+/, ' ')
   end
 
   def sort
@@ -366,13 +402,15 @@ class String
   end
 
   def titleize
-    underscore.humanize.gsub(/\b(?<!['’`])[a-z]/) { $&.capitalize }
+    dup.titleize!
   end
 
   alias titlecase titleize
 
   def titleize!
-    replace(titleize)
+    underscore!
+    humanize!
+    gsub!(/\b(?<!['’`])[a-z]/) { $&.capitalize } || self
   end
 
   alias titlecase! titleize!
@@ -414,23 +452,23 @@ class String
   end
 
   def underscore
-    to_s.gsub(/::/, '/')
-        .gsub(/([A-Z\d]+)([A-Z][a-z])/, "\1_\2")
-        .gsub(/([a-z\d])([A-Z])/, "\1_\2")
-        .tr('-', '_')
-        .downcase
+    dup.underscore!
   end
 
   def underscore!
-    replace(underscore)
+    gsub!(/::/, '/')
+    gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+    gsub!(/([a-z\d])([A-Z])/, '\1_\2')
+    tr!('-', '_')
+    downcase! || self
   end
 
   def unpollute(delimiter = '^--^--^')
-    gsub(delimiter, '')
+    dup.unpollute!(delimiter)
   end
 
   def unpollute!(delimiter = '^--^--^')
-    replace(unpollute(delimiter))
+    gsub!(delimiter, '') || self
   end
 
   def upcase?
@@ -456,7 +494,7 @@ class String
     str.gsub!('- ', ' ')
     str.squeeze!(' ')
     str.strip!
-    str.split(' ')
+    str.words
   end
 
   alias ends_with? end_with?

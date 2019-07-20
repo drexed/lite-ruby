@@ -254,6 +254,32 @@ than or equal to the string length, Returns a copy of self.
 'example'.first(3) #=> 'ple'
 ```
 
+`lchomp(!)`
+------
+Left chomp.
+
+```ruby
+'example'.lchomp('e')  #=> 'xample'
+'example'.lchomp!('z') #=> 'example'
+```
+
+`methodize(!)`
+------
+Translate a class or module name to a suitable method name.
+
+```ruby
+'Example::ClassString'.methodize #=> 'example__class_string'
+```
+
+`modulize(!)`
+------
+Converts a string to module name representation.
+
+```ruby
+'example_string'.modulize  #=> 'ExampleString'
+'example/string'.modulize! #=> 'Example::String'
+```
+
 `mixcase?`
 ------
 Returns true if characters are mixedcase.

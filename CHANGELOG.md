@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added String => `capitalized?`
 - Added String => `each_word`
 - Added String => `encode_only`
+- Added String => `lchomp`
+- Added String => `methodize`
+- Added String => `modulize`
 - Added String => `words`
 - Added String => `words_without_punctuation`
 ### Changed
