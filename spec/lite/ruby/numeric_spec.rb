@@ -346,6 +346,12 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#range' do
+    it 'to be 2..6' do
+      expect(4.range(2)).to eq(2..6)
+    end
+  end
+
   describe '#root' do
     it 'to be 2' do
       expect(4.root(2)).to eq(2)

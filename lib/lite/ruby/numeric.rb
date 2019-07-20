@@ -187,6 +187,12 @@ class Numeric
     self**num
   end
 
+  def range(value)
+    (self - value)..(self + value)
+  end
+
+  alias plus_minus range
+
   def root(num)
     self**(1.0 / num)
   end

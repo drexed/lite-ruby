@@ -260,6 +260,14 @@ Returns the nth power of a number.
 4.power(2) #=> 16
 ```
 
+`range` aka `plus_minus`
+------
+Returns a range from the number plus-or-minus a given value.
+
+```ruby
+4.range(2) #=> 2..6
+```
+
 `root`
 ------
 Returns the nth root of a number.
