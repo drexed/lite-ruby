@@ -83,11 +83,12 @@ RSpec.describe String do
 
     it 'to be "exampleString"' do
       s2 = 'exampleString'
+      k1 = :lower
 
-      expect(s1.camelize(:lower)).to eq(s2)
-      expect(s1.camelcase(:lower)).to eq(s2)
-      expect(s1.camelize!(:lower)).to eq(s2)
-      expect(s1.camelcase!(:lower)).to eq(s2)
+      expect(s1.camelize(k1)).to eq(s2)
+      expect(s1.camelcase(k1)).to eq(s2)
+      expect(s1.camelize!(k1)).to eq(s2)
+      expect(s1.camelcase!(k1)).to eq(s2)
     end
   end
 
@@ -337,19 +338,21 @@ RSpec.describe String do
 
   describe '#indent(!)' do
     let(:s1) { 'example' }
+    let(:n1) { 2 }
 
     it 'to be "  example"' do
       s2 = '  example'
 
-      expect(s1.indent(2)).to eq(s2)
-      expect(s1.indent!(2)).to eq(s2)
+      expect(s1.indent(n1)).to eq(s2)
+      expect(s1.indent!(n1)).to eq(s2)
     end
 
     it 'to be "\t\texample"' do
       s2 = '\t\texample'
+      s3 = '\t'
 
-      expect(s1.indent(2, '\t')).to eq(s2)
-      expect(s1.indent!(2, '\t')).to eq(s2)
+      expect(s1.indent(n1, s3)).to eq(s2)
+      expect(s1.indent!(n1, s3)).to eq(s2)
     end
   end
 
@@ -411,16 +414,18 @@ RSpec.describe String do
     it 'to be "xample"' do
       s1 = 'example'
       s2 = 'xample'
+      s3 = 'e'
 
-      expect(s1.lchomp('e')).to eq(s2)
-      expect(s1.lchomp!('e')).to eq(s2)
+      expect(s1.lchomp(s3)).to eq(s2)
+      expect(s1.lchomp!(s3)).to eq(s2)
     end
 
     it 'to be "example"' do
       s1 = 'example'
+      s2 = 'z'
 
-      expect(s1.lchomp('z')).to eq(s1)
-      expect(s1.lchomp!('z')).to eq(s1)
+      expect(s1.lchomp(s2)).to eq(s1)
+      expect(s1.lchomp!(s2)).to eq(s1)
     end
   end
 
@@ -511,9 +516,10 @@ RSpec.describe String do
 
     it 'to be "example_string"' do
       s2 = 'example?string'
+      s3 = '?'
 
-      expect(s1.parameterize(separator: '?')).to eq(s2)
-      expect(s1.parameterize!(separator: '?')).to eq(s2)
+      expect(s1.parameterize(separator: s3)).to eq(s2)
+      expect(s1.parameterize!(separator: s3)).to eq(s2)
     end
   end
 
@@ -539,9 +545,10 @@ RSpec.describe String do
 
     it 'to be "t-e-s-t-"' do
       s2 = 't-e-s-t-'
+      s3 = '-'
 
-      expect(s1.pollute('-')).to eq(s2)
-      expect(s1.pollute!('-')).to eq(s2)
+      expect(s1.pollute(s3)).to eq(s2)
+      expect(s1.pollute!(s3)).to eq(s2)
     end
   end
 
@@ -569,17 +576,19 @@ RSpec.describe String do
     it 'to be "example" with single quotes' do
       s1 = 'example'
       s2 = "'example'"
+      n1 = 1
 
-      expect(s1.quote(1)).to eq(s2)
-      expect(s1.quote!(1)).to eq(s2)
+      expect(s1.quote(n1)).to eq(s2)
+      expect(s1.quote!(n1)).to eq(s2)
     end
 
     it 'to be "example" with backticks' do
       s1 = 'example'
       s2 = '`example`'
+      k1 = :backtick
 
-      expect(s1.quote(:backtick)).to eq(s2)
-      expect(s1.quote!(:backtick)).to eq(s2)
+      expect(s1.quote(k1)).to eq(s2)
+      expect(s1.quote!(k1)).to eq(s2)
     end
   end
 
