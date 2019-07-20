@@ -5,9 +5,7 @@ require 'spec_helper'
 RSpec.describe String do
 
   describe '#acronym(!)' do
-    let(:s1) { 'example string' }
-
-    it 'to be true' do
+    it 'to be "es"' do
       s1 = 'example string'
       s2 = 'es'
 
@@ -27,6 +25,16 @@ RSpec.describe String do
     it 'to be false' do
       expect(s1.any?('foo')).to eq(false)
       expect(s1.any?('foo', 'bar')).to eq(false)
+    end
+  end
+
+  describe '#ascii_only(!)' do
+    it 'to be "123"' do
+      s1 = '中文123'
+      s2 = '123'
+
+      expect(s1.ascii_only).to eq(s2)
+      expect(s1.ascii_only!).to eq(s2)
     end
   end
 
@@ -80,6 +88,20 @@ RSpec.describe String do
       expect(s1.camelcase(:lower)).to eq(s2)
       expect(s1.camelize!(:lower)).to eq(s2)
       expect(s1.camelcase!(:lower)).to eq(s2)
+    end
+  end
+
+  describe '#capitalized?' do
+    it 'to be true' do
+      expect('Downcase'.capitalized?).to eq(true)
+      expect('Downcase string'.capitalized?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect('UPCASED'.capitalized?).to eq(false)
+      expect('downcase'.capitalized?).to eq(false)
+      expect('downcase string'.capitalized?).to eq(false)
+      expect('Downcase String'.capitalized?).to eq(false)
     end
   end
 
@@ -195,6 +217,17 @@ RSpec.describe String do
     it 'to be false' do
       expect('Mixedcase'.downcase?).to eq(false)
       expect('UPCASE'.downcase?).to eq(false)
+    end
+  end
+
+  describe '#encode_only(!)' do
+    it 'to be 123' do
+      s1 = '中文123'
+      s2 = '123'
+      s3 = 'ASCII'
+
+      expect(s1.encode_only(s3)).to eq(s2)
+      expect(s1.encode_only!(s3)).to eq(s2)
     end
   end
 

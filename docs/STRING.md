@@ -17,6 +17,15 @@ Returns if a string includes a set of string(s).
 'example string'.any?('foo', 'string') #=> true
 ```
 
+`ascii_only(!)`
+------
+Replace non-ascii characters.
+
+```ruby
+'中文123'.ascii_only       #=> '123'
+'中文123'.ascii_only!('x') #=> 'xx123'
+```
+
 `at`
 ------
 Returns the characters at index position, matching string, or regex.
@@ -39,6 +48,17 @@ Transforms a string to camelcase.
 'example_String'.camecase         #=> 'ExampleString'
 'example_string'.camelize(:lower) #=> 'exampleString'
 'example_String'.camecase(:lower) #=> 'exampleString'
+```
+
+`capitalized?`
+------
+Returns true if the first character is capitalized.
+
+```ruby
+'Example string'.capitalized? #=> true
+'EXAMPLE STRING'.capitalized? #=> false
+'example string'.capitalized? #=> false
+'Example String'.capitalized? #=> false
 ```
 
 `classify(!)`
@@ -105,6 +125,15 @@ Returns true if all characters are lowercase.
 'example'.downcase? #=> true
 'Example'.downcase? #=> false
 'EXAMPLE'.downcase? #=> false
+```
+
+`encode_only(!)`
+------
+Replace non-encode characters.
+
+```ruby
+'中文123'.encode_only('UTF-8')       #=> '123'
+'中文123'.encode_only!('ASCII', 'x') #=> 'xx123'
 ```
 
 `ellipsize`

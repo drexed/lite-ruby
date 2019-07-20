@@ -44,16 +44,22 @@ class String
     keys.any? { |key| include?(key) }
   end
 
+  def ascii_only(alt = '')
+    dup.encode_only!('ASCII', alt)
+  end
+
+  def ascii_only!(alt = '')
+    encode_only!('ASCII', alt)
+  end
+
   def at(position)
     self[position]
   end
 
   def camelize(first_letter = :upper)
-    if first_letter.to_sym != :lower
-      regex_last = Regexp.last_match(1).upcase
-      to_s.gsub(%r{\/(.?)}) { "::#{regex_last}" }.gsub(%r{^/(?:^|_)(.)}) { regex_last }
-    else
-      "#{to_s.first.chr.downcase}#{camelize(self)[1..-1]}"
+    case first_letter
+    when :upper, true then str.gsub(/(\A|\s)([a-z])/){ $1 + $2.upcase }
+    when :lower, false then str.gsub(/(\A|\s)([A-Z])/){ $1 + $2.downcase }
     end
   end
 
@@ -64,6 +70,10 @@ class String
   end
 
   alias camelcase! camelize!
+
+  def capitalized?
+    capitalize == self
+  end
 
   def classify
     to_s.sub(/.*\./, '').camelize
@@ -109,6 +119,21 @@ class String
 
   def downcase?
     downcase == self
+  end
+
+  def encode_only(encoding, alt = '')
+    dup.encode_only!(encoding, alt)
+  end
+
+  def encode_only!(encoding, alt = '')
+    encoding_options = {
+      invalid: :replace,
+      undef: :replace,
+      replace: alt,
+      UNIVERSAL_NEWLINE_DECORATOR: true
+    }
+
+    encode!(Encoding.find(encoding), encoding_options)
   end
 
   def ellipsize(ellipsize_at, options = {})

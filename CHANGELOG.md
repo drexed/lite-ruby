@@ -8,10 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.2] - 2019-07-18
 ### Added
-- Added delta to numeric
+- Added Numeric => `delta`
+- Added String => `ascii_only`
+- Added String => `capitalized?`
+- Added String => `encode_only`
 ### Changed
-- Rename `emperical => imperical`
-- Rename `multiply => produce` and `divisible => quotient`
+- Rename Time => `emperical => imperical`
+- Rename Enumerable => `multiply => produce`
+- Rename Enumerable => `divisible => quotient`
 
 ## [1.0.1] - 2019-07-12
 ### Added
