@@ -813,4 +813,22 @@ RSpec.describe String do
     end
   end
 
+  describe '#words' do
+    it 'to be [ ... ]' do
+      s1 = 'abc. 123'
+      a1 = %w[abc. 123]
+
+      expect(s1.words).to eq(a1)
+    end
+  end
+
+  describe '#words_without_punctuation' do
+    it 'to be [ ... ]' do
+      s1 = 'Slowly, grudgingly he said: "This has to stop."'
+      a1 = %w[Slowly grudgingly he said This has to stop]
+
+      expect(s1.words_without_punctuation).to eq(a1)
+    end
+  end
+
 end

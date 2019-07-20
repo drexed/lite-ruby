@@ -498,3 +498,19 @@ Prepends string(s) to self.
 'this thing that thing'.unshift('thing ')         #=> 'thing this thing that thing'
 'this thing that thing'.unshift('this ', 'that ') #=> 'this that this thing that thing'
 ```
+
+`words`
+------
+Splits a string into multiple words split by spaces.
+
+```ruby
+'abc. 123'.words #=> ['abc.', '123']
+```
+
+`words_without_punctuation`
+------
+Splits a string into multiple words without punctuation split by spaces.
+
+```ruby
+'Slowly, grudgingly he said: "This has to stop."'.words_without_punctuation #=> ['Slowly', 'grudgingly', 'he', 'said', 'This', 'has', 'to', 'stop']
+```

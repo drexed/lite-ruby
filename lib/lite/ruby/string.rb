@@ -58,8 +58,8 @@ class String
 
   def camelize(first_letter = :upper)
     case first_letter
-    when :upper, true then str.gsub(/(\A|\s)([a-z])/){ $1 + $2.upcase }
-    when :lower, false then str.gsub(/(\A|\s)([A-Z])/){ $1 + $2.downcase }
+    when :upper, true then str.gsub(/(\A|\s)([a-z])/) { $1 + $2.upcase }
+    when :lower, false then str.gsub(/(\A|\s)([A-Z])/) { $1 + $2.downcase }
     end
   end
 
@@ -440,6 +440,19 @@ class String
 
   def unshift!(*patterns)
     replace(unshift(*patterns))
+  end
+
+  def words
+    split(/\s+/)
+  end
+
+  def words_without_punctuation
+    str = dup
+    str.gsub!(%r{[.?¿¡…!,:：;—"。？！、‘“”„«»〈〉《》，/\[\]]}, ' ')
+    str.gsub!('- ', ' ')
+    str.squeeze!(' ')
+    str.strip!
+    str.split(' ')
   end
 
 end

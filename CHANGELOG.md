@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added String => `ascii_only`
 - Added String => `capitalized?`
 - Added String => `encode_only`
+- Added String => `words`
+- Added String => `words_without_punctuation`
 ### Changed
 - Rename Time => `emperical => imperical`
 - Rename Enumerable => `multiply => produce`
