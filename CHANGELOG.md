@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Numeric => `delta`
 - Added String => `ascii_only`
 - Added String => `capitalized?`
+- Added String => `each_word`
 - Added String => `encode_only`
 - Added String => `words`
 - Added String => `words_without_punctuation`

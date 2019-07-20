@@ -127,6 +127,14 @@ Returns true if all characters are lowercase.
 'EXAMPLE'.downcase? #=> false
 ```
 
+`each_word`
+------
+Splits a string into multiple words and yields its enumeration.
+
+```ruby
+'abc. 123'.each_word(&:campitalize!) #=> ['Abc.', '123']
+```
+
 `encode_only(!)`
 ------
 Replace non-encode characters.

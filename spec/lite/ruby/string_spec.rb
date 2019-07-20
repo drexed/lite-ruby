@@ -223,9 +223,9 @@ RSpec.describe String do
   describe '#each_word' do
     it 'to be [ ... ]' do
       s1 = 'example string'
-      s2 = 'Example String'
+      a2 = %w[Example String]
 
-      expect(s1.each_word(&:capitalize)).to eq(s2)
+      expect(s1.each_word(&:capitalize!)).to eq(a2)
     end
   end
 
