@@ -561,12 +561,10 @@ class String
   end
 
   def unquote!
-    case self[0, 1]
-    when "'", '"', '`' then self[0] = ''
-    end
-
-    case self[-1, 1]
-    when "'", '"', '`' then self[-1] = ''
+    [0, -1].each do |i|
+      case self[i, 1]
+      when "'", '"', '`' then self[i] = ''
+      end
     end
 
     self
@@ -595,6 +593,5 @@ class String
 
   alias ends_with? end_with?
   alias starts_with? start_with?
-  alias store []=
 
 end
