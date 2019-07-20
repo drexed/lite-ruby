@@ -517,6 +517,16 @@ RSpec.describe String do
     end
   end
 
+  describe '#pathize(!)' do
+    it 'to be "example-string"' do
+      s1 = 'ExampleString::Class'
+      s2 = 'example_string/class'
+
+      expect(s1.pathize).to eq(s2)
+      expect(s1.pathize!).to eq(s2)
+    end
+  end
+
   describe '#pollute(!)' do
     let(:s1) { 'test' }
 
@@ -544,6 +554,32 @@ RSpec.describe String do
   describe '#push' do
     it 'to be "tester"' do
       expect('test'.push('er')).to eq('tester')
+    end
+  end
+
+  describe '#quote(!)' do
+    it 'to be "example" with double quotes' do
+      s1 = 'example'
+      s2 = '"example"'
+
+      expect(s1.quote).to eq(s2)
+      expect(s1.quote!).to eq(s2)
+    end
+
+    it 'to be "example" with single quotes' do
+      s1 = 'example'
+      s2 = "'example'"
+
+      expect(s1.quote(1)).to eq(s2)
+      expect(s1.quote!(1)).to eq(s2)
+    end
+
+    it 'to be "example" with backticks' do
+      s1 = 'example'
+      s2 = "`example`"
+
+      expect(s1.quote(:backtick)).to eq(s2)
+      expect(s1.quote!(:backtick)).to eq(s2)
     end
   end
 
@@ -864,6 +900,16 @@ RSpec.describe String do
 
       expect(s1.unshift('this ', 'that ')).to eq(s2)
       expect(s1.unshift!('this ', 'that ')).to eq(s2)
+    end
+  end
+
+  describe '#unquote(!)' do
+    it 'to be "example"' do
+      s1 = '"example"'
+      s2 = 'example'
+
+      expect(s1.unquote).to eq(s2)
+      expect(s1.unquote!).to eq(s2)
     end
   end
 

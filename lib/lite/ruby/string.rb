@@ -189,15 +189,16 @@ class String
     gsub!(/\A\w/) { |str| capitalize ? str.upcase : str } || self
   end
 
-  def indent(amount, indent_string = nil, indent_empty_lines = false)
-    dup.indent!(amount, indent_string, indent_empty_lines)
+  def indent(amount, seperator = ' ')
+    dup.indent!(amount, seperator)
   end
 
-  def indent!(amount, indent_string = nil, indent_empty_lines = false)
-    indent_string = indent_string || self[/^[ \t]/] || ' '
-    substitutes = indent_empty_lines ? /^/ : /^(?!$)/
-
-    gsub!(substitutes, indent_string * amount) || self
+  def indent!(amount, seperator = ' ')
+    if amount >= 0
+      gsub!(/^/, seperator * amount)
+    else
+      gsub!(/^#{Regexp.escape(seperator)}{0,#{-amount}}/, '')
+    end
   end
 
   def index_all(pattern)
@@ -297,6 +298,20 @@ class String
     downcase! || self
   end
 
+  def pathize
+    dup.pathize!
+  end
+
+  def pathize!
+    gsub!(/([A-Z]+)([A-Z])/,'\1_\2')
+    gsub!(/([a-z])([A-Z])/,'\1_\2')
+    gsub!('__','/')
+    gsub!('::','/')
+    gsub!(/\s+/, '')
+    gsub!(/[?%*:|"<>.]+/, '')
+    downcase! || self
+  end
+
   def pollute(delimiter = '^--^--^')
     chars.map { |chr| "#{chr}#{delimiter}" }.join
   end
@@ -311,6 +326,48 @@ class String
 
   def push(string)
     replace(concat(string))
+  end
+
+  def quote(type = :double, count = nil)
+    if type.is_a?(Integer)
+      tmp = count
+      count = type
+      type = tmp || :mixed
+    else
+      count ||= 1
+    end
+
+    case type.to_s
+    when "'", 'single', 's', '1'
+      f = "'" * count
+      b = f
+    when '"', 'double', 'd', '2'
+      f = '"' * count
+      b = f
+    when '`', 'back', 'backtick', 'b', '-1'
+      f = '`' * count
+      b = f
+    when "`'", 'bracket', 'sb'
+      f = "`" * count
+      b = "'" * count
+    when "'\"", 'mixed', "m", 'Integer'
+      c = (count.to_f / 2).to_i
+      f = '"' * c
+      b = f
+
+      if count % 2 != 0
+        f = "'" + f
+        b = b + "'"
+      end
+    else
+      raise ArgumentError, "Invalid quote type: #{type.inspect}"
+    end
+
+    "#{f}#{self}#{b}"
+  end
+
+  def quote!(type = :double, count = nil)
+    replace(quote(type, count))
   end
 
   def remove(*patterns)
@@ -482,6 +539,22 @@ class String
 
   def unshift!(*patterns)
     replace(unshift(*patterns))
+  end
+
+  def unquote
+    dup.unquote!
+  end
+
+  def unquote!
+    case self[0, 1]
+    when "'", '"', '`' then self[0] = ''
+    end
+
+    case self[-1, 1]
+    when "'", '"', '`' then self[-1] = ''
+    end
+
+    self
   end
 
   def words

@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added String => `lchomp`
 - Added String => `methodize`
 - Added String => `modulize`
+- Added String => `pathize`
+- Added String => `quote`
+- Added String => `unquote`
 - Added String => `words`
 - Added String => `words_without_punctuation`
 ### Changed

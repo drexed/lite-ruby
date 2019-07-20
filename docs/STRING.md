@@ -321,6 +321,14 @@ Makes a string suitable for a dashed url parameter string.
 'example_string'.parameterize(separator: '?') #=> 'example?string'
 ```
 
+`pathize(!)`
+------
+Transforms a string to a suitable file path.
+
+```ruby
+'ExamplePathize::Example'.pathize! #=> 'example_string/class'
+```
+
 `pollute(!)`
 ------
 Pollutes the space between every letter in a string, so it will be exempt from any impending string searches.
@@ -344,6 +352,16 @@ Concats string to self.
 
 ```ruby
 'test'.push('er') #=> 'tester'
+```
+
+`quote(!)`
+------
+Adds a given quote type to the string.
+
+```ruby
+'example'.quote            #=> '"example"'
+'example'.quote!(1)        #=> "'example'"
+'example'.quote(:backtick) #=> '`example`'
 ```
 
 `remove(!)`
@@ -531,6 +549,14 @@ Prepends string(s) to self.
 ```ruby
 'this thing that thing'.unshift('thing ')         #=> 'thing this thing that thing'
 'this thing that thing'.unshift('this ', 'that ') #=> 'this that this thing that thing'
+```
+
+`unquote(!)`
+------
+Removes any quote types from a given string.
+
+```ruby
+'`example`'.unquote #=> 'example'
 ```
 
 `words`
