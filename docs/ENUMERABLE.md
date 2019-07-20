@@ -122,14 +122,14 @@ Returns a hash of the number of times a value appears in an array.
 [1,:symbol,'string',3,:symbol,1].occurrences #=> { 1 => 2,:symbol => 2,'string' => 1,3 => 1 }
 ```
 
-`product`
+`produce`
 ------
 Returns the multiplication of a collection of numbers.
 
 ```ruby
-[].product      #=> 0
-[].product(nil) #=> nil
-[1,2,3].product #=> 6
+[].produce      #=> 0
+[].produce(nil) #=> nil
+[1,2,3].produce #=> 6
 ```
 
 `quotient`

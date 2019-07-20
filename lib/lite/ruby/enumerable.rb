@@ -18,7 +18,7 @@ module Enumerable
     if block_given?
       map(&block).deduce(identity)
     else
-      inject { |key, val| key - val } || identity
+      inject { |acc, val| acc - val } || identity
     end
   end
 
@@ -68,7 +68,7 @@ module Enumerable
     if block_given?
       map(&block).exponential(identity)
     else
-      inject { |key, val| key**val } || identity
+      inject { |acc, val| acc**val } || identity
     end
   end
 
@@ -121,11 +121,11 @@ module Enumerable
     each_with_object(Hash.new(0)) { |key, hsh| hsh[key] += 1 }
   end
 
-  def product(identity = 0, &block)
+  def produce(identity = 0, &block)
     if block_given?
-      map(&block).product(identity)
+      map(&block).produce(identity)
     else
-      inject { |key, val| key * val } || identity
+      inject { |acc, val| acc * val } || identity
     end
   end
 
@@ -133,7 +133,7 @@ module Enumerable
     if block_given?
       map(&block).quotient(identity)
     else
-      inject { |key, val| key / val } || identity
+      inject { |acc, val| acc / val } || identity
     end
   end
 

@@ -153,17 +153,17 @@ RSpec.describe Enumerable do
     end
   end
 
-  describe '#product' do
+  describe '#produce' do
     it 'to be 0' do
-      expect([].product).to eq(0)
+      expect([].produce).to eq(0)
     end
 
     it 'to be nil' do
-      expect([].product(nil)).to eq(nil)
+      expect([].produce(nil)).to eq(nil)
     end
 
     it 'to be 6' do
-      expect([1, 2, 3].product).to eq(6)
+      expect([1, 2, 3].produce).to eq(6)
     end
   end
 

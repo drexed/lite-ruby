@@ -27,6 +27,10 @@ class Numeric
     self - amount
   end
 
+  def delta(num)
+    (self - num).abs
+  end
+
   def distance(num)
     (self - num).abs
   end

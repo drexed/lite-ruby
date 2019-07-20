@@ -46,6 +46,16 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#delta' do
+    let(:n1) { 1 }
+    let(:n2) { 0.5 }
+
+    it 'to be 0.5' do
+      expect(n1.delta(n2)).to eq(n2)
+      expect(n2.delta(n1)).to eq(n2)
+    end
+  end
+
   describe '#distance' do
     it 'to be 2' do
       n1 = 3
