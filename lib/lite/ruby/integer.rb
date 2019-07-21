@@ -8,7 +8,7 @@ class Integer
   }.freeze
 
   def bit(bit)
-    if bit < 0
+    if bit.negative?
       mask = (1 << ~bit)
       self & ~mask
     else
@@ -28,7 +28,7 @@ class Integer
   end
 
   def bitmask(mask)
-    if mask < 0
+    if mask.negative?
       self & mask
     else
       self | mask

@@ -2,6 +2,11 @@
 
 class Hash
 
+  def alias(new_key, old_key)
+    self[new_key] = self[old_key] if key?(old_key)
+    self
+  end
+
   def assert_valid_keys!(*valid_keys)
     each_key do |key|
       next if valid_keys.include?(key)
@@ -49,6 +54,31 @@ class Hash
     self
   end
   # rubocop:enable Style/GuardClause
+
+  # rubocop:disable Metrics/MethodLength
+  def collate(*others)
+    hash = {}
+
+    each_key { |key| hash[key] = [] }
+
+    others.each do |other|
+      other.each_key { |key| hash[key] = [] }
+    end
+
+    each { |key, val| hash[key] << val }
+
+    others.each do |other|
+      other.each { |key, val| hash[key] << val }
+    end
+
+    hash.each_value(&:flatten!)
+    hash
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def collate!(other_hash)
+    replace(collate(other_hash))
+  end
 
   def collect_keys
     collect { |key, _| yield(key) }

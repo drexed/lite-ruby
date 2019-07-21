@@ -1,5 +1,16 @@
 # Hash
 
+`alias`
+------
+Adds a key/value pair from an existing key/value pair.
+
+```ruby
+h1 = { foo: 'bar', baz: 'boo' }
+h1.alias('boo', :foo)
+
+h1['boo'] #=> 'bar'
+```
+
 `assert_valid_keys!`
 ------
 Raises an error if key is not included in a list of keys.
@@ -44,6 +55,14 @@ Updates a deeply nested value.
 { foo: { baz: 'boo' } }.bury(:foo, :moo)       #=> { foo: :moo }
 { foo: { baz: 'boo' } }.bury(:foo, :baz, :moo) #=> { foo: { baz: :moo } }
 { foo: { baz: 'boo' } }.bury(:foo)             #=> raises ArgumentError: '2 or more arguments required'
+```
+
+`collate(!)`
+------
+Merge the values of this hash with those from another, setting all values to be arrays representing the values from both hashes.
+
+```ruby
+{ a: 1, b: 2 }.collate(a: 3, b: 4, c: 5) #=> { a: [1, 3], b: [2, 4], c: [5] }
 ```
 
 `collect_keys`

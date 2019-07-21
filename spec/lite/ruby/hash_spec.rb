@@ -4,6 +4,15 @@ require 'spec_helper'
 
 RSpec.describe Hash do
 
+  describe '#alias' do
+    it 'to be true' do
+      h1 = { foo: 'bar', baz: 'boo' }
+      h1.alias('boo', :foo)
+
+      expect(h1.key?('boo')).to eq(true)
+    end
+  end
+
   describe '#assert_valid_keys!' do
     it 'to be {}' do
       expect({}.assert_valid_keys!(:foo)).to eq({})
@@ -61,6 +70,17 @@ RSpec.describe Hash do
 
     it 'to raise error' do
       expect { h1.bury(:moo) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#collate(!)' do
+    it 'to be { ... }' do
+      h1 = { a: 1, b: 2 }
+      h2 = { a: 3, b: 4, c: 5 }
+      h3 = { a: [1, 3], b: [2, 4], c: [5] }
+
+      expect(h1.collate(h2)).to eq(h3)
+      expect(h1.collate!(h2)).to eq(h3)
     end
   end
 
