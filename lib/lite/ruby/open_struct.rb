@@ -5,15 +5,17 @@ require 'ostruct'
 class OpenStruct
 
   def initialize(hash = nil, &block)
-    if block && block.arity == 2
-      @table = Hash.new(&block)
-    else
-      @table = {}
-    end
+    @table = if block && block.arity == 2
+               Hash.new(&block)
+             else
+               {}
+             end
 
-    hash.each do |key, val|
-      @table[key.to_sym] = val
-      new_ostruct_member(key)
+    if hash
+      hash.each do |key, val|
+        @table[key.to_sym] = val
+        new_ostruct_member(key)
+      end
     end
 
     yield self if block && block.arity == 1
@@ -25,7 +27,7 @@ class OpenStruct
   end
 
   def []=(key, val)
-    raise TypeError, "can't modify frozen #{self.class}", caller(1) if self.frozen?
+    raise TypeError, "can't modify frozen #{self.class}", caller(1) if frozen?
 
     key = key.to_sym unless key.is_a?(Symbol)
     @table[key] = val
