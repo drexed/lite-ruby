@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Numeric => `delimit`
 - Added Numeric => `delta`
 - Added Numeric => `range`
+- Added OpenStruct extensions
 - Added String => `ascii_only`
 - Added String => `capitalized?`
 - Added String => `each_word`
@@ -52,6 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added String => `variablize`
 - Added String => `words`
 - Added String => `words_without_punctuation`
+- Added Struct => `[]`
+- Added Struct => `[]=`
 ### Changed
 - Rename Time => `emperical => imperical`
 - Rename Enumerable => `multiply => produce`

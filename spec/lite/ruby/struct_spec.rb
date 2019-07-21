@@ -8,6 +8,20 @@ RSpec.describe Struct do
     person.new('bob', 60)
   end
 
+  describe '#[]' do
+    it 'to be "bob"' do
+      expect(s1['name']).to eq('bob')
+    end
+  end
+
+  describe '#[]=' do
+    it 'to be "bill"' do
+      s1['name'] = 'bill'
+
+      expect(s1[:name]).to eq('bill')
+    end
+  end
+
   describe '#attributes' do
     it 'to be { ... }' do
       expect(s1.attributes).to eq(name: 'bob', age: 60)

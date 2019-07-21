@@ -38,7 +38,7 @@ Or install it yourself as:
 ```ruby
 Lite::Ruby.configure do |config|
   config.monkey_patches = %w[
-    array date enumerable hash integer kernel numeric object range string struct time
+    array date enumerable hash integer kernel numeric object open_struct range string struct time
   ]
 end
 ```
@@ -53,6 +53,7 @@ end
 * [Kernel](https://github.com/drexed/lite-ruby/blob/master/docs/KERNEL.md)
 * [Numeric](https://github.com/drexed/lite-ruby/blob/master/docs/NUMERIC.md)
 * [Object](https://github.com/drexed/lite-ruby/blob/master/docs/OBJECT.md)
+* [Open Struct](https://github.com/drexed/lite-ruby/blob/master/docs/OPEN_STRUCT.md)
 * [Range](https://github.com/drexed/lite-ruby/blob/master/docs/RANGE.md)
 * [String](https://github.com/drexed/lite-ruby/blob/master/docs/STRING.md)
 * [Struct](https://github.com/drexed/lite-ruby/blob/master/docs/STRUCT.md)

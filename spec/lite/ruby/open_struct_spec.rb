@@ -9,9 +9,23 @@ RSpec.describe OpenStruct do
     end
   end
 
+  describe '#[]' do
+    it 'to be "bob"' do
+      expect(o1['name']).to eq('bob')
+    end
+  end
+
+  describe '#[]=' do
+    it 'to be "bill"' do
+      o1['name'] = 'bill'
+
+      expect(o1[:name]).to eq('bill')
+    end
+  end
+
   describe '#attributes' do
     it 'to be { ... }' do
-      expect(o1.attributes).to eq(name: 'bob', age: 60)
+      expect(o1.attributes).to eq(name: 'bob', age: 60, gender: :M)
     end
   end
 
