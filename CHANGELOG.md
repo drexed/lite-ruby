@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Integer => `bit_clear`
 - Added Integer => `bitmask`
 - Added Integer => `bitmask?`
+- Added Numeric => `at_least?`
+- Added Numeric => `at_most?`
 - Added Numeric => `close?`
 - Added Numeric => `delimit`
 - Added Numeric => `delta`

@@ -6,6 +6,14 @@ class Numeric
     self + num
   end
 
+  def at_least(lower)
+    self >= lower ? self : lower
+  end
+
+  def at_most(upper)
+    self <= upper ? self : upper
+  end
+
   # rubocop:disable Metrics/MethodLength
   def clamp(minimum, maximum = nil)
     if minimum.is_a?(Range)

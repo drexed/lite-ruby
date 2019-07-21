@@ -10,6 +10,32 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#at_least' do
+    let(:n1) { 5 }
+    let(:n2) { 6 }
+
+    it 'to be 5' do
+      expect(4.at_least(n1)).to eq(n1)
+    end
+
+    it 'to be 6' do
+      expect(n2.at_least(n1)).to eq(n2)
+    end
+  end
+
+  describe '#at_most' do
+    let(:n1) { 4 }
+    let(:n2) { 5 }
+
+    it 'to be 4' do
+      expect(n1.at_most(n2)).to eq(n1)
+    end
+
+    it 'to be 5' do
+      expect(6.at_most(n2)).to eq(n2)
+    end
+  end
+
   describe '#clamp' do
     let(:n1) { 1 }
     let(:n2) { 3 }
