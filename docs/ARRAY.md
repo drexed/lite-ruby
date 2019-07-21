@@ -176,7 +176,7 @@ Converts blank values into `nil`.
 Generates a hash mapping each unique element in the array to the relative frequency, i.e. the probability, of it appearance.
 
 ```ruby
-[:a,:b,:c,:c].probability #=> { a: 0.25,b: 0.25,c: 0.5 }
+[:a,:b,:c,:c].probability #=> { a: 0.25, b: 0.25, c: 0.5 }
 ```
 
 `promote(!)`

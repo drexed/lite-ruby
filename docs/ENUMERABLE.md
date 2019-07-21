@@ -5,7 +5,15 @@
 Groups together adjacent elements into a list of sub-arrays.
 
 ```ruby
-[2,2,2,3,3,4,2,2,1].cluster { |x| x } #=> [[2,2,2],[3,3],[4],[2,2],[1]]
+[2, 2, 2, 3, 3, 4, 2, 2, 1].cluster { |x| x } #=> [[2, 2, 2], [3, 3], [4], [2, 2], [1]]
+```
+
+`cluster_by`
+------
+Similar to `group_by` but returns an array of the groups.
+
+```ruby
+%w[this is a test].cluster_by { |x| x[0] } #=> [['a'], ['is'], ['this', 'test']]
 ```
 
 `deduce`
@@ -84,6 +92,14 @@ Returns the exponential of a collection of numbers.
 [2,3,4].exponential #=> 4096
 ```
 
+`frequency` aka `occurrences`
+------
+Generates a hash mapping each unique symbol in the array to the absolute frequency it appears.
+
+```ruby
+%i[a a b c c c].frequency #=> { a: 2, b: 1, c: 3 }
+```
+
 `incase?`
 ------
 The same as `include?` but tested using `===` instead of `==`.
@@ -113,13 +129,16 @@ Returns if a collection has more than one element while respecting `nil` and `fa
 
 ```
 
-`occurrences`
+`occur`
 ------
-Returns a hash of the number of times a value appears in an array.
+Returns an array of elements for the elements that occur n times.
 
 ```ruby
-[].occurrences                               #=> {}
-[1,:symbol,'string',3,:symbol,1].occurrences #=> { 1 => 2,:symbol => 2,'string' => 1,3 => 1 }
+a1 = [1, 1, 2, 3, 3, 4, 5, 5]
+
+a1.occur(2)            #=> [1, 3, 5]
+a1.occur(2..3)         #=> [1, 3, 5]
+a1.occur { |n| n > 1 } #=> [1, 3, 5]
 ```
 
 `produce`
@@ -153,6 +172,18 @@ Returns if collection has more than one element while not respecting `nil` and `
 [1,1,3,3].several?(&:even?) #=> false
 ```
 
+`squeeze`
+------
+Squeeze out the same elements.
+
+```ruby
+a1 = [1, 2, 2, 3, 3, 2, 1]
+
+a1.squeeze      #=> [1, 2, 3, 2, 1]
+a1.sort.squeeze #=> [1, 2, 3]
+a1.squeeze(3)   #=> [1, 2, 2, 3, 2, 1]
+```
+
 `take_last`
 ------
 Returns the last number of elements of a collection.
@@ -160,7 +191,7 @@ Returns the last number of elements of a collection.
 ```ruby
 [].take_last(1)      #=> []
 [1,2,3].take_last(1) #=> [3]
-[1,2,3].take_last(2) #=> [2,3]
+[1,2,3].take_last(2) #=> [2, 3]
 ```
 
 `take_last_if`

@@ -6,9 +6,19 @@ RSpec.describe Enumerable do
 
   describe '#cluster' do
     it 'to be [[2, 2, 2], [3, 3], [4], [2, 2], [1]]' do
-      array = [2, 2, 2, 3, 3, 4, 2, 2, 1]
+      a1 = [2, 2, 2, 3, 3, 4, 2, 2, 1]
+      a2 = [[2, 2, 2], [3, 3], [4], [2, 2], [1]]
 
-      expect(array.cluster { |x| x }).to eq([[2, 2, 2], [3, 3], [4], [2, 2], [1]])
+      expect(a1.cluster { |x| x }).to eq(a2)
+    end
+  end
+
+  describe '#cluster_by' do
+    it 'to be [[2, 2, 2], [3, 3], [4], [2, 2], [1]]' do
+      a1 = %w[this is a test]
+      a2 = [%w[a], %w[is], %w[this test]]
+
+      expect(a1.cluster_by { |x| x[0] }).to eq(a2)
     end
   end
 
@@ -27,16 +37,18 @@ RSpec.describe Enumerable do
   end
 
   describe '#drop_last' do
+    let(:a1) { [1, 2, 3] }
+
     it 'to be []' do
       expect([].drop_last(1)).to eq([])
     end
 
     it 'to be [1, 2]' do
-      expect([1, 2, 3].drop_last(1)).to eq([1, 2])
+      expect(a1.drop_last(1)).to eq([1, 2])
     end
 
     it 'to be [1]' do
-      expect([1, 2, 3].drop_last(2)).to eq([1])
+      expect(a1.drop_last(2)).to eq([1])
     end
   end
 
@@ -71,23 +83,27 @@ RSpec.describe Enumerable do
   end
 
   describe '#excase?' do
+    let(:a1) { [1, 2, 'a'] }
+
     it 'to be true' do
-      expect([1, 2, 'a'].excase?(3)).to eq(true)
+      expect(a1.excase?(3)).to eq(true)
     end
 
     it 'to be false' do
-      expect([1, 2, 'a'].excase?(2)).to eq(false)
-      expect([1, 2, 'a'].excase?(String)).to eq(false)
+      expect(a1.excase?(2)).to eq(false)
+      expect(a1.excase?(String)).to eq(false)
     end
   end
 
   describe '#exclude?' do
+    let(:a1) { [1, 2, 3] }
+
     it 'to be true' do
-      expect([1, 2, 3].exclude?(4)).to eq(true)
+      expect(a1.exclude?(4)).to eq(true)
     end
 
     it 'to be false' do
-      expect([1, 2, 3].exclude?(3)).to eq(false)
+      expect(a1.exclude?(3)).to eq(false)
     end
   end
 
@@ -111,14 +127,25 @@ RSpec.describe Enumerable do
     end
   end
 
+  describe '#frequency' do
+    it 'to be { a: 2, b: 1, c: 3 }' do
+      a1 = %i[a a b c c c]
+      h1 = { a: 2, b: 1, c: 3 }
+
+      expect(a1.frequency).to eq(h1)
+    end
+  end
+
   describe '#incase?' do
+    let(:a1) { [1, 2, 'a'] }
+
     it 'to be true' do
-      expect([1, 2, 'a'].incase?(2)).to eq(true)
-      expect([1, 2, 'a'].incase?(String)).to eq(true)
+      expect(a1.incase?(2)).to eq(true)
+      expect(a1.incase?(String)).to eq(true)
     end
 
     it 'to be false' do
-      expect([1, 2, 'a'].incase?(3)).to eq(false)
+      expect(a1.incase?(3)).to eq(false)
     end
   end
 
@@ -141,15 +168,43 @@ RSpec.describe Enumerable do
     end
   end
 
-  describe '#occurrences' do
-    it 'to be {}' do
-      expect([].occurrences).to eq({})
+  describe '#modulate' do
+    let(:a1) { [2] }
+
+    it 'to be [2]' do
+      expect(a1.modulate(1)).to eq(a1)
     end
 
-    it 'to be { 1 => 2, :symbol => 2, "string" => 1, 3 => 1 }' do
-      array = [1, :symbol, 'string', 3, :symbol, 1]
+    it 'to raise error' do
+      expect { a1.modulate(2) }.to raise_error(ArgumentError)
+    end
 
-      expect(array.occurrences).to eq(1 => 2, :symbol => 2, 'string' => 1, 3 => 1)
+    it 'to be [[2, 6], [4, 8]]' do
+      a1 = [2, 4, 6, 8]
+      a2 = [[2, 6], [4, 8]]
+
+      expect(a1.modulate(2)).to eq(a2)
+    end
+  end
+
+  describe '#occur' do
+    let(:a1) { [1, 1, 2, 3, 3, 4, 5, 5] }
+    let(:a2) { [1, 3, 5] }
+
+    it 'to be [1, 3, 5] for value' do
+      expect(a1.occur(2)).to eq(a2)
+    end
+
+    it 'to be [1, 3, 5] for range' do
+      expect(a1.occur(2..3)).to eq(a2)
+    end
+
+    it 'to be [1, 3, 5] for block' do
+      expect(a1.occur { |n| n > 1 }).to eq(a2)
+    end
+
+    it 'to raise error' do
+      expect { a1.occur }.to raise_error(ArgumentError)
     end
   end
 
@@ -194,17 +249,35 @@ RSpec.describe Enumerable do
     end
   end
 
+  describe '#squeeze' do
+    let(:a1) { [1, 2, 2, 3, 3, 2, 1] }
+
+    it 'to be [1, 2, 3, 2, 1]' do
+      expect(a1.squeeze).to eq([1, 2, 3, 2, 1])
+    end
+
+    it 'to be [1, 2, 3]' do
+      expect(a1.sort.squeeze).to eq([1, 2, 3])
+    end
+
+    it 'to be [1, 2, 2, 3, 2, 1]' do
+      expect(a1.squeeze(3)).to eq([1, 2, 2, 3, 2, 1])
+    end
+  end
+
   describe '#take_last' do
+    let(:a1) { [1, 2, 3] }
+
     it 'to be []' do
       expect([].take_last(3)).to eq([])
     end
 
     it 'to be [3]' do
-      expect([1, 2, 3].take_last(1)).to eq([3])
+      expect(a1.take_last(1)).to eq([3])
     end
 
     it 'to be [2, 3]' do
-      expect([1, 2, 3].take_last(2)).to eq([2, 3])
+      expect(a1.take_last(2)).to eq([2, 3])
     end
   end
 
