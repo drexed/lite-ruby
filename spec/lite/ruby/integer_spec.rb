@@ -4,6 +4,56 @@ require 'spec_helper'
 
 RSpec.describe Integer do
 
+  describe '#bit' do
+    it 'to be 16' do
+      expect(0.bit(4)).to eq(16)
+    end
+
+    it 'to be 2' do
+      expect(10.bit(-4)).to eq(2)
+    end
+
+    it 'to be 0' do
+      expect(0b0100.bit(-3)).to eq(0)
+    end
+  end
+
+  describe '#bit?' do
+    it 'to be true' do
+      expect(8.bit?(3)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(8.bit?(2)).to eq(false)
+    end
+  end
+
+  describe '#bit_clear' do
+    it 'to be 0' do
+      expect(4.bit_clear(2)).to eq(0)
+    end
+  end
+
+  describe '#bitmask' do
+    it 'to be 7' do
+      expect(1.bitmask(6)).to eq(7)
+    end
+
+    it 'to be 5' do
+      expect(7.bitmask(~2)).to eq(5)
+    end
+  end
+
+  describe '#bitmask?' do
+    it 'to be true' do
+      expect(7.bitmask?(7)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(8.bitmask?(3)).to eq(false)
+    end
+  end
+
   describe '#factorial' do
     it 'to be 24' do
       expect(4.factorial).to eq(24)

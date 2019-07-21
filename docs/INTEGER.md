@@ -1,5 +1,50 @@
 # Integer
 
+`bit`
+------
+Calculates the bit of an integer.
+
+```ruby
+0.bit(4)       #=> 16
+10.bit(-4)     #=> 2
+0b0100.bit(-3) #=> 0
+```
+
+`bit?`
+------
+Returns if it is a bit set.
+
+```ruby
+8.bit?(3) #=> true
+8.bit?(2) #=> false
+```
+
+`bit_clear`
+------
+Clears a bit.
+
+```ruby
+4.bit_clear(2) #=> 0
+```
+
+`bitmask`
+------
+Calculates a bitmask of an integer.
+
+```ruby
+1.bitmask(6)  #=> 7
+7.bitmask(~2) #=> 5
+```
+
+`bitmask?`
+------
+Returns if it is a bitmask set.
+
+```ruby
+8.bitmask?(3) #=> true
+8.bitmask?(2) #=> false
+```
+
 `factorial`
 ------
 Calculates the factorial of an integer.

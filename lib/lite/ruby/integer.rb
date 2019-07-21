@@ -7,6 +7,38 @@ class Integer
     I: 1
   }.freeze
 
+  def bit(bit)
+    if bit < 0
+      mask = (1 << ~bit)
+      self & ~mask
+    else
+      mask = (1 << bit)
+      self | mask
+    end
+  end
+
+  def bit?(bit)
+    mask = (1 << bit)
+    (self & mask) != 0
+  end
+
+  def bit_clear(bit)
+    mask = (1 << bit)
+    self & ~mask
+  end
+
+  def bitmask(mask)
+    if mask < 0
+      self & mask
+    else
+      self | mask
+    end
+  end
+
+  def bitmask?(mask)
+    (self & mask) != 0
+  end
+
   def factorial
     return 1 if zero?
 
