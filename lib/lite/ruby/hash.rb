@@ -88,16 +88,41 @@ class Hash
     collect { |_, val| yield(val) }
   end
 
+  def dearray_values(idx = 0)
+    each_with_object({}) do |(key, val), hash|
+      hash[key] = case val
+                  when Array then val[idx] || val[-1]
+                  else val
+                  end
+    end
+  end
+
+  def dearray_values!(idx = 0)
+    replace(dearray_values(idx))
+  end
+
+  def dearray_singular_values
+    each_with_object({}) do |(key, val), hash|
+      hash[key] = case val
+                  when Array then val.size < 2 ? val[0] : val
+                  else val
+                  end
+    end
+  end
+
+  def dearray_singular_values!
+    replace(dearray_singular_values)
+  end
+
   def deep_merge(other_hash, &block)
     dup.deep_merge!(other_hash, &block)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def deep_merge!(other_hash, &block)
-    other_hash.each_pair do |current_key, other_value|
-      this_value = self[current_key]
+    other_hash.each_pair.with_object(self) do |(current_key, other_value), hash|
+      this_value = hash[current_key]
 
-      self[current_key] = if this_value.is_a?(Hash) && other_value.is_a?(Hash)
+      hash[current_key] = if this_value.is_a?(Hash) && other_value.is_a?(Hash)
                             this_value.deep_merge(other_value, yield(block))
                           elsif block_given? && key?(current_key)
                             yield(current_key, this_value, other_value)
@@ -105,10 +130,7 @@ class Hash
                             other_value
                           end
     end
-
-    self
   end
-  # rubocop:enable Metrics/MethodLength
 
   def demote(key)
     dup.demote!(key)

@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added Hash => `alias`
 - Added Hash => `collate`
+- Added Hash => `dearray_values`
+- Added Hash => `dearray_singular_values`
 - Added Integer => `bit`
 - Added Integer => `bit?`
 - Added Integer => `bit_clear`

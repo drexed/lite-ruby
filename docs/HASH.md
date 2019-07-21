@@ -83,6 +83,27 @@ Returns an array with all values converted using the block operation.
 { foo: 'bar', baz: :boo }.collect_values { |k| k.to_s.upcase } #=> ['BAR', BOO']
 ```
 
+`dearray_values(!)`
+------
+Any array values will be replaced with the first element of the array and arrays with no elements will be set to `nil`.
+
+```ruby
+h1 = { a: [1], b: [1, 2], c: 3, d: [] }
+
+h1.dearray_values     #=> { a: 1, b: 1, c: 3, d: nil }
+h1.dearray_values!(1) #=> { a: 1, b: 2, c: 3, d: nil }
+```
+
+`dearray_singular_values(!)`
+------
+Any array values with one or no elements will be set to the element or `nil`.
+
+```ruby
+h1 = { a: [1], b: [1, 2], c: 3, d: [] }
+
+h1.dearray_singular_values #=> { a: 1, b: [1, 2], c: 3, d: nil }
+```
+
 `deep_merge(!)`
 ------
 Returns a new hash with self and other_hash merged recursively.

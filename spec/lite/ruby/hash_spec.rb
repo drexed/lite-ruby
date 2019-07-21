@@ -102,6 +102,36 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#dearray_values(!)' do
+    let(:h1) do
+      { a: [1], b: [1, 2], c: 3, d: [] }
+    end
+
+    it 'to be { ... } for 0 index' do
+      h2 = { a: 1, b: 1, c: 3, d: nil }
+
+      expect(h1.dearray_values).to eq(h2)
+      expect(h1.dearray_values!).to eq(h2)
+    end
+
+    it 'to be { ... } for 1 index' do
+      h2 = { a: 1, b: 2, c: 3, d: nil }
+
+      expect(h1.dearray_values(1)).to eq(h2)
+      expect(h1.dearray_values!(1)).to eq(h2)
+    end
+  end
+
+  describe '#dearray_singular_values(!)' do
+    it 'to be { ... }' do
+      h1 = { a: [1], b: [1, 2], c: 3, d: [] }
+      h2 = { a: 1, b: [1, 2], c: 3, d: nil }
+
+      expect(h1.dearray_singular_values).to eq(h2)
+      expect(h1.dearray_singular_values!).to eq(h2)
+    end
+  end
+
   describe '#deep_dup(!)' do
     it 'to be { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }' do
       h1 = { a: true, b: { c: [1, 2, 3] } }
