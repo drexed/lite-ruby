@@ -12,6 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Hash => `collate`
 - Added Hash => `dearray_values`
 - Added Hash => `dearray_singular_values`
+- Added Hash => `delete_unless`
+- Added Hash => `delete_values`
+- Added Hash => `diff`
+- Added Hash => `insert`
+- Added Hash => `invert`
+- Added Hash => `keys?`
+- Added Hash => `only_keys?`
+- Added Hash => `update_each`
+- Added Hash => `update_keys`
+- Added Hash => `update_values`
+- Added Hash => `zip`
 - Added Integer => `bit`
 - Added Integer => `bit?`
 - Added Integer => `bit_clear`

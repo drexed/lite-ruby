@@ -4,6 +4,16 @@ require 'spec_helper'
 
 RSpec.describe Hash do
 
+  describe '#zip' do
+    it 'to be { a: 1, b: 2, c: 3 }' do
+      a1 = %i[a b c]
+      a2 = [1, 2, 3]
+      h1 = { a: 1, b: 2, c: 3 }
+
+      expect(described_class.zip(a1, a2)).to eq(h1)
+    end
+  end
+
   describe '#alias' do
     it 'to be true' do
       h1 = { foo: 'bar', baz: 'boo' }
@@ -74,7 +84,7 @@ RSpec.describe Hash do
   end
 
   describe '#collate(!)' do
-    it 'to be { ... }' do
+    it 'to be { a: [1, 3], b: [2, 4], c: [5] }' do
       h1 = { a: 1, b: 2 }
       h2 = { a: 3, b: 4, c: 5 }
       h3 = { a: [1, 3], b: [2, 4], c: [5] }
@@ -107,14 +117,14 @@ RSpec.describe Hash do
       { a: [1], b: [1, 2], c: 3, d: [] }
     end
 
-    it 'to be { ... } for 0 index' do
+    it 'to be { a: 1, b: 1, c: 3, d: nil } for 0 index' do
       h2 = { a: 1, b: 1, c: 3, d: nil }
 
       expect(h1.dearray_values).to eq(h2)
       expect(h1.dearray_values!).to eq(h2)
     end
 
-    it 'to be { ... } for 1 index' do
+    it 'to be { a: 1, b: 2, c: 3, d: nil } for 1 index' do
       h2 = { a: 1, b: 2, c: 3, d: nil }
 
       expect(h1.dearray_values(1)).to eq(h2)
@@ -122,13 +132,46 @@ RSpec.describe Hash do
     end
   end
 
-  describe '#dearray_singular_values(!)' do
-    it 'to be { ... }' do
-      h1 = { a: [1], b: [1, 2], c: 3, d: [] }
-      h2 = { a: 1, b: [1, 2], c: 3, d: nil }
+  describe '#delete_unless' do
+    it 'to be { a: 1 }' do
+      h1 = { a: 1, b: 2, c: 3 }
+      h2 = { a: 1 }
 
-      expect(h1.dearray_singular_values).to eq(h2)
-      expect(h1.dearray_singular_values!).to eq(h2)
+      h1.delete_unless { |_, v| v == 1 }
+
+      expect(h1).to eq(h2)
+    end
+  end
+
+  describe '#delete_values' do
+    it 'to be { b: 2 }' do
+      h1 = { a: 1, b: 2 }
+      h2 = { b: 2 }
+
+      h1.delete_values(1)
+
+      expect(h1).to eq(h2)
+    end
+  end
+
+  describe '#diff' do
+    let(:h1) do
+      { a: 1, b: 2 }
+    end
+    let(:h2) do
+      { a: 1, b: 3 }
+    end
+
+    it 'to be { b: 2 }' do
+      h3 = { b: 2 }
+
+      expect(h1.diff(h2)).to eq(h3)
+    end
+
+    it 'to be { b: 3 }' do
+      h3 = { b: 3 }
+
+      expect(h2.diff(h1)).to eq(h3)
     end
   end
 
@@ -227,8 +270,45 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#insert' do
+    it 'to be true' do
+      h1 = { a: 1, b: 2 }
+
+      expect(h1.insert(:c, 3)).to eq(true)
+    end
+
+    it 'to be false' do
+      h1 = { a: 1, b: 2 }
+
+      expect(h1.insert(:b, 3)).to eq(false)
+    end
+  end
+
+  describe '#invert' do
+    it 'to be { 2 => :d, 3 => %i[f c b a], 9 => %i[g e] }' do
+      h1 = { a: 3, b: 3, c: 3, d: 2, e: 9, f: 3, g: 9 }
+      h2 = { 2 => :d, 3 => %i[f c b a], 9 => %i[g e] }
+
+      expect(h1.invert).to eq(h2)
+    end
+  end
+
+  describe '#keys?' do
+    let(:h1) do
+      { a: 0, b: 1 }
+    end
+
+    it 'to be true' do
+      expect(h1.keys?(:a, :b)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(h1.keys?(:z)).to eq(false)
+    end
+  end
+
   describe '#nillify' do
-    it 'to be {a: 1, b: "test", c: nil, d: nil, e: nil, f: nil}' do
+    it 'to be { a: 1, b: "test", c: nil, d: nil, e: nil, f: nil }' do
       h1 = { a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }
       h2 = { a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil }
 
@@ -263,6 +343,20 @@ RSpec.describe Hash do
 
       expect(h1.only_fill(*a1)).to eq(h2)
       expect(h1.only_fill!(*a1)).to eq(h2)
+    end
+  end
+
+  describe '#only_keys?' do
+    let(:h1) do
+      { a: 0, b: 1 }
+    end
+
+    it 'to be true' do
+      expect(h1.only_keys?(:a, :b)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(h1.only_keys?(:a)).to eq(false)
     end
   end
 
@@ -484,6 +578,39 @@ RSpec.describe Hash do
       h1 = { foo: { bar: true } }
 
       expect(h1.to_o.foo.bar).to eq(true)
+    end
+  end
+
+  describe '#update_each' do
+    it 'to be { "a!" => 1, "b!" => 2 }' do
+      h1 = { a: 1, b: 2 }
+      h2 = { 'a!' => 2, 'b!' => 3 }
+
+      h1.update_each { |k, v| { "#{k}!" => v + 1 } }
+
+      expect(h1).to eq(h2)
+    end
+  end
+
+  describe '#update_keys' do
+    it 'to be { "a!" => 1, "b!" => 2 }' do
+      h1 = { a: 1, b: 2 }
+      h2 = { 'a!' => 1, 'b!' => 2 }
+
+      h1.update_keys { |k| "#{k}!" }
+
+      expect(h1).to eq(h2)
+    end
+  end
+
+  describe '#update_values' do
+    it 'to be { a: 2, b: 3 }' do
+      h1 = { a: 1, b: 2 }
+      h2 = { a: 2, b: 3 }
+
+      h1.update_values { |v| v + 1 }
+
+      expect(h1).to eq(h2)
     end
   end
 

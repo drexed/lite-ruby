@@ -2,6 +2,14 @@
 
 class Hash
 
+  class << self
+
+    def zip(keys, values)
+      keys.size.times.with_object({}) { |i, hash| hash[keys[i]] = values[i] }
+    end
+
+  end
+
   def alias(new_key, old_key)
     self[new_key] = self[old_key] if key?(old_key)
     self
@@ -132,6 +140,19 @@ class Hash
     end
   end
 
+  def delete_unless
+    delete_if { |key, val| !yield(key, val) }
+  end
+
+  def delete_values(*values)
+    each_key.with_object([]) do |key, array|
+      next unless values.include?(self[key])
+
+      array << key
+      delete(key)
+    end
+  end
+
   def demote(key)
     dup.demote!(key)
   end
@@ -149,6 +170,12 @@ class Hash
 
   def denillify!(value = 0)
     each { |key, val| self[key] = val.nil? ? value : val }
+  end
+
+  def diff(hash)
+    h1 = dup.delete_if { |k, v| hash[k] == v }
+    h2 = hash.dup.delete_if { |k, _| key?(k) }
+    h1.merge(h2)
   end
 
   def except(*keys)
@@ -171,6 +198,30 @@ class Hash
     inject(self) { |hash, (key, val)| hash.merge(yield(key, val)) }
   end
 
+  def insert(name, value)
+    return false if key?(name)
+
+    store(name, value)
+    true
+  end
+
+  def invert
+    each_pair.with_object({}) do |(key, val), hash|
+      if val.is_a?(Array)
+        val.each { |x| hash[x] = (hash.key?(x) ? [key, hash[x]].flatten : key) }
+      else
+        hash[val] = (hash.key?(val) ? [key, hash[val]].flatten : key)
+      end
+    end
+  end
+
+  def keys?(*check_keys)
+    unknown_keys = check_keys - keys
+    unknown_keys.empty?
+  end
+
+  alias has_keys? keys?
+
   def nillify
     dup.nillify!
   end
@@ -188,6 +239,13 @@ class Hash
   def only_fill!(*keys, placeholder: nil)
     replace(only_fill(*keys, placeholder: placeholder))
   end
+
+  def only_keys?(*check_keys)
+    unknown_keys = keys - check_keys
+    unknown_keys.empty?
+  end
+
+  alias has_only_keys? only_keys?
 
   def pair?(key, value)
     self[key] == value
@@ -328,6 +386,22 @@ class Hash
   end
 
   alias to_o to_object
+
+  def update_each
+    replace(each_with_object({}) { |(key, val), hash| hash.update(yield(key, val)) })
+  end
+
+  def update_keys
+    return to_enum(:update_keys) unless block_given?
+
+    replace(each_with_object({}) { |(key, val), hash| hash[yield(key)] = val })
+  end
+
+  def update_values
+    return to_enum(:update_values) unless block_given?
+
+    replace(each_with_object({}) { |(key, val), hash| hash[key] = yield(val) })
+  end
 
   def vacant?(key)
     self[key].blank?

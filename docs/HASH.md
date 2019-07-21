@@ -1,5 +1,13 @@
 # Hash
 
+`zip`
+------
+Creates a new hash from two separate arrays.
+
+```ruby
+Hash.zip(%i[a b c], [1, 2, 3]) #=> { a: 1, b: 2, c: 3 }
+```
+
 `alias`
 ------
 Adds a key/value pair from an existing key/value pair.
@@ -115,6 +123,28 @@ h2 = { a: false, b: { x: [3, 4, 5] } }
 h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
+`delete_unless`
+------
+Inverse of `delete_if`.
+
+```ruby
+h1 = { a: 1, b: 2, c: 3 }
+h1.delete_unless { |_, v| v == 1 }
+
+h1 #=> { a: 1 }
+```
+
+`delete_values`
+------
+Delete key/value pairs by value.
+
+```ruby
+h1 = { a: 1, b: 2 }
+h1.delete_values(1)
+
+h1 #=> { b: 2 }
+```
+
 `demote(!)`
 ------
 Moves a key value pair to the tail of the hash.
@@ -131,6 +161,18 @@ Converts `nil` into a given value.
 ```ruby
 { abc: nil, xyz: 1 }.denillify     #=> { abc: 0, xyz: 1 }
 { abc: nil, xyz: 1 }.denillify!(9) #=> { abc: 9, xyz: 1 }
+```
+
+`diff`
+------
+Difference comparison of two hashes.
+
+```ruby
+h1 = { a: 1, b: 2 }
+h2 = { a: 1, b: 3 }
+
+h1.diff(h2) #=> { b: 2 }
+h2.diff(h1) #=> { b: 3 }
 ```
 
 `except(!)`
@@ -161,6 +203,38 @@ Returns a hash that is transformed in place.
 { a: 1, b: 2, c: 3 }.hmap { |k, v| { k => v + 3 } } #=> { a: 4, b: 5, c: 6 }
 ```
 
+`insert`
+------
+As with `store` but only if the key isn't already in the hash.
+
+```ruby
+h1 = { a: 1, b: 2 }
+
+h1.insert(:c, 3) #=> true
+h1.insert(:b, 3) #=> false
+```
+
+`invert`
+------
+Create an inverse hash by storing multiple values in arrays.
+
+```ruby
+h1 = { a: 3, b: 3, c: 3, d: 2, e: 9, f: 3, g: 9 }
+
+h1.invert #=> { 2 => :d, 3 => %i[f c b a], 9 => %i[g e] }
+```
+
+`keys?` aka `has_keys?`
+------
+Returns if hash contains the given keys.
+
+```ruby
+h1 = { a: 0, b: 1 }
+
+h1.keys?(:a, :b) #=> true
+h1.keys?(:z)     #=> false
+```
+
 `nillify(!)`
 ------
 Transforms all blank values to `nil`.
@@ -176,6 +250,17 @@ Returns only key value pairs matching certain keys and any missing one.
 ```ruby
 {}.only_fill(:foo)                                          #=> { foo: nil }
 { :foo => 1, baz: 2 }.only_fill(:foo, :bar, placeholder: 0) #=> { foo: 1, bar: 0 }
+```
+
+`only_keys?` aka `has_only_keys?`
+------
+Returns if hash contains only the given keys.
+
+```ruby
+h1 = { a: 0, b: 1 }
+
+h1.only_keys?(:a, :b) #=> true
+h1.only_keys?(:a)     #=> false
 ```
 
 `pair?`
@@ -309,6 +394,30 @@ Converts an object to have an object like API.
 
 ```ruby
 { foo: { bar: true } }.to_object.foo.bar #=> true
+```
+
+`update_each`
+------
+Iterate over hash updating the key/value pair.
+
+```ruby
+{ a: 1, b: 2 }.update_each { |k, v| { "#{k}!" => v + 1 } } #=> { 'a!' => 2, 'b!' => 3 }
+```
+
+`update_keys`
+------
+Iterate over hash updating just the keys.
+
+```ruby
+{ a: 1, b: 2 }.update_keys { |k| "#{k}!" } #=> { 'a!' => 1, 'b!' => 2 }
+```
+
+`update_values`
+------
+Iterate over hash updating just the values.
+
+```ruby
+{ a: 1, b: 2 }.update_values { |v| v + 1 } #=> { a: 2, b: 3 }
 ```
 
 `vacant?`
