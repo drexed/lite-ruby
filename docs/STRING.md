@@ -290,6 +290,15 @@ Returns true if characters are mixedcase.
 'example'.mixedcase? #=> false
 ```
 
+`non_possessive(!)`
+------
+Returns the non-possession of a string.
+
+```ruby
+"test's".non_possessive #=> 'test'
+"tests'".non_possessive #=> 'tests'
+```
+
 `ordinal`
 ------
 Returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
@@ -336,6 +345,26 @@ Pollutes the space between every letter in a string, so it will be exempt from a
 ```ruby
 'test'.pollute      #=> 't^--^--^e^--^--^s^--^--^t^--^--^'
 'test'.pollute('-') #=> 't-e-s-t-'
+```
+
+`possessive(!)`
+------
+Returns the possession of a string.
+
+```ruby
+'test'.possessive  #=> "test's"
+'tests'.possessive #=> "tests'"
+```
+
+`possessive?`
+------
+Returns if a string is possessive.
+
+```ruby
+"test's".possessive? #=> true
+"tests'".possessive? #=> true
+'test'.possessive?   #=> false
+'tests'.possessive?  #=> false
 ```
 
 `pop`

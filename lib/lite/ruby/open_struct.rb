@@ -11,11 +11,9 @@ class OpenStruct
                {}
              end
 
-    if hash
-      hash.each do |key, val|
-        @table[key.to_sym] = val
-        new_ostruct_member(key)
-      end
+    hash&.each do |key, val|
+      @table[key.to_sym] = val
+      new_ostruct_member(key)
     end
 
     yield self if block && block.arity == 1

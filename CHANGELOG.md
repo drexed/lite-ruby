@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2019-07-30
+### Added
+- Added String => `non_possessive`
+- Added String => `possessive`
+- Added String => `possessive?`
+
 ## [1.0.2] - 2019-07-21
 ### Added
 - Added Enumerable => `cluster_by`

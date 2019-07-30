@@ -468,6 +468,24 @@ RSpec.describe String do
     end
   end
 
+  describe '#non_possessive(!)' do
+    it 'to be "test" for "test\'s"' do
+      s1 = "test's"
+      s2 = 'test'
+
+      expect(s1.non_possessive).to eq(s2)
+      expect(s1.non_possessive!).to eq(s2)
+    end
+
+    it 'to be "test" for "tests\'"' do
+      s1 = "tests'"
+      s2 = 'tests'
+
+      expect(s1.non_possessive).to eq(s2)
+      expect(s1.non_possessive!).to eq(s2)
+    end
+  end
+
   describe '#ordinal' do
     it 'to be "st"' do
       expect('1'.ordinal).to eq('st')
@@ -555,6 +573,37 @@ RSpec.describe String do
   describe '#pop' do
     it 'to be "r"' do
       expect('tester'.pop).to eq('r')
+    end
+  end
+
+  describe '#possessive(!)' do
+    it 'to be "test\'s"' do
+      s1 = 'test'
+      s2 = "test's"
+
+      expect(s1.possessive).to eq(s2)
+      expect(s1.possessive!).to eq(s2)
+    end
+
+    it 'to be "tests\'"' do
+      s1 = 'tests'
+      s2 = "tests'"
+
+      expect(s1.possessive).to eq(s2)
+      expect(s1.possessive!).to eq(s2)
+    end
+  end
+
+  describe '#possessive?' do
+    let(:s1) { 'example string' }
+
+    it 'to be true' do
+      expect("test's".possessive?).to eq(true)
+      expect("tests'".possessive?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect('test'.possessive?).to eq(false)
     end
   end
 

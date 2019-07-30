@@ -324,6 +324,31 @@ class String
     self[-1]
   end
 
+  def non_possessive
+    dup.non_possessive!
+  end
+
+  def non_possessive!
+    return self unless possessive?
+
+    chomp!("'s") || chomp!("'") || self
+  end
+
+  def possessive
+    return self if possessive?
+
+    possession = end_with?('s') ? "'" : "'s"
+    "#{self}#{possession}"
+  end
+
+  def possessive!
+    replace(possessive)
+  end
+
+  def possessive?
+    %w['s s'].any? { |pos| end_with?(pos) }
+  end
+
   def push(string)
     replace(concat(string))
   end
@@ -514,7 +539,7 @@ class String
   def truncate_words(words_count, options = {})
     sep = options[:separator] || /\s+/
     sep = Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
-    return self unless self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
+    return self unless /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m.match?(self)
 
     "#{::Regexp.last_match(1)}#{options[:omissio] || '...'}"
   end
