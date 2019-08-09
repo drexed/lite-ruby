@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2019-08-09
+### Added
+- Added more boolean value checks
+- Added Object => `to_bool`
+
 ## [1.0.3] - 2019-07-30
 ### Added
 - Added String => `non_possessive`

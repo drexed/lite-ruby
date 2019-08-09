@@ -391,6 +391,18 @@ RSpec.describe Object do
     end
   end
 
+  describe '#to_bool' do
+    it 'to be true' do
+      expect(true.to_bool).to eq(true)
+      expect('Yes'.to_bool).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(0.to_bool).to eq(false)
+      expect('Off'.to_bool).to eq(false)
+    end
+  end
+
   describe '#true?' do
     it 'to be true' do
       expect(true.true?).to eq(true)

@@ -2,11 +2,11 @@
 
 class Object
 
-  FALSE_VALUES ||= [
-    false, 0, '0', 'false', 'FALSE', 'f', 'F'
+  FALSE_VALUES ||= %w[
+    0 f false n no off
   ].freeze
-  TRUE_VALUES ||= [
-    true, 1, '1', 'true', 'TRUE', 't', 'T'
+  TRUE_VALUES ||= %w[
+    1 t true y yes on
   ].freeze
 
   def array?
@@ -26,7 +26,8 @@ class Object
   end
 
   def boolean?
-    TRUE_VALUES.include?(self) || FALSE_VALUES.include?(self)
+    val = to_s.downcase
+    TRUE_VALUES.include?(val) || FALSE_VALUES.include?(val)
   end
 
   def date?
@@ -40,7 +41,7 @@ class Object
   # rubocop:enable Style/YodaCondition
 
   def falsey?
-    nil? || FALSE_VALUES.include?(self)
+    nil? || FALSE_VALUES.include?(to_s.downcase)
   end
 
   def float?
@@ -129,6 +130,15 @@ class Object
     is_a?(Time)
   end
 
+  def to_bool
+    return true if truthy?
+    return false if falsey?
+
+    nil
+  end
+
+  alias to_b to_bool
+
   # rubocop:disable Style/YodaCondition
   def true?
     true == self
@@ -136,7 +146,7 @@ class Object
   # rubocop:enable Style/YodaCondition
 
   def truthy?
-    TRUE_VALUES.include?(self)
+    TRUE_VALUES.include?(to_s.downcase)
   end
 
   def try(*obj, &block)

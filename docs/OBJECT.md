@@ -59,7 +59,7 @@ true.false?  #=> false
 
 `falsey?`
 ------
-Returns if an object is `false`, `nil`, or `0`.
+Returns if an object is `0 f false n no off`.
 
 ```ruby
 false.falsey? #=> true
@@ -270,6 +270,16 @@ Time.now.time? #=> true
 'foo'.time?    #=> false
 ```
 
+`to_bool` aka `to_b`
+------
+Returns a `true` or `false` value if it can be converted to a boolean, else nil.
+
+```ruby
+true.to_bool  #=> true
+'0'.to_bool   #=> false
+'A'.to_bool   #=> nil
+```
+
 `true?`
 ------
 Returns if an object is `true`.
@@ -281,7 +291,7 @@ false.true? #=> false
 
 `truthy?`
 ------
-Returns if an object is `true` or `1`.
+Returns if an object is `1 t true y yes on`.
 
 ```ruby
 true.truthy?  #=> true
