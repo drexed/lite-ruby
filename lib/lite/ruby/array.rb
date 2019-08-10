@@ -85,7 +85,7 @@ class Array
   end
 
   def denillify(identity = 0)
-    map { |val| val.nil? ? identity : val }
+    map { |val| val || identity }
   end
 
   def denillify!(identity = 0)

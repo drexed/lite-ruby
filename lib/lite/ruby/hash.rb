@@ -164,12 +164,12 @@ class Hash
     self
   end
 
-  def denillify(value = 0)
-    dup.denillify!(value)
+  def denillify(identity = 0)
+    dup.denillify!(identity)
   end
 
-  def denillify!(value = 0)
-    each { |key, val| self[key] = val.nil? ? value : val }
+  def denillify!(identity = 0)
+    each { |key, val| self[key] = val || identity }
   end
 
   def diff(hash)
