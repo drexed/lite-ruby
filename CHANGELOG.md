@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.4] - 2019-08-09
 ### Added
 - Added more boolean value checks
+- Added Numeric => `markdown_percentage`
+- Added Numeric => `markup_percentage`
+- Added Object => `is_any?`
 - Added Object => `to_bool`
+- Added String => `dedupe`
+### Changed
+- Move boolean classes to its own file
 
 ## [1.0.3] - 2019-07-30
 ### Added

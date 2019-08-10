@@ -120,6 +120,14 @@ class Numeric
 
   alias lteq? less_than_or_equal_to?
 
+  def markdown_percentage(percent)
+    to_f * ((100.0 - percent.to_f) / 100.0)
+  end
+
+  def markup_percentage(percent)
+    to_f + (to_f * (percent.to_f / 100.0))
+  end
+
   def multiply(num)
     self * num
   end

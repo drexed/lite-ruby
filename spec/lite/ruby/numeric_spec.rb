@@ -231,6 +231,18 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#markdown_percentage' do
+    it 'to be 3' do
+      expect(4.markdown_percentage(25)).to eq(3)
+    end
+  end
+
+  describe '#markup_percentage' do
+    it 'to be 5' do
+      expect(4.markup_percentage(25)).to eq(5)
+    end
+  end
+
   describe '#multiply' do
     it 'to be 8' do
       expect(4.multiply(2)).to eq(8)

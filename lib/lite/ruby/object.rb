@@ -56,6 +56,12 @@ class Object
     is_a?(Integer)
   end
 
+  # rubocop:disable Naming/PredicateName
+  def is_any?(*objs)
+    objs.any? { |obj| is_a?(obj) }
+  end
+  # rubocop:enable Naming/PredicateName
+
   def numeral?
     !to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/).nil?
   end
@@ -171,22 +177,6 @@ class Object
     send(*keys)
   rescue StandardError
     nil
-  end
-
-end
-
-class FalseClass
-
-  def to_i
-    0
-  end
-
-end
-
-class TrueClass
-
-  def to_i
-    1
   end
 
 end

@@ -9,8 +9,8 @@ module Lite
 
       def initialize
         @monkey_patches = %w[
-          array date enumerable hash integer kernel numeric object open_struct range string struct
-          time
+          array boolean date enumerable hash integer kernel numeric object open_struct range string
+          struct time
         ]
       end
 

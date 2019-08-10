@@ -104,6 +104,15 @@ class String
     replace(deconstantize)
   end
 
+  def dedupe(pattern)
+    dup.dedupe!(pattern)
+  end
+
+  def dedupe!(pattern)
+    pattern.each_char { |char| gsub!(/#{Regexp.escape(char)}{2,}/, char) }
+    self
+  end
+
   def demodulize
     gsub(/^.*::/, '')
   end

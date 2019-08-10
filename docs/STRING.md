@@ -99,6 +99,15 @@ Removes the rightmost segment from the constant expression in the string.
 ''.deconstantize                  # => ''
 ```
 
+`dedupe(!)`
+------
+Removes multiple concurrent occurrences of a character and reduce them to a single occurrence.
+
+```ruby
+'/foo//bar////baz/bing'.dedupe('/')  #=> '/foo/bar/baz/bing'
+'foo___bar_baz---bing'.dedupe!('-_') #=> 'foo_bar_baz-bing'
+```
+
 `demodulize(!)`
 ------
 Removes the module part from the expression in the string.

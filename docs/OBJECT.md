@@ -87,11 +87,20 @@ Returns if an object is a `hash`.
 
 `integer?`
 ------
-Returns if an object is a `integer`.
+Returns if an object is an `integer`.
 
 ```ruby
 1.integer?   #=> true
 1.0.integer? #=> false
+```
+
+`is_any?`
+------
+Returns if an object is of any class type supplied.
+
+```ruby
+1.is_any?(String, Integer) #=> true
+0.is_any?(String, Symbol)  #=> false
 ```
 
 `numeric?`

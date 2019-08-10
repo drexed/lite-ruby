@@ -38,7 +38,8 @@ Or install it yourself as:
 ```ruby
 Lite::Ruby.configure do |config|
   config.monkey_patches = %w[
-    array date enumerable hash integer kernel numeric object open_struct range string struct time
+    array boolean date enumerable hash integer kernel numeric object open_struct range string
+    struct time
   ]
 end
 ```
@@ -46,6 +47,7 @@ end
 ## Extensions
 
 * [Array](https://github.com/drexed/lite-ruby/blob/master/docs/ARRAY.md)
+* [Boolean](https://github.com/drexed/lite-ruby/blob/master/docs/BOOLEAN.md)
 * [Date](https://github.com/drexed/lite-ruby/blob/master/docs/DATE.md)
 * [Enumerable](https://github.com/drexed/lite-ruby/blob/master/docs/ENUMERABLE.md)
 * [Hash](https://github.com/drexed/lite-ruby/blob/master/docs/HASH.md)
@@ -66,6 +68,7 @@ The following are highly recommended 3rd-party extensions to supplement your wor
 * **Performance:** Escape Utils - https://github.com/brianmario/escape_utils
 * **Performance:** Fast Blank - https://github.com/SamSaffron/fast_blank
 * **Extensions:** Facets - https://github.com/rubyworks/facets
+* **Extensions:** Finishing Moves - https://github.com/forgecrafted/finishing_moves
 
 ## Port
 

@@ -22,6 +22,9 @@ Metrics/ClassLength:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/lite/ruby/boolean_spec.rb'
 RSpec/ExampleLength:
   Enabled: false
 RSpec/MultipleExpectations:

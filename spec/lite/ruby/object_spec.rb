@@ -122,6 +122,16 @@ RSpec.describe Object do
     end
   end
 
+  describe '#is_any?' do
+    it 'to be true' do
+      expect(1.is_any?(String, Integer)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(0.is_any?(String, Symbol)).to eq(false)
+    end
+  end
+
   describe '#numeric?' do
     it 'to be true' do
       expect(1.numeric?).to eq(true)
@@ -481,16 +491,6 @@ RSpec.describe Object do
 
     it 'to be "5"' do
       expect(n1.try_send(:+, 2)).to eq(5)
-    end
-  end
-
-  describe '#to_i' do
-    it 'to be 1' do
-      expect(true.to_i).to eq(1)
-    end
-
-    it 'to be 0' do
-      expect(false.to_i).to eq(0)
     end
   end
 

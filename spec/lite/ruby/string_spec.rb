@@ -163,6 +163,26 @@ RSpec.describe String do
     end
   end
 
+  describe '#dedupe(!)' do
+    it 'to be "/crazy/concatenated/file/path"' do
+      s1 = '/foo//bar////baz/bing'
+      s2 = '/foo/bar/baz/bing'
+      s3 = '/'
+
+      expect(s1.dedupe(s3)).to eq(s2)
+      expect(s1.dedupe!(s3)).to eq(s2)
+    end
+
+    it 'to be "foo_bar_baz-bing"' do
+      s1 = 'foo___bar_baz---bing'
+      s2 = 'foo_bar_baz-bing'
+      s3 = '-_'
+
+      expect(s1.dedupe(s3)).to eq(s2)
+      expect(s1.dedupe!(s3)).to eq(s2)
+    end
+  end
+
   describe '#demodulize' do
     it 'to be "String"' do
       s1 = 'Example::String'

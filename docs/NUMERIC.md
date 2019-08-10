@@ -159,6 +159,22 @@ Returns if self is less than or equal to n.
 3.less_than_or_equal_to?(4) #=> true
 ```
 
+`markdown_percentage`
+------
+Returns the difference of a number and a percentage of it.
+
+```ruby
+4.markdown_percentage(25) #=> 3
+```
+
+`markup_percentage`
+------
+Returns the sum of a number and a percentage of it.
+
+```ruby
+4.markup_percentage(25) #=> 5
+```
+
 `multiply`
 ------
 Returns the multiplication of two numbers.
