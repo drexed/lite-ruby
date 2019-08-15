@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.8] - 2019-08-15
+### Changed
+- Resolve contantize name clash
+
 ## [1.0.7] - 2019-08-15
 ### Changed
 - Underscore initializer file name

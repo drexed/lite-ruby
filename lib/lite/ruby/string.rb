@@ -84,9 +84,30 @@ class String
     camelize!
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   def constantize
-    Object.const_get(self)
+    names = camel_cased_word.split('::')
+    Object.const_get(camel_cased_word) if names.empty?
+    names.shift if names.size > 1 && names.first.empty?
+
+    names.inject(Object) do |constant, name|
+      return constant.const_get(name) if constant == Object
+
+      candidate = constant.const_get(name)
+      next candidate if constant.const_defined?(name, false)
+      next candidate unless Object.const_defined?(name)
+
+      constant = constant.ancestors.each_with_object(constant) do |ancestor, const|
+        break const if ancestor == Object
+        break ancestor if ancestor.const_defined?(name, false)
+      end
+
+      constant.const_get(name, false)
+    end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   def dasherize
     dup.dasherize!
