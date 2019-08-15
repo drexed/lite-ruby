@@ -6,12 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.4] - 2019-08-010
+## [1.0.6] - 2019-08-14
+### Changed
+- Add verbose option to Time elapse
+
+## [1.0.5] - 2019-08-10
 ### Changed
 - Improved speed for Array denillify
 - Improved speed for Hash denillify
 
-## [1.0.4] - 2019-08-010
+## [1.0.4] - 2019-08-10
 ### Added
 - Added more boolean value checks
 - Added Numeric => `markdown_percentage`

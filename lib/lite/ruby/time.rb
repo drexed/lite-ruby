@@ -7,10 +7,14 @@ class Time
 
   class << self
 
-    def elapse
-      time = now.to_f
+    def elapse(verbose: false)
+      started_at = now.to_f
       yield
-      now.to_f - time
+      ended_at = now.to_f
+      runtime = ended_at - started_at
+      return runtime unless verbose
+
+      { started_at: started_at, ended_at: ended_at, runtime: runtime }
     end
 
   end

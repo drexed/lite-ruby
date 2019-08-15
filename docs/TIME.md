@@ -1,5 +1,14 @@
 # Time
 
+`elapse`
+------
+Returns the amount of time taken to execute a block.
+
+```ruby
+Time.elapse { sleep 1 }                #=> 1.00005465
+Time.elapse(verbose: true) { sleep 1 } #=> { started_at: 1565834550.444132, ended_at: 1565834551.447784, runtime: 1.0036518573760986 }
+```
+
 `format`
 ------
 Converts a `time` object to `strftime` it using a human readable string.
@@ -83,12 +92,4 @@ Converts a `time` object to a predefined format.
 
 ```ruby
 Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
-```
-
-`elapse`
-------
-Returns the amount of time taken to execute a block.
-
-```ruby
-Time.elapse { sleep 1 } #=> 1.00005465
 ```
