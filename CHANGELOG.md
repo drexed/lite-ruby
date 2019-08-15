@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.11] - 2019-08-15
 ### Changed
 - Renamed hash alias to aka
+- Changed how hash slice! works
 
 ## [1.0.10] - 2019-08-15
 ### Changed
