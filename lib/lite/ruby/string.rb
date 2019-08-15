@@ -58,9 +58,9 @@ class String
 
   def camelize(first_letter = :upper)
     case first_letter
-    when :upper, true then gsub(/(\A|\s)([a-z])/) { $1 + $2.upcase }
-    when :lower, false then gsub(/(\A|\s)([A-Z])/) { $1 + $2.downcase }
-    end || self
+    when :upper, true then modulize.gsub(/(\A|\s)([a-z])/) { $1 + $2.upcase }
+    when :lower, false then modulize.gsub(/(\A|\s)([A-Z])/) { $1 + $2.downcase }
+    end || modulize
   end
 
   alias camelcase camelize
