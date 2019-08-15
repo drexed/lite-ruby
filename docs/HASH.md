@@ -8,13 +8,13 @@ Creates a new hash from two separate arrays.
 Hash.zip(%i[a b c], [1, 2, 3]) #=> { a: 1, b: 2, c: 3 }
 ```
 
-`alias`
+`aka`
 ------
 Adds a key/value pair from an existing key/value pair.
 
 ```ruby
 h1 = { foo: 'bar', baz: 'boo' }
-h1.alias('boo', :foo)
+h1.aka('boo', :foo)
 
 h1['boo'] #=> 'bar'
 ```

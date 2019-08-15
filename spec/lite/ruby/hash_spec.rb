@@ -14,10 +14,10 @@ RSpec.describe Hash do
     end
   end
 
-  describe '#alias' do
+  describe '#aka' do
     it 'to be true' do
       h1 = { foo: 'bar', baz: 'boo' }
-      h1.alias('boo', :foo)
+      h1.aka('boo', :foo)
 
       expect(h1.key?('boo')).to eq(true)
     end

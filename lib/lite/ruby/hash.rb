@@ -10,7 +10,7 @@ class Hash
 
   end
 
-  def alias(new_key, old_key)
+  def aka(new_key, old_key)
     self[new_key] = self[old_key] if key?(old_key)
     self
   end
@@ -319,7 +319,12 @@ class Hash
   end
 
   def slice!(*keys)
-    replace(slice(*keys))
+    omit = slice(*self.keys - keys)
+    hash = slice(*keys)
+    hash.default = default
+    hash.default_proc = default_proc if default_proc
+    replace(hash)
+    omit
   end
 
   alias only slice
