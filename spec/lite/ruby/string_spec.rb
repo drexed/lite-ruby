@@ -134,7 +134,7 @@ RSpec.describe String do
 
   describe '#constantize' do
     it 'to be a String object' do
-      expect('String'.constantize).to eq(String)
+      expect('String'.constantize).to eq(described_class)
     end
   end
 
