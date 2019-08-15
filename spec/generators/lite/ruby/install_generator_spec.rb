@@ -10,7 +10,7 @@ RSpec.describe Lite::Ruby::InstallGenerator, type: :generator do
     run_generator
   end
 
-  let(:sample_path) { 'spec/generators/lite/tmp/config/initializers/lite-ruby.rb' }
+  let(:sample_path) { 'spec/generators/lite/tmp/config/initializers/lite_ruby.rb' }
 
   describe '#generator' do
     it 'to be true when sample file exists' do

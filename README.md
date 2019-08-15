@@ -33,7 +33,7 @@ Or install it yourself as:
 ## Configurations
 
 `rails g lite:ruby:install` will generate the following file:
-`../config/initalizers/lite-ruby.rb`
+`../config/initalizers/lite_ruby.rb`
 
 ```ruby
 Lite::Ruby.configure do |config|
