@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.7] - 2019-08-15
 ### Changed
-- Changed initializer file name from lite-ruby to lite_ruby
+- Underscore initializer file name
 
 ## [1.0.6] - 2019-08-14
 ### Changed
