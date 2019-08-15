@@ -132,6 +132,12 @@ RSpec.describe String do
     end
   end
 
+  describe '#constantize' do
+    it 'to be a String object' do
+      expect('String'.constantize).to eq(String)
+    end
+  end
+
   describe '#deconstantize' do
     it 'to be "String"' do
       s1 = 'String'

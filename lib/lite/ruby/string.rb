@@ -87,8 +87,8 @@ class String
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   def constantize
-    names = camel_cased_word.split('::')
-    Object.const_get(camel_cased_word) if names.empty?
+    names = split('::')
+    Object.const_get(self) if names.empty?
     names.shift if names.size > 1 && names.first.empty?
 
     names.inject(Object) do |constant, name|
