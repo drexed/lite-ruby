@@ -110,11 +110,11 @@ class String
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   def dasherize
-    dup.dasherize!
+    underscore.tr('_', '-')
   end
 
   def dasherize!
-    tr!('_', '-')
+    replace(dasherize)
   end
 
   def deconstantize
@@ -581,6 +581,7 @@ class String
   alias snakecase underscore
 
   def underscore!
+    camelize!
     gsub!(/::/, '/')
     gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
     gsub!(/([a-z\d])([A-Z])/, '\1_\2')

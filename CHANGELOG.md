@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.12] - 2019-08-15
+### Changed
+- Changed how string underscore works
+- Changed how string dasherize works
+
 ## [1.0.11] - 2019-08-15
 ### Changed
 - Renamed hash alias to aka
