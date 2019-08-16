@@ -3,7 +3,7 @@
 module Lite
   module Ruby
 
-    VERSION ||= '1.0.12'
+    VERSION ||= '1.0.13'
 
   end
 end

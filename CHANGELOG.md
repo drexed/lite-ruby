@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.13] - 2019-08-16
+### Changed
+- Revert constantize function
+
 ## [1.0.12] - 2019-08-15
 ### Changed
 - Changed how string underscore works
