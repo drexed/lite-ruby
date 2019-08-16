@@ -85,7 +85,7 @@ class String
   end
 
   def constantize
-    Object.const_get(self)
+    Object.const_get(camelize)
   end
 
   def dasherize
