@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.13] - 2019-08-17
+## [1.0.15] - 2019-08-17
+### Changed
+- Added config check for each monkey patch
+
+## [1.0.14] - 2019-08-17
 ### Changed
 - Changed how hash deep_merge works
 

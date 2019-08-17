@@ -1,42 +1,44 @@
 # frozen_string_literal: false
 
-require 'ostruct'
+if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
+  require 'ostruct'
 
-class OpenStruct
+  class OpenStruct
 
-  def initialize(hash = nil, &block)
-    @table = if block && block.arity == 2
-               Hash.new(&block)
-             else
-               {}
-             end
+    def initialize(hash = nil, &block)
+      @table = if block && block.arity == 2
+                 Hash.new(&block)
+               else
+                 {}
+               end
 
-    hash&.each do |key, val|
-      @table[key.to_sym] = val
-      new_ostruct_member(key)
+      hash&.each do |key, val|
+        @table[key.to_sym] = val
+        new_ostruct_member(key)
+      end
+
+      yield self if block && block.arity == 1
     end
 
-    yield self if block && block.arity == 1
+    def [](key)
+      key = key.to_sym unless key.is_a?(Symbol)
+      @table[key]
+    end
+
+    def []=(key, val)
+      raise TypeError, "can't modify frozen #{self.class}", caller(1) if frozen?
+
+      key = key.to_sym unless key.is_a?(Symbol)
+      @table[key] = val
+    end
+
+    def attributes
+      each_pair.with_object({}) { |(key, val), hash| hash[key] = val }
+    end
+
+    def replace(args)
+      args.each_pair { |key, val| send("#{key}=", val) }
+    end
+
   end
-
-  def [](key)
-    key = key.to_sym unless key.is_a?(Symbol)
-    @table[key]
-  end
-
-  def []=(key, val)
-    raise TypeError, "can't modify frozen #{self.class}", caller(1) if frozen?
-
-    key = key.to_sym unless key.is_a?(Symbol)
-    @table[key] = val
-  end
-
-  def attributes
-    each_pair.with_object({}) { |(key, val), hash| hash[key] = val }
-  end
-
-  def replace(args)
-    args.each_pair { |key, val| send("#{key}=", val) }
-  end
-
 end
