@@ -127,16 +127,14 @@ class Hash
   end
 
   def deep_merge!(other_hash, &block)
-    other_hash.each_pair.with_object(self) do |(current_key, other_value), hash|
-      this_value = hash[current_key]
-
-      hash[current_key] = if this_value.is_a?(Hash) && other_value.is_a?(Hash)
-                            this_value.deep_merge(other_value, yield(block))
-                          elsif block_given? && key?(current_key)
-                            yield(current_key, this_value, other_value)
-                          else
-                            other_value
-                          end
+    merge!(other_hash) do |key, this_val, other_val|
+      if this_val.is_a?(Hash) && other_val.is_a?(Hash)
+        this_val.deep_merge(other_val, &block)
+      elsif block_given?
+        yield(key, this_val, other_val)
+      else
+        other_val
+      end
     end
   end
 
