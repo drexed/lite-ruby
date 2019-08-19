@@ -57,6 +57,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     # rubocop:enable Metrics/PerceivedComplexity, Style/GuardClause, Style/IfInsideElse
     # rubocop:enable Metrics/AbcSize, Metrics/BlockNesting, Metrics/MethodLength
 
+    def deep_dup
+      map(&:deep_dup)
+    end
+
     def delete_first
       self[1..-1]
     end

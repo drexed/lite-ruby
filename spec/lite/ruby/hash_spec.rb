@@ -132,6 +132,17 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#deep_dup' do
+    it 'to be properly set vars on diff objects' do
+      h1 = { a: { b: 'b' } }
+      h2 = h1.deep_dup
+      h2[:a][:c] = 'c'
+
+      expect(h1[:a][:c]).to eq(nil)
+      expect(h2[:a][:c]).to eq('c')
+    end
+  end
+
   describe '#delete_unless' do
     it 'to be { a: 1 }' do
       h1 = { a: 1, b: 2, c: 3 }

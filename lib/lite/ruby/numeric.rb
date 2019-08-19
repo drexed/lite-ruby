@@ -214,6 +214,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       self**(1.0 / num)
     end
 
+    def round_down(num = 0)
+      int, dec = to_f.to_s.split('.')
+
+      "#{int}.#{dec[0...num]}".to_f
+    end
+
     def subtract(num)
       self - num
     end

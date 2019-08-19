@@ -72,6 +72,17 @@ RSpec.describe Array do
     end
   end
 
+  describe '#deep_dup' do
+    it 'to be properly set vars on diff objects' do
+      a1 = [1, [2, 3]]
+      a2 = a1.deep_dup
+      a2[1][2] = 4
+
+      expect(a1[1][2]).to eq(nil)
+      expect(a2[1][2]).to eq(4)
+    end
+  end
+
   describe '#demote(!)' do
     let(:a1) { [1, 2, 2, 3] }
 

@@ -396,6 +396,21 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#round_down' do
+    let(:n1) { 2 }
+    let(:n2) { 2.128 }
+    let(:n3) { 2.0 }
+
+    it 'to be 2.0' do
+      expect(n2.round_down).to eq(n3)
+      expect(n1.round_down(n1)).to eq(n3)
+    end
+
+    it 'to be 2.12' do
+      expect(n2.round_down(n1)).to eq(2.12)
+    end
+  end
+
   describe '#subtract' do
     it 'to be 2' do
       expect(4.subtract(2)).to eq(2)

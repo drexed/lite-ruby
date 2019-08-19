@@ -66,6 +66,17 @@ RSpec.describe Object do
     end
   end
 
+  describe '#deep_dup' do
+    it 'to be properly set vars on diff objects' do
+      o1 = described_class.new
+      o2 = o1.deep_dup
+      o2.instance_variable_set(:@a, 1)
+
+      expect(o1.instance_variable_defined?(:@a)).to eq(false)
+      expect(o2.instance_variable_defined?(:@a)).to eq(true)
+    end
+  end
+
   describe '#false?' do
     it 'to be true' do
       expect(false.false?).to eq(true)

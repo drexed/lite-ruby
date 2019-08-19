@@ -35,6 +35,14 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       is_a?(Date)
     end
 
+    def deep_dup
+      duplicable? ? dup : self
+    end
+
+    def duplicable?
+      true
+    end
+
     # rubocop:disable Style/YodaCondition
     def false?
       false == self

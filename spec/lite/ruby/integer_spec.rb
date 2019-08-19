@@ -54,7 +54,29 @@ RSpec.describe Integer do
     end
   end
 
+  describe '#combinatorial' do
+    it 'to be 50' do
+      expect(50.combinatorial(49)).to eq(50)
+    end
+
+    it 'to be 1' do
+      expect(50.combinatorial(50)).to eq(1)
+    end
+
+    it 'to be 70' do
+      expect(8.combinatorial(4)).to eq(70)
+    end
+  end
+
   describe '#factorial' do
+    it 'to be 0' do
+      expect(0.factorial).to eq(0)
+    end
+
+    it 'to be 1' do
+      expect(1.factorial).to eq(1)
+    end
+
     it 'to be 24' do
       expect(4.factorial).to eq(24)
     end

@@ -292,6 +292,16 @@ Returns the nth root of a number.
 4.root(2) #=> 2
 ```
 
+`round_down`
+------
+Returns a number rounded down to given value.
+
+```ruby
+2.128.round_down    #=> 2.0
+2.128.round_down(2) #=> 2.12
+2.round_down(2)     #=> 2.0
+```
+
 `subtract`
 ------
 Returns the difference of two numbers.

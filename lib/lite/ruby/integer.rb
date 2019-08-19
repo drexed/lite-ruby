@@ -40,10 +40,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('integer')
       (self & mask) != 0
     end
 
-    def factorial
-      return 1 if zero?
+    def combinatorial(num)
+      (0...num).inject(1) { |acc, i| (acc * (self - i)) / (i + 1) }
+    end
 
-      2.upto(self).inject(1) { |acc, i| acc * i }
+    def factorial
+      (1..self).inject { |acc, i| acc * i } || 0
     end
 
     def factors

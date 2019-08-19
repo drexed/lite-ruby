@@ -123,6 +123,23 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       replace(dearray_singular_values)
     end
 
+    # rubocop:disable Style/CaseEquality
+    def deep_dup
+      hash = dup
+
+      each_pair do |key, value|
+        if key.frozen? && ::String === key
+          hash[key] = value.deep_dup
+        else
+          hash.delete(key)
+          hash[key.deep_dup] = value.deep_dup
+        end
+      end
+
+      hash
+    end
+    # rubocop:enable Style/CaseEquality
+
     def deep_merge(other_hash, &block)
       dup.deep_merge!(other_hash, &block)
     end

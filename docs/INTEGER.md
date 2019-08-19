@@ -45,11 +45,23 @@ Returns if it is a bitmask set.
 8.bitmask?(2) #=> false
 ```
 
+`combinatorial`
+------
+Calculates the combinatorial of an integer to another integer.
+
+```ruby
+50.combinatorial(49) #=> 50
+50.combinatorial(50) #=> 1
+8.combinatorial(4)   #=> 70
+```
+
 `factorial`
 ------
 Calculates the factorial of an integer.
 
 ```ruby
+0.factorial #=> 0
+1.factorial #=> 1
 4.factorial #=> 24
 ```
 
