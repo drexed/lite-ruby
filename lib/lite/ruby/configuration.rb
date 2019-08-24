@@ -16,16 +16,22 @@ module Lite
 
     end
 
-    def self.configuration
-      @configuration ||= Configuration.new
-    end
+    class << self
 
-    def self.configuration=(config)
-      @configuration = config
-    end
+      attr_writer :configuration
 
-    def self.configure
-      yield(configuration)
+      def configuration
+        @configuration ||= Configuration.new
+      end
+
+      def configure
+        yield(configuration)
+      end
+
+      def reset_configuration!
+        @configuration = Configuration.new
+      end
+
     end
 
   end

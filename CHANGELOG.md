@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.17] - 2019-08-24
+### Changed
+- Improved how configuration works
+
 ## [1.0.16] - 2019-08-18
 ### Added
 - Added Array => `deep_dup`

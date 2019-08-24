@@ -4,12 +4,7 @@ require 'bundler/setup'
 require 'lite/ruby'
 require 'generator_spec'
 
-Lite::Ruby.configure do |config|
-  config.monkey_patches = %w[
-    array boolean date enumerable hash integer kernel numeric object open_struct range string
-    struct time
-  ]
-end
+Lite::Ruby.reset_configuration!
 
 spec_path = Pathname.new(File.expand_path('../spec', File.dirname(__FILE__)))
 
