@@ -498,14 +498,14 @@ RSpec.describe Hash do
 
   describe '#shuffle(!)' do
     let(:h1) do
-      { a: 1, b: 2, c: 3, d: 4, e: 5 }
+      { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10 }
     end
 
-    it 'to not be { a: 1, b: 2, c: 3, d: 4, e: 5 }' do
+    it 'to be shuffled non-destructively' do
       expect(h1.keys).not_to eq(h1.shuffle.keys)
     end
 
-    it 'to be { a: 1, b: 2, c: 3, d: 4, e: 5 }' do
+    it 'to be shuffled destructively' do
       expect(h1.keys).not_to eq(h1.shuffle!.keys)
     end
   end
