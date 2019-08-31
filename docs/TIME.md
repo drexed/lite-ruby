@@ -67,10 +67,10 @@ Converts a `time` object to a predefined format.
 | Combo | 24h time | `:time_blank` | %k:%M %z | 0:31 |
 | Combo | 24h time | `:time_tz` | %H:%M %z | 00:31 +0000 |
 | Combo | 24h time | `:time_tzn` | %H:%M %Z | 00:31 UTC |
-| Combo | 12h time | `:time_12`, `:time_12_padded` | %I:%M %P | 07:31 |
-| Combo | 12h time | `:time_12_blank` | %l:%M %P | 7:31 |
-| Combo | 12h Time | `:time_12_tz` | %I:%M %z | 07:31 am +0000 |
-| Combo | 12h Time | `:time_12_tzn` | %I:%M %Z | 07:31 am UTC |
+| Combo | 12h time | `:time_12`, `:time_12_padded` | %I:%M %P | 07:31 am |
+| Combo | 12h time | `:time_12_blank` | %l:%M %P | 7:31 am |
+| Combo | 12h Time | `:time_12_tz` | %I:%M %P %z | 07:31 am +0000 |
+| Combo | 12h Time | `:time_12_tzn` | %I:%M %P %Z | 07:31 am UTC |
 | Combo | 24h daytime | `:daytime` | %B %-d %H:%M | January 9 00:31 |
 | Combo | 24h daytime | `:daytime_abbr` | %b %-d %H:%M | Jan 9 00:31 |
 | Combo | 24h daytime | `:daytime_iso` | %m-%d %H:%M | 01-09 00:31 |
