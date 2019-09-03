@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.19] - 2019-09-03
+### Added
+- Added Array => `assert_min_values!`
+- Added Array => `assert_all_min_values!`
+- Added Hash => `assert_min_keys!`
+- Added Hash => `assert_all_min_keys!`
+
 ## [1.0.18] - 2019-09-03
 ### Added
 - Added Array => `assert_valid_values!`

@@ -23,6 +23,28 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#assert_min_keys!' do
+    it 'to be {}' do
+      expect({}.assert_min_keys!(:foo)).to eq({})
+    end
+
+    it 'to be { foo: "bar", bar: "baz" }' do
+      hash = { foo: 'bar', bar: 'baz' }
+
+      expect(hash.assert_min_keys!(:foo)).to eq(hash)
+    end
+
+    it 'to raise error' do
+      expect { { bum: 'bar', baz: 'boz' }.assert_min_keys!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#assert_all_min_keys!' do
+    it 'to raise error' do
+      expect { {}.assert_all_min_keys!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#assert_pair_presence!' do
     it 'to be {}' do
       expect({}.assert_pair_presence!(:foo)).to eq({})

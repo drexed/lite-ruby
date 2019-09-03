@@ -3,12 +3,32 @@
 if Lite::Ruby.configuration.monkey_patches.include?('array')
   class Array
 
+    def assert_min_values!(*valid_values)
+      return self if empty?
+
+      valid_values.each do |value|
+        next if include?(value)
+
+        raise ArgumentError,
+              "Missing value: #{value.inspect}. " \
+              "Minimum values are: #{valid_values.map(&:inspect).join(', ')}"
+      end
+
+      self
+    end
+
+    def assert_all_min_values!(*valid_values)
+      return assert_min_values!(*valid_values) unless empty?
+
+      raise ArgumentError, 'An empty array is not allowed'
+    end
+
     def assert_valid_values!(*valid_values)
       each do |value|
         next if valid_values.include?(value)
 
         raise ArgumentError,
-              "Invalid value: #{value.inspect}." \
+              "Invalid value: #{value.inspect}. " \
               "Allowed values are: #{valid_values.map(&:inspect).join(', ')}"
       end
     end

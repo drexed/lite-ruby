@@ -4,6 +4,26 @@ require 'spec_helper'
 
 RSpec.describe Array do
 
+  describe '#assert_min_values!' do
+    it 'to be []' do
+      expect([].assert_min_values!(:foo)).to eq([])
+    end
+
+    it 'to be [:foo, :bar]' do
+      expect(%i[foo bar].assert_min_values!(:foo)).to eq(%i[foo bar])
+    end
+
+    it 'to raise error' do
+      expect { %i[baz bar].assert_min_values!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#assert_all_min_values!' do
+    it 'to be raise error' do
+      expect { [].assert_all_min_values!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#assert_valid_values!' do
     it 'to be []' do
       expect([].assert_valid_values!(:foo)).to eq([])

@@ -1,5 +1,23 @@
 # Array
 
+`assert_min_values!`
+------
+Raises an error if at least one value is not included in a list of values.
+
+```ruby
+[].assert_min_values!(:foo)                 #=> []
+[:foo, :bar].assert_min_values!(:foo)       #=> [:foo]
+[:baz, :bar].assert_min_values!(:foo, :boo) #=> raises ArgumentError: 'Missing value: ":foo". Minimum values are: ":foo", ":boo"'
+```
+
+`assert_all_min_values!`
+------
+Raises an error like `assert_min_values!` but also on empty.
+
+```ruby
+[].assert_all_min_values!(:foo) #=> raises ArgumentError: 'An empty array is not allowed'
+```
+
 `assert_valid_values!`
 ------
 Raises an error if value is not included in a list of values.

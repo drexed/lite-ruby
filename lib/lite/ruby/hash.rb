@@ -16,11 +16,31 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       self
     end
 
+    def assert_min_keys!(*valid_keys)
+      return self if empty?
+
+      valid_keys.each do |key|
+        next if key?(key)
+
+        raise ArgumentError,
+              "Missing key: #{key.inspect}. " \
+              "Minimum keys are: #{valid_keys.map(&:inspect).join(', ')}"
+      end
+
+      self
+    end
+
+    def assert_all_min_keys!(*valid_keys)
+      return assert_min_keys!(*valid_keys) unless empty?
+
+      raise ArgumentError, 'An empty hash is not allowed'
+    end
+
     def assert_pair_presence!(*valid_keys)
       each do |key, value|
         if !valid_keys.include?(key)
           raise ArgumentError,
-                "Invalid key: #{key.inspect}." \
+                "Invalid key: #{key.inspect}. " \
                 "Allowed keys are: #{valid_keys.map(&:inspect).join(', ')}"
         elsif value.respond_to?(:blank?) ? value.blank? : !value
           raise ArgumentError, "A #{value.inspect} value for #{key.inspect} is not allowed"
@@ -39,7 +59,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
         next if valid_keys.include?(key)
 
         raise ArgumentError,
-              "Invalid key: #{key.inspect}." \
+              "Invalid key: #{key.inspect}. " \
               "Allowed keys are: #{valid_keys.map(&:inspect).join(', ')}"
       end
     end
@@ -55,7 +75,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
         next if valid_values.include?(value)
 
         raise ArgumentError,
-              "Invalid value: #{value.inspect}." \
+              "Invalid value: #{value.inspect}. " \
               "Allowed values are: #{valid_values.map(&:inspect).join(', ')}"
       end
     end

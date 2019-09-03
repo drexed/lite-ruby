@@ -19,6 +19,24 @@ h1.aka('boo', :foo)
 h1['boo'] #=> 'bar'
 ```
 
+`assert_min_keys!`
+------
+Raises an error if at least one key is not included in a list of keys.
+
+```ruby
+{}.assert_min_keys!(:foo)                               #=> {}
+{ foo: 'bar', bar: 'baz' }.assert_min_keys!(:foo)       #=> { foo: 'bar', bar: 'baz' }
+{ baz: 'boz', bum: 'baz' }.assert_min_keys!(:foo, :boo) #=> raises ArgumentError: 'Missing key: ":foo". Minimum keys are: ":foo", ":boo"'
+```
+
+`assert_all_min_keys!`
+------
+Raises an error like `assert_min_values!` but also on empty.
+
+```ruby
+{}.assert_all_min_keys!(:foo) #=> raises ArgumentError: 'An empty hash is not allowed'
+```
+
 `assert_pair_presence!`
 ------
 Raises an error if key is not included in a list of keys or if value is `blank?` or nil.
