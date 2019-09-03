@@ -2,20 +2,38 @@
 
 `assert_valid_values!`
 ------
-Raises an error if key is not included in a list of values.
+Raises an error if value is not included in a list of values.
 
 ```ruby
-{}.assert_valid_values!(:foo)                   #=> {}
-{ foo: 'bar' }.assert_valid_values!(:foo)       #=> { foo: 'bar' }
-{ baz: 'boz' }.assert_valid_values!(:foo, :boo) #=> raises ArgumentError: 'Invalid value: ":baz". Allowed values are: ":foo", ":boo"'
+[].assert_valid_values!(:foo)                 #=> []
+[:foo].assert_valid_values!(:foo)             #=> { foo: 'bar' }
+[:foo, :bar].assert_valid_values!(:foo, :boo) #=> raises ArgumentError: 'Invalid value: ":baz". Allowed values are: ":foo", ":boo"'
 ```
 
 `assert_all_valid_values!`
 ------
-Raises like an error like `assert_valid_values!` but also on empty.
+Raises an error like `assert_valid_values!` but also on empty.
 
 ```ruby
-{}.assert_all_valid_values!(:foo) #=> raises ArgumentError: 'An empty array is not allowed'
+[].assert_all_valid_values!(:foo) #=> raises ArgumentError: 'An empty array is not allowed'
+```
+
+`assert_value_presence!`
+------
+Raises an error if value is not `present?` or is nil.
+
+```ruby
+[].assert_value_presence!     #=> []
+[:foo].assert_value_presence! #=> { foo: 'bar' }
+[nil].assert_value_presence!  #=> raises ArgumentError: 'A 'nil' value is not allowed'
+```
+
+`assert_all_value_presence!`
+------
+Raises an error like `assert_value_presence!` but also on empty.
+
+```ruby
+[].assert_all_value_presence! #=> raises ArgumentError: 'An empty array is not allowed'
 ```
 
 `after`

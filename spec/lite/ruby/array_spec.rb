@@ -24,6 +24,26 @@ RSpec.describe Array do
     end
   end
 
+  describe '#assert_value_presence!' do
+    it 'to be []' do
+      expect([].assert_value_presence!).to eq([])
+    end
+
+    it 'to be [:foo]' do
+      expect(%i[foo].assert_value_presence!).to eq([:foo])
+    end
+
+    it 'to raise error' do
+      expect { [nil].assert_value_presence! }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#assert_all_value_presence!' do
+    it 'to be raise error' do
+      expect { [].assert_all_value_presence! }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#after' do
     let(:a1) { [1, 2, 3] }
 

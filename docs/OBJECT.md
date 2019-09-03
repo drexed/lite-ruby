@@ -151,6 +151,15 @@ Returns if an object is not empty or `nil`.
 ''.present?     #=> false
 ```
 
+`presence`
+------
+Returns object if it's `present?`.
+
+```ruby
+'bar'.presence || 'foo' #=> 'bar'
+nil.presence || 'foo'   #=> 'foo'
+```
+
 `range?`
 ------
 Returns if an object is a `range`.

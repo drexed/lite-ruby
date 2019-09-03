@@ -91,6 +91,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       !blank?
     end
 
+    def presence
+      self if present?
+    end
+
     def range?
       is_a?(Range)
     end

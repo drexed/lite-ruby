@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lite-ruby (1.0.17)
+    lite-ruby (1.0.18)
 
 GEM
   remote: https://rubygems.org/

@@ -215,6 +215,16 @@ RSpec.describe Object do
     end
   end
 
+  describe '#presence' do
+    it 'to be "foo"' do
+      expect(nil.presence || 'foo').to eq('foo')
+    end
+
+    it 'to be "bar"' do
+      expect('bar'.presence || 'foo').to eq('bar')
+    end
+  end
+
   describe '#range?' do
     it 'to be true' do
       expect((1..2).range?).to eq(true)

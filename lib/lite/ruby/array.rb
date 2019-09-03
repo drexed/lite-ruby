@@ -19,6 +19,20 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       raise ArgumentError, 'An empty array is not allowed'
     end
 
+    def assert_value_presence!
+      each do |value|
+        next if value.respond_to?(:present?) ? value.present? : value
+
+        raise ArgumentError, "A #{value.inspect} value is not allowed"
+      end
+    end
+
+    def assert_all_value_presence!
+      return assert_value_presence! unless empty?
+
+      raise ArgumentError, 'An empty array is not allowed'
+    end
+
     def after(value)
       return unless include?(value)
 

@@ -23,6 +23,32 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#assert_pair_presence!' do
+    it 'to be {}' do
+      expect({}.assert_pair_presence!(:foo)).to eq({})
+    end
+
+    it 'to be { foo: "bar" }' do
+      expect({ foo: 'bar' }.assert_pair_presence!(:foo)).to eq(foo: 'bar')
+    end
+
+    it 'to raise error for unwanted key' do
+      hash = { foo: 'bar', baz: 'boz' }
+
+      expect { hash.assert_pair_presence!(:foo) }.to raise_error(ArgumentError)
+    end
+
+    it 'to raise error for nil value' do
+      expect { { foo: nil }.assert_pair_presence!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#assert_all_pair_presence!' do
+    it 'to raise error' do
+      expect { {}.assert_all_pair_presence!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#assert_valid_keys!' do
     it 'to be {}' do
       expect({}.assert_valid_keys!(:foo)).to eq({})

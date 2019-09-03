@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.18] - 2019-09-03
+### Added
+- Added Array => `assert_valid_values!`
+- Added Array => `assert_all_valid_values!`
+- Added Hash => `assert_pair_presence!`
+- Added Hash => `assert_all_pair_presence!`
+- Added Object => `presence`
+
 ## [1.0.17] - 2019-08-24
 ### Changed
 - Improved how configuration works
