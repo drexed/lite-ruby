@@ -375,6 +375,18 @@ RSpec.describe Array do
     end
   end
 
+  describe '#rand_sample' do
+    let(:a1) { [1, 2, 3] }
+
+    it 'to be true when size is between 1 and size' do
+      expect(a1.rand_sample.size.between?(1, 3)).to eq(true)
+    end
+
+    it 'to be 1 when max is given' do
+      expect(a1.rand_sample(1).size).to eq(1)
+    end
+  end
+
   describe '#reject_values' do
     it 'to be [1, 3, 5]' do
       expect([1, 2, 3, 4, 5].reject_values(2, 4)).to eq([1, 3, 5])

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.20] - 2019-09-29
+### Added
+- Added Array => `rand_sample`
+
 ## [1.0.19] - 2019-09-03
 ### Added
 - Added Array => `assert_min_values!`

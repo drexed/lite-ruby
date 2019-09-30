@@ -240,6 +240,15 @@ Returns all of the positions of the matching value.
 [:a,:b,:a,:c].positions(:a) #=> [1, 3]
 ```
 
+`rand_sample`
+------
+Returns a sample of random n values by size or given.
+
+```ruby
+[1, 2, 3].rand_sample    #=> [3, 2]
+[1, 2, 3].rand_sample(1) #=> [2]
+```
+
 `reject_values`
 ------
 Delete multiple values from a `dup` copy of the original array.

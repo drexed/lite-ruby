@@ -253,6 +253,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       replace(promote(value))
     end
 
+    def rand_sample(max = nil)
+      amount = rand(1..(max || size))
+      sample(amount)
+    end
+
     def reject_values(*args)
       reject { |val| args.include?(val) }
     end
