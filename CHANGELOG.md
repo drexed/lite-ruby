@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.21] - 2019-11-02
+### Added
+- Added Enumerable => `excluding`
+- Added Enumerable => `including`
+- Added Enumerable => `pluck`
+
 ## [1.0.20] - 2019-09-29
 ### Added
 - Added Array => `rand_sample`

@@ -74,6 +74,15 @@ Returns if the collection does not include an object.
 [1,2,3].exclude?(3) #=> false
 ```
 
+`excluding` aka `without`
+------
+Returns the object without the given keys.
+
+```ruby
+[1, 2, 3].excluding(2, 3)                        #=> [1]
+{ foo: 1, bar: 2, baz: 3 }.excluding(:foo, :baz) #=> { bar: 2 }
+```
+
 `expand`
 ------
 Expand all elements of an Enumerable object.
@@ -117,6 +126,14 @@ Returns an Enumerator to add seperators.
 [1,2,'a'].interpose(:sep).to_a #=> [1,:sep,2,:sep,'a']
 ```
 
+`including` aka `with`
+------
+Returns an array with the given values.
+
+```ruby
+[1, 2, 3].including(4, 5) #=> [1,2,3,4,5]
+```
+
 `many?`
 ------
 Returns if a collection has more than one element while respecting `nil` and `false` as an element.
@@ -134,11 +151,22 @@ Returns if a collection has more than one element while respecting `nil` and `fa
 Returns an array of elements for the elements that occur n times.
 
 ```ruby
-a1 = [1, 1, 2, 3, 3, 4, 5, 5]
+a1 = [1,1,2,3,3,4,5,5]
 
-a1.occur(2)            #=> [1, 3, 5]
-a1.occur(2..3)         #=> [1, 3, 5]
-a1.occur { |n| n > 1 } #=> [1, 3, 5]
+a1.occur(2)            #=> [1,3,5]
+a1.occur(2..3)         #=> [1,3,5]
+a1.occur { |n| n > 1 } #=> [1,3,5]
+```
+
+`pluck`
+------
+Returns an array of values from a set of given keys.
+
+```ruby
+a1 = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
+
+a1.pluck(:id)        #=> [1,2]
+a1.pluck(:id, :name) #=> [[1,'a'], [2,'b']]
 ```
 
 `produce`
@@ -177,11 +205,11 @@ Returns if collection has more than one element while not respecting `nil` and `
 Squeeze out the same elements.
 
 ```ruby
-a1 = [1, 2, 2, 3, 3, 2, 1]
+a1 = [1,2,2,3,3,2,1]
 
-a1.squeeze      #=> [1, 2, 3, 2, 1]
-a1.sort.squeeze #=> [1, 2, 3]
-a1.squeeze(3)   #=> [1, 2, 2, 3, 2, 1]
+a1.squeeze      #=> [1,2,3,2,1]
+a1.sort.squeeze #=> [1,2,3]
+a1.squeeze(3)   #=> [1,2,2,3,2,1]
 ```
 
 `take_last`

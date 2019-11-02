@@ -107,6 +107,20 @@ RSpec.describe Enumerable do
     end
   end
 
+  describe '#excluding' do
+    it 'to be [1, 2]' do
+      a1 = [1, 2, 3]
+
+      expect(a1.excluding(2, 3)).to eq([1])
+    end
+
+    it 'to be { bar: 2 }' do
+      h1 = { foo: 1, bar: 2, baz: 3 }
+
+      expect(h1.excluding(:foo, :baz)).to eq(bar: 2)
+    end
+  end
+
   describe '#expand' do
     it 'to be [0, [2, 3], [5, 6, 7]]' do
       expect([0, 2..3, 5..7].expand).to eq([0, [2, 3], [5, 6, 7]])
@@ -146,6 +160,14 @@ RSpec.describe Enumerable do
 
     it 'to be false' do
       expect(a1.incase?(3)).to eq(false)
+    end
+  end
+
+  describe '#including' do
+    it 'to be [1, 2, 3, 4, 5]' do
+      a1 = [1, 2, 3]
+
+      expect(a1.including(4, 5)).to eq([1, 2, 3, 4, 5])
     end
   end
 
@@ -205,6 +227,20 @@ RSpec.describe Enumerable do
 
     it 'to raise error' do
       expect { a1.occur }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe '#pluck' do
+    it 'to be [1, 2]' do
+      a1 = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
+
+      expect(a1.pluck(:id)).to eq([1, 2])
+    end
+
+    it 'to be [[1, "a"], [2, "b"]]' do
+      a1 = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
+
+      expect(a1.pluck(:id, :name)).to eq([[1, 'a'], [2, 'b']])
     end
   end
 

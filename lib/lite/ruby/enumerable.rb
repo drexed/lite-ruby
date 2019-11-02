@@ -65,6 +65,13 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       !include?(object)
     end
 
+    def excluding(*elements)
+      elements.flatten!(1)
+      reject { |element| elements.include?(element) }
+    end
+
+    alias without excluding
+
     def expand
       map { |val| val.is_a?(Enumerable) ? val.expand : val }
     end
@@ -88,6 +95,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       any? { |val| object === val }
     end
     # rubocop:enable Style/CaseEquality
+
+    def including(*elements)
+      to_a.including(*elements)
+    end
+
+    alias with including
 
     # rubocop:disable Metrics/MethodLength
     def interpose(sep, &block)
@@ -164,6 +177,14 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       result.values.flatten.uniq
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    def pluck(*keys)
+      if keys.many?
+        map { |element| keys.map { |key| element[key] } }
+      else
+        map { |element| element[keys.first] }
+      end
+    end
 
     def produce(identity = 0, &block)
       if block_given?
