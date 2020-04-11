@@ -329,7 +329,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     end
 
     def reverse_merge!(other_hash)
-      other_hash.merge!(self)
+      replace(reverse_merge(other_hash))
     end
 
     def sample

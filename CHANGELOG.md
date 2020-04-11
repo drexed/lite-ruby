@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.22] - 2020-04-11
+### Fixed
+- Fixed reverse_merge! on a frozen hash
+
 ## [1.0.21] - 2019-11-02
 ### Added
 - Added Enumerable => `excluding`
