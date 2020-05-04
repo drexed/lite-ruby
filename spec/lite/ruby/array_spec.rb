@@ -203,6 +203,16 @@ RSpec.describe Array do
     end
   end
 
+  describe '#except(!)' do
+    it 'to be [1, 3, 5]' do
+      a1 = [1, 2, 3, 4, 5]
+      a2 = [1, 3, 5]
+
+      expect(a1.except(2, 4)).to eq(a2)
+      expect(a1.except!(2, 4)).to eq(a2)
+    end
+  end
+
   describe '#from' do
     let(:a1) { [1, 2, 3] }
 
@@ -331,6 +341,16 @@ RSpec.describe Array do
 
       expect(a1.nillify).to eq(a2)
       expect(a1.nillify!).to eq(a2)
+    end
+  end
+
+  describe '#only(!)' do
+    it 'to be [2, 4]' do
+      a1 = [1, 2, 3, 4, 5]
+      a2 = [2, 4]
+
+      expect(a1.only(2, 4)).to eq(a2)
+      expect(a1.only!(2, 4)).to eq(a2)
     end
   end
 

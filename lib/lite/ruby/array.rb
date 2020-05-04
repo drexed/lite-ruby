@@ -137,6 +137,14 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       hash.delete_if { |_, val| val < minimum }.keys
     end
 
+    def except(*values)
+      reject { |val| values.include?(val) }
+    end
+
+    def except!(*values)
+      replace(except(*values))
+    end
+
     def from(position)
       self[position, size] || []
     end
@@ -221,6 +229,14 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       replace(nillify)
     end
 
+    def only(*values)
+      select { |val| values.include?(val) }
+    end
+
+    def only!(*values)
+      replace(only(*values))
+    end
+
     def position(value)
       idx = index(value)
       return idx if idx.nil?
@@ -278,7 +294,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       array = [[]]
 
       if block_given?
-        each { |val| yield(val) ? (array << []) : (array .last << val) }
+        each { |val| yield(val) ? (array << []) : (array.last << val) }
       else
         dup_arr = dup
 

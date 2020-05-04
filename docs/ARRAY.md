@@ -135,6 +135,14 @@ Returns a list of duplicate elements.
 [1, 1, 2, 2, 2, 3].duplicates(3) #=> [2]
 ```
 
+`except(!)`
+------
+Removes given values from the array.
+
+```ruby
+[1, 2, 3, 4].except(1, 3) #=> [2, 4]
+```
+
 `from`
 ------
 Returns the tail of the array from a given position.
@@ -205,6 +213,14 @@ Converts blank values into `nil`.
 [nil, 3, 4].nillify #=> [nil, 3, 4]
 [' ', 3, 4].nillify #=> [nil, 3, 4]
 ['', 3, 4].nillify! #=> [nil, 3, 4]
+```
+
+`only(!)`
+------
+Selects given values from the array.
+
+```ruby
+[1, 2, 3, 4].only(1, 3) #=> [1, 3]
 ```
 
 `probability`
