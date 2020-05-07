@@ -115,6 +115,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       blank? ? placeholder : self
     end
 
+    def salvage_try(*obj, placeholder: '---', &block)
+      try(*obj, &block).salvage(placeholder)
+    end
+
     def send_chain(*keys)
       Array(keys).inject(self) { |obj, key| obj.send(*key) }
     end

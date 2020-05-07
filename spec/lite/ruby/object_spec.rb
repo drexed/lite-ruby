@@ -316,6 +316,22 @@ RSpec.describe Object do
     end
   end
 
+  describe '#salvage_try' do
+    let(:s1) { 'example' }
+
+    it 'to be "---"' do
+      expect(s1.salvage_try(:fake_method)).to eq('---')
+    end
+
+    it 'to be "X"' do
+      expect(s1.salvage_try(:fake_method, placeholder: 'X')).to eq('X')
+    end
+
+    it 'to be "EXAMPLE"' do
+      expect(s1.salvage_try(:upcase)).to eq('EXAMPLE')
+    end
+  end
+
   describe '#send_chain' do
     let(:n1) { 3 }
 

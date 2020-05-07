@@ -210,6 +210,16 @@ nil.salvage('bar') #=> 'bar'
 123.salvage        #=> 123
 ```
 
+`salvage_try`
+------
+Similar to the try method but returns a placeholder instead of `nil`.
+
+```ruby
+'example'.salvage_try(:upcase)                        #=> 'EXAMPLE'
+'example'.salvage_try(:fake_method)                   #=> '---'
+'example'.salvage_try(:fake_method, placeholder: 'X') #=> 'X'
+```
+
 `send_chain`
 ------
 Chains multiple callers to an object.
