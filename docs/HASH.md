@@ -425,12 +425,20 @@ Symbolize and underscore hash keys.
 { 'firstName' => 'foo', 'last Name' => 'test' }.symbolize_and_underscore_keys #=> { first_name: 'foo', last_name: 'test' }
 ```
 
-`to_object` aka `to_o`
+`to_open_struct` aka `to_object` aka `to_o`
 ------
-Converts an object to have an object like API.
+Converts a hash to an open struct to have an object like API.
 
 ```ruby
-{ foo: { bar: true } }.to_object.foo.bar #=> true
+{ foo: { bar: true } }.to_open_struct.foo.bar #=> true
+```
+
+`to_struct`
+------
+Converts a hash to a struct to have an object like API.
+
+```ruby
+{ foo: { bar: true } }.to_struct.foo #=> { bar: true }
 ```
 
 `update_each`

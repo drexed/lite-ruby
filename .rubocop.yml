@@ -8,6 +8,8 @@ AllCops:
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
     - 'spec/**/**/*'
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
 Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: empty_lines_except_namespace
 Layout/EmptyLinesAroundModuleBody:
@@ -48,4 +50,6 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: false
 Style/PerlBackrefs:
+  Enabled: false
+Style/SlicingWithRange:
   Enabled: false

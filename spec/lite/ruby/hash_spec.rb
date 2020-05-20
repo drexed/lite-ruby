@@ -626,17 +626,31 @@ RSpec.describe Hash do
     end
   end
 
-  describe '#to_o' do
+  describe '#to_open_struct' do
     it 'to be OpenStruct' do
       h1 = { foo: { bar: true } }
 
-      expect(h1.to_o.is_a?(OpenStruct)).to eq(true)
+      expect(h1.to_open_struct.is_a?(OpenStruct)).to eq(true)
     end
 
     it 'to be true' do
       h1 = { foo: { bar: true } }
 
-      expect(h1.to_o.foo.bar).to eq(true)
+      expect(h1.to_open_struct.foo.bar).to eq(true)
+    end
+  end
+
+  describe '#to_struct' do
+    it 'to be Struct' do
+      h1 = { foo: { bar: true } }
+
+      expect(h1.to_struct.is_a?(Struct)).to eq(true)
+    end
+
+    it 'to be { bar: true }' do
+      h1 = { foo: { bar: true } }
+
+      expect(h1.to_struct.foo).to eq(bar: true)
     end
   end
 

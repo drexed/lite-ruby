@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.25] - 2020-05-20
+### Added
+- Added Hash => `to_open_struct`
+- Added Hash => `to_struct`
+- Added OpenStruct => `to_hash`
+- Added OpenStruct => `to_json(table: true)`
+
 ## [1.0.24] - 2020-05-07
 ### Added
 - Added Object => `salvage_try`

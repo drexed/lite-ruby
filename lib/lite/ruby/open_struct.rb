@@ -33,12 +33,26 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
     end
 
     def attributes
-      each_pair.with_object({}) { |(key, val), hash| hash[key] = val }
+      @table
     end
 
     def replace(args)
       args.each_pair { |key, val| send("#{key}=", val) }
     end
+
+    def to_hash(table: true)
+      return attributes unless table
+
+      { table: attributes }
+    end
+
+    alias to_h to_hash
+
+    def to_json(table: true)
+      to_hash(table: table).to_json
+    end
+
+    alias as_json to_json
 
   end
 end

@@ -31,7 +31,7 @@ person['name'] = 'tim'
 
 `attributes`
 ------
-Returns the key values of the assigned struct.
+Returns the key values as a hash of the assigned struct.
 
 ```ruby
 person = OpenStruct.new(name: 'bob', age: 60)
@@ -48,4 +48,26 @@ person = OpenStruct.new(name: 'bob', age: 60)
 
 person.replace(name: 'tom', age: 28)
 preson.name #=> 'tom'
+```
+
+`to_hash` aka `to_h`
+------
+Returns the key values as a hash of the assigned struct.
+
+```ruby
+person = OpenStruct.new(name: 'bob', age: 60)
+
+person.to_hash               #=> { table: { name: 'bob', age: 60 } }
+person.to_hash(table: false) #=> { name: 'bob', age: 60 }
+```
+
+`to_json` aka `as_json`
+------
+Returns the key values as Json of the assigned struct.
+
+```ruby
+person = OpenStruct.new(name: 'bob', age: 60)
+
+person.to_json               #=> { table: { name: 'bob', age: 60 } }
+person.to_json(table: false) #=> { name: 'bob', age: 60 }
 ```

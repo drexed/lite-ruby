@@ -440,11 +440,17 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       replace(symbolize_and_underscore_keys)
     end
 
-    def to_object
+    def to_open_struct
       JSON.parse(to_json, object_class: OpenStruct)
     end
 
-    alias to_o to_object
+    alias to_object to_open_struct
+    alias to_o to_open_struct
+
+    def to_struct
+      struct = Struct.new(*keys)
+      struct.new(*values)
+    end
 
     def update_each
       replace(each_with_object({}) { |(key, val), hash| hash.update(yield(key, val)) })
