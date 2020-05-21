@@ -50,7 +50,6 @@ RSpec.describe OpenStruct do
     end
   end
 
-
   describe '#to_json' do
     it 'to be { ... } with table key' do
       expect(o1.to_json).to eq(h1.to_json)
