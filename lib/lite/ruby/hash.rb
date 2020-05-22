@@ -440,12 +440,17 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       replace(symbolize_and_underscore_keys)
     end
 
-    def to_open_struct
+    def to_object
       JSON.parse(to_json, object_class: OpenStruct)
     end
 
-    alias to_object to_open_struct
-    alias to_o to_open_struct
+    alias to_o to_object
+
+    def to_open_struct(lazy: true)
+      struct = OpenStruct.new(self)
+      struct.methods(lazy)
+      struct
+    end
 
     def to_struct
       struct = Struct.new(*keys)

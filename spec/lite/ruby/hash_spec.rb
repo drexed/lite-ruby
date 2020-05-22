@@ -626,31 +626,57 @@ RSpec.describe Hash do
     end
   end
 
-  describe '#to_open_struct' do
-    it 'to be OpenStruct' do
-      h1 = { foo: { bar: true } }
+  describe '#to_object' do
+    let(:h1) do
+      { foo: { bar: true } }
+    end
 
+    it 'to be OpenStruct' do
+      expect(h1.to_object.is_a?(OpenStruct)).to eq(true)
+    end
+
+    it 'to be true' do
+      expect(h1.to_object.foo.bar).to eq(true)
+    end
+
+    it 'to be nil' do
+      expect(h1.to_object.foo.bax).to eq(nil)
+    end
+  end
+
+  describe '#to_open_struct' do
+    let(:h1) do
+      { foo: { bar: true } }
+    end
+
+    it 'to be OpenStruct' do
       expect(h1.to_open_struct.is_a?(OpenStruct)).to eq(true)
     end
 
     it 'to be true' do
-      h1 = { foo: { bar: true } }
+      expect(h1.to_open_struct.foo).to eq(bar: true)
+    end
 
-      expect(h1.to_open_struct.foo.bar).to eq(true)
+    it 'to be nil' do
+      expect(h1.to_open_struct.bax).to eq(nil)
     end
   end
 
   describe '#to_struct' do
-    it 'to be Struct' do
-      h1 = { foo: { bar: true } }
+    let(:h1) do
+      { foo: { bar: true } }
+    end
 
+    it 'to be Struct' do
       expect(h1.to_struct.is_a?(Struct)).to eq(true)
     end
 
     it 'to be { bar: true }' do
-      h1 = { foo: { bar: true } }
-
       expect(h1.to_struct.foo).to eq(bar: true)
+    end
+
+    it 'to be nil' do
+      expect { h1.to_struct.bax }.to raise_error(NoMethodError)
     end
   end
 

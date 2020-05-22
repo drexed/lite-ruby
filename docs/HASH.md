@@ -425,12 +425,22 @@ Symbolize and underscore hash keys.
 { 'firstName' => 'foo', 'last Name' => 'test' }.symbolize_and_underscore_keys #=> { first_name: 'foo', last_name: 'test' }
 ```
 
-`to_open_struct` aka `to_object` aka `to_o`
+`to_object` aka `to_o`
+------
+Converts a hash and all nested hashes to open structs.
+
+```ruby
+{ foo: { bar: true } }.to_object.foo.bar #=> true
+{ foo: { bar: true } }.to_object.foo.bax #=> nil
+```
+
+`to_open_struct`
 ------
 Converts a hash to an open struct to have an object like API.
 
 ```ruby
-{ foo: { bar: true } }.to_open_struct.foo.bar #=> true
+{ foo: { bar: true } }.to_open_struct.foo #=> { bar: true }
+{ foo: { bar: true } }.to_open_struct.bax #=> nil
 ```
 
 `to_struct`
@@ -439,6 +449,7 @@ Converts a hash to a struct to have an object like API.
 
 ```ruby
 { foo: { bar: true } }.to_struct.foo #=> { bar: true }
+{ foo: { bar: true } }.to_struct.bax #=> Raises error
 ```
 
 `update_each`
