@@ -123,7 +123,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
     end
 
     def domain
-      return self unless self =~ %r{^(?:\w+:\/\/)?([^\/?]+)(?:\/|\?|$)}
+      return self unless self =~ %r{^(?:\w+://)?([^/?]+)(?:/|\?|$)}
 
       Regexp.last_match(1)
     end
@@ -422,7 +422,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
     end
 
     def remove_tags!
-      gsub!(%r{<\/?[^>]*>}, '') || self
+      gsub!(%r{</?[^>]*>}, '') || self
     end
 
     def rotate(amount = 1)
@@ -483,7 +483,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       gsub!(/[^\x00-\x7F]+/, '')
       gsub!(/[^\w_ \-]+/i, '')
       gsub!(/[ \-]+/i, '-')
-      gsub!(/^\-|\-$/i, '')
+      gsub!(/^-|-$/i, '')
       downcase! || self
     end
 

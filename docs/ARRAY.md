@@ -64,14 +64,24 @@ Returns the value after a given value.
 ['1', '2', '3'].after('4') #=> nil
 ```
 
-`bury`
+`all_after`
 ------
-Updates a deeply nested value.
+Returns all values after a given value.
 
 ```ruby
-['1', ['2']].bury(1, '3')    #=> ['1', '3']
-['1', ['2']].bury(1, 0, '3') #=> ['1', ['3']]
-['1', ['2']].bury(1)         #=> raises ArgumentError: '2 or more arguments required'
+['1', '2', '3'].all_after('1') #=> [2, 3]
+['1', '2', '3'].all_after('3') #=> nil
+['1', '2', '3'].all_after('4') #=> nil
+```
+
+`all_before`
+------
+Returns all values before a given value.
+
+```ruby
+['1', '2', '3'].all_before('3') #=> [1, 2]
+['1', '2', '3'].all_before('1') #=> nil
+['1', '2', '3'].all_before('4') #=> nil
 ```
 
 `before`
@@ -82,6 +92,16 @@ Returns the value before a given value.
 ['1', '2', '3'].before('2') #=> '1'
 ['1', '2', '3'].before('1') #=> '3'
 ['1', '2', '3'].before('4') #=> nil
+```
+
+`bury`
+------
+Updates a deeply nested value.
+
+```ruby
+['1', ['2']].bury(1, '3')    #=> ['1', '3']
+['1', ['2']].bury(1, 0, '3') #=> ['1', ['3']]
+['1', ['2']].bury(1)         #=> raises ArgumentError: '2 or more arguments required'
 ```
 
 `delete_first(!)`

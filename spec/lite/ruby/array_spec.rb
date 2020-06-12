@@ -80,19 +80,35 @@ RSpec.describe Array do
     end
   end
 
-  describe '#bury' do
-    let(:a1) { [:a1, { b1: :c1 }] }
+  describe '#all_after' do
+    let(:a1) { [1, 2, 3] }
 
-    it 'to be [:a1, { b1: :d1 }]' do
-      expect(a1.bury(1, :b1, :d1)).to eq([:a1, { b1: :d1 }])
+    it 'to be [2, 3]' do
+      expect(a1.all_after(1)).to eq([2, 3])
     end
 
-    it 'to be [:a1, [:c2]]' do
-      expect([:a1, [:b1]].bury(1, 0, :c1)).to eq([:a1, [:c1]])
+    it 'to be nil when last value' do
+      expect(a1.all_after(3)).to eq(nil)
     end
 
-    it 'to raise error' do
-      expect { a1.bury(:moo) }.to raise_error(ArgumentError)
+    it 'to be nil not included' do
+      expect(a1.all_after(4)).to eq(nil)
+    end
+  end
+
+  describe '#all_before' do
+    let(:a1) { [1, 2, 3] }
+
+    it 'to be [1, 2]' do
+      expect(a1.all_before(3)).to eq([1, 2])
+    end
+
+    it 'to be nil when first value' do
+      expect(a1.all_before(1)).to eq(nil)
+    end
+
+    it 'to be nil when not included' do
+      expect(a1.all_before(4)).to eq(nil)
     end
   end
 
@@ -109,6 +125,22 @@ RSpec.describe Array do
 
     it 'to be nil' do
       expect(a1.before(4)).to eq(nil)
+    end
+  end
+
+  describe '#bury' do
+    let(:a1) { [:a1, { b1: :c1 }] }
+
+    it 'to be [:a1, { b1: :d1 }]' do
+      expect(a1.bury(1, :b1, :d1)).to eq([:a1, { b1: :d1 }])
+    end
+
+    it 'to be [:a1, [:c2]]' do
+      expect([:a1, [:b1]].bury(1, 0, :c1)).to eq([:a1, [:c1]])
+    end
+
+    it 'to raise error' do
+      expect { a1.bury(:moo) }.to raise_error(ArgumentError)
     end
   end
 

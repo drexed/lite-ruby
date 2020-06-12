@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.26] - 2020-06-12
+### Added
+- Added array => `all_after`
+- Added array => `all_before`
+
 ## [1.0.26] - 2020-05-22
 ### Changed
 - Changed hash `to_open_struct` and `to_object` to be independent methods

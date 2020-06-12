@@ -59,6 +59,24 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       self[(index(value) + 1) % size]
     end
 
+    def all_after(value)
+      return unless include?(value)
+
+      i = index(value)
+      return if i == (size - 1)
+
+      self[(i + 1)..-1]
+    end
+
+    def all_before(value)
+      return unless include?(value)
+
+      i = index(value)
+      return if i.zero?
+
+      self[0..(i - 1)]
+    end
+
     def before(value)
       return unless include?(value)
 
