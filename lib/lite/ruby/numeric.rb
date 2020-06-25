@@ -173,8 +173,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       to_s.rjust(precision, pad_number.to_s)
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def pad_precision(options = {})
       pad_number = options[:pad_number] || 0
       precision = options[:precision] || 2
@@ -191,8 +190,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
         string[0..(ljust_count - 1)]
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def percentage_of(number)
       return 0 if zero? || number.zero?

@@ -102,7 +102,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     end
     # rubocop:enable Style/GuardClause
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
     def collate(*others)
       hash = {}
 
@@ -121,7 +121,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       hash.each_value(&:flatten!)
       hash
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
     def collate!(other_hash)
       replace(collate(other_hash))

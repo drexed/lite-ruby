@@ -153,7 +153,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       end
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
     def occur(amount = nil)
       result = Hash.new { |hash, key| hash[key] = [] }
 
@@ -176,7 +176,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
 
       result.values.flatten.uniq
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
     def pluck(*keys)
       if keys.many?

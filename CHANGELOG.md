@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.28] - 2020-06-25
+# Changed
+- Rename String => `encode_only` to `safe_encode`
+# Removed
+- Remove String => `ascii_only`
+
 ## [1.0.26] - 2020-06-12
 ### Added
 - Added array => `all_after`

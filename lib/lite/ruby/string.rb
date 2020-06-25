@@ -45,14 +45,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       keys.any? { |key| include?(key) }
     end
 
-    def ascii_only(alt = '')
-      dup.ascii_only!(alt)
-    end
-
-    def ascii_only!(alt = '')
-      encode_only!('ASCII', alt)
-    end
-
     def at(position)
       self[position]
     end
@@ -134,21 +126,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
 
     def each_word(&block)
       words.each(&block)
-    end
-
-    def encode_only(encoding, alt = '')
-      dup.encode_only!(encoding, alt)
-    end
-
-    def encode_only!(encoding, alt = '')
-      encoding_options = {
-        invalid: :replace,
-        undef: :replace,
-        replace: alt,
-        UNIVERSAL_NEWLINE_DECORATOR: true
-      }
-
-      encode!(Encoding.find(encoding), encoding_options)
     end
 
     def ellipsize(ellipsize_at, options = {})
@@ -432,6 +409,26 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
     def rotate!(amount = 1)
       amount += size if amount.negative?
       slice!(amount, size - amount) + slice!(0, amount)
+    end
+
+    # rubocop:disable Metrics/MethodLength
+    def safe_encode(target_encoding, replacement = '')
+      encode(target_encoding)
+    rescue Encoding::InvalidByteSequenceError
+      force_encoding(target_encoding).scrub!(replacement)
+    rescue Encoding::UndefinedConversionError
+      encode(
+        target_encoding,
+        invalid: :replace,
+        undef: :replace,
+        replace: replacement,
+        UNIVERSAL_NEWLINE_DECORATOR: true
+      )
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    def safe_encode!(target_encoding, replacement = '')
+      replace(safe_encode(target_encoding, replacement))
     end
 
     def sample(separator = ' ')

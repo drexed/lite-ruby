@@ -17,15 +17,6 @@ Returns if a string includes a set of string(s).
 'example string'.any?('foo', 'string') #=> true
 ```
 
-`ascii_only(!)`
-------
-Replace non-ascii characters.
-
-```ruby
-'中文123'.ascii_only       #=> '123'
-'中文123'.ascii_only!('x') #=> 'xx123'
-```
-
 `at`
 ------
 Returns the characters at index position, matching string, or regex.
@@ -142,15 +133,6 @@ Splits a string into multiple words and yields its enumeration.
 
 ```ruby
 'abc. 123'.each_word(&:campitalize!) #=> ['Abc.', '123']
-```
-
-`encode_only(!)`
-------
-Replace non-encode characters.
-
-```ruby
-'中文123'.encode_only('UTF-8')       #=> '123'
-'中文123'.encode_only!('ASCII', 'x') #=> 'xx123'
 ```
 
 `ellipsize`
@@ -430,6 +412,15 @@ Rotate string to the left with count.
 ```ruby
 'example'.rotate    #=> 'xamplee'
 'example'.rotate(2) #=> 'ampleex'
+```
+
+`safe_encode(!)`
+------
+Replace non-encode characters.
+
+```ruby
+'中文123'.safe_encode('UTF-8')       #=> '123'
+'中文123'.safe_encode!('ASCII', 'x') #=> 'xx123'
 ```
 
 `sample(!)`

@@ -28,16 +28,6 @@ RSpec.describe String do
     end
   end
 
-  describe '#ascii_only(!)' do
-    it 'to be "123"' do
-      s1 = '中文123'
-      s2 = '123'
-
-      expect(s1.ascii_only).to eq(s2)
-      expect(s1.ascii_only!).to eq(s2)
-    end
-  end
-
   describe '#at' do
     let(:s1) { 'example' }
 
@@ -253,17 +243,6 @@ RSpec.describe String do
       a2 = %w[Example String]
 
       expect(s1.each_word(&:capitalize!)).to eq(a2)
-    end
-  end
-
-  describe '#encode_only(!)' do
-    it 'to be 123' do
-      s1 = '中文123'
-      s2 = '123'
-      s3 = 'ASCII'
-
-      expect(s1.encode_only(s3)).to eq(s2)
-      expect(s1.encode_only!(s3)).to eq(s2)
     end
   end
 
@@ -722,6 +701,26 @@ RSpec.describe String do
 
       expect(s1.rotate(2)).to eq(s2)
       expect(s1.rotate!(2)).to eq(s2)
+    end
+  end
+
+  describe '#safe_encode(!)' do
+    let(:s1) { '中文123' }
+    let(:s2) { 'ASCII' }
+
+    it 'to be "123"' do
+      s3 = '123'
+
+      expect(s1.safe_encode(s2)).to eq(s3)
+      expect(s1.safe_encode!(s2)).to eq(s3)
+    end
+
+    it 'to be "xx123"' do
+      s3 = 'xx123'
+      s4 = 'x'
+
+      expect(s1.safe_encode(s2, s4)).to eq(s3)
+      expect(s1.safe_encode!(s2, s4)).to eq(s3)
     end
   end
 

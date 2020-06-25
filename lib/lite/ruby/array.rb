@@ -350,7 +350,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       self[0..position]
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     def to_sentence(options = {})
       words_connector = options[:words_connector] || ', '
       two_words_connector = options[:two_words_connector] || ' and '
@@ -363,7 +362,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       else "#{self[0...-1].join(words_connector)}#{last_word_connector}#{self[-1]}"
       end
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
   end
 end
