@@ -163,8 +163,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       replace(headerize)
     end
 
-    def humanize(options = {})
-      dup.humanize!(options)
+    def humanize(capitalize: true)
+      dup.humanize!(capitalize: capitalize)
     end
 
     def humanize!(capitalize: true)
@@ -530,8 +530,9 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
     def truncate(truncate_at, options = {})
       return dup unless length > truncate_at
 
-      seperator = options[:separator]
       omission = options[:omission] || '...'
+      seperator = options[:separator]
+
       size_with_room_for_omission = truncate_at - omission.length
 
       stop = if seperator
@@ -543,13 +544,17 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       "#{self[0, stop]}#{omission}"
     end
 
+    # rubocop:disable Layout/LineLength
     def truncate_words(words_count, options = {})
-      sep = options[:separator] || /\s+/
-      sep = Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
-      return self unless /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m.match?(self)
+      omission = options[:omission] || '...'
+      seperator = options[:separator] || /\s+/
 
-      "#{::Regexp.last_match(1)}#{options[:omissio] || '...'}"
+      seperator = Regexp.escape(seperator.to_s) unless seperator.is_a(Regexp)
+      return self unless /\A((?:.+?#{seperator}){#{words_count - 1}}.+?)#{seperator}.*/m.match?(self)
+
+      "#{::Regexp.last_match(1)}#{omission}"
     end
+    # rubocop:enable Layout/LineLength
 
     def underscore
       dup.underscore!
