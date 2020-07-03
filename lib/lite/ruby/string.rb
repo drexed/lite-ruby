@@ -202,8 +202,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       arr_indexes.reverse
     end
 
-    def labelize(options = {})
-      dup.labelize!(options)
+    def labelize(capitalize: true)
+      dup.labelize!(capitalize: capitalize)
     end
 
     alias labelcase labelize

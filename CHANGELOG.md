@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.29] - 2020-07-03
+### Added
+- Added Ruby 2.7 support
+
 ## [1.0.28] - 2020-06-25
 # Changed
 - Rename String => `encode_only` to `safe_encode`

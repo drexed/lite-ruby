@@ -14,7 +14,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
 
       hash&.each do |key, val|
         @table[key.to_sym] = val
-        new_ostruct_member(key)
+        new_ostruct_member!(key)
       end
 
       yield self if block && block.arity == 1
