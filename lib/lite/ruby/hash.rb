@@ -102,7 +102,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     end
     # rubocop:enable Style/GuardClause
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
     def collate(*others)
       hash = {}
 
@@ -121,18 +121,18 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       hash.each_value(&:flatten!)
       hash
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
     def collate!(other_hash)
       replace(collate(other_hash))
     end
 
-    def collect_keys
-      collect { |key, _| yield(key) }
+    def collect_keys(&block)
+      keys.map(&block)
     end
 
-    def collect_values
-      collect { |_, val| yield(val) }
+    def collect_values(&block)
+      values.map(&block)
     end
 
     def dearray_values(idx = 0)
@@ -186,7 +186,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       merge!(other_hash) do |key, this_val, other_val|
         if this_val.is_a?(Hash) && other_val.is_a?(Hash)
           this_val.deep_merge(other_val, &block)
-        elsif block_given?
+        elsif defined?(yield)
           yield(key, this_val, other_val)
         else
           other_val
@@ -403,10 +403,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     def symbolize_keys
       each_with_object({}) do |(key, val), hash|
         new_key = begin
-                    key.to_s.to_sym
-                  rescue StandardError
-                    key
-                  end
+          key.to_s.to_sym
+        rescue StandardError
+          key
+        end
 
         hash[new_key] = val
       end
@@ -420,16 +420,16 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     def symbolize_and_underscore_keys
       each_with_object({}) do |(key, val), hash|
         new_key = begin
-                    key.to_s
-                       .gsub(/::/, '/')
-                       .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
-                       .gsub(/([a-z\d])([A-Z])/, '\1_\2')
-                       .tr(' -', '_')
-                       .downcase
-                       .to_sym
-                  rescue StandardError
-                    key
-                  end
+          key.to_s
+             .gsub(/::/, '/')
+             .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+             .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+             .tr(' -', '_')
+             .downcase
+             .to_sym
+        rescue StandardError
+          key
+        end
 
         hash[new_key] = val
       end
@@ -462,13 +462,13 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     end
 
     def update_keys
-      return to_enum(:update_keys) unless block_given?
+      return to_enum(:update_keys) unless defined?(yield)
 
       replace(each_with_object({}) { |(key, val), hash| hash[yield(key)] = val })
     end
 
     def update_values
-      return to_enum(:update_values) unless block_given?
+      return to_enum(:update_values) unless defined?(yield)
 
       replace(each_with_object({}) { |(key, val), hash| hash[key] = yield(val) })
     end

@@ -86,7 +86,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
     end
 
     def fraction?
-      fraction != 0.0
+      fraction.to_d != 0.0.to_d
     end
 
     def greater_than?(num)
@@ -173,7 +173,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       to_s.rjust(precision, pad_number.to_s)
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def pad_precision(options = {})
       pad_number = options[:pad_number] || 0
       precision = options[:precision] || 2
@@ -190,7 +190,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
         string[0..(ljust_count - 1)]
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def percentage_of(number)
       return 0 if zero? || number.zero?

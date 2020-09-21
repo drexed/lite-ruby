@@ -323,8 +323,8 @@ Moves a key value pair to the head of the hash.
 Rename the keys of a hash.
 
 ```ruby
-{ foo: 'foo', baz: 'baz' }.rename_keys(foo: :bar)                      #=> { bar: 'foo', baz: 'baz' }
-{ foo: 'foo', 'baz' => 'baz' }.rename_keys(foo: :bar, 'baz' => 'tick') #=> { bar: 'foo', tick: 'baz' }
+{ foo: 'foo', baz: 'baz' }.rename_keys(foo: :bar)                       #=> { bar: 'foo', baz: 'baz' }
+{ foo: 'foo', 'baz' => 'baz' }.rename_keys!(foo: :bar, 'baz' => 'tick') #=> { bar: 'foo', tick: 'baz' }
 ```
 
 `reverse_merge(!)`

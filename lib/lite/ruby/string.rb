@@ -369,7 +369,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
         b = f
 
         if amount.odd?
-          f = "'" + f
+          f = "'#{f}"
           b += "'"
         end
       else

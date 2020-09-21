@@ -389,7 +389,7 @@ RSpec.describe Hash do
     it 'to be { foo: 0 }' do
       h1 = {}
       h2 = { foo: 0 }
-      a1 = [:foo, placeholder: 0]
+      a1 = [:foo, { placeholder: 0 }]
 
       expect(h1.only_fill(a1.first, **a1.last)).to eq(h2)
       expect(h1.only_fill!(a1.first, **a1.last)).to eq(h2)

@@ -177,7 +177,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
     end
 
     def try!(*obj, &block)
-      if obj.empty? && block_given?
+      if obj.empty? && defined?(yield)
         block.arity.zero? ? instance_eval(&block) : yield(self)
       else
         public_send(*obj, &block)

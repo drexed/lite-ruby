@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.31] - 2020-09-21
+### Changed
+- Changed `block_given?` => `defined?(yield)` for more performance
+
 ## [1.0.30] - 2020-07-03
 ### Added
 - Added more Ruby 2.7 support

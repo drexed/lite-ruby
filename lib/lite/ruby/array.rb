@@ -184,7 +184,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-    def in_groups(number, fill_with = nil)
+    def in_groups(number, fill_with = nil, &block)
       collection_size = size
       division = collection_size.div(number)
       modulo = collection_size % number
@@ -199,14 +199,14 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
         start += grouping
       end
 
-      return collection unless block_given?
+      return collection unless defined?(yield)
 
-      collection.each { |val| yield(val) }
+      collection.each(&block)
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Style/GuardClause
-    def in_groups_of(number, fill_with = nil)
+    # rubocop:disable Metrics/MethodLength, Style/GuardClause
+    def in_groups_of(number, fill_with = nil, &block)
       if number.to_i <= 0
         raise ArgumentError, "Group size must be a positive integer, was #{number.inspect}"
       elsif fill_with == false
@@ -217,11 +217,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       end
 
       sliced_collection = collection.each_slice(number)
-      return sliced_collection.to_a unless block_given?
+      return sliced_collection.to_a unless defined?(yield)
 
-      sliced_collection { |val| yield(val) }
+      sliced_collection(&block)
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Style/GuardClause
+    # rubocop:enable Metrics/MethodLength, Style/GuardClause
 
     def indexes(value)
       array = []
@@ -311,7 +311,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     def split(number = nil)
       array = [[]]
 
-      if block_given?
+      if defined?(yield)
         each { |val| yield(val) ? (array << []) : (array.last << val) }
       else
         dup_arr = dup

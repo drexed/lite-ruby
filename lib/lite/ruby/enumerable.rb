@@ -20,7 +20,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     end
 
     def deduce(identity = 0, &block)
-      if block_given?
+      if defined?(yield)
         map(&block).deduce(identity)
       else
         inject { |acc, val| acc - val } || identity
@@ -46,7 +46,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     def exactly?(num)
       found_count = 0
 
-      if block_given?
+      if defined?(yield)
         each { |*opt| found_count += 1 if yield(*opt) }
       else
         each { |opt| found_count += 1 if opt }
@@ -77,7 +77,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     end
 
     def exponential(identity = 0, &block)
-      if block_given?
+      if defined?(yield)
         map(&block).exponential(identity)
       else
         inject { |acc, val| acc**val } || identity
@@ -131,7 +131,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     def many?
       found_count = 0
 
-      if block_given?
+      if defined?(yield)
         any? do |val|
           found_count += 1 if yield(val)
           found_count > 1
@@ -153,7 +153,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       end
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
     def occur(amount = nil)
       result = Hash.new { |hash, key| hash[key] = [] }
 
@@ -162,7 +163,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
         result[key] << item
       end
 
-      if block_given?
+      if defined?(yield)
         result.select! { |_key, values| yield(values.size) }
       else
         raise ArgumentError, 'Invalid occur amount' unless amount
@@ -176,7 +177,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
 
       result.values.flatten.uniq
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def pluck(*keys)
       if keys.many?
@@ -187,7 +189,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     end
 
     def produce(identity = 0, &block)
-      if block_given?
+      if defined?(yield)
         map(&block).produce(identity)
       else
         inject { |acc, val| acc * val } || identity
@@ -195,7 +197,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     end
 
     def quotient(identity = 0, &block)
-      if block_given?
+      if defined?(yield)
         map(&block).quotient(identity)
       else
         inject { |acc, val| acc / val } || identity
@@ -205,7 +207,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     def several?
       found_count = 0
 
-      if block_given?
+      if defined?(yield)
         each { |*opt| found_count += 1 if yield(*opt) }
       else
         each { |opt| found_count += 1 if opt }
