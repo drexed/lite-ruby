@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Removed underscore for 12 hour notations ex: `hour_12` is now `hour12` [BREAKING]
 - Renamed `transliterize` to `transliterate` [BREAKING]
+- Skip loading clashing methods with active support
 
 ## [1.0.31] - 2020-09-21
 ### Changed

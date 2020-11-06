@@ -1,6 +1,9 @@
 # frozen_string_literal: false
 
 if Lite::Ruby.configuration.monkey_patches.include?('string')
+
+  require 'lite/ruby/safe/string' unless defined?(ActiveSupport)
+
   class String
 
     TRANSLITERATIONS ||= {
@@ -34,63 +37,31 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
     }.freeze
 
     def acronym
-      dup.acronym!
+      gsub(/(([a-zA-Z0-9])([a-zA-Z0-9])*)./, '\\2') || self
     end
 
     def acronym!
-      gsub!(/(([a-zA-Z0-9])([a-zA-Z0-9])*)./, '\\2') || self
+      replace(acronym)
     end
 
     def any?(*keys)
       keys.any? { |key| include?(key) }
     end
 
-    def at(position)
-      self[position]
-    end
-
-    def camelize(first_letter = :upper)
-      case first_letter
-      when :upper, true then modulize.gsub(/(\A|\s)([a-z])/) { $1 + $2.upcase }
-      when :lower, false then modulize.gsub(/(\A|\s)([A-Z])/) { $1 + $2.downcase }
-      end || modulize
-    end
-
-    alias camelcase camelize
-
     def camelize!(first_letter = :upper)
       replace(camelize(first_letter))
     end
-
-    alias camelcase! camelize!
 
     def capitalized?
       capitalize == self
     end
 
-    def classify
-      dup.classify!
-    end
-
     def classify!
-      sub!(/.*\./, '')
-      camelize!
-    end
-
-    def constantize
-      Object.const_get(camelize)
-    end
-
-    def dasherize
-      underscore.tr('_', '-')
+      replace(classify)
     end
 
     def dasherize!
       replace(dasherize)
-    end
-
-    def deconstantize
-      [0, rindex('::') || 0]
     end
 
     def deconstantize!
@@ -104,10 +75,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
     def dedupe!(pattern)
       pattern.each_char { |char| gsub!(/#{Regexp.escape(char)}{2,}/, char) }
       self
-    end
-
-    def demodulize
-      gsub(/^.*::/, '')
     end
 
     def demodulize!
@@ -137,22 +104,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       "#{self[0, offset]}#{separator}#{self[-offset, offset]}"
     end
 
-    def first(limit = 1)
-      if limit.zero?
-        ''
-      elsif limit >= length
-        self
-      else
-        to(limit - 1)
-      end
-    end
-
     def format(*args)
       super(self, *args.flatten)
-    end
-
-    def from(position)
-      self[position..-1]
     end
 
     def headerize
@@ -163,29 +116,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       replace(headerize)
     end
 
-    def humanize(capitalize: true)
-      dup.humanize!(capitalize: capitalize)
-    end
-
     def humanize!(capitalize: true)
-      underscore!
-      gsub!(/_id\z/, '')
-      tr!('_', ' ')
-      squish!
-      gsub!(/([a-z\d]*)/i, &:downcase)
-      gsub!(/\A\w/) { |str| capitalize ? str.upcase : str } || self
-    end
-
-    def indent(amount, seperator = ' ')
-      dup.indent!(amount, seperator)
-    end
-
-    def indent!(amount, seperator = ' ')
-      if amount >= 0
-        gsub!(/^/, seperator * amount)
-      else
-        gsub!(/^#{Regexp.escape(seperator)}{0,#{-amount}}/, '')
-      end
+      replace(humanize(capitalize: capitalize))
     end
 
     def index_all(pattern)
@@ -206,8 +138,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       dup.labelize!(capitalize: capitalize)
     end
 
-    alias labelcase labelize
-
     def labelize!(capitalize: true)
       underscore!
       tr!('_', ' ')
@@ -215,18 +145,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       gsub!(/([a-z\d]*)/i, &:downcase)
       gsub!(/\A\w/) { |str| capitalize ? str.upcase : str }
       gsub!(/ id\z/, ' ID') || self
-    end
-
-    alias labelcase! labelize!
-
-    def last(limit = 1)
-      if limit.zero?
-        ''
-      elsif limit >= length
-        self
-      else
-        from(-limit)
-      end
     end
 
     def lchomp(match)
@@ -267,6 +185,16 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       !upcase? && !downcase?
     end
 
+    def non_possessive
+      dup.non_possessive!
+    end
+
+    def non_possessive!
+      return self unless possessive?
+
+      chomp!("'s") || chomp!("'") || self
+    end
+
     def ordinal
       to_i.ordinal
     end
@@ -275,14 +203,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       to_i.ordinalize
     end
 
-    def parameterize(separator: '-')
-      dup.parameterize!(separator: separator)
-    end
-
     def parameterize!(separator: '-')
-      underscore!
-      gsub!(/\s+/, separator)
-      downcase! || self
+      replace(parameterize(separator: separator))
     end
 
     def pathize
@@ -309,16 +231,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
 
     def pop
       self[-1]
-    end
-
-    def non_possessive
-      dup.non_possessive!
-    end
-
-    def non_possessive!
-      return self unless possessive?
-
-      chomp!("'s") || chomp!("'") || self
     end
 
     def possessive
@@ -382,16 +294,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
 
     def quote!(type = :double, amount = nil)
       replace(quote(type, amount))
-    end
-
-    def remove(*patterns)
-      dup.remove!(*patterns)
-    end
-
-    def remove!(*patterns)
-      patterns.each_with_object(self) do |pat, str|
-        pat.is_a?(Range) ? str.slice!(pat) : str.gsub!(pat, '')
-      end
     end
 
     def remove_tags
@@ -484,15 +386,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       downcase! || self
     end
 
-    def squish
-      dup.squish!
-    end
-
-    def squish!
-      strip!
-      gsub!(/\s+/, ' ') || self
-    end
-
     def sort
       chars.sort.join
     end
@@ -501,77 +394,31 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       replace(sort)
     end
 
-    def titleize
-      dup.titleize!
+    def transliterate!
+      replace(transliterate)
     end
-
-    alias titlecase titleize
 
     def titleize!
-      underscore!
-      humanize!
-      gsub!(/\b(?<!['’`])[a-z]/) { $&.capitalize } || self
+      replace(titleize)
     end
 
-    alias titlecase! titleize!
-
-    def to(position)
-      self[0..position]
-    end
-
-    def transliterate
-      dup.transliterate!
-    end
-
-    def transliterate!
-      TRANSLITERATIONS.each_with_object(self) { |(k, v), str| str.gsub!(k, v) }
-    end
-
-    def truncate(truncate_at, options = {})
-      return dup unless length > truncate_at
-
-      omission = options[:omission] || '...'
-      seperator = options[:separator]
-
-      size_with_room_for_omission = truncate_at - omission.length
-
-      stop = if seperator
-               rindex(seperator || '', size_with_room_for_omission) || size_with_room_for_omission
-             else
-               size_with_room_for_omission
-             end
-
-      "#{self[0, stop]}#{omission}"
-    end
-
-    # rubocop:disable Layout/LineLength
-    def truncate_words(words_count, options = {})
+    def truncate_words(word_count, options = {})
       omission = options[:omission] || '...'
       seperator = options[:separator] || /\s+/
 
       seperator = Regexp.escape(seperator.to_s) unless seperator.is_a(Regexp)
-      return self unless /\A((?:.+?#{seperator}){#{words_count - 1}}.+?)#{seperator}.*/m.match?(self)
+      return self unless /\A((?:.+?#{seperator}){#{word_count - 1}}.+?)#{seperator}.*/m.match?(self)
 
       "#{::Regexp.last_match(1)}#{omission}"
     end
-    # rubocop:enable Layout/LineLength
 
-    def underscore
-      dup.underscore!
+    def upcase?
+      upcase == self
     end
-
-    alias snakecase underscore
 
     def underscore!
-      camelize!
-      gsub!(/::/, '/')
-      gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
-      gsub!(/([a-z\d])([A-Z])/, '\1_\2')
-      tr!('-', '_')
-      downcase! || self
+      replace(underscore)
     end
-
-    alias snakecase! underscore!
 
     def unpollute(delimiter = '^--^--^')
       dup.unpollute!(delimiter)
@@ -579,19 +426,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
 
     def unpollute!(delimiter = '^--^--^')
       gsub!(delimiter, '') || self
-    end
-
-    def upcase?
-      upcase == self
-    end
-
-    def unshift(*patterns)
-      patterns.each_with_object('') { |pat, str| str << pat }
-              .concat(self)
-    end
-
-    def unshift!(*patterns)
-      replace(unshift(*patterns))
     end
 
     def unquote
@@ -606,6 +440,15 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       end
 
       self
+    end
+
+    def unshift(*patterns)
+      patterns.each_with_object('') { |pat, str| str << pat }
+              .concat(self)
+    end
+
+    def unshift!(*patterns)
+      replace(unshift(*patterns))
     end
 
     def words
@@ -629,8 +472,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       replace(variablize)
     end
 
-    alias ends_with? end_with?
-    alias starts_with? start_with?
+    alias camelcase! camelize!
+    alias labelcase labelize
+    alias labelcase! labelize!
+    alias snakecase! underscore!
+    alias titlecase! titleize!
 
   end
 end
