@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
+  require 'lite/ruby/safe/enumerable' unless defined?(ActiveSupport)
+
   module Enumerable
 
     def cluster
@@ -61,17 +63,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     end
     # rubocop:enable Style/CaseEquality
 
-    def exclude?(object)
-      !include?(object)
-    end
-
-    def excluding(*elements)
-      elements.flatten!(1)
-      reject { |element| elements.include?(element) }
-    end
-
-    alias without excluding
-
     def expand
       map { |val| val.is_a?(Enumerable) ? val.expand : val }
     end
@@ -95,12 +86,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       any? { |val| object === val }
     end
     # rubocop:enable Style/CaseEquality
-
-    def including(*elements)
-      to_a.including(*elements)
-    end
-
-    alias with including
 
     # rubocop:disable Metrics/MethodLength
     def interpose(sep, &block)
@@ -127,19 +112,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       block ? enum.each(&block) : enum
     end
     # rubocop:enable Metrics/MethodLength
-
-    def many?
-      found_count = 0
-
-      if defined?(yield)
-        any? do |val|
-          found_count += 1 if yield(val)
-          found_count > 1
-        end
-      else
-        any? { (found_count += 1) > 1 }
-      end
-    end
 
     def modulate(modulo)
       if modulo == 1
@@ -179,14 +151,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
-
-    def pluck(*keys)
-      if keys.many?
-        map { |element| keys.map { |key| element[key] } }
-      else
-        map { |element| element[keys.first] }
-      end
-    end
 
     def produce(identity = 0, &block)
       if defined?(yield)
