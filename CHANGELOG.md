@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.1.0] - 2020-11-06
+### Added
+- Added Array => `select_values`
 ### Changed
-- Removed underscore for 12 hour notations ex: `hour_12` is now `hour12` [BREAKING]
-- Renamed `transliterize` to `transliterate` [BREAKING]
+- Rename Date, Time => `[method_name]_12` to `[method_name]12` ex: `hour_12` is now `hour12`
+- Rename String => `transliterize` to `transliterate`
 - Skip loading clashing methods with active support
 
 ## [1.0.31] - 2020-09-21
@@ -32,8 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.26] - 2020-06-12
 ### Added
-- Added array => `all_after`
-- Added array => `all_before`
+- Added Array => `all_after`
+- Added Array => `all_before`
 
 ## [1.0.26] - 2020-05-22
 ### Changed

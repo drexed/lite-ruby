@@ -439,12 +439,6 @@ RSpec.describe Array do
     end
   end
 
-  describe '#reject_values' do
-    it 'to be [1, 3, 5]' do
-      expect([1, 2, 3, 4, 5].reject_values(2, 4)).to eq([1, 3, 5])
-    end
-  end
-
   describe '#rposition' do
     it 'to be 3' do
       expect(%i[a b a c].rposition(:a)).to eq(3)

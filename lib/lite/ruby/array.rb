@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('array')
+  require 'lite/ruby/safe/array' unless defined?(ActiveSupport)
+
   class Array
 
     def assert_min_values!(*valid_values)
@@ -109,10 +111,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     # rubocop:enable Metrics/PerceivedComplexity, Style/GuardClause, Style/IfInsideElse
     # rubocop:enable Metrics/AbcSize, Metrics/BlockNesting, Metrics/MethodLength
 
-    def deep_dup
-      map(&:deep_dup)
-    end
-
     def delete_first
       self[1..-1]
     end
@@ -160,11 +158,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     end
 
     def except!(*values)
-      replace(except(*values))
-    end
-
-    def from(position)
-      self[position, size] || []
+      reject! { |val| values.include?(val) }
+      self
     end
 
     def fulfill(value, amount)
@@ -183,53 +178,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       collection << self[-rem, rem]
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-    def in_groups(number, fill_with = nil, &block)
-      collection_size = size
-      division = collection_size.div(number)
-      modulo = collection_size % number
-
-      collection = []
-      start = 0
-      number.times do |int|
-        mod_gt_zero = modulo.positive?
-        grouping = division + (mod_gt_zero && modulo > int ? 1 : 0)
-        collection << last_group = slice(start, grouping)
-        last_group << fill_with if (fill_with != false) && mod_gt_zero && (grouping == division)
-        start += grouping
-      end
-
-      return collection unless defined?(yield)
-
-      collection.each(&block)
-    end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-
-    # rubocop:disable Metrics/MethodLength, Style/GuardClause
-    def in_groups_of(number, fill_with = nil, &block)
-      if number.to_i <= 0
-        raise ArgumentError, "Group size must be a positive integer, was #{number.inspect}"
-      elsif fill_with == false
-        collection = self
-      else
-        padding = (number - size % number) % number
-        collection = dup.concat(Array.new(padding, fill_with))
-      end
-
-      sliced_collection = collection.each_slice(number)
-      return sliced_collection.to_a unless defined?(yield)
-
-      sliced_collection(&block)
-    end
-    # rubocop:enable Metrics/MethodLength, Style/GuardClause
-
     def indexes(value)
       array = []
       each_with_index { |val, i| array << i if value == val }
       array
     end
-
-    alias indices indexes
 
     def merge(*values)
       dup.merge!(*values)
@@ -252,7 +205,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     end
 
     def only!(*values)
-      replace(only(*values))
+      select! { |val| values.include?(val) }
+      self
     end
 
     def position(value)
@@ -284,16 +238,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     end
 
     def promote!(value)
-      replace(promote(value))
+      sort_by! { |val| val == value ? -1 : 0 }
     end
 
     def rand_sample(max = nil)
       amount = rand(1..(max || size))
       sample(amount)
-    end
-
-    def reject_values(*args)
-      reject { |val| args.include?(val) }
     end
 
     def rposition(value)
@@ -307,36 +257,13 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       delete_at(Random.rand(size - 1))
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/BlockNesting, Metrics/MethodLength
-    def split(number = nil)
-      array = [[]]
-
-      if defined?(yield)
-        each { |val| yield(val) ? (array << []) : (array.last << val) }
-      else
-        dup_arr = dup
-
-        until dup_arr.empty?
-          if (idx = dup_arr.index(number))
-            array.last << dup_arr.shift(idx)
-            dup_arr.shift
-            array << []
-          else
-            array.last << arr.shift(dup_arr.size)
-          end
-        end
-      end
-
-      array
-    end
-    # rubocop:enable Metrics/AbcSize, Metrics/BlockNesting, Metrics/MethodLength
-
     def strip
       reject(&:blank?)
     end
 
     def strip!
-      replace(strip)
+      reject!(&:blank?)
+      self
     end
 
     def swap(from, to)
@@ -344,24 +271,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       self
     end
 
-    def to(position)
-      return first(position + 1) if position >= 0
-
-      self[0..position]
-    end
-
-    def to_sentence(options = {})
-      words_connector = options[:words_connector] || ', '
-      two_words_connector = options[:two_words_connector] || ' and '
-      last_word_connector = options[:last_word_connector] || ', and '
-
-      case size
-      when 0 then ''
-      when 1 then self[0].to_s.dup
-      when 2 then "#{self[0]}#{two_words_connector}#{self[1]}"
-      else "#{self[0...-1].join(words_connector)}#{last_word_connector}#{self[-1]}"
-      end
-    end
+    alias indices indexes
+    alias reject_values except
+    alias reject_values! except!
+    alias select_values only
+    alias select_values! only!
 
   end
 end

@@ -155,7 +155,7 @@ Returns a list of duplicate elements.
 [1, 1, 2, 2, 2, 3].duplicates(3) #=> [2]
 ```
 
-`except(!)`
+`except(!)` aka `remove_values(!)`
 ------
 Removes given values from the array.
 
@@ -235,7 +235,7 @@ Converts blank values into `nil`.
 ['', 3, 4].nillify! #=> [nil, 3, 4]
 ```
 
-`only(!)`
+`only(!)` aka `select_values(!)`
 ------
 Selects given values from the array.
 
@@ -283,14 +283,6 @@ Returns a sample of random n values by size or given.
 ```ruby
 [1, 2, 3].rand_sample    #=> [3, 2]
 [1, 2, 3].rand_sample(1) #=> [2]
-```
-
-`reject_values`
-------
-Delete multiple values from a `dup` copy of the original array.
-
-```ruby
-[1, 2, 3, 4, 5].reject_values(2, 4) #=> [1, 3, 5]
 ```
 
 `rposition`
