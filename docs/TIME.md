@@ -20,8 +20,8 @@ Converts a `time` object to `strftime` it using a human readable string.
 | --- | --- | --- | --- | --- |
 | Hour | 24h zero-padded | `h`, `hour`, `hour_padded` | %H | (00..23) |
 | Hour | 24h blank-padded | `hh`, `HOUR`, `hour_blank` | %k | ( 0..23) |
-| Hour | 12h zero-padded | `hhh`, `hour_12`, `hour_12_padded` | %I | (01..12) |
-| Hour | 12h blank-padded | `hhhh`, `HOUR_12`, `hour_12_blank` | %l | ( 1..12) |
+| Hour | 12h zero-padded | `hhh`, `hour12`, `hour12_padded` | %I | (01..12) |
+| Hour | 12h blank-padded | `hhhh`, `HOUR12`, `hour12_blank` | %l | ( 1..12) |
 | Minute | Minute | `n`, `minute` | %M | (00..59) |
 | Second | Second | `s`, `second` | %S | (00..59) |
 | Meridian | Lowercase | `ampm`, `meridian` | %P | am..pm |
@@ -48,8 +48,8 @@ Converts a `time` object to a predefined format.
 | --- | --- | --- | --- | --- |
 | Hour | 24h zero-padded | `:hour`, `:hour_padded` | %H | (00..23) |
 | Hour | 24h blank-padded | `:hour_blank` | %k | ( 0..23) |
-| Hour | 12h zero-padded | `hour_12`, `:hour_12_padded` | %I | (01..12) |
-| Hour | 12h blank-padded | `:hour_12_blank` | %l | ( 1..12) |
+| Hour | 12h zero-padded | `hour12`, `:hour12_padded` | %I | (01..12) |
+| Hour | 12h blank-padded | `:hour12_blank` | %l | ( 1..12) |
 | Minute | Minute | `:minute` | %M | (00..59) |
 | Second | Second | `:second` | %S | (00..59) |
 | Meridian | Lowercase | `:ampm` | %P | am..pm |
@@ -67,28 +67,28 @@ Converts a `time` object to a predefined format.
 | Combo | 24h time | `:time_blank` | %k:%M %z | 0:31 |
 | Combo | 24h time | `:time_tz` | %H:%M %z | 00:31 +0000 |
 | Combo | 24h time | `:time_tzn` | %H:%M %Z | 00:31 UTC |
-| Combo | 12h time | `:time_12`, `:time_12_padded` | %I:%M %P | 07:31 am |
-| Combo | 12h time | `:time_12_blank` | %l:%M %P | 7:31 am |
-| Combo | 12h Time | `:time_12_tz` | %I:%M %P %z | 07:31 am +0000 |
-| Combo | 12h Time | `:time_12_tzn` | %I:%M %P %Z | 07:31 am UTC |
+| Combo | 12h time | `:time12`, `:time12_padded` | %I:%M %P | 07:31 am |
+| Combo | 12h time | `:time12_blank` | %l:%M %P | 7:31 am |
+| Combo | 12h Time | `:time12_tz` | %I:%M %P %z | 07:31 am +0000 |
+| Combo | 12h Time | `:time12_tzn` | %I:%M %P %Z | 07:31 am UTC |
 | Combo | 24h daytime | `:daytime` | %B %-d %H:%M | January 9 00:31 |
 | Combo | 24h daytime | `:daytime_abbr` | %b %-d %H:%M | Jan 9 00:31 |
 | Combo | 24h daytime | `:daytime_iso` | %m-%d %H:%M | 01-09 00:31 |
-| Combo | 12h daytime | `:daytime_12` | %B %-d %H:%M | January 9 12:31 am |
-| Combo | 12h daytime | `:daytime_12_abbr` | %b %-d %H:%M | Jan 9 12:31 am |
-| Combo | 12h daytime | `:daytime_12_iso` | %m-%d %H:%M | 01-09 12:31 am |
+| Combo | 12h daytime | `:daytime12` | %B %-d %H:%M | January 9 12:31 am |
+| Combo | 12h daytime | `:daytime12_abbr` | %b %-d %H:%M | Jan 9 12:31 am |
+| Combo | 12h daytime | `:daytime12_iso` | %m-%d %H:%M | 01-09 12:31 am |
 | Combo | 24h datetime | `:datetime` | %B %-d, %Y %H:%M | January 9, 2014 00:31 |
 | Combo | 24h datetime | `:datetime_abbr` | %b %-d, %Y %H:%M | Jan 9, 2014 00:31 |
 | Combo | 24h datetime | `:datetime_iso` | %Y-%m-%d %H:%M | 2014-01-09 00:31 |
 | Combo | 24h datetime | `:datetime_tzn` | %B %-d, %Y %H:%M %Z | January 9, 2014 00:31 UTC |
 | Combo | 24h datetime | `:datetime_abbr_tzn` | %b %-d, %Y %H:%M %Z | Jan 9, 2014 00:31 UTC |
 | Combo | 24h datetime | `:datetime_iso_tzn` | %Y-%m-%d %H:%M %z | 2014-01-09 00:31 +0000 |
-| Combo | 12h datetime | `:datetime_12` | %B %-d, %Y %H:%M | January 9, 2014 12:31 am |
-| Combo | 12h datetime | `:datetime_12_abbr` | %b %-d, %Y %H:%M | Jan 9, 2014 12:31 am |
-| Combo | 12h datetime | `:datetime_12_iso` | %Y-%m-%d %H:%M | 2014-01-09 12:31 am |
-| Combo | 12h datetime | `:datetime_12_tzn` | %B %-d, %Y %H:%M %Z | January 9, 2014 12:31 am UTC |
-| Combo | 12h datetime | `:datetime_12_abbr_tzn` | %b %-d, %Y %H:%M %Z | Jan 9, 2014 12:31 am UTC |
-| Combo | 12h datetime | `:datetime_12_iso_tzn` | %Y-%m-%d %H:%M %z | 2014-01-09 12:31 am +0000 |
+| Combo | 12h datetime | `:datetime12` | %B %-d, %Y %H:%M | January 9, 2014 12:31 am |
+| Combo | 12h datetime | `:datetime12_abbr` | %b %-d, %Y %H:%M | Jan 9, 2014 12:31 am |
+| Combo | 12h datetime | `:datetime12_iso` | %Y-%m-%d %H:%M | 2014-01-09 12:31 am |
+| Combo | 12h datetime | `:datetime12_tzn` | %B %-d, %Y %H:%M %Z | January 9, 2014 12:31 am UTC |
+| Combo | 12h datetime | `:datetime12_abbr_tzn` | %b %-d, %Y %H:%M %Z | Jan 9, 2014 12:31 am UTC |
+| Combo | 12h datetime | `:datetime12_iso_tzn` | %Y-%m-%d %H:%M %z | 2014-01-09 12:31 am +0000 |
 
 ```ruby
 Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'

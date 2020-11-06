@@ -24,7 +24,7 @@ RSpec.describe Time do
     end
 
     it 'to be "January 9, 2014 12:31 am +0000"' do
-      s1 = 'month_name day_unpadded, year hour_12:minute ampm time_zone'
+      s1 = 'month_name day_unpadded, year hour12:minute ampm time_zone'
       s2 = 'January 9, 2014 12:31 am +0000'
 
       expect(time.format(s1)).to eq(s2)
@@ -40,8 +40,8 @@ RSpec.describe Time do
     it 'to be "2014-01-09 12:31 am UTC"' do
       s1 = '2014-01-09 12:31 am +0000'
 
-      expect(time.stamp(:datetime_12_iso_tzn)).to eq(s1)
-      expect(time.to_format(:datetime_12_iso_tzn)).to eq(s1)
+      expect(time.stamp(:datetime12_iso_tzn)).to eq(s1)
+      expect(time.to_format(:datetime12_iso_tzn)).to eq(s1)
     end
   end
 
