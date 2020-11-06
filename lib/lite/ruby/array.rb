@@ -271,6 +271,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       self
     end
 
+    alias extract! except!
     alias indices indexes
     alias reject_values except
     alias reject_values! except!

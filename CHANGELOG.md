@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0] - 2020-11-06
 ### Added
-- Added Array => `select_values`
+- Added Array => `extract!` to `except!` alias
+- Added Array => `only(!)` to `select_values(!)` alias
+- Added Hash => `collect_keys` to `map_keys` alias
+- Added Hash => `collect_values` to `map_values` alias
 ### Changed
 - Rename Date, Time => `[method_name]_12` to `[method_name]12` ex: `hour_12` is now `hour12`
 - Rename String => `transliterize` to `transliterate`

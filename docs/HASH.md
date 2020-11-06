@@ -110,7 +110,7 @@ Merge the values of this hash with those from another, setting all values to be 
 { a: 1, b: 2 }.collate(a: 3, b: 4, c: 5) #=> { a: [1, 3], b: [2, 4], c: [5] }
 ```
 
-`collect_keys`
+`collect_keys` aka `map_keys`
 ------
 Returns an array with all keys converted using the block operation.
 
@@ -119,7 +119,7 @@ Returns an array with all keys converted using the block operation.
 { foo: 'bar', 'baz' => :boo }.collect_keys { |k| k.to_s.upcase } #=> ['FOO', BAZ']
 ```
 
-`collect_values`
+`collect_values` aka `map_values`
 ------
 Returns an array with all values converted using the block operation.
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('hash')
+  require 'lite/ruby/safe/hash' unless defined?(ActiveSupport)
+
   class Hash
 
     class << self
@@ -161,39 +163,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       replace(dearray_singular_values)
     end
 
-    # rubocop:disable Style/CaseEquality
-    def deep_dup
-      hash = dup
-
-      each_pair do |key, value|
-        if key.frozen? && ::String === key
-          hash[key] = value.deep_dup
-        else
-          hash.delete(key)
-          hash[key.deep_dup] = value.deep_dup
-        end
-      end
-
-      hash
-    end
-    # rubocop:enable Style/CaseEquality
-
-    def deep_merge(other_hash, &block)
-      dup.deep_merge!(other_hash, &block)
-    end
-
-    def deep_merge!(other_hash, &block)
-      merge!(other_hash) do |key, this_val, other_val|
-        if this_val.is_a?(Hash) && other_val.is_a?(Hash)
-          this_val.deep_merge(other_val, &block)
-        elsif defined?(yield)
-          yield(key, this_val, other_val)
-        else
-          other_val
-        end
-      end
-    end
-
     def delete_unless
       delete_if { |key, val| !yield(key, val) }
     end
@@ -230,18 +199,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       h1 = dup.delete_if { |k, v| hash[k] == v }
       h2 = hash.dup.delete_if { |k, _| key?(k) }
       h1.merge(h2)
-    end
-
-    def except(*keys)
-      dup.except!(*keys)
-    end
-
-    def except!(*keys)
-      keys.each_with_object(self) { |key, _| delete(key) }
-    end
-
-    def extract!(*keys)
-      keys.each_with_object(self) { |key, hash| hash[key] = delete(key) if key?(key) }
     end
 
     def hmap(&block)
@@ -282,7 +239,9 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
 
     def nillify!
       each do |key, val|
-        self[key] = nil if !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?)
+        next if val.nil?
+
+        self[key] = nil if respond_to?(:blank?) ? val.blank? : !val
       end
     end
 
@@ -324,14 +283,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       keys.each_with_object(self) { |(key, val), hash| hash[val] = delete(key) if hash[key] }
     end
 
-    def reverse_merge(other_hash)
-      other_hash.merge(self)
-    end
-
-    def reverse_merge!(other_hash)
-      replace(reverse_merge(other_hash))
-    end
-
     def sample
       key = sample_key
       [key, fetch(key)]
@@ -349,7 +300,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     end
 
     def sample_key!
-      key, = sample
+      key, _val = sample
       delete(key)
       key
     end
@@ -381,52 +332,25 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       omit
     end
 
-    alias only slice
-    alias only! slice!
-
-    def stringify_keys
-      each_with_object({}) { |(key, val), hash| hash[key.to_s] = val }
-    end
-
-    def stringify_keys!
-      replace(stringify_keys)
-    end
-
     def strip
-      select { |_, val| !val.blank? }
+      reject { |_, val| respond_to?(:blank?) ? val.blank? : !val }
     end
 
     def strip!
-      reject! { |_, val| val.blank? }
-    end
-
-    def symbolize_keys
-      each_with_object({}) do |(key, val), hash|
-        new_key = begin
-          key.to_s.to_sym
-        rescue StandardError
-          key
-        end
-
-        hash[new_key] = val
-      end
-    end
-
-    def symbolize_keys!
-      replace(symbolize_keys)
+      reject! { |_, val| respond_to?(:blank?) ? val.blank? : !val }
     end
 
     # rubocop:disable Metrics/MethodLength
     def symbolize_and_underscore_keys
       each_with_object({}) do |(key, val), hash|
         new_key = begin
-          key.to_s
-             .gsub(/::/, '/')
-             .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
-             .gsub(/([a-z\d])([A-Z])/, '\1_\2')
-             .tr(' -', '_')
-             .downcase
-             .to_sym
+          str = key.dup.to_s
+          str = str.gsub!(/::/, '/') || str
+          str = str.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2') || str
+          str = str.gsub!(/([a-z\d])([A-Z])/, '\1_\2') || str
+          str = str.tr!(' -', '_') || str
+          str = str.downcase!
+          str.to_sym
         rescue StandardError
           key
         end
@@ -443,8 +367,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     def to_object
       JSON.parse(to_json, object_class: OpenStruct)
     end
-
-    alias to_o to_object
 
     def to_open_struct(lazy: true)
       struct = OpenStruct.new(self)
@@ -477,6 +399,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       value = self[key]
       respond_to?(:blank?) ? value.blank? : !value
     end
+
+    alias map_keys collect_keys
+    alias map_values collect_values
+    alias only slice
+    alias only! slice!
+    alias to_o to_object
 
   end
 end
