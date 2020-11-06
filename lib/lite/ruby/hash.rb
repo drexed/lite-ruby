@@ -231,8 +231,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       unknown_keys.empty?
     end
 
-    alias has_keys? keys?
-
     def nillify
       dup.nillify!
     end
@@ -257,8 +255,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       unknown_keys = keys - check_keys
       unknown_keys.empty?
     end
-
-    alias has_only_keys? only_keys?
 
     def pair?(key, value)
       self[key] == value
@@ -400,6 +396,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       respond_to?(:blank?) ? value.blank? : !value
     end
 
+    alias has_keys? keys?
+    alias has_only_keys? only_keys?
     alias map_keys collect_keys
     alias map_values collect_values
     alias only slice

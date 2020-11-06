@@ -15,23 +15,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       self <= upper ? self : upper
     end
 
-    # rubocop:disable Metrics/MethodLength
-    def clamp(minimum, maximum = nil)
-      if minimum.is_a?(Range)
-        maximum = minimum.max
-        minimum = minimum.min
-      end
-
-      if minimum > self
-        minimum
-      elsif maximum < self
-        maximum
-      else
-        self
-      end
-    end
-    # rubocop:enable Metrics/MethodLength
-
     def close?(number, epsilon = 0.01)
       return self == number if epsilon.zero?
 
@@ -79,8 +62,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       self == num
     end
 
-    alias eq? equal_to?
-
     def fraction
       (self - truncate).abs
     end
@@ -93,13 +74,9 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       num < self
     end
 
-    alias gt? greater_than?
-
     def greater_than_or_equal_to?(num)
       num <= self
     end
-
-    alias gteq? greater_than_or_equal_to?
 
     def increment(amount = 1.0)
       self + amount
@@ -113,13 +90,9 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       num > self
     end
 
-    alias lt? less_than?
-
     def less_than_or_equal_to?(num)
       num >= self
     end
-
-    alias lteq? less_than_or_equal_to?
 
     def markdown_percentage(percent)
       to_f * ((100.0 - percent.to_f) / 100.0)
@@ -142,10 +115,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
     def not_equal_to?(num)
       self != num
     end
-
-    alias not_eq? not_equal_to?
-    alias inequal_to? not_equal_to?
-    alias ineq? not_equal_to?
 
     def ordinal
       return 'th' if (11..13).cover?(abs % 100)
@@ -206,8 +175,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
       (self - value)..(self + value)
     end
 
-    alias plus_minus range
-
     def root(num)
       self**(1.0 / num)
     end
@@ -262,6 +229,16 @@ if Lite::Ruby.configuration.monkey_patches.include?('numeric')
         (alpha / beta - 1).abs < epsilon
       end
     end
+
+    alias eq? equal_to?
+    alias gt? greater_than?
+    alias gteq? greater_than_or_equal_to?
+    alias inequal_to? not_equal_to?
+    alias ineq? not_equal_to?
+    alias lt? less_than?
+    alias lteq? less_than_or_equal_to?
+    alias not_eq? not_equal_to?
+    alias plus_minus range
 
   end
 end

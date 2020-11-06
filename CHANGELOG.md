@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename Date, Time => `[method_name]_12` to `[method_name]12` ex: `hour_12` is now `hour12`
 - Rename String => `transliterize` to `transliterate`
 - Skip loading clashing methods with active support
+### Remove
+- Numeric `clamp`
 
 ## [1.0.31] - 2020-09-21
 ### Changed

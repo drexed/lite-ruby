@@ -7,11 +7,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('boolean')
       self
     end
 
-    alias to_b to_bool
-
     def to_i
       0
     end
+
+    alias to_b to_bool
 
   end
 
@@ -21,11 +21,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('boolean')
       self
     end
 
-    alias to_b to_bool
-
     def to_i
       1
     end
+
+    alias to_b to_bool
 
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('range')
+  require 'lite/ruby/safe/range' unless defined?(ActiveSupport)
+
   class Range
 
     def combine(other)
@@ -12,10 +14,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('range')
 
       operator = exclude_end? && !other.exclude_end? ? :< : :<=
       include?(other.first) && other.last.send(operator, last)
-    end
-
-    def overlaps?(other)
-      cover?(other.first) || other.cover?(first)
     end
 
     def sample

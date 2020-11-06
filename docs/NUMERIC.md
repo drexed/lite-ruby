@@ -8,16 +8,6 @@ Returns the sum of two numbers.
 4.add(2) #=> 6
 ```
 
-`clamp`
-------
-Returns the closest number outside of the lower and upper bound.
-
-```ruby
-1.clamp(3, 6) # => 3
-5.clamp(3..6) # => 5
-8.clamp(3, 6) # => 6
-```
-
 `close?`
 ------
 Returns if a number is within the degree of another.

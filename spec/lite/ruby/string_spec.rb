@@ -931,6 +931,16 @@ RSpec.describe String do
     end
   end
 
+  describe '#to_time' do
+    it 'to be "1969-12-31"' do
+      expect('1969-12-31'.to_time).to be_a(Time)
+    end
+
+    it 'to be "1969-12-31 19:00:03"' do
+      expect('1969-12-31 19:00:03'.to_time).to be_a(Time)
+    end
+  end
+
   describe '#underscore(!)' do
     it 'to be "example_string"' do
       s1 = 'ExampleString'

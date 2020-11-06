@@ -46,13 +46,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
       { table: attributes }
     end
 
-    alias to_h to_hash
-
     def to_json(table: true)
       to_hash(table: table).to_json
     end
 
     alias as_json to_json
+    alias to_h to_hash
 
   end
 end

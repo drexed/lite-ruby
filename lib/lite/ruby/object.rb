@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('object')
+  require 'lite/ruby/safe/object' unless defined?(ActiveSupport)
+
   class Object
 
     FALSE_VALUES ||= %w[
@@ -14,14 +16,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       is_a?(Array)
     end
 
-    def blank?
-      object = self
-      object = object.strip if respond_to?(:strip)
-      return object.empty? if respond_to?(:empty?)
-
-      !object
-    end
-
     def bool?
       true? || false?
     end
@@ -33,14 +27,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
 
     def date?
       is_a?(Date)
-    end
-
-    def deep_dup
-      duplicable? ? dup : self
-    end
-
-    def duplicable?
-      true
     end
 
     # rubocop:disable Style/YodaCondition
@@ -85,14 +71,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
 
     def palindrome?
       to_s == to_s.reverse
-    end
-
-    def present?
-      !blank?
-    end
-
-    def presence
-      self if present?
     end
 
     def range?
@@ -160,8 +138,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       nil
     end
 
-    alias to_b to_bool
-
     # rubocop:disable Style/YodaCondition
     def true?
       true == self
@@ -170,18 +146,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
 
     def truthy?
       TRUE_VALUES.include?(to_s.downcase)
-    end
-
-    def try(*obj, &block)
-      try!(*obj, &block) if obj.empty? || respond_to?(obj.first)
-    end
-
-    def try!(*obj, &block)
-      if obj.empty? && defined?(yield)
-        block.arity.zero? ? instance_eval(&block) : yield(self)
-      else
-        public_send(*obj, &block)
-      end
     end
 
     def try_call(*keys)
@@ -195,6 +159,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
     rescue StandardError
       nil
     end
+
+    alias to_b to_bool
 
   end
 end

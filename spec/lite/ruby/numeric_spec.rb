@@ -36,29 +36,6 @@ RSpec.describe Numeric do
     end
   end
 
-  describe '#clamp' do
-    let(:n1) { 1 }
-    let(:n2) { 3 }
-    let(:n3) { 5 }
-    let(:n4) { 6 }
-    let(:n5) { 8 }
-
-    it 'to be 3' do
-      expect(n1.clamp(n2, n4)).to eq(n2)
-      expect(n1.clamp(n2..n4)).to eq(n2)
-    end
-
-    it 'to be 5' do
-      expect(n3.clamp(n2, n4)).to eq(n3)
-      expect(n3.clamp(n2..n4)).to eq(n3)
-    end
-
-    it 'to be 6' do
-      expect(n5.clamp(n2, n4)).to eq(n4)
-      expect(n5.clamp(n2..n4)).to eq(n4)
-    end
-  end
-
   describe '#close?' do
     let(:n1) { 10.006 }
 

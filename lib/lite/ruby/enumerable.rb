@@ -79,8 +79,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       each_with_object(Hash.new(0)) { |val, hash| hash[val] += 1 }
     end
 
-    alias occurrences frequency
-
     # rubocop:disable Style/CaseEquality
     def incase?(object)
       any? { |val| object === val }
@@ -211,6 +209,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
         arr.unshift(val)
       end
     end
+
+    alias occurrences frequency
 
   end
 end

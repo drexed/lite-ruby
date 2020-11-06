@@ -122,6 +122,29 @@ class String
     self[0..position]
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+  def to_time(form = :local)
+    parts = Date.parse(self, false)
+    used_keys = %i[year mon mday hour min sec sec_fraction offset]
+    return if (parts.keys & used_keys).empty?
+
+    now = Time.now
+    time = Time.new(
+      parts[:year] || now.year,
+      parts[:mon] || now.month,
+      parts[:mday] || now.day,
+      parts[:hour] || 0,
+      parts[:min] || 0,
+      (parts[:sec] || 0) + (parts[:sec_fraction] || 0),
+      parts[:offset] || (form == :utc ? 0 : nil)
+    )
+
+    form == :utc ? time.utc : time.to_time
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+
   def transliterate
     TRANSLITERATIONS.each_with_object(dup) { |(k, v), s| s.gsub!(k, v) }
   end
@@ -159,5 +182,6 @@ class String
   alias snakecase underscore
   alias starts_with? start_with?
   alias titlecase titleize
+  alias to_t to_time unless defined?(to_t)
 
 end

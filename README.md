@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/drexed/lite-ruby.svg?branch=master)](https://travis-ci.org/drexed/lite-ruby)
 
 Lite::Ruby is a collection of useful Ruby methods for its primitive classes.
+AcitveSupport equivalent methods do not get included when AcitveSupport is available.
 
 **NOTE:** If you are coming from `ActiveObject`, please read the [port](#port) section.
 
