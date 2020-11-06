@@ -519,11 +519,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       self[0..position]
     end
 
-    def transliterize
-      dup.transliterize!
+    def transliterate
+      dup.transliterate!
     end
 
-    def transliterize!
+    def transliterate!
       TRANSLITERATIONS.each_with_object(self) { |(k, v), str| str.gsub!(k, v) }
     end
 

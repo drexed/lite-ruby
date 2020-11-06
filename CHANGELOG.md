@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0] - 2020-11-06
 ### Changed
-- Removed underscore for 12 hour notations [BREAKING]
+- Removed underscore for 12 hour notations ex: `hour_12` is now `hour12` [BREAKING]
+- Renamed `transliterize` to `transliterate` [BREAKING]
 
 ## [1.0.31] - 2020-09-21
 ### Changed

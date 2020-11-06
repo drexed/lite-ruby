@@ -877,13 +877,13 @@ RSpec.describe String do
     end
   end
 
-  describe '#transliterize' do
+  describe '#transliterate' do
     it 'to be "zaoe"' do
       s1 = 'źåöé'
       s2 = 'zaoe'
 
-      expect(s1.transliterize).to eq(s2)
-      expect(s1.transliterize!).to eq(s2)
+      expect(s1.transliterate).to eq(s2)
+      expect(s1.transliterate!).to eq(s2)
     end
   end
 
