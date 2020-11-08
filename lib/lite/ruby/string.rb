@@ -393,8 +393,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
       replace(sort)
     end
 
-    def transliterate!
-      replace(transliterate)
+    def transliterize
+      TRANSLITERATIONS.each_with_object(dup) { |(k, v), s| s.gsub!(k, v) }
+    end
+
+    def transliterize!
+      replace(transliterize)
     end
 
     def titleize!

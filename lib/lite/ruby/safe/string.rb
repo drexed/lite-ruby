@@ -145,10 +145,6 @@ class String
   # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
-  def transliterate
-    TRANSLITERATIONS.each_with_object(dup) { |(k, v), s| s.gsub!(k, v) }
-  end
-
   def truncate(truncate_at, options = {})
     return self unless length > truncate_at
 

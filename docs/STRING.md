@@ -511,12 +511,12 @@ If the position is negative, it is counted from the end of the string.
 'example'.to(-2) #=> 'exampl'
 ```
 
-`transliterate(!)`
+`transliterize(!)`
 ------
 Returns a string with swapped special characters.
 
 ```ruby
-'źåöé'.transliterate #=> 'zaoe'
+'źåöé'.transliterize #=> 'zaoe'
 ```
 
 `truncate`
