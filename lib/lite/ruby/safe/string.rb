@@ -16,8 +16,9 @@ class String
 
   def classify
     str = dup
-    str = str.sub!(/.*\./, '')
+    str.sub!(/.*\./, '')
     str.camelize!
+    str || self
   end
 
   def constantize
@@ -52,12 +53,12 @@ class String
 
   def humanize(capitalize: true)
     str = dup
-    str = str.underscore!
-    str = str.delete_suffix!('_id')
-    str = str.tr!('_', ' ')
-    str = str.squish!
-    str = str.gsub!(/([a-z\d]*)/i, &:downcase)
-    str = str.gsub!(/\A\w/) { |s| capitalize ? s.upcase : s }
+    str.underscore!
+    str.delete_suffix!('_id')
+    str.tr!('_', ' ')
+    str.squish!
+    str.gsub!(/([a-z\d]*)/i, &:downcase)
+    str.gsub!(/\A\w/) { |s| capitalize ? s.upcase : s }
     str || self
   end
 
@@ -85,9 +86,9 @@ class String
 
   def parameterize(separator: '-')
     str = dup
-    str = str.underscore!
-    str = str.gsub!(/\s+/, separator)
-    str = str.downcase!
+    str.underscore!
+    str.gsub!(/\s+/, separator)
+    str.downcase!
     str || self
   end
 
@@ -112,9 +113,9 @@ class String
 
   def titleize
     str = dup
-    str = str.underscore!
-    str = str.humanize!
-    str = str.gsub!(/\b(?<!['’`])[a-z]/) { $&.capitalize }
+    str.underscore!
+    str.humanize!
+    str.gsub!(/\b(?<!['’`])[a-z]/) { $&.capitalize }
     str || self
   end
 
@@ -164,12 +165,12 @@ class String
 
   def underscore
     str = dup
-    str = str.camelize!
-    str = str.gsub!(/::/, '/')
-    str = str.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
-    str = str.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
-    str = str.tr!('-', '_')
-    str = str.downcase!
+    str.camelize!
+    str.gsub!(/::/, '/')
+    str.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+    str.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
+    str.tr!('-', '_')
+    str.downcase!
     str || self
   end
 

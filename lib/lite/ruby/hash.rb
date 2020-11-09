@@ -341,11 +341,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       each_with_object({}) do |(key, val), hash|
         new_key = begin
           str = key.dup.to_s
-          str = str.gsub!(/::/, '/') || str
-          str = str.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2') || str
-          str = str.gsub!(/([a-z\d])([A-Z])/, '\1_\2') || str
-          str = str.tr!(' -', '_') || str
-          str = str.downcase!
+          str.gsub!(/::/, '/') || str
+          str.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2') || str
+          str.gsub!(/([a-z\d])([A-Z])/, '\1_\2') || str
+          str.tr!(' -', '_') || str
+          str.downcase!
           str.to_sym
         rescue StandardError
           key
