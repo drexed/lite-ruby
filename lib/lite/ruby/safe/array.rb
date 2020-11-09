@@ -6,6 +6,14 @@ class Array
     map(&:deep_dup)
   end
 
+  def extract!
+    return to_enum(:extract!) { size } unless block_given?
+
+    extracted_elements = []
+    reject! { |element| extracted_elements << element if yield(element) }
+    extracted_elements
+  end
+
   def from(position)
     self[position, size] || []
   end

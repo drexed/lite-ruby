@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2020-11-08
+### Changed
+- Array `extract!` does not alias except
+- Update string methods to mutate self
+
 ## [1.1.1] - 2020-11-08
 ### Changed
 - Revert String => `transliterize` to `transliterate`

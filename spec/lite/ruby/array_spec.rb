@@ -245,6 +245,17 @@ RSpec.describe Array do
     end
   end
 
+  describe '#extract!' do
+    it 'to be [1, 3, 5]' do
+      a1 = [1, 2, 3, 4, 5]
+      a2 = [2, 4]
+
+      a1.extract!(&:odd?)
+
+      expect(a1).to eq(a2)
+    end
+  end
+
   describe '#from' do
     let(:a1) { [1, 2, 3] }
 

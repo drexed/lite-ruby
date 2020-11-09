@@ -163,6 +163,16 @@ Removes given values from the array.
 [1, 2, 3, 4].except(1, 3) #=> [2, 4]
 ```
 
+`extract!`
+------
+Removes and returns the elements for which the block returns a true value. If no block is given, an Enumerator is returned instead.
+
+```ruby
+a1 = [1, 2, 3, 4]
+a1.extract!(&:odd?) #=> [1, 3]
+a1 #=> [2, 4]
+```
+
 `from`
 ------
 Returns the tail of the array from a given position.
