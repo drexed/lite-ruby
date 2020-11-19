@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.3] - 2020-11-18
+### Changed
+- Object `array?` does not clash with PG gem
+
 ## [1.1.2] - 2020-11-08
 ### Changed
 - Array `extract!` does not alias except

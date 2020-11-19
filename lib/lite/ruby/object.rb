@@ -12,8 +12,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       1 t true y yes on
     ].freeze
 
-    def array?
-      is_a?(Array)
+    unless defined?(PG) && ARGV.first.start_with?('db:')
+      def array?
+        is_a?(Array)
+      end
     end
 
     def bool?
