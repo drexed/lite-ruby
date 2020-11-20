@@ -12,7 +12,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       1 t true y yes on
     ].freeze
 
-    unless defined?(PG) && ARGV.first.start_with?('db:')
+    # NOTE: There is a class between the PG gem and the `array?` method.
+    #       We only need to skip this on migrations since that action
+    #       happens on a seperate runtime.
+    unless defined?(PG) && ARGV.first.to_s.start_with?('db:')
       def array?
         is_a?(Array)
       end

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.4] - 2020-11-19
+### Changed
+- Object `array?` coerce ARGV check from nil to string
+
 ## [1.1.3] - 2020-11-18
 ### Changed
 - Object `array?` does not clash with PG gem
