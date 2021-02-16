@@ -5,7 +5,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('time')
     module Ruby
       module TimeHelper
 
-        TIME_STAMPS ||= {
+        TIME_STAMPS = {
           hour: '%H',
           hour_blank: '%k',
           hour_padded: '%H',

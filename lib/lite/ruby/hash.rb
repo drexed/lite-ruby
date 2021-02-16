@@ -312,7 +312,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     end
 
     def shuffle
-      Hash[to_a.sample(size)]
+      to_a.sample(size).to_h
     end
 
     def shuffle!

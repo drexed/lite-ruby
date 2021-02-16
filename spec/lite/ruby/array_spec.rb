@@ -225,6 +225,15 @@ RSpec.describe Array do
     end
   end
 
+  describe '#divergence' do
+    it 'to be [1, 3, 4]' do
+      a1 = [1, 2, 2]
+      a2 = [2, 3, 4]
+
+      expect(a1.divergence(a2)).to eq([1, 3, 4])
+    end
+  end
+
   describe '#duplicates' do
     it 'to be [1, 2]' do
       expect([1, 1, 2, 2, 2, 3].duplicates).to eq([1, 2])
@@ -476,7 +485,7 @@ RSpec.describe Array do
 
   describe '#strip(!)' do
     it 'to be ["this", "is", "a", "test"]' do
-      a1 = 'this    is   a  test'.split(' ')
+      a1 = 'this    is   a  test'.split
       a2 = %w[this is a test]
 
       expect(a1.strip).to eq(a2)

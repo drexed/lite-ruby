@@ -147,6 +147,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       replace(denillify(identity))
     end
 
+    def divergence(other)
+      (self - other) | (other - self)
+    end
+
     def duplicates(minimum = 2)
       hash = Hash.new(0)
       each { |val| hash[val] += 1 }

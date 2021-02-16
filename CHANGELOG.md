@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.5] - 2021-02-16
+### Added
+- Added Array => `divergence`
+
 ## [1.1.4] - 2020-11-19
 ### Changed
 - Object `array?` coerce ARGV check from nil to string

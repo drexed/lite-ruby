@@ -5,7 +5,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('date')
     module Ruby
       module DateHelper
 
-        DATE_STAMPS ||= {
+        DATE_STAMPS = {
           weekday: '%d',
           weekday_blank: '%_d',
           weekday_padded: '%d',
@@ -41,7 +41,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('date')
           date_abbr: '%b %-d, %Y',
           date_iso: '%Y-%m-%d'
         }.freeze
-        DATE_UNITS ||= {
+        DATE_UNITS = {
           w: 'u',
           weekday: 'u',
           ww: 'w',

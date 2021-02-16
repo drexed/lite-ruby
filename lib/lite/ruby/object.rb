@@ -5,10 +5,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
 
   class Object
 
-    FALSE_VALUES ||= %w[
+    FALSE_VALUES = %w[
       0 f false n no off
     ].freeze
-    TRUE_VALUES ||= %w[
+    TRUE_VALUES = %w[
       1 t true y yes on
     ].freeze
 
