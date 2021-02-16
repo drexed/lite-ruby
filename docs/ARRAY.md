@@ -137,6 +137,14 @@ Moves a given value to the tail of array.
 [1, 2, 2, 3].demote!(4) #=> [1, 2, 2, 3]
 ```
 
+`divergence`
+------
+Returns a list of elements not found in either array.
+
+```ruby
+[1, 2, 2].divergence([2, 3, 4]) #=> [1, 3, 4]
+```
+
 `denillify(!)`
 ------
 Converts `nil` into a given value.
