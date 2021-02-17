@@ -35,6 +35,14 @@ Converts a `time` object to `strftime` it using a human readable string.
 Time.now.format('month_name day, year hour:minute ampm') #=> 'January 09, 2014 02:31 pm'
 ```
 
+`monotonic`
+------
+Returns the monotonic time.
+
+```ruby
+Time.monotonic #=> 5834550.444132
+```
+
 `stamp` aka `to_format`
 ------
 Converts a `time` object to a predefined format.

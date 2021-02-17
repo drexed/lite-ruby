@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.6] - 2021-02-17
+### Added
+- Added Time => `monotonic`
+### Changed
+- Time `elapse` to use monotonic time
+
 ## [1.1.5] - 2021-02-16
 ### Added
 - Added Array => `divergence`

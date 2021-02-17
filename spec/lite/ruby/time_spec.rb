@@ -31,6 +31,12 @@ RSpec.describe Time do
     end
   end
 
+  describe '#monotonic' do
+    it 'to be a Float' do
+      expect(described_class.monotonic).to be_a(Float)
+    end
+  end
+
   describe '#stamp' do
     it 'to be "2014-01-09 00:31"' do
       expect(time.stamp).to eq(s1)

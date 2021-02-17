@@ -9,13 +9,17 @@ if Lite::Ruby.configuration.monkey_patches.include?('time')
     class << self
 
       def elapse(verbose: false)
-        started_at = now.to_f
+        started_at = monotonic
         yield
-        ended_at = now.to_f
+        ended_at = monotonic
         runtime = ended_at - started_at
         return runtime unless verbose
 
         { started_at: started_at, ended_at: ended_at, runtime: runtime }
+      end
+
+      def monotonic
+        Process.clock_gettime(Process::CLOCK_MONOTONIC)
       end
 
     end
