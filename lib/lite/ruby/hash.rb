@@ -274,12 +274,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       dup.rename_keys!(*keys)
     end
 
-    # rubocop:disable Style/HashConversion
     def rename_keys!(*keys)
       keys = Hash[*keys]
       keys.each_with_object(self) { |(key, val), hash| hash[val] = delete(key) if hash[key] }
     end
-    # rubocop:enable Style/HashConversion
 
     def sample
       key = sample_key

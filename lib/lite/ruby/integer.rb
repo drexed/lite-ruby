@@ -4,9 +4,13 @@ if Lite::Ruby.configuration.monkey_patches.include?('integer')
   class Integer
 
     ROMAN_NUMERALS = {
-      M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4,
-      I: 1
+      M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50,
+      XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1
     }.freeze
+
+    SQL_SMALLINT = 32_767
+    SQL_INTEGER = 2_147_483_647
+    SQL_BIGINT = 9_223_372_036_854_775_807
 
     def bit(bit)
       if bit.negative?

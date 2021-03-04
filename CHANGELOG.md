@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.7] - 2021-03-04
+### Added
+- Added Integer => `SQL_SMALLINT`
+- Added Integer => `SQL_INTEGER`
+- Added Integer => `SQL_BIGINT`
+
 ## [1.1.6] - 2021-02-17
 ### Added
 - Added Time => `monotonic`
