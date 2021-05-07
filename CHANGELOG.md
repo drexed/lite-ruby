@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.8] - 2021-07-05
+### Changed
+- Linter fixes
+
 ## [1.1.7] - 2021-03-04
 ### Added
 - Added Integer => `SQL_SMALLINT`

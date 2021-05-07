@@ -57,11 +57,9 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       found_count > num ? false : num == found_count
     end
 
-    # rubocop:disable Style/CaseEquality
     def excase?(object)
-      none? { |val| object === val }
+      none?(object)
     end
-    # rubocop:enable Style/CaseEquality
 
     def expand
       map { |val| val.is_a?(Enumerable) ? val.expand : val }
@@ -79,11 +77,9 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
       each_with_object(Hash.new(0)) { |val, hash| hash[val] += 1 }
     end
 
-    # rubocop:disable Style/CaseEquality
     def incase?(object)
-      any? { |val| object === val }
+      any?(object)
     end
-    # rubocop:enable Style/CaseEquality
 
     # rubocop:disable Metrics/MethodLength
     def interpose(sep, &block)
