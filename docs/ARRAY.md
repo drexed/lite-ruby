@@ -235,6 +235,15 @@ Returns all indexes of the matching value.
 [:a,:b,:a,:c].indexes(:a) #=> [0, 2]
 ```
 
+`match`
+------
+Select a given value from the array.
+
+```ruby
+[1, 2, 3, 4].match(1) #=> 1
+[1, 2, 3, 4].match(9) #=> nil
+```
+
 `merge(!)`
 ------
 Concats multiple arrays.
@@ -259,6 +268,7 @@ Selects given values from the array.
 
 ```ruby
 [1, 2, 3, 4].only(1, 3) #=> [1, 3]
+[1, 2, 3, 4].only!(8, 9) #=> []
 ```
 
 `probability`
@@ -328,7 +338,7 @@ Divides the array into one or more subarrays based on a delimiting value or the 
 (1..10).to_a.split { |i| i % 3 == 0 } # => [[1, 2], [4, 5], [7, 8], [10]]
 ```
 
-`strip(!)`
+`strip(!)` aka `compact_blank(!)`
 ------
 Removes blank elements from an array.
 

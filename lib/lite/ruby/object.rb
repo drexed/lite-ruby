@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('object')
-  require 'lite/ruby/safe/object' unless defined?(ActiveSupport)
-
   class Object
 
     FALSE_VALUES = %w[
@@ -168,4 +166,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
     alias to_b to_bool
 
   end
+
+  require 'lite/ruby/safe/object' unless defined?(ActiveSupport)
 end

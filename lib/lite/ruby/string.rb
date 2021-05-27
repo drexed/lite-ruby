@@ -1,8 +1,6 @@
 # frozen_string_literal: false
 
 if Lite::Ruby.configuration.monkey_patches.include?('string')
-  require 'lite/ruby/safe/string' unless defined?(ActiveSupport)
-
   class String
 
     TRANSLITERATIONS = {
@@ -482,4 +480,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('string')
     alias titlecase! titleize!
 
   end
+
+  require 'lite/ruby/safe/string' unless defined?(ActiveSupport)
 end

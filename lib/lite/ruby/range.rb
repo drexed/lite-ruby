@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('range')
-  require 'lite/ruby/safe/range' unless defined?(ActiveSupport)
-
   class Range
 
     def combine(other)
@@ -29,4 +27,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('range')
     end
 
   end
+
+  require 'lite/ruby/safe/range' unless defined?(ActiveSupport)
 end

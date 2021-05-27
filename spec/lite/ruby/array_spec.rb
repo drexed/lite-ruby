@@ -374,6 +374,21 @@ RSpec.describe Array do
     end
   end
 
+  describe '#match' do
+    it 'to be 2' do
+      a1 = [1, 2, 3, 2]
+      a2 = 2
+
+      expect(a1.match(2)).to eq(a2)
+    end
+
+    it 'to be nil' do
+      a1 = [1, 2, 3, 4, 5]
+
+      expect(a1.match(6)).to eq(nil)
+    end
+  end
+
   describe '#merge(!)' do
     it 'to be [0, 1, 2, 3, 4, 5]' do
       a1 = [0, 1]
@@ -403,6 +418,14 @@ RSpec.describe Array do
 
       expect(a1.only(2, 4)).to eq(a2)
       expect(a1.only!(2, 4)).to eq(a2)
+    end
+
+    it 'to be []' do
+      a1 = [1, 2, 3, 4, 5]
+      a2 = []
+
+      expect(a1.only(6, 7)).to eq(a2)
+      expect(a1.only!(6, 7)).to eq(a2)
     end
   end
 

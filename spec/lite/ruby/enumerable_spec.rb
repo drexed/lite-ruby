@@ -230,17 +230,35 @@ RSpec.describe Enumerable do
     end
   end
 
-  describe '#pluck' do
-    it 'to be [1, 2]' do
-      a1 = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
+  describe '#pick' do
+    let(:a1) { [{ id: 1, name: 'a' }, { id: 2, name: 'b' }] }
 
+    it 'to be [1, 2]' do
+      expect(a1.pick(:id)).to eq(1)
+    end
+
+    it 'to be [[1, "a"], [2, "b"]]' do
+      expect(a1.pick(:id, :name)).to eq([1, 'a'])
+    end
+
+    it 'to be nil' do
+      expect(a1.pick(:fake)).to eq(nil)
+    end
+  end
+
+  describe '#pluck' do
+    let(:a1) { [{ id: 1, name: 'a' }, { id: 2, name: 'b' }] }
+
+    it 'to be [1, 2]' do
       expect(a1.pluck(:id)).to eq([1, 2])
     end
 
     it 'to be [[1, "a"], [2, "b"]]' do
-      a1 = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
-
       expect(a1.pluck(:id, :name)).to eq([[1, 'a'], [2, 'b']])
+    end
+
+    it 'to be [nil, nil]' do
+      expect(a1.pluck(:fake)).to eq([nil, nil])
     end
   end
 

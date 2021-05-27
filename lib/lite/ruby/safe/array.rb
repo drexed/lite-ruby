@@ -98,4 +98,7 @@ class Array
     end
   end
 
+  alias compact_blank strip
+  alias compact_blank! strip!
+
 end

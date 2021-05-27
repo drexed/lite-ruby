@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('hash')
-  require 'lite/ruby/safe/hash' unless defined?(ActiveSupport)
-
   class Hash
 
     class << self
@@ -405,4 +403,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
     alias to_o to_object
 
   end
+
+  require 'lite/ruby/safe/hash' unless defined?(ActiveSupport)
 end

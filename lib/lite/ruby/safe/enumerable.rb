@@ -28,11 +28,22 @@ module Enumerable
     end
   end
 
+  def pick(*keys)
+    return if none?
+
+    if keys.many?
+      keys.map { |key| first[key] }
+    else
+      first[keys.first]
+    end
+  end
+
   def pluck(*keys)
     if keys.many?
       map { |element| keys.map { |key| element[key] } }
     else
-      map { |element| element[keys.first] }
+      key = keys.first
+      map { |element| element[key] }
     end
   end
 

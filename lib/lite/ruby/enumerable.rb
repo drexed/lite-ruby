@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
-  require 'lite/ruby/safe/enumerable' unless defined?(ActiveSupport)
-
   module Enumerable
 
     def cluster
@@ -209,4 +207,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('enumerable')
     alias occurrences frequency
 
   end
+
+  require 'lite/ruby/safe/enumerable' unless defined?(ActiveSupport)
 end

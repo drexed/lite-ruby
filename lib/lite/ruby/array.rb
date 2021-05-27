@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 if Lite::Ruby.configuration.monkey_patches.include?('array')
-  require 'lite/ruby/safe/array' unless defined?(ActiveSupport)
-
   class Array
 
     def assert_min_values!(*valid_values)
@@ -188,6 +186,10 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
       array
     end
 
+    def match(value)
+      find { |val| value == val }
+    end
+
     def merge(*values)
       dup.merge!(*values)
     end
@@ -282,4 +284,6 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     alias select_values! only!
 
   end
+
+  require 'lite/ruby/safe/array' unless defined?(ActiveSupport)
 end

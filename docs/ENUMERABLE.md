@@ -158,6 +158,18 @@ a1.occur(2..3)         #=> [1,3,5]
 a1.occur { |n| n > 1 } #=> [1,3,5]
 ```
 
+`pick`
+------
+Returns a value from a set of given keys.
+
+```ruby
+a1 = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
+
+a1.pick(:id)        #=> 1
+a1.pick(:id, :name) #=> [1,'a']
+a1.pick(:fake)      #=> nil
+```
+
 `pluck`
 ------
 Returns an array of values from a set of given keys.
@@ -167,6 +179,7 @@ a1 = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
 
 a1.pluck(:id)        #=> [1,2]
 a1.pluck(:id, :name) #=> [[1,'a'], [2,'b']]
+a1.pluck(:fake)      #=> [nil,nil]
 ```
 
 `produce`

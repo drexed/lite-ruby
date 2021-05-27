@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.9] - 2021-05-26
+### Added
+- Added Array => `match`
+- Added Array => `strip` to `compact_blank` alias
+- Added Enumerable => `pick`
+### Changed
+- Move safe requires to bottom of file
+
 ## [1.1.8] - 2021-07-05
 ### Changed
 - Linter fixes
