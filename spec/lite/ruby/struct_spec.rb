@@ -12,6 +12,10 @@ RSpec.describe Struct do
     it 'to be "bob"' do
       expect(s1['name']).to eq('bob')
     end
+
+    it 'to be nil' do
+      expect(s1['fake']).to eq(nil)
+    end
   end
 
   describe '#[]=' do

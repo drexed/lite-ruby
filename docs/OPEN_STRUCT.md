@@ -9,26 +9,6 @@ OpenStruct.new(name: 'bob', age: 60) do |o|
 end
 ```
 
-`[]`
-------
-Access a value in the OpenStruct by key, like a Hash.
-
-```ruby
-person = OpenStruct.new(name: 'bob', age: 60)
-
-person['name'] #=> 'bob'
-```
-
-`[]=`
-------
-Store a value in the OpenStruct by key, like a Hash.
-
-```ruby
-person = OpenStruct.new(name: 'bob', age: 60)
-
-person['name'] = 'tim'
-```
-
 `attributes`
 ------
 Returns the key values as a hash of the assigned struct.

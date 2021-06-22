@@ -9,6 +9,7 @@ person = Struct.new(:name, :age)
 person.new('bob', 60)
 
 person['name'] #=> 'bob'
+person['fake'] #=> nil
 ```
 
 `[]=`

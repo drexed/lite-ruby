@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.10] - 2021-06-21
+### Changed
+- Struct `[]` to be accessible via `attributes`
+### Removed
+- OpenStruct `[]` and `[]=` existing methods
+
 ## [1.1.9] - 2021-05-26
 ### Added
 - Added Array => `match`

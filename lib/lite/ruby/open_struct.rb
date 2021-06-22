@@ -20,24 +20,12 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
       yield self if block && block.arity == 1
     end
 
-    def [](key)
-      key = key.to_sym unless key.is_a?(Symbol)
-      @table[key]
-    end
-
-    def []=(key, val)
-      raise TypeError, "can't modify frozen #{self.class}", caller(1) if frozen?
-
-      key = key.to_sym unless key.is_a?(Symbol)
-      @table[key] = val
-    end
-
     def attributes
       @table
     end
 
     def replace(args)
-      args.each_pair { |key, val| send("#{key}=", val) }
+      args.each { |key, val| send("#{key}=", val) }
     end
 
     def to_hash(table: true)
@@ -52,6 +40,15 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
 
     alias as_json to_json
     alias to_h to_hash
+
+    private
+
+    def new_ostruct_member!(name)
+      return if is_method_protected!(name)
+
+      define_singleton_method!(name) { @table[name] }
+      define_singleton_method!("#{name}=") { |x| @table[name] = x }
+    end
 
   end
 end

@@ -4,7 +4,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('struct')
   class Struct
 
     def [](key)
-      send(key)
+      attributes[key.to_sym]
     end
 
     def []=(key, val)
