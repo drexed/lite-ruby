@@ -109,6 +109,18 @@ if Lite::Ruby.configuration.monkey_patches.include?('array')
     # rubocop:enable Metrics/PerceivedComplexity, Style/GuardClause, Style/IfInsideElse
     # rubocop:enable Metrics/AbcSize, Metrics/BlockNesting, Metrics/MethodLength
 
+    def contains_all?(other)
+      (other & self) == self
+    end
+
+    def contains_any?(other)
+      !contains_none?(other)
+    end
+
+    def contains_none?(other)
+      (other & self).empty?
+    end
+
     def delete_first
       self[1..-1]
     end

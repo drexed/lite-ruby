@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.11] - 2021-07-04
+### Added
+- Added Array => `contains_all?`
+- Added Array => `contains_any?`
+- Added Array => `contains_none?`
+
 ## [1.1.10] - 2021-06-21
 ### Changed
 - Struct `[]` to be accessible via `attributes`

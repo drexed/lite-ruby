@@ -104,6 +104,39 @@ Updates a deeply nested value.
 ['1', ['2']].bury(1)         #=> raises ArgumentError: '2 or more arguments required'
 ```
 
+`contains_all?`
+------
+Returns true/false if an array contains all values from another.
+
+```ruby
+[1, 2, 3].contains_all?([1, 2, 3])    #=> true
+[1, 2, 3].contains_all?([1, 2, 3, 4]) #=> true
+[1, 2, 3].contains_all?([1, 2])       #=> false
+[1, 2, 3].contains_all?([4, 5])       #=> false
+```
+
+`contains_any?`
+------
+Returns true/false if an array contains any values from another.
+
+```ruby
+[1, 2, 3].contains_any?([1, 2])       #=> true
+[1, 2, 3].contains_any?([1, 2, 3])    #=> true
+[1, 2, 3].contains_any?([1, 2, 3, 4]) #=> true
+[1, 2, 3].contains_any?([4, 5])       #=> false
+```
+
+`contains_none?`
+------
+Returns true/false if an array contains none of the values from another.
+
+```ruby
+[1, 2, 3].contains_none?([4, 5])       #=> true
+[1, 2, 3].contains_none?([1, 2])       #=> false
+[1, 2, 3].contains_none?([1, 2, 3])    #=> false
+[1, 2, 3].contains_none?([1, 2, 3, 4]) #=> false
+```
+
 `delete_first(!)`
 ------
 Removes the first element from an array. Like `shift`, but returns the array instead of the removed element.

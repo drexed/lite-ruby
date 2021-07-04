@@ -144,6 +144,48 @@ RSpec.describe Array do
     end
   end
 
+  describe '#contains_all?' do
+    let(:a1) { [1, 2, 3] }
+
+    it 'to be true' do
+      expect(a1.contains_all?([1, 2, 3])).to eq(true)
+      expect(a1.contains_all?([1, 2, 3, 4])).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(a1.contains_all?([1, 2])).to eq(false)
+      expect(a1.contains_all?([4, 5])).to eq(false)
+    end
+  end
+
+  describe '#contains_any?' do
+    let(:a1) { [1, 2, 3] }
+
+    it 'to be true' do
+      expect(a1.contains_any?([1, 2])).to eq(true)
+      expect(a1.contains_any?([1, 2, 3])).to eq(true)
+      expect(a1.contains_any?([1, 2, 3, 4])).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(a1.contains_any?([4, 5])).to eq(false)
+    end
+  end
+
+  describe '#contains_none?' do
+    let(:a1) { [1, 2, 3] }
+
+    it 'to be true' do
+      expect(a1.contains_none?([4, 5])).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(a1.contains_none?([1, 2])).to eq(false)
+      expect(a1.contains_none?([1, 2, 3])).to eq(false)
+      expect(a1.contains_none?([1, 2, 3, 4])).to eq(false)
+    end
+  end
+
   describe '#deep_dup' do
     it 'to be properly set vars on diff objects' do
       a1 = [1, [2, 3]]
