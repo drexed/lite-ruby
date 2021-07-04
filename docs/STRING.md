@@ -240,9 +240,9 @@ of the string until it reaches the limit value (counting backwards). If the give
 than or equal to the string length, Returns a copy of self.
 
 ```ruby
-'example'.last     #=> 'e'
-'example'.last(0)  #=> ''
-'example'.first(3) #=> 'ple'
+'example'.last    #=> 'e'
+'example'.last(0) #=> ''
+'example'.last(3) #=> 'ple'
 ```
 
 `lchomp(!)`
