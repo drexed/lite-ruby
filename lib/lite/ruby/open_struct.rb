@@ -43,6 +43,25 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
 
     private
 
+    # rubocop:disable Metrics/MethodLength, Naming/PredicateName
+    def is_method_protected!(name)
+      return false unless respond_to?(name, true)
+      return true if name.match?(/!$/)
+
+      owner = method!(name).owner
+
+      if owner.instance_of?(::Class)
+        owner < ::OpenStruct
+      else
+        self.class.ancestors.any? do |mod|
+          return false if mod == ::OpenStruct
+
+          mod == owner
+        end
+      end
+    end
+    # rubocop:enable Metrics/MethodLength, Naming/PredicateName
+
     def new_ostruct_member!(name)
       return if is_method_protected!(name)
 
