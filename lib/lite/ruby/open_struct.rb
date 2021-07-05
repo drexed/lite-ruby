@@ -48,7 +48,9 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
       return false unless respond_to?(name, true)
       return true if name.match?(/!$/)
 
-      owner = method!(name).owner
+      method = 'method'
+      method << '!' if respond_to?(:method!)
+      owner = send(method, name).owner
 
       if owner.instance_of?(::Class)
         owner < ::OpenStruct

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.15] - 2021-07-05
+### Changed
+- Added more OpenStruct backwards compatibility
+
 ## [1.1.14] - 2021-07-05
 ### Changed
 - Fixed mistake in OpenStruct backwards compatibility
