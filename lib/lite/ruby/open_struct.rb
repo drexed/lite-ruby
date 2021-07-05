@@ -65,13 +65,11 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
     def new_ostruct_member!(name)
       return if is_method_protected!(name)
 
-      if respond_to?(:define_singleton_method!)
-        define_singleton_method(name) { @table[name] }
-        define_singleton_method("#{name}=") { |x| @table[name] = x }
-      else
-        define_singleton_method!(name) { @table[name] }
-        define_singleton_method!("#{name}=") { |x| @table[name] = x }
-      end
+      method = 'define_singleton_method'
+      method << '!' if respond_to?(:define_singleton_method!)
+
+      send(method, name) { @table[name] }
+      send(method, "#{name}=") { |x| @table[name] = x }
     end
 
   end
