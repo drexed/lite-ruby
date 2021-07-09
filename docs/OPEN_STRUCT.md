@@ -1,14 +1,5 @@
 # OpenStruct
 
-`Initialize`
-Allows the initialization of an OpenStruct with a setter block.
-
-```ruby
-OpenStruct.new(name: 'bob', age: 60) do |o|
-  o.gender = :M
-end
-```
-
 `attributes`
 ------
 Returns the key values as a hash of the assigned struct.

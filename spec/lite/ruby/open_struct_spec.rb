@@ -3,13 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe OpenStruct do
+  let(:o1) { described_class.new(h1[:table]) }
   let(:h1) do
     { table: { name: 'bob', age: 60, gender: :M } }
-  end
-  let(:o1) do
-    described_class.new(name: 'bob', age: 60) do |o|
-      o.gender = :M
-    end
   end
 
   describe '#attributes' do
