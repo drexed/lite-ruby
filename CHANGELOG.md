@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.3.1] - 2021-07-19
+## [1.3.2] - 2021-07-20
+### Changed
+- Argument passing for try and send methods
+
+## [1.3.1] - 2021-07-20
 ### Removed
 - Struct `[]` and `[]=` existing methods
 

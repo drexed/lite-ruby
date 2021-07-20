@@ -5,9 +5,7 @@ class Object
   def blank?
     object = self
     object = object.strip if respond_to?(:strip)
-    return object.empty? if respond_to?(:empty?)
-
-    !object
+    respond_to?(:empty?) ? object.empty? : !object
   end
 
   def deep_dup
@@ -26,15 +24,19 @@ class Object
     self if present?
   end
 
-  def try(*obj, &block)
-    try!(*obj, &block) if obj.empty? || respond_to?(obj.first)
+  def try(method_name = nil, *args, &block)
+    if method_name.nil? && block
+      block.arity.zero? ? instance_eval(&block) : yield(self)
+    elsif respond_to?(method_name)
+      public_send(method_name, *args, &block)
+    end
   end
 
-  def try!(*obj, &block)
-    if obj.empty? && defined?(yield)
+  def try!(method_name = nil, *args, &block)
+    if method_name.nil? && block
       block.arity.zero? ? instance_eval(&block) : yield(self)
     else
-      public_send(*obj, &block)
+      public_send(method_name, *args, &block)
     end
   end
 

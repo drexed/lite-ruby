@@ -10,7 +10,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       1 t true y yes on
     ].freeze
 
-    # NOTE: There is a class between the PG gem and the `array?` method.
+    # NOTE: There is a clash between the PG gem and the `array?` method.
     #       We only need to skip this on migrations since that action
     #       happens on a seperate runtime.
     unless defined?(PG) && ARGV.first.to_s.start_with?('db:')
@@ -55,8 +55,8 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
     end
 
     # rubocop:disable Naming/PredicateName
-    def is_any?(*objs)
-      objs.any? { |obj| is_a?(obj) }
+    def is_any?(*objects)
+      objects.any? { |obj| is_a?(obj) }
     end
     # rubocop:enable Naming/PredicateName
 
@@ -80,38 +80,38 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       is_a?(Range)
     end
 
-    def safe_call(*keys)
-      try_call(*keys) || self
+    def safe_call(...)
+      try_call(...) || self
     end
 
-    def safe_send(*keys)
-      try_send(*keys) || self
+    def safe_send(...)
+      try_send(...) || self
     end
 
-    def safe_try(*obj, &block)
-      try(*obj, &block) || self
+    def safe_try(...)
+      try(...) || self
     end
 
     def salvage(placeholder = '---')
       blank? ? placeholder : self
     end
 
-    def salvage_try(*obj, placeholder: '---', &block)
-      try(*obj, &block).salvage(placeholder)
+    def salvage_try(method_name = nil, *args, placeholder: '---', &block)
+      try(method_name, *args, &block).salvage(placeholder)
     end
 
-    def send_chain(*keys)
-      Array(keys).inject(self) { |obj, key| obj.send(*key) }
+    def send_chain(*args)
+      Array(args).inject(self) { |obj, argz| obj.send(*argz) }
     end
 
-    def send_chain_if(*keys)
-      Array(keys).inject(self) { |obj, key| obj.send_if(*key) }
+    def send_chain_if(*args)
+      Array(args).inject(self) { |obj, argz| obj.send_if(*argz) }
     end
 
-    def send_if(key, *args)
+    def send_if(key, *args, **kwargs, &block)
       return self unless respond_to?(key)
 
-      send(key, *args)
+      send(key, *args, **kwargs, &block)
     end
 
     def set?
@@ -151,14 +151,14 @@ if Lite::Ruby.configuration.monkey_patches.include?('object')
       TRUE_VALUES.include?(to_s.downcase)
     end
 
-    def try_call(*keys)
+    def try_call(...)
       return unless respond_to?(:call)
 
-      keys.blank? ? call : call(*keys)
+      call(...)
     end
 
-    def try_send(*keys)
-      send(*keys)
+    def try_send(...)
+      send(...)
     rescue StandardError
       nil
     end

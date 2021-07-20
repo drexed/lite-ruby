@@ -10,7 +10,7 @@ if Lite::Ruby.configuration.monkey_patches.include?('open_struct')
     end
 
     def replace(args)
-      args.each { |key, val| send("#{key}=", val) }
+      args.each { |key, val| self[key] = val }
     end
 
     def to_hash(table: true)
