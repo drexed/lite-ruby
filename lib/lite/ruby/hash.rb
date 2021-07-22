@@ -161,6 +161,20 @@ if Lite::Ruby.configuration.monkey_patches.include?('hash')
       replace(dearray_singular_values)
     end
 
+    def deep_key?(*keys)
+      last_hash = self
+      found_key = false
+
+      keys.each do |key|
+        break found_key = false unless last_hash.key?(key)
+
+        last_hash = last_hash[key]
+        found_key = true
+      end
+
+      found_key
+    end
+
     def delete_unless
       delete_if { |key, val| !yield(key, val) }
     end

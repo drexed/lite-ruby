@@ -160,6 +160,19 @@ h2 = { a: false, b: { x: [3, 4, 5] } }
 h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
+`deep_key`
+------
+Returns if a set of nested keys exists.
+
+```ruby
+h1 = { a: { c: { d: 2 } }, b: 1 }
+
+h1.deep_key?(:a)         #=> true
+h1.deep_key?(:a, :c, :d) #=> true
+h1.deep_key?(:x)         #=> false
+h1.deep_key?(:a, :c, :x) #=> false
+```
+
 `delete_unless`
 ------
 Inverse of `delete_if`.

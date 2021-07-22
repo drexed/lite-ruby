@@ -191,6 +191,24 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#deep_key?' do
+    let(:h1) do
+      { a: { c: { d: 2 } }, b: 1 }
+    end
+
+    it 'to be true' do
+      expect(h1.deep_key?(:a)).to eq(true)
+      expect(h1.deep_key?(:b)).to eq(true)
+      expect(h1.deep_key?(:a, :c)).to eq(true)
+      expect(h1.deep_key?(:a, :c, :d)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(h1.deep_key?(:x)).to eq(false)
+      expect(h1.deep_key?(:a, :c, :x)).to eq(false)
+    end
+  end
+
   describe '#delete_unless' do
     it 'to be { a: 1 }' do
       h1 = { a: 1, b: 2, c: 3 }

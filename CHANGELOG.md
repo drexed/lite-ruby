@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.4] - 2021-07-21
+### Added
+- Added Hash => `deep_key?`
+
 ## [1.3.3] - 2021-07-21
 ### Changed
 - Improved generator support
