@@ -151,16 +151,17 @@ class String
 
     omission = options[:omission] || '...'
     seperator = options[:separator]
-
     size_with_room_for_omission = truncate_at - omission.length
+    stop = rindex(seperator || '', size_with_room_for_omission) if seperator
+    "#{self[0, stop || size_with_room_for_omission]}#{omission}"
+  end
 
-    stop = if seperator
-             rindex(seperator || '', size_with_room_for_omission) || size_with_room_for_omission
-           else
-             size_with_room_for_omission
-           end
+  def truncate_words(words_count, options = {})
+    sep = options[:separator] || /\s+/
+    sep = Regexp.escape(sep.to_s) unless sep.is_a?(Regexp)
+    return dup unless self =~ /\A((?>.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
 
-    "#{self[0, stop]}#{omission}"
+    $1 + (options[:omission] || '...')
   end
 
   def underscore

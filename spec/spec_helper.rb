@@ -2,10 +2,24 @@
 
 require 'bundler/setup'
 require 'rails/generators'
-require 'lite/ruby'
 require 'generator_spec'
 
-Lite::Ruby.reset_configuration!
+require 'lite/ruby'
+
+require 'lite/ruby/array'
+require 'lite/ruby/boolean'
+require 'lite/ruby/date'
+require 'lite/ruby/enumerable'
+require 'lite/ruby/hash'
+require 'lite/ruby/integer'
+require 'lite/ruby/kernel'
+require 'lite/ruby/numeric'
+require 'lite/ruby/object'
+require 'lite/ruby/open_struct'
+require 'lite/ruby/range'
+require 'lite/ruby/string'
+require 'lite/ruby/struct'
+require 'lite/ruby/time'
 
 spec_path = Pathname.new(File.expand_path('../spec', File.dirname(__FILE__)))
 

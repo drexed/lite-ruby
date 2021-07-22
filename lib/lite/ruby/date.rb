@@ -1,29 +1,22 @@
 # frozen_string_literal: true
 
-if Lite::Ruby.configuration.monkey_patches.include?('date')
-  require 'date'
+require 'date' unless defined?(Date)
+require 'yaml' unless defined?(YAML)
 
-  class Date
+require 'lite/ruby/helpers/date_time_helper' unless defined?(Lite::Ruby::DateTimeHelper)
 
-    include Lite::Ruby::DateHelper
+class Date
 
-    private
+  include Lite::Ruby::DateTimeHelper
 
-    def default_format
-      'year-month-day'
-    end
+  DEFAULT_STAMP = 'date_iso'
+  DEFAULT_UNIT = 'year-month-day'
 
-    def default_stamp
-      :date_iso
-    end
+  STAMPS = YAML.load_file(
+    File.expand_path('formats/date_stamps.yml', File.dirname(__FILE__))
+  ).freeze
+  UNITS = YAML.load_file(
+    File.expand_path('formats/date_units.yml', File.dirname(__FILE__))
+  ).freeze
 
-    def format_for(key)
-      DATE_UNITS[key]
-    end
-
-    def stamp_for(key)
-      DATE_STAMPS[key]
-    end
-
-  end
 end

@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.3.4] - 2021-07-21
+## [2.0.0] - 2021-07-22
 ### Added
 - Added Hash => `deep_key?`
+### Changed
+- Update install generator to reflect configuration changes
+### Removed
+- Removed configuration to use explicit inclusions
 
 ## [1.3.3] - 2021-07-21
 ### Changed

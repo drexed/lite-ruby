@@ -33,16 +33,32 @@ Or install it yourself as:
 
 ## Configurations
 
+Any and all monkey patches must be explicitly included anywhere you want to use it.
+
+To globally use the money patches, just create an initializer requiring them.
+
 `rails g lite:ruby:install` will generate the following file:
 `../config/initalizers/lite_ruby.rb`
 
+They can be disabled by commenting any of them out.
+
 ```ruby
-Lite::Ruby.configure do |config|
-  config.monkey_patches = %w[
-    array boolean date enumerable hash integer kernel numeric object open_struct range string
-    struct time
-  ]
-end
+# frozen_string_literal: true
+
+require 'lite/ruby/array'
+require 'lite/ruby/boolean'
+require 'lite/ruby/date'
+require 'lite/ruby/enumerable'
+require 'lite/ruby/hash'
+require 'lite/ruby/integer'
+require 'lite/ruby/kernel'
+require 'lite/ruby/numeric'
+require 'lite/ruby/object'
+require 'lite/ruby/open_struct'
+require 'lite/ruby/range'
+require 'lite/ruby/string'
+require 'lite/ruby/struct'
+require 'lite/ruby/time'
 ```
 
 ## Extensions

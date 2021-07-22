@@ -1,46 +1,41 @@
 # frozen_string_literal: true
 
-if Lite::Ruby.configuration.monkey_patches.include?('time')
-  class Time
+require 'yaml' unless defined?(YAML)
 
-    include Lite::Ruby::DateHelper
-    include Lite::Ruby::TimeHelper
+require 'lite/ruby/helpers/date_time_helper' unless defined?(Lite::Ruby::DateTimeHelper)
 
-    class << self
+class Time
 
-      def elapse(verbose: false)
-        started_at = monotonic
-        yield
-        ended_at = monotonic
-        runtime = ended_at - started_at
-        return runtime unless verbose
+  include Lite::Ruby::DateTimeHelper
 
-        { started_at: started_at, ended_at: ended_at, runtime: runtime }
-      end
+  DEFAULT_STAMP = 'datetime_iso'
+  DEFAULT_UNIT = 'year-month-day hour:minute'
 
-      def monotonic
-        Process.clock_gettime(Process::CLOCK_MONOTONIC)
-      end
+  STAMPS =
+    YAML.load_file(File.expand_path('formats/time_stamps.yml', File.dirname(__FILE__))).merge(
+      YAML.load_file(File.expand_path('formats/date_stamps.yml', File.dirname(__FILE__)))
+    ).freeze
+  UNITS =
+    YAML.load_file(File.expand_path('formats/time_units.yml', File.dirname(__FILE__))).merge(
+      YAML.load_file(File.expand_path('formats/date_units.yml', File.dirname(__FILE__)))
+    ).freeze
 
+  class << self
+
+    def elapse(verbose: false)
+      started_at = monotonic
+      yield
+      ended_at = monotonic
+      runtime = ended_at - started_at
+      return runtime unless verbose
+
+      { started_at: started_at, ended_at: ended_at, runtime: runtime }
     end
 
-    private
-
-    def default_format
-      'year-month-day hour:minute'
-    end
-
-    def default_stamp
-      :datetime_iso
-    end
-
-    def format_for(key)
-      TIME_UNITS[key] || DATE_UNITS[key]
-    end
-
-    def stamp_for(key)
-      TIME_STAMPS[key] || DATE_STAMPS[key]
+    def monotonic
+      Process.clock_gettime(Process::CLOCK_MONOTONIC)
     end
 
   end
+
 end
