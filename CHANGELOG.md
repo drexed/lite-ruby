@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2021-07-22
+### Added
+- Added `all.rb` for monkey patching everything with one command.
+
 ## [2.0.0] - 2021-07-22
 ### Added
 - Added Hash => `deep_key?`
