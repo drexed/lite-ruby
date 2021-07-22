@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'lite/ruby/all'
+require 'lite/ruby/monkey_patches'
 
 # - or -
 

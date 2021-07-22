@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2021-07-22
+### Changed
+- Changed `all.rb` => `monkey_patches.rb`
+
 ## [2.0.1] - 2021-07-22
 ### Added
 - Added `all.rb` for monkey patching everything with one command.
