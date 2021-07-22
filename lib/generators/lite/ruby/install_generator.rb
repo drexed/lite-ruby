@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails/generators'
-
 module Lite
   module Ruby
     class InstallGenerator < Rails::Generators::Base

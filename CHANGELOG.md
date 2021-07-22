@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.3] - 2021-07-21
+### Changed
+- Improved generator support
+
 ## [1.3.2] - 2021-07-20
 ### Changed
 - Argument passing for try and send methods

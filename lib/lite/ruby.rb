@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'generators/lite/ruby/install_generator' if defined?(Rails::Generators)
+
 %w[version configuration].each do |filename|
   require "lite/ruby/#{filename}"
 end
@@ -14,5 +16,3 @@ end
 ].each do |filename|
   require "lite/ruby/#{filename}"
 end
-
-require 'generators/lite/ruby/install_generator'
