@@ -35,7 +35,7 @@ Or install it yourself as:
 
 Any and all monkey patches must be explicitly included anywhere you want to use it.
 
-To globally use the money patches, just create an initializer requiring them.
+To globally use the monkey patches, just create an initializer requiring them.
 
 `rails g lite:ruby:install` will generate the following file:
 `../config/initalizers/lite_ruby.rb`
