@@ -498,6 +498,13 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#to_range' do
+    it 'to be -3..3' do
+      expect(3.to_range).to eq(-3..3)
+      expect(-3.to_range).to eq(-3..3)
+    end
+  end
+
   describe '#within?' do
     it 'to be true' do
       expect(10.006.within?(10, 0.1)).to eq(true)

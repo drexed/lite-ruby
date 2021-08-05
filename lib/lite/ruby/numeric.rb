@@ -124,7 +124,7 @@ class Numeric
   end
 
   def one?
-    to_f == 1.0
+    to_d == 1.0.to_d
   end
 
   def ordinal
@@ -226,6 +226,10 @@ class Numeric
     unit = options[:unit] || '%'
 
     "#{pad_precision(options.only(:precision))}#{unit}"
+  end
+
+  def to_range
+    negative? ? self..-self : -self..self
   end
 
   def within?(number, epsilon = 0.01)

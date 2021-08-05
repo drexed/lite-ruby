@@ -354,13 +354,22 @@ unit | string | '$'
 3.to_currency(unit: '@') #=> '@3.00'
 ```
 
-`to_nearest value`
+`to_nearest_value`
 ------
-return the value in values that is nearest to the number.
+Returns the value in values that is nearest to the number.
 
 ```ruby
 5.to_nearest_value([1, 3, 6, 9])           #=> 6
 3.5.to_nearest_value([3.0, 3.3, 3.6, 3.9]) #=> 3.6
+```
+
+`to_range`
+------
+Returns a range of a number from negative to positive.
+
+```ruby
+5.to_range  #=> -5..5
+-5.to_range #=> -5..5
 ```
 
 `to_percentage`
