@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3] - 2021-08-05
+### Changed
+- Added Numeric => `negate`
+
 ## [2.0.2] - 2021-07-22
 ### Changed
 - Changed `all.rb` => `monkey_patches.rb`

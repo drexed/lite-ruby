@@ -111,6 +111,10 @@ class Numeric
     modulo(number).zero?
   end
 
+  def negate
+    -self
+  end
+
   def not_equal_to?(num)
     self != num
   end

@@ -182,6 +182,15 @@ Returns if a number can be evenly divided by n.
 7.multiple_of?(3) #=> false
 ```
 
+`negate`
+------
+Returns the negation of a number.
+
+```ruby
+4.negate  #=> -4
+-2.negate #=> 2
+```
+
 `not_equal_to?` aka `not_eq?` aka `inequal_to?` aka `ineq?`
 ------
 Returns if not matching equality using `!=`.

@@ -236,6 +236,16 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#negate' do
+    it 'to be -4' do
+      expect(4.negate).to eq(-4)
+    end
+
+    it 'to be 4' do
+      expect(-4.negate).to eq(4)
+    end
+  end
+
   describe '#not_equal_to?' do
     let(:n1) { 1 }
 
