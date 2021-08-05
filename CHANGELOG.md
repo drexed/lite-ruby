@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.3] - 2021-08-05
 ### Changed
 - Added Numeric => `negate`
+- Added Numeric => `many?`
+- Added Numeric => `one?`
+- Added Numeric => `none?` to `zero?` alias
 
 ## [2.0.2] - 2021-07-22
 ### Changed

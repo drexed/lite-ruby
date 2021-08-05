@@ -93,6 +93,10 @@ class Numeric
     num >= self
   end
 
+  def many?
+    to_f > 1.0
+  end
+
   def markdown_percentage(percent)
     to_f * ((100.0 - percent.to_f) / 100.0)
   end
@@ -117,6 +121,10 @@ class Numeric
 
   def not_equal_to?(num)
     self != num
+  end
+
+  def one?
+    to_f == 1.0
   end
 
   def ordinal
@@ -240,6 +248,7 @@ class Numeric
   alias ineq? not_equal_to?
   alias lt? less_than?
   alias lteq? less_than_or_equal_to?
+  alias none? zero?
   alias not_eq? not_equal_to?
   alias plus_minus range
 

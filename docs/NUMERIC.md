@@ -149,6 +149,15 @@ Returns if self is less than or equal to n.
 3.less_than_or_equal_to?(4) #=> true
 ```
 
+`many?`
+------
+Returns if a number is greater than one.
+
+```ruby
+4.many? #=> true
+1.many? #=> false
+```
+
 `markdown_percentage`
 ------
 Returns the difference of a number and a percentage of it.
@@ -191,6 +200,15 @@ Returns the negation of a number.
 -2.negate #=> 2
 ```
 
+`none?` aka `zero?`
+------
+Returns if a number is to zero.
+
+```ruby
+0.none? #=> true
+1.none? #=> false
+```
+
 `not_equal_to?` aka `not_eq?` aka `inequal_to?` aka `ineq?`
 ------
 Returns if not matching equality using `!=`.
@@ -198,6 +216,16 @@ Returns if not matching equality using `!=`.
 ```ruby
 3.not_equal_to?(2) #=> true
 3.not_equal_to?(3) #=> false
+```
+
+`one?`
+------
+Returns if a number is equal to one.
+
+```ruby
+1.one?   #=> true
+1.0.one? #=> true
+4.one?   #=> false
 ```
 
 `ordinal`

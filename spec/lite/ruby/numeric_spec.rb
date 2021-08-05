@@ -208,6 +208,17 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#many?' do
+    it 'to be false' do
+      expect(1.many?).to eq(false)
+    end
+
+    it 'to be true' do
+      expect(2.many?).to eq(true)
+      expect(2.0.many?).to eq(true)
+    end
+  end
+
   describe '#markdown_percentage' do
     it 'to be 3' do
       expect(4.markdown_percentage(25)).to eq(3)
@@ -246,6 +257,17 @@ RSpec.describe Numeric do
     end
   end
 
+  describe '#none?' do
+    it 'to be false' do
+      expect(1.none?).to eq(false)
+    end
+
+    it 'to be true' do
+      expect(0.none?).to eq(true)
+      expect(0.0.none?).to eq(true)
+    end
+  end
+
   describe '#not_equal_to?' do
     let(:n1) { 1 }
 
@@ -255,6 +277,17 @@ RSpec.describe Numeric do
 
     it 'to be true' do
       expect(n1.not_equal_to?(2)).to eq(true)
+    end
+  end
+
+  describe '#one?' do
+    it 'to be false' do
+      expect(4.one?).to eq(false)
+    end
+
+    it 'to be true' do
+      expect(1.one?).to eq(true)
+      expect(1.0.one?).to eq(true)
     end
   end
 
