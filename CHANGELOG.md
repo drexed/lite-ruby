@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - 2021-08-12
+### Changed
+- Added DateTimeHelper => add unit fallback to `stamp`
+
 ## [2.0.3] - 2021-08-05
 ### Changed
 - Added Numeric => `negate`

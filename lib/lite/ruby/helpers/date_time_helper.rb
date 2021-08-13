@@ -13,8 +13,8 @@ module Lite
       end
 
       def stamp(key = nil)
-        key = key.nil? ? self.class::DEFAULT_STAMP : key.to_s
-        strftime(self.class::STAMPS[key])
+        key ||= self.class::DEFAULT_STAMP
+        strftime(self.class::STAMPS[key.to_s] || self.class::UNITS[key.to_s])
       end
 
       alias to_format stamp
