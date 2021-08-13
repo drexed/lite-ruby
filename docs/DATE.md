@@ -37,7 +37,7 @@ Converts a `date` object to a predefined format.
 
 | Directive | Type | Key | `strftime` | Result |
 | --- | --- | --- | --- | --- |
-| Weekday | Zero-padded | `weekday`, `:weekday_padded` | %d | (01..31) |
+| Weekday | Zero-padded | `:weekday`, `:weekday_padded` | %d | (01..31) |
 | Weekday | Blank-padded | `:weekday_blank` | %_d | ( 1..31) |
 | Weekday | Unpadded | `:weekday_unpadded` | %-d | (1..31) |
 | Weekday | Name | `:weekday_name` | %A | Sunday |
