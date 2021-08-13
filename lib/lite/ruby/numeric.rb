@@ -228,9 +228,11 @@ class Numeric
     "#{pad_precision(options.only(:precision))}#{unit}"
   end
 
+  # rubocop:disable Lint/AmbiguousRange
   def to_range
-    negative? ? self..-self : -self..self
+    negative? ? (self..-self) : (-self..self)
   end
+  # rubocop:enable Lint/AmbiguousRange
 
   def within?(number, epsilon = 0.01)
     return number == self if epsilon.zero?
