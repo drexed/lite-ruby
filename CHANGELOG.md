@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.6] - 2021-09-26
+### Changed
+- Added DateTimeHelper => added missing comma to imperical date
+
 ## [2.0.5] - 2021-08-12
 ### Changed
 - Added DateTimeHelper => remove unit fallback to `stamp`
