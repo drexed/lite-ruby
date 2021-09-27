@@ -23,7 +23,7 @@ class Numeric
     if a.zero? || b.zero?
       (a - b).abs < epsilon
     else
-      (a / b - 1).abs < epsilon
+      ((a / b) - 1).abs < epsilon
     end
   end
 
@@ -243,7 +243,7 @@ class Numeric
     if alpha.zero? || beta.zero?
       (alpha - beta).abs < epsilon
     else
-      (alpha / beta - 1).abs < epsilon
+      ((alpha / beta) - 1).abs < epsilon
     end
   end
 

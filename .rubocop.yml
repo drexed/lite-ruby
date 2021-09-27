@@ -43,6 +43,8 @@ RSpec/DescribeClass:
     - 'spec/lite/ruby/boolean_spec.rb'
 RSpec/ExampleLength:
   Enabled: false
+RSpec/ExcessiveDocstringSpacing:
+  Enabled: false
 RSpec/MultipleExpectations:
   Enabled: false
 Style/ArgumentsForwarding:

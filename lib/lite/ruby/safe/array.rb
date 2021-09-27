@@ -47,7 +47,7 @@ class Array
     elsif fill_with == false
       collection = self
     else
-      padding = (number - size % number) % number
+      padding = (number - (size % number)) % number
       collection = dup.concat(Array.new(padding, fill_with))
     end
 
