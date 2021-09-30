@@ -2,6 +2,10 @@
 
 class Range
 
+  def bounds
+    [self.begin, self.end]
+  end
+
   def combine(other)
     to_a.concat(other.to_a)
   end

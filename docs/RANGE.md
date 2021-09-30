@@ -1,5 +1,13 @@
 # Range
 
+`bounds`
+------
+Returns the first and last values of a range.
+
+```ruby
+(1..9).bounds #=> [1, 9]
+```
+
 `combine`
 ------
 Returns two concatenated ranges.

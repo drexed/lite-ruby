@@ -4,6 +4,12 @@ require 'spec_helper'
 
 RSpec.describe Range do
 
+  describe '#bounds' do
+    it 'to be [1, 6]' do
+      expect((1..6).bounds).to eq([1, 6])
+    end
+  end
+
   describe '#combine' do
     it 'to be [1, 2, 3, 4, 5, 6]' do
       expect((1..3).combine(4..6)).to eq([1, 2, 3, 4, 5, 6])
