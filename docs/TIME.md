@@ -97,6 +97,24 @@ Converts a `time` object to a predefined format.
 | Combo | 12h datetime | `:datetime12_tzn` | %B %-d, %Y %H:%M %Z | January 9, 2014 12:31 am UTC |
 | Combo | 12h datetime | `:datetime12_abbr_tzn` | %b %-d, %Y %H:%M %Z | Jan 9, 2014 12:31 am UTC |
 | Combo | 12h datetime | `:datetime12_iso_tzn` | %Y-%m-%d %H:%M %z | 2014-01-09 12:31 am +0000 |
+| Combo | Day 24h daytime | `:day_daytime` | %B %-d %H:%M | Sunday, January 9 00:31 |
+| Combo | Day 24h daytime | `:day_daytime_abbr` | %b %-d %H:%M | Sun, Jan 9 00:31 |
+| Combo | Day 24h daytime | `:day_daytime_iso` | %m-%d %H:%M | Sun, 01-09 00:31 |
+| Combo | Day 12h daytime | `:day_daytime12` | %B %-d %H:%M | Sunday, January 9 12:31 am |
+| Combo | Day 12h daytime | `:day_daytime12_abbr` | %b %-d %H:%M | Sun, Jan 9 12:31 am |
+| Combo | Day 12h daytime | `:day_daytime12_iso` | %m-%d %H:%M | Sun, 01-09 12:31 am |
+| Combo | Day 24h datetime | `:day_datetime` | %B %-d, %Y %H:%M | Sunday, January 9, 2014 00:31 |
+| Combo | Day 24h datetime | `:day_datetime_abbr` | %b %-d, %Y %H:%M | Sun, Jan 9, 2014 00:31 |
+| Combo | Day 24h datetime | `:day_datetime_iso` | %Y-%m-%d %H:%M | Sun, 2014-01-09 00:31 |
+| Combo | Day 24h datetime | `:day_datetime_tzn` | %B %-d, %Y %H:%M %Z | Sunday, January 9, 2014 00:31 UTC |
+| Combo | Day 24h datetime | `:day_datetime_abbr_tzn` | %b %-d, %Y %H:%M %Z | Sun, Jan 9, 2014 00:31 UTC |
+| Combo | Day 24h datetime | `:day_datetime_iso_tzn` | %Y-%m-%d %H:%M %z | Sun, 2014-01-09 00:31 +0000 |
+| Combo | Day 12h datetime | `:day_datetime12` | %B %-d, %Y %H:%M | Sunday, January 9, 2014 12:31 am |
+| Combo | Day 12h datetime | `:day_datetime12_abbr` | %b %-d, %Y %H:%M | Sun, Jan 9, 2014 12:31 am |
+| Combo | Day 12h datetime | `:day_datetime12_iso` | %Y-%m-%d %H:%M | Sun, 2014-01-09 12:31 am |
+| Combo | Day 12h datetime | `:day_datetime12_tzn` | %B %-d, %Y %H:%M %Z | Sun, Sunday, January 9, 2014 12:31 am UTC |
+| Combo | Day 12h datetime | `:day_datetime12_abbr_tzn` | %b %-d, %Y %H:%M %Z | Sun, Jan 9, 2014 12:31 am UTC |
+| Combo | Day 12h datetime | `:day_datetime12_iso_tzn` | %Y-%m-%d %H:%M %z | Sun, 2014-01-09 12:31 am +0000 |
 
 ```ruby
 Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
