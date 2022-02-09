@@ -112,7 +112,7 @@ Converts a `time` object to a predefined format.
 | Combo | Day 12h datetime | `:day_datetime12` | %B %-d, %Y %H:%M | Sunday, January 9, 2014 12:31 am |
 | Combo | Day 12h datetime | `:day_datetime12_abbr` | %b %-d, %Y %H:%M | Sun, Jan 9, 2014 12:31 am |
 | Combo | Day 12h datetime | `:day_datetime12_iso` | %Y-%m-%d %H:%M | Sun, 2014-01-09 12:31 am |
-| Combo | Day 12h datetime | `:day_datetime12_tzn` | %B %-d, %Y %H:%M %Z | Sun, Sunday, January 9, 2014 12:31 am UTC |
+| Combo | Day 12h datetime | `:day_datetime12_tzn` | %B %-d, %Y %H:%M %Z | Sunday, January 9, 2014 12:31 am UTC |
 | Combo | Day 12h datetime | `:day_datetime12_abbr_tzn` | %b %-d, %Y %H:%M %Z | Sun, Jan 9, 2014 12:31 am UTC |
 | Combo | Day 12h datetime | `:day_datetime12_iso_tzn` | %Y-%m-%d %H:%M %z | Sun, 2014-01-09 12:31 am +0000 |
 
