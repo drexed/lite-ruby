@@ -7,6 +7,8 @@ AllCops:
   NewCops: enable
   DisplayCopNames: true
   DisplayStyleGuide: true
+Gemspec/RequireMFA:
+  Enabled: false
 Gemspec/RequiredRubyVersion:
   Enabled: false
 Layout/EmptyLinesAroundBlockBody:
@@ -60,6 +62,8 @@ Style/HashEachMethods:
 Style/HashTransformKeys:
   Enabled: false
 Style/HashTransformValues:
+  Enabled: false
+Style/OpenStructUse:
   Enabled: false
 Style/PerlBackrefs:
   Enabled: false

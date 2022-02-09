@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.8] - 2022-02-09
+## [2.1.0] - 2022-02-09
 ### Added
-- Added String `domain` to include protocol (more inline with URI method names)
-- Added Date => `date_with_day` format
+- Added String `domain` to include protocol (more inline with URI method names) [BREAKING]
+- Added Date => `day_day` format
+- Added Date => `day_day_abbr` format
+- Added Date => `day_day_iso` format
+- Added Date => `day_date` format
+- Added Date => `day_date_abbr` format
+- Added Date => `day_date_iso` format
 ### Changed
 - Rename String `domain` to `host`
 - String `host` to use URI instead of a regexp

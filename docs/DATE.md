@@ -72,6 +72,12 @@ Converts a `date` object to a predefined format.
 | Combo | Date | `:date` | %B %-d, %Y | January 9, 2014 |
 | Combo | Date | `:date_abbr` | %b %-d, %Y | Jan 9, 2014 |
 | Combo | Date | `:date_iso` | %Y-%m-%d | 2014-01-09 |
+| Combo | Day month day | `:day` | %A, %B %-d | Sunday, January 9 |
+| Combo | Day month day | `:day_abbr` | %a, %b %-d | Sun, Jan 9 |
+| Combo | Day month day | `:day_iso` | %a, %m-%d | Sun, 01-09 |
+| Combo | Day date | `:day_date` | %A, %B %-d, %Y | Sunday, January 9, 2014 |
+| Combo | Day date | `:day_date_abbr` | %a, %b %-d, %Y | Sun, Jan 9, 2014 |
+| Combo | Day date | `:day_date_iso` | %a, %Y-%m-%d | Sun, 2014-01-09 |
 
 ```ruby
 Date.today.to_format(:year) #=> '2014'
