@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.8] - 2022-02-09
+### Added
+- Added String `domain` to include protocol (more inline with URI method names)
+- Added Date => `date_with_day` format
+### Changed
+- Rename String `domain` to `host`
+- String `host` to use URI instead of a regexp
+
 ## [2.0.7] - 2021-09-29
 ### Added
 - Added Range => `bounds`

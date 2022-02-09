@@ -110,11 +110,12 @@ Removes the module part from the expression in the string.
 
 `domain`
 ------
-Extracts the domain name from a URL.
+Extracts the domain from a URL.
 
 ```ruby
-'http://www.example.com/fake-page'.domain #=> 'www.example.com'
-'example string'.domain                   #=> 'example string'
+'http://www.example.com/fake-page'.domain #=> 'http://www.example.com'
+'www.example.com'.domain                  #=> nil
+'example string'.domain                   #=> nil
 ```
 
 `downcase?`
@@ -173,6 +174,15 @@ Returns an interpolated string that allows for options.
 '%d + %d'.format([1, 2])                                   #=> '1 + 2'
 ```
 
+`fragment`
+------
+Extracts the fragment from a URL.
+
+```ruby
+'http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.fragment #=> 'time=1305298413'
+'example string'.fragment                                                 #=> nil
+```
+
 `from`
 ------
 Returns a substring from the given position to the end of the string. If the position is negative, it is counted from the end of the string.
@@ -188,6 +198,16 @@ Capitalizes each word.
 
 ```ruby
 ' example test-sample '.headerize #=> 'Example Test-sample'
+```
+
+`host`
+------
+Extracts the host from a URL.
+
+```ruby
+'http://www.example.com/fake-page'.host #=> 'www.example.com'
+'www.example.com'.host                  #=> nil
+'example string'.host                   #=> nil
 ```
 
 `humanize(!)`
@@ -321,6 +341,16 @@ Makes a string suitable for a dashed url parameter string.
 'example_string'.parameterize(separator: '?') #=> 'example?string'
 ```
 
+`path`
+------
+Extracts the path from a URL.
+
+```ruby
+'http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.path #=> '/fake-page'
+'/fake-page'.path                                                     #=> '/fake-page'
+'example string'.path                                                 #=> nil
+```
+
 `pathize(!)`
 ------
 Transforms a string to a suitable file path.
@@ -372,6 +402,15 @@ Concats string to self.
 
 ```ruby
 'test'.push('er') #=> 'tester'
+```
+
+`query`
+------
+Extracts the query from a URL.
+
+```ruby
+'http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.query #=> 'id=30&limit=5'
+'example string'.query                                                 #=> nil
 ```
 
 `quote(!)`
@@ -430,6 +469,15 @@ Removes a random value and returns that value.
 ```ruby
 'this thing that'.sample            #=> 'thing'
 'this thing that'.sample(' thing ') #=> 'that'
+```
+
+`scheme`
+------
+Extracts the scheme from a URL.
+
+```ruby
+'http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.scheme #=> 'http'
+'example string'.scheme                                                 #=> nil
 ```
 
 `shift(!)`

@@ -202,26 +202,19 @@ RSpec.describe String do
   end
 
   describe '#domain' do
-    let(:s1) { '' }
-    let(:s2) { ' ' }
-    let(:s3) { 'example string' }
-    let(:s4) { 'www.example.com' }
+    let(:s1) { 'http://www.example.com' }
 
-    it 'to be ""' do
+    it 'to be nil' do
+      expect(''.domain).to eq(nil)
+      expect(' '.domain).to eq(nil)
+      expect('example string'.domain).to eq(nil)
+      expect('www.example.com'.domain).to eq(nil)
+    end
+
+    it 'to be "http://www.example.com"' do
       expect(s1.domain).to eq(s1)
-    end
-
-    it 'to be " "' do
-      expect(s2.domain).to eq(s2)
-    end
-
-    it 'to be "example string"' do
-      expect(s3.domain).to eq(s3)
-    end
-
-    it 'to be "www.example.com"' do
-      expect('http://www.example.com'.domain).to eq(s4)
-      expect('http://www.example.com/fake-page'.domain).to eq(s4)
+      expect('http://www.example.com'.domain).to eq(s1)
+      expect('http://www.example.com/fake-page'.domain).to eq(s1)
     end
   end
 
@@ -301,6 +294,21 @@ RSpec.describe String do
   end
   # rubocop:enable Style/FormatStringToken
 
+  describe '#fragment' do
+    let(:s1) { 'time=1305298413' }
+
+    it 'to be nil' do
+      expect(s1.fragment).to eq(nil)
+      expect(''.fragment).to eq(nil)
+      expect(' '.fragment).to eq(nil)
+      expect('example string'.fragment).to eq(nil)
+    end
+
+    it 'to be "time=1305298413"' do
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.fragment).to eq(s1)
+    end
+  end
+
   describe '#from' do
     let(:s1) { 'example' }
 
@@ -320,6 +328,22 @@ RSpec.describe String do
 
       expect(s1.headerize).to eq(s2)
       expect(s1.headerize!).to eq(s2)
+    end
+  end
+
+  describe '#host' do
+    let(:s1) { 'www.example.com' }
+
+    it 'to be nil' do
+      expect(s1.host).to eq(nil)
+      expect(''.host).to eq(nil)
+      expect(' '.host).to eq(nil)
+      expect('example string'.host).to eq(nil)
+    end
+
+    it 'to be "www.example.com"' do
+      expect('http://www.example.com'.host).to eq(s1)
+      expect('http://www.example.com/fake-page'.host).to eq(s1)
     end
   end
 
@@ -546,6 +570,21 @@ RSpec.describe String do
     end
   end
 
+  describe '#path' do
+    let(:s1) { '/fake-page' }
+
+    it 'to be nil' do
+      expect(''.path).to eq(nil)
+      expect(' '.path).to eq(nil)
+      expect('example string'.path).to eq(nil)
+    end
+
+    it 'to be "/fake-page"' do
+      expect(s1.path).to eq(s1)
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.path).to eq(s1)
+    end
+  end
+
   describe '#pathize(!)' do
     it 'to be "example-string"' do
       s1 = 'ExampleString::Class'
@@ -615,6 +654,21 @@ RSpec.describe String do
   describe '#push' do
     it 'to be "tester"' do
       expect('test'.push('er')).to eq('tester')
+    end
+  end
+
+  describe '#query' do
+    let(:s1) { 'id=30&limit=5' }
+
+    it 'to be nil' do
+      expect(s1.query).to eq(nil)
+      expect(''.query).to eq(nil)
+      expect(' '.query).to eq(nil)
+      expect('example string'.query).to eq(nil)
+    end
+
+    it 'to be "id=30&limit=5"' do
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.query).to eq(s1)
     end
   end
 
@@ -826,6 +880,21 @@ RSpec.describe String do
 
       expect(s1.sort).to eq(s2)
       expect(s1.sort!).to eq(s2)
+    end
+  end
+
+  describe '#scheme' do
+    let(:s1) { 'http' }
+
+    it 'to be nil' do
+      expect(s1.scheme).to eq(nil)
+      expect(''.scheme).to eq(nil)
+      expect(' '.scheme).to eq(nil)
+      expect('example string'.scheme).to eq(nil)
+    end
+
+    it 'to be "http"' do
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.scheme).to eq(s1)
     end
   end
 

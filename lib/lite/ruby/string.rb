@@ -1,5 +1,6 @@
 # frozen_string_literal: false
 
+require 'uri' unless defined?(URI)
 require 'yaml' unless defined?(YAML)
 
 class String
@@ -54,9 +55,11 @@ class String
   end
 
   def domain
-    return self unless self =~ %r{^(?:\w+://)?([^/?]+)(?:/|\?|$)}
+    return if empty?
 
-    Regexp.last_match(1)
+    URI.join(self, '/').to_s.chomp('/')
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
   end
 
   def downcase?
@@ -76,6 +79,14 @@ class String
     "#{self[0, offset]}#{separator}#{self[-offset, offset]}"
   end
 
+  def fragment
+    return if empty?
+
+    URI.parse(self).fragment
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
+  end
+
   def format(*args)
     super(self, *args.flatten)
   end
@@ -86,6 +97,14 @@ class String
 
   def headerize!
     replace(headerize)
+  end
+
+  def host
+    return if empty?
+
+    URI.parse(self).host
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
   end
 
   def humanize!(capitalize: true)
@@ -179,6 +198,14 @@ class String
     replace(parameterize(separator: separator))
   end
 
+  def path
+    return if empty?
+
+    URI.parse(self).path
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
+  end
+
   def pathize
     dup.pathize!
   end
@@ -222,6 +249,14 @@ class String
 
   def push(string)
     replace(concat(string))
+  end
+
+  def query
+    return if empty?
+
+    URI.parse(self).query
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
@@ -311,6 +346,14 @@ class String
 
   def sample!(separator = ' ')
     replace(sample(separator))
+  end
+
+  def scheme
+    return if empty?
+
+    URI.parse(self).scheme
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
   end
 
   def shift(*patterns)
