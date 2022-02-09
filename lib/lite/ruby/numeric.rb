@@ -66,7 +66,7 @@ class Numeric
   end
 
   def fraction?
-    fraction.to_d != 0.0.to_d
+    fraction.to_d != BigDecimal('0.0')
   end
 
   def greater_than?(num)
@@ -124,7 +124,7 @@ class Numeric
   end
 
   def one?
-    to_d == 1.0.to_d
+    to_d == BigDecimal('1.0')
   end
 
   def ordinal
@@ -228,11 +228,9 @@ class Numeric
     "#{pad_precision(options.only(:precision))}#{unit}"
   end
 
-  # rubocop:disable Lint/AmbiguousRange
   def to_range
     negative? ? (self..-self) : (-self..self)
   end
-  # rubocop:enable Lint/AmbiguousRange
 
   def within?(number, epsilon = 0.01)
     return number == self if epsilon.zero?

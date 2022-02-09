@@ -48,11 +48,9 @@ class Integer
     (0...num).inject(1) { |acc, i| (acc * (self - i)) / (i + 1) }
   end
 
-  # rubocop:disable Lint/AmbiguousRange
   def factorial
     (1..self).inject { |acc, i| acc * i } || 0
   end
-  # rubocop:enable Lint/AmbiguousRange
 
   def factors
     limit = Math.sqrt(self).floor
