@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2022-02-17
+### Changed
+- Rename String => `domain` to `uri_domain`
+- Rename String => `fragment` to `uri_fragment`
+- Rename String => `host` to `uri_host`
+- Rename String => `path` to `uri_path`
+- Rename String => `query` to `uri_query`
+- Rename String => `scheme` to `uri_scheme`
+
 ## [2.2.0] - 2022-02-17
 ### Added
 - Added Hash => `deep_fetch`
@@ -13,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.1.0] - 2022-02-09
 ### Added
 - Added String `domain` to include protocol (more inline with URI method names) [BREAKING]
+- Added String => `fragment`
+- Added String => `host`
+- Added String => `path`
+- Added String => `query`
+- Added String => `scheme
 - Added Date => `day_day` format
 - Added Date => `day_day_abbr` format
 - Added Date => `day_day_iso` format

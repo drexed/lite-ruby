@@ -54,14 +54,6 @@ class String
     replace(demodulize)
   end
 
-  def domain
-    return if empty?
-
-    URI.join(self, '/').to_s.chomp('/')
-  rescue URI::BadURIError, URI::InvalidURIError
-    nil
-  end
-
   def downcase?
     downcase == self
   end
@@ -79,14 +71,6 @@ class String
     "#{self[0, offset]}#{separator}#{self[-offset, offset]}"
   end
 
-  def fragment
-    return if empty?
-
-    URI.parse(self).fragment
-  rescue URI::BadURIError, URI::InvalidURIError
-    nil
-  end
-
   def format(*args)
     super(self, *args.flatten)
   end
@@ -97,14 +81,6 @@ class String
 
   def headerize!
     replace(headerize)
-  end
-
-  def host
-    return if empty?
-
-    URI.parse(self).host
-  rescue URI::BadURIError, URI::InvalidURIError
-    nil
   end
 
   def humanize!(capitalize: true)
@@ -198,14 +174,6 @@ class String
     replace(parameterize(separator: separator))
   end
 
-  def path
-    return if empty?
-
-    URI.parse(self).path
-  rescue URI::BadURIError, URI::InvalidURIError
-    nil
-  end
-
   def pathize
     dup.pathize!
   end
@@ -249,14 +217,6 @@ class String
 
   def push(string)
     replace(concat(string))
-  end
-
-  def query
-    return if empty?
-
-    URI.parse(self).query
-  rescue URI::BadURIError, URI::InvalidURIError
-    nil
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
@@ -346,14 +306,6 @@ class String
 
   def sample!(separator = ' ')
     replace(sample(separator))
-  end
-
-  def scheme
-    return if empty?
-
-    URI.parse(self).scheme
-  rescue URI::BadURIError, URI::InvalidURIError
-    nil
   end
 
   def shift(*patterns)
@@ -449,6 +401,54 @@ class String
     end
 
     self
+  end
+
+  def uri_domain
+    return if empty?
+
+    URI.join(self, '/').to_s.chomp('/')
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
+  end
+
+  def uri_fragment
+    return if empty?
+
+    URI.parse(self).fragment
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
+  end
+
+  def uri_host
+    return if empty?
+
+    URI.parse(self).host
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
+  end
+
+  def uri_path
+    return if empty?
+
+    URI.parse(self).path
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
+  end
+
+  def uri_query
+    return if empty?
+
+    URI.parse(self).query
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
+  end
+
+  def uri_scheme
+    return if empty?
+
+    URI.parse(self).scheme
+  rescue URI::BadURIError, URI::InvalidURIError
+    nil
   end
 
   def unshift(*patterns)

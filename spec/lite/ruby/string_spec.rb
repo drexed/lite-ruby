@@ -201,23 +201,6 @@ RSpec.describe String do
     end
   end
 
-  describe '#domain' do
-    let(:s1) { 'http://www.example.com' }
-
-    it 'to be nil' do
-      expect(''.domain).to eq(nil)
-      expect(' '.domain).to eq(nil)
-      expect('example string'.domain).to eq(nil)
-      expect('www.example.com'.domain).to eq(nil)
-    end
-
-    it 'to be "http://www.example.com"' do
-      expect(s1.domain).to eq(s1)
-      expect('http://www.example.com'.domain).to eq(s1)
-      expect('http://www.example.com/fake-page'.domain).to eq(s1)
-    end
-  end
-
   describe '#downcase?' do
     it 'to be true' do
       expect('downcase'.downcase?).to eq(true)
@@ -294,21 +277,6 @@ RSpec.describe String do
   end
   # rubocop:enable Style/FormatStringToken
 
-  describe '#fragment' do
-    let(:s1) { 'time=1305298413' }
-
-    it 'to be nil' do
-      expect(s1.fragment).to eq(nil)
-      expect(''.fragment).to eq(nil)
-      expect(' '.fragment).to eq(nil)
-      expect('example string'.fragment).to eq(nil)
-    end
-
-    it 'to be "time=1305298413"' do
-      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.fragment).to eq(s1)
-    end
-  end
-
   describe '#from' do
     let(:s1) { 'example' }
 
@@ -328,22 +296,6 @@ RSpec.describe String do
 
       expect(s1.headerize).to eq(s2)
       expect(s1.headerize!).to eq(s2)
-    end
-  end
-
-  describe '#host' do
-    let(:s1) { 'www.example.com' }
-
-    it 'to be nil' do
-      expect(s1.host).to eq(nil)
-      expect(''.host).to eq(nil)
-      expect(' '.host).to eq(nil)
-      expect('example string'.host).to eq(nil)
-    end
-
-    it 'to be "www.example.com"' do
-      expect('http://www.example.com'.host).to eq(s1)
-      expect('http://www.example.com/fake-page'.host).to eq(s1)
     end
   end
 
@@ -570,21 +522,6 @@ RSpec.describe String do
     end
   end
 
-  describe '#path' do
-    let(:s1) { '/fake-page' }
-
-    it 'to be nil' do
-      expect(''.path).to eq(nil)
-      expect(' '.path).to eq(nil)
-      expect('example string'.path).to eq(nil)
-    end
-
-    it 'to be "/fake-page"' do
-      expect(s1.path).to eq(s1)
-      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.path).to eq(s1)
-    end
-  end
-
   describe '#pathize(!)' do
     it 'to be "example-string"' do
       s1 = 'ExampleString::Class'
@@ -654,21 +591,6 @@ RSpec.describe String do
   describe '#push' do
     it 'to be "tester"' do
       expect('test'.push('er')).to eq('tester')
-    end
-  end
-
-  describe '#query' do
-    let(:s1) { 'id=30&limit=5' }
-
-    it 'to be nil' do
-      expect(s1.query).to eq(nil)
-      expect(''.query).to eq(nil)
-      expect(' '.query).to eq(nil)
-      expect('example string'.query).to eq(nil)
-    end
-
-    it 'to be "id=30&limit=5"' do
-      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.query).to eq(s1)
     end
   end
 
@@ -883,21 +805,6 @@ RSpec.describe String do
     end
   end
 
-  describe '#scheme' do
-    let(:s1) { 'http' }
-
-    it 'to be nil' do
-      expect(s1.scheme).to eq(nil)
-      expect(''.scheme).to eq(nil)
-      expect(' '.scheme).to eq(nil)
-      expect('example string'.scheme).to eq(nil)
-    end
-
-    it 'to be "http"' do
-      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.scheme).to eq(s1)
-    end
-  end
-
   describe '#squish(!)' do
     it 'to be example test' do
       s1 = 'example test'
@@ -1051,6 +958,99 @@ RSpec.describe String do
 
       expect(s2.unpollute(s3)).to eq(s1)
       expect(s2.unpollute!(s3)).to eq(s1)
+    end
+  end
+
+  describe '#uri_domain' do
+    let(:s1) { 'http://www.example.com' }
+
+    it 'to be nil' do
+      expect(''.uri_domain).to eq(nil)
+      expect(' '.uri_domain).to eq(nil)
+      expect('example string'.uri_domain).to eq(nil)
+      expect('www.example.com'.uri_domain).to eq(nil)
+    end
+
+    it 'to be "http://www.example.com"' do
+      expect(s1.uri_domain).to eq(s1)
+      expect('http://www.example.com'.uri_domain).to eq(s1)
+      expect('http://www.example.com/fake-page'.uri_domain).to eq(s1)
+    end
+  end
+
+  describe '#uri_fragment' do
+    let(:s1) { 'time=13052984' }
+
+    it 'to be nil' do
+      expect(s1.uri_fragment).to eq(nil)
+      expect(''.uri_fragment).to eq(nil)
+      expect(' '.uri_fragment).to eq(nil)
+      expect('example string'.uri_fragment).to eq(nil)
+    end
+
+    it 'to be "time=13052984"' do
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=13052984'.uri_fragment).to eq(s1)
+    end
+  end
+
+  describe '#uri_host' do
+    let(:s1) { 'www.example.com' }
+
+    it 'to be nil' do
+      expect(s1.uri_host).to eq(nil)
+      expect(''.uri_host).to eq(nil)
+      expect(' '.uri_host).to eq(nil)
+      expect('example string'.uri_host).to eq(nil)
+    end
+
+    it 'to be "www.example.com"' do
+      expect('http://www.example.com'.uri_host).to eq(s1)
+      expect('http://www.example.com/fake-page'.uri_host).to eq(s1)
+    end
+  end
+
+  describe '#uri_query' do
+    let(:s1) { 'id=30&limit=5' }
+
+    it 'to be nil' do
+      expect(s1.uri_query).to eq(nil)
+      expect(''.uri_query).to eq(nil)
+      expect(' '.uri_query).to eq(nil)
+      expect('example string'.uri_query).to eq(nil)
+    end
+
+    it 'to be "id=30&limit=5"' do
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.uri_query).to eq(s1)
+    end
+  end
+
+  describe '#uri_path' do
+    let(:s1) { '/fake-page' }
+
+    it 'to be nil' do
+      expect(''.uri_path).to eq(nil)
+      expect(' '.uri_path).to eq(nil)
+      expect('example string'.uri_path).to eq(nil)
+    end
+
+    it 'to be "/fake-page"' do
+      expect(s1.uri_path).to eq(s1)
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.uri_path).to eq(s1)
+    end
+  end
+
+  describe '#uri_scheme' do
+    let(:s1) { 'http' }
+
+    it 'to be nil' do
+      expect(s1.uri_scheme).to eq(nil)
+      expect(''.uri_scheme).to eq(nil)
+      expect(' '.uri_scheme).to eq(nil)
+      expect('example string'.uri_scheme).to eq(nil)
+    end
+
+    it 'to be "http"' do
+      expect('http://www.example.com/fake-page?id=30&limit=5#time=1305298413'.uri_scheme).to eq(s1)
     end
   end
 
