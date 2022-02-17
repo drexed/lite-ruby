@@ -160,6 +160,10 @@ class Hash
     replace(dearray_singular_values)
   end
 
+  def deep_fetch(*keys, &block)
+    keys.reduce(self) { |hash_object, key| hash_object.fetch(key, &block) }
+  end
+
   def deep_key?(*keys)
     last_hash = self
     found_key = false

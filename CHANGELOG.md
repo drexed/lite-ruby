@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2022-02-17
+### Added
+- Added Hash => `deep_fetch`
+
 ## [2.1.0] - 2022-02-09
 ### Added
 - Added String `domain` to include protocol (more inline with URI method names) [BREAKING]

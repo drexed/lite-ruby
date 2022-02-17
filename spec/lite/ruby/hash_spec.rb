@@ -252,6 +252,26 @@ RSpec.describe Hash do
     end
   end
 
+  describe '#deep_fetch' do
+    it 'to be [1, 2, 3]' do
+      h1 = { a: true, b: { c: [1, 2, 3] } }
+
+      expect(h1.deep_fetch(:b, :c)).to eq([1, 2, 3])
+    end
+
+    it 'to raise error for unknown key' do
+      h1 = { a: true, b: { c: [1, 2, 3] } }
+
+      expect { h1.deep_fetch(:b, :y) }.to raise_error(KeyError)
+    end
+
+    it 'to be nil' do
+      h1 = { a: true, b: { c: [1, 2, 3] } }
+
+      expect(h1.deep_fetch(:b, :y) { nil }).to eq(nil)
+    end
+  end
+
   describe '#deep_dup(!)' do
     it 'to be { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }' do
       h1 = { a: true, b: { c: [1, 2, 3] } }

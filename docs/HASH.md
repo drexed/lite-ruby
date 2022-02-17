@@ -149,18 +149,20 @@ h1 = { a: [1], b: [1, 2], c: 3, d: [] }
 h1.dearray_singular_values #=> { a: 1, b: [1, 2], c: 3, d: nil }
 ```
 
-`deep_merge(!)`
+`deep_fetch`
 ------
-Returns a new hash with self and other_hash merged recursively.
+Returns a nested value if found or raises an error similar to `fetch`.
 
 ```ruby
 h1 = { a: true, b: { c: [1, 2, 3] } }
-h2 = { a: false, b: { x: [3, 4, 5] } }
 
-h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
+h1.deep_fetch(:a)             #=> true
+h1.deep_fetch(:b, :c)         #=> [1, 2, 3]
+h1.deep_fetch(:b, :y)         #=> raises KeyError
+h1.deep_fetch(:b, :y) { nil } #=> nil
 ```
 
-`deep_key`
+`deep_key?`
 ------
 Returns if a set of nested keys exists.
 
@@ -171,6 +173,17 @@ h1.deep_key?(:a)         #=> true
 h1.deep_key?(:a, :c, :d) #=> true
 h1.deep_key?(:x)         #=> false
 h1.deep_key?(:a, :c, :x) #=> false
+```
+
+`deep_merge(!)`
+------
+Returns a new hash with self and other_hash merged recursively.
+
+```ruby
+h1 = { a: true, b: { c: [1, 2, 3] } }
+h2 = { a: false, b: { x: [3, 4, 5] } }
+
+h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
 `delete_unless`
